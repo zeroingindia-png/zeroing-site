@@ -133,6 +133,7 @@ p { margin: 0; max-width: 34em; }
 .f-haldi { background: var(--haldi); color: var(--kajal); }
 .f-genda { background: var(--genda); color: var(--kajal); }
 .f-chuna { background: var(--chuna); color: var(--kajal); }
+.f-neel { background: var(--neel); color: var(--chuna); }
 .f-kajal { background: var(--kajal); color: var(--chuna); }
 
 /* hero */
@@ -192,8 +193,8 @@ p { margin: 0; max-width: 34em; }
 /* brands */
 .brands-head { display: grid; gap: 14px; }
 .brands-head h2 { font-size: var(--size-1); }
-.brand-list { list-style: none; margin: auto 0 0; padding: 0; border-top: 2px solid var(--kajal); }
-.brand-list li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: baseline; padding-block: clamp(14px, 2vw, 22px); border-bottom: 2px solid var(--kajal); }
+.brand-list { list-style: none; margin: auto 0 0; padding: 0; border-top: 2px solid currentColor; }
+.brand-list li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: baseline; padding-block: clamp(14px, 2vw, 22px); border-bottom: 2px solid currentColor; }
 .brand-list .name { font-size: var(--size-2); font-weight: 800; font-variation-settings: "wdth" 115; letter-spacing: -0.02em; line-height: 1; }
 .brand-list .what { font-size: var(--size-body); text-align: right; }
 .brand-list .more .name { font-weight: 500; font-variation-settings: "wdth" 100; }
@@ -222,6 +223,30 @@ p { margin: 0; max-width: 34em; }
 .signoff { margin-top: 36px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: var(--size-small); }
 .signoff .hi { font-family: var(--font-hi); font-size: 1.15rem; }
 
+
+/* why: the research, set as a ledger */
+.why-head { display: grid; gap: 16px; max-width: 46rem; }
+.why-head h2 { font-size: var(--size-1); }
+.facts { list-style: none; margin: clamp(32px, 5vw, 64px) 0 0; padding: 0; border-top: 2px solid var(--chuna); }
+.facts li { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(16px, 4vw, 56px); align-items: start; padding-block: clamp(20px, 3vw, 36px); border-bottom: 2px solid var(--chuna); }
+.facts .fig { font-size: var(--size-1); font-weight: 800; font-variation-settings: "wdth" 125; line-height: 0.9; letter-spacing: -0.04em; color: var(--haldi); font-variant-numeric: tabular-nums; }
+.facts .fig small { display: block; margin-top: 10px; font-size: var(--size-small); font-weight: 500; font-variation-settings: "wdth" 100; letter-spacing: 0; color: var(--chuna); line-height: 1.35; }
+.facts .say { display: grid; gap: 10px; min-width: 0; }
+.facts .say p { font-size: var(--size-3); line-height: 1.35; max-width: 30em; }
+.facts .src { font-size: var(--size-small); opacity: 0.85; }
+.facts .src a { text-underline-offset: 3px; }
+.why-close { margin-top: clamp(32px, 5vw, 64px); font-size: var(--size-2); font-weight: 700; font-variation-settings: "wdth" 90; line-height: 1.1; letter-spacing: -0.015em; max-width: 22em; text-wrap: balance; }
+
+/* how we work: two real sequences */
+.how-head { display: grid; gap: 16px; max-width: 46rem; }
+.how-head h2 { font-size: var(--size-1); }
+.tracks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(32px, 6vw, 96px); margin-top: clamp(32px, 5vw, 64px); }
+.track h3 { margin: 0 0 18px; font-size: var(--size-2); font-weight: 800; font-variation-settings: "wdth" 115; letter-spacing: -0.02em; line-height: 1; }
+.track ol { list-style: none; margin: 0; padding: 0; counter-reset: step; border-top: 2px solid var(--kajal); }
+.track li { counter-increment: step; display: grid; grid-template-columns: 3.2rem minmax(0, 1fr); gap: 12px; padding-block: 16px; border-bottom: 2px solid var(--kajal); }
+.track li::before { content: counter(step); font-size: 2rem; font-weight: 800; font-variation-settings: "wdth" 125; line-height: 1; color: var(--sindoor); }
+.track li strong { display: block; font-weight: 700; }
+
 /* ---------- motion: the one moment ---------- */
 .draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 1.8s cubic-bezier(.6,.05,.25,1) 0.2s forwards; }
 @keyframes draw { to { stroke-dashoffset: 0; } }
@@ -238,6 +263,8 @@ p { margin: 0; max-width: 34em; }
   .band { min-height: 62svh; padding-block: 40px 32px; }
   .band:first-child { padding-top: calc(var(--head-h) + 40px); }
   .record { grid-template-columns: 1fr; }
+  .facts li { grid-template-columns: 1fr; gap: 10px; }
+  .tracks { grid-template-columns: 1fr; }
   .porthole { max-width: 420px; }
   .foot { grid-template-columns: 1fr 1fr; }
   .letter { grid-column: 1 / -1; }
@@ -262,9 +289,10 @@ p { margin: 0; max-width: 34em; }
 <header class="head" id="head">
   <a class="mark" href="#top" aria-label="Zeroing, home">ZER<svg viewBox="0 0 200 200" aria-hidden="true"><path d="M74.2 24.4C76.3 23.9 82.6 21.9 87.0 21.2C91.3 20.6 95.7 20.5 100.1 20.7C104.4 21.0 108.8 21.7 113.0 22.7C117.2 23.6 121.3 25.0 125.3 26.4C129.3 27.9 133.2 29.7 137.0 31.6C140.9 33.5 144.6 35.6 148.2 38.0C151.8 40.4 155.4 43.0 158.7 46.0C161.9 48.9 165.0 52.2 167.7 55.7C170.4 59.2 172.8 63.1 174.8 67.1C176.7 71.1 178.2 75.5 179.3 79.8C180.4 84.1 181.0 88.7 181.3 93.1C181.6 97.6 181.4 102.1 181.0 106.6C180.5 111.0 179.6 115.4 178.5 119.7C177.3 124.0 175.8 128.2 173.9 132.2C172.0 136.2 169.7 140.1 167.1 143.6C164.5 147.1 161.5 150.5 158.3 153.4C155.1 156.3 151.5 158.9 147.9 161.1C144.3 163.4 140.4 165.3 136.5 166.9C132.6 168.5 128.6 169.8 124.7 171.0C120.7 172.2 116.7 173.1 112.6 173.9C108.6 174.7 104.5 175.4 100.3 175.8C96.1 176.2 91.9 176.5 87.6 176.3C83.4 176.1 79.0 175.6 74.8 174.7C70.5 173.7 66.3 172.3 62.3 170.5C58.3 168.7 54.5 166.3 50.9 163.7C47.4 161.1 44.2 158.0 41.2 154.7C38.3 151.5 35.6 147.8 33.3 144.1C30.9 140.4 28.9 136.5 27.1 132.5C25.4 128.5 23.9 124.3 22.8 120.1C21.7 115.8 20.9 111.4 20.6 107.1C20.3 102.8 20.3 98.3 20.8 94.0C21.3 89.7 22.3 85.3 23.6 81.2C24.9 77.1 26.6 73.1 28.6 69.3C30.5 65.5 32.9 61.9 35.3 58.4C37.8 55.0 40.5 51.8 43.4 48.7C46.2 45.6 49.2 42.6 52.5 39.9C55.7 37.3 59.1 34.7 62.7 32.5C66.4 30.3 70.2 28.4 74.2 26.9C78.2 25.4 82.4 24.3 86.5 23.6C90.7 23.0 97.2 23.1 99.3 23.0"/></svg>ING</a>
   <div class="nav">
+    <a href="#why">Why</a>
     <a href="#on-record">Independent Society</a>
     <a href="#brands">Community</a>
-    <a href="#what">The Other Details</a>
+    <a href="#how">How we work</a>
     <a href="#join">Join</a>
     <a class="pill" href="#on-record"><span>Listen</span></a>
     <button class="menu-btn" id="menu-open" type="button" aria-expanded="false" aria-controls="overlay">Menu</button>
@@ -277,9 +305,10 @@ p { margin: 0; max-width: 34em; }
     <button class="menu-btn" id="menu-close" type="button" style="display:inline-flex">Close</button>
   </div>
   <nav aria-label="Main">
+    <a href="#why">Why Zeroing exists</a>
     <a href="#on-record">Independent Society</a>
     <a href="#brands">Community</a>
-    <a href="#what">The Other Details</a>
+    <a href="#how">How we work</a>
     <a href="#join">Join</a>
   </nav>
   <a class="pill solid" href="#on-record" style="align-self:flex-start;margin-top:auto">Listen to the latest conversation</a>
@@ -317,6 +346,64 @@ p { margin: 0; max-width: 34em; }
     </a>
   </section>
 
+
+  <section class="field f-kajal" id="why" data-ink="chuna" data-field="kajal">
+    <div class="why-head">
+      <h2 class="display">Why Zeroing exists</h2>
+      <p>India runs on small businesses and on people whose work is never written down. These are the numbers we started from.</p>
+    </div>
+    <ol class="facts">
+      <li>
+        <div class="fig">8.7 crore<small>small businesses registered on Udyam, June 2026</small></div>
+        <div class="say"><p>Together they make about 31% of India's GDP and almost half of its exports, and employ 38.9 crore people.</p>
+        <p class="src">Source: <a href="https://ianslive.in/indias-msme-sector-output-crosses-31-per-cent-of-gdp-jobs-touch-389-crore--20260626131803" target="_blank" rel="noopener">official MSME fact sheet, reported by IANS, 26 June 2026</a></p></div>
+      </li>
+      <li>
+        <div class="fig">13 in 100<small>use social media to find customers</small></div>
+        <div class="say"><p>Seven in ten still depend on word of mouth and traditional selling. Reaching buyers beyond their own town is a bigger problem for them than getting a loan.</p>
+        <p class="src">Source: <a href="https://india.entrepreneur.com/en-in/news-and-trends/why-are-msmes-still-unable-to-access-newer-markets/491615" target="_blank" rel="noopener">SIDBI, Understanding Indian MSME Sector, 2025, a survey of over 2,000 businesses</a></p></div>
+      </li>
+      <li>
+        <div class="fig">9 in 10<small>Indian workers work informally</small></div>
+        <div class="say"><p>Fewer than one in ten has a job contract longer than a year, and about one in ten has any social security. Most of the country's working life leaves no record.</p>
+        <p class="src">Source: <a href="https://www.dataforindia.com/informal-sector-sizing/" target="_blank" rel="noopener">Data For India, from the Periodic Labour Force Survey 2024</a></p></div>
+      </li>
+      <li>
+        <div class="fig">Together<small>small firms get better at their craft</small></div>
+        <div class="say"><p>A study of two foundry clusters in South India found that firms which cooperated, with each other and along their supply chain, built significantly stronger technical capability.</p>
+        <p class="src">Source: <a href="https://www.inderscience.com/info/inarticle.php?artid=6565" target="_blank" rel="noopener">Raghavendra and Bala Subrahmanya, International Journal of Management and Enterprise Development, 2005</a></p></div>
+      </li>
+    </ol>
+    <p class="why-close">So Zeroing does two things. We help Indian brands find each other's customers, and we keep an honest record of how work here actually gets done.</p>
+  </section>
+
+  <section class="field f-chuna" id="how" data-ink="kajal" data-field="chuna">
+    <div class="how-head">
+      <h2 class="display">How we work</h2>
+      <p>Two simple routines, run the same way every time.</p>
+    </div>
+    <div class="tracks">
+      <div class="track">
+        <h3>With brands</h3>
+        <ol>
+          <li><div><strong>You apply.</strong> Tell us what you make, where, and one door you could open for another brand.</div></li>
+          <li><div><strong>We meet the founder.</strong> A short call, so both sides know it fits.</div></li>
+          <li><div><strong>We introduce you.</strong> To brands whose customers, suppliers or stalls overlap with yours.</div></li>
+          <li><div><strong>We grow in public.</strong> Brands present Independent Society together and are credited on every episode.</div></li>
+        </ol>
+      </div>
+      <div class="track">
+        <h3>With the record</h3>
+        <ol>
+          <li><div><strong>We research for weeks,</strong> so the guest never has to explain the basics.</div></li>
+          <li><div><strong>We film where they work or live,</strong> in a single unhurried day.</div></li>
+          <li><div><strong>We ask about the years,</strong> not the awards.</div></li>
+          <li><div><strong>We write down The Other Details:</strong> the money, the permissions, the paperwork. With sources.</div></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
   <section class="field f-haldi" id="on-record" data-ink="kajal" data-field="haldi">
     <div class="record">
       <div class="porthole">
@@ -346,7 +433,7 @@ p { margin: 0; max-width: 34em; }
     </div>
   </section>
 
-  <section class="field f-chuna" id="brands" data-ink="kajal" data-field="chuna">
+  <section class="field f-neel" id="brands" data-ink="chuna" data-field="neel">
     <div class="brands-head">
       <h2 class="display">Made here.<br>Made to last.</h2>
       <p>One small Indian brand is a stall at the end of the row. Together, we are the whole lane.</p>
@@ -384,7 +471,7 @@ p { margin: 0; max-width: 34em; }
       </form>
       <div><h3>Listen</h3><ul><li><a href="#on-record">YouTube</a></li><li><a href="#on-record">Spotify</a></li></ul></div>
       <div><h3>Community</h3><ul><li><a href="#brands">Brands</a></li><li><a href="#join">Join</a></li><li><a href="#what">The Other Details</a></li></ul></div>
-      <div><h3>Zeroing</h3><ul><li><a href="#top">About</a></li><li><a href="#join">Contact</a></li><li><a href="#join">Disclaimer and privacy</a></li></ul></div>
+      <div><h3>Zeroing</h3><ul><li><a href="#why">Why Zeroing exists</a></li><li><a href="#how">How we work</a></li><li><a href="#join">Contact</a></li><li><a href="#join">Disclaimer and privacy</a></li></ul></div>
     </footer>
     <div class="signoff narrow">
       <span>Instagram @zeroingnow and @theotherdetails. New Delhi, 2026.</span>
