@@ -79,6 +79,11 @@ BRANDS = [
 
 TODO = '<span class="todo">To confirm</span>'
 
+# Paste the public links here when you have them; the buttons appear on their own.
+EPISODES = [
+    {"slug": "akanksha-sood-singh", "youtube": "", "spotify": ""},
+]
+
 
 def read(*parts):
     with open(os.path.join(SRC, *parts), encoding="utf-8") as f:
@@ -94,21 +99,42 @@ CLOSING = read("partials", "closing.html")
 HEAD = """<title>{title}</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="{desc}">
+<link rel="icon" href="%%ROOT%%favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anek+Devanagari:wdth,wght@75..125,300..800&family=Anek+Latin:wdth,wght@75..125,300..800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anek+Devanagari:wdth,wght@75..125,300..800&family=Anek+Latin:wdth,wght@75..125,300..800&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&display=swap">
 <style>
 {css}</style>"""
 
 
+LOGO = read("logo_path.txt").strip()
+_mark_n = [0]
+
+
+def hero_mark():
+    """The Zeroing mark, cropped huge behind a hero. Its two halves lock together on load."""
+    _mark_n[0] += 1
+    i = _mark_n[0]
+    return (f'<svg class="hero-mark" viewBox="0 0 1373 1002" aria-hidden="true">'
+            f'<defs><clipPath id="mt{i}"><rect width="1373" height="506"/></clipPath>'
+            f'<clipPath id="mb{i}"><rect y="506" width="1373" height="496"/></clipPath></defs>'
+            f'<g class="top" clip-path="url(#mt{i})"><path fill-rule="evenodd" d="LOGO"/></g>'
+            f'<g class="bot" clip-path="url(#mb{i})"><path fill-rule="evenodd" d="LOGO"/></g></svg>')
+
+
 def fill(text, P, H, current=""):
+    cur = lambda name: ' aria-current="page"' if current == name else ""
+    while "{HERO_MARK}" in text:
+        text = text.replace("{HERO_MARK}", hero_mark(), 1)
     return (text.replace("{P}", P).replace("{H}", H)
-                .replace("{CUR_COMMUNITY}", ' aria-current="page"' if current == "community" else "")
-                .replace("RING", RING))
+                .replace("{CUR_COMMUNITY}", cur("community"))
+                .replace("{CUR_IS}", cur("podcast"))
+                .replace("{CUR_JOIN}", cur("join"))
+                .replace("RING", RING).replace("LOGO", LOGO))
 
 
 def page(title, desc, main, P, H, current=""):
-    head = HEAD.format(title=html.escape(title), desc=html.escape(desc), css=CSS)
+    head = HEAD.format(title=html.escape(title), desc=html.escape(desc), css=CSS).replace("%%ROOT%%", P)
     body = (HEADER + "\n<main>\n" + main + "\n" + CLOSING + "</main>\n\n<script>\n" + JS + "</script>\n")
     return head, fill(body, P, H, current)
 
@@ -157,7 +183,7 @@ def brand_main(b):
         f'      <li><a href="{o["slug"]}.html"><span class="name">{html.escape(o["name"])}</span><span>{html.escape(o["makes"])}</span></a></li>'
         for o in others)
     return f"""  <section class="field f-{b['colour']} hero brand-hero" id="top" data-ink="{ink}" data-field="{b['colour']}">
-    <svg class="hero-ring" viewBox="0 0 200 200" aria-hidden="true"><path class="draw" pathLength="1" d="RING"/></svg>
+    {{HERO_MARK}}
     <div class="hero-body">
       <h1 class="display">{html.escape(b['name'])}</h1>
       <p class="lede">{html.escape(b['line'])}</p>
@@ -222,7 +248,32 @@ def build():
         head, body = page(f"{b['name']} in Zeroing", f"{b['name']}: {b['makes']}. Part of the Zeroing community.",
                           brand_main(b), P="../", H="../index.html", current="community")
         write(f"brands/{b['slug']}.html", full_doc(head, body))
-    print("built", 2 + len(BRANDS), "pages")
+    # Independent Society, the episode, and the information pages
+    simple = [
+        ("independent-society.html", "Independent Society", "Long, honest conversations about what working life in India actually looked like.", "independent-society.html", "podcast"),
+        ("join.html", "Join Zeroing", "Apply to join Zeroing, a community of homegrown Indian brands.", "join.html", "join"),
+        ("contact.html", "Contact Zeroing", "Write to Zeroing.", "contact.html", ""),
+        ("the-other-details.html", "The Other Details", "The research lab of Zeroing: the money, the paperwork, the years nobody saw.", "the-other-details.html", ""),
+        ("legal.html", "Zeroing Legal", "Disclaimer, privacy notice, terms of use and grievances for Zeroing.", "legal.html", ""),
+    ]
+    for out, title, desc, src, current in simple:
+        head, body = page(title, desc, read("pages", src), P="", H="index.html", current=current)
+        write(out, full_doc(head, body))
+
+    ep = EPISODES[0]
+    watch = []
+    if ep["youtube"]:
+        watch.append(f'<a class="pill solid" href="{ep["youtube"]}" target="_blank" rel="noopener">Watch on YouTube</a>')
+    if ep["spotify"]:
+        watch.append(f'<a class="pill line" href="{ep["spotify"]}" target="_blank" rel="noopener">Listen on Spotify</a>')
+    if not watch:
+        watch.append('<span class="pill line" aria-disabled="true">Episode links coming soon</span>')
+    main = read("pages", "episode-akanksha.html").replace("{WATCH}", "\n          ".join(watch))
+    head, body = page("Akanksha Sood Singh on Independent Society",
+                      "Wildlife filmmaker Akanksha Sood Singh in conversation with Independent Society, episode 1.",
+                      main, P="../", H="../index.html", current="podcast")
+    write("episodes/akanksha-sood-singh.html", full_doc(head, body))
+    print("built", 8 + len(BRANDS), "pages")
 
 
 if __name__ == "__main__":

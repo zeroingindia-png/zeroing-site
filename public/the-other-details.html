@@ -1,0 +1,685 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Other Details</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="The research lab of Zeroing: the money, the paperwork, the years nobody saw.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anek+Devanagari:wdth,wght@75..125,300..800&family=Anek+Latin:wdth,wght@75..125,300..800&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&display=swap">
+<style>
+/* Layout: one full-screen colour field per idea, snapped like a film reel; the hand-drawn zero is the only ornament. */
+:root {
+  --sindoor: #C1272D;
+  --haldi: #E8A317;
+  --genda: #E8701A;
+  --peepal: #2F5D3A;
+  --neel: #23306E;
+  --kattha: #6B2E1F;
+  --chuna: #F7F3EC;
+  --kajal: #1A1A1A;
+
+  --font: "Anek Latin", "Anek Devanagari", "Segoe UI", system-ui, sans-serif;
+  --font-hi: "Anek Devanagari", "Anek Latin", "Nirmala UI", "Mangal", sans-serif;
+
+  --size-hero: clamp(3.4rem, 11vw, 10.5rem);
+  --size-1: clamp(2.6rem, 7vw, 6.5rem);
+  --size-2: clamp(1.9rem, 4.2vw, 3.6rem);
+  --size-3: clamp(1.25rem, 2vw, 1.6rem);
+  --size-body: clamp(1.05rem, 1.25vw, 1.2rem);
+  --size-small: 0.9rem;
+
+  --gutter: max(16px, env(safe-area-inset-left, 0px));
+  --gutter-r: max(16px, env(safe-area-inset-right, 0px));
+  --edge: clamp(16px, 4vw, 56px);
+  --head-h: 64px;
+
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; scroll-snap-type: y proximity; }
+body {
+  margin: 0;
+  background: var(--kajal);
+  color: var(--chuna);
+  font-family: var(--font);
+  font-size: var(--size-body);
+  line-height: 1.5;
+  font-variation-settings: "wdth" 100;
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px);
+  z-index: 30; background: var(--field, var(--sindoor));
+}
+a { color: inherit; }
+:focus-visible { outline: 3px solid currentColor; outline-offset: 4px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- type ---------- */
+.display {
+  font-weight: 800;
+  font-variation-settings: "wdth" 125;
+  line-height: 0.9;
+  letter-spacing: -0.035em;
+  margin: 0;
+  text-wrap: balance;
+}
+.narrow { font-variation-settings: "wdth" 75; font-weight: 500; letter-spacing: 0.01em; }
+p { margin: 0; max-width: 34em; }
+
+/* ---------- header ---------- */
+.head {
+  position: fixed; z-index: 20; top: env(safe-area-inset-top, 0px); left: 0; right: 0;
+  height: var(--head-h);
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  padding-left: max(var(--edge), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--edge), env(safe-area-inset-right, 0px));
+  color: var(--ink, var(--chuna));
+  transition: color 200ms ease;
+}
+.mark { display: inline-flex; align-items: center; text-decoration: none; font-weight: 800; font-variation-settings: "wdth" 125; font-size: 1.35rem; letter-spacing: 0.02em; }
+.mark svg { width: 1.02em; height: 1.02em; margin: 0 0.04em; transform: translateY(0.02em); }
+.mark svg path { stroke: currentColor; stroke-width: 22; fill: none; stroke-linecap: round; }
+.nav { display: flex; align-items: center; gap: clamp(16px, 2vw, 32px); }
+.nav a { text-decoration: none; font-size: 0.98rem; font-weight: 500; }
+.nav a:hover { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
+.pill {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 48px; padding: 0 26px; border-radius: 999px;
+  font-weight: 600; font-size: 1rem; text-decoration: none; white-space: nowrap;
+  border: 2px solid currentColor;
+  transition: background-color 200ms ease, color 200ms ease;
+}
+.pill.solid { background: var(--chuna); color: var(--sindoor); border-color: var(--chuna); }
+.pill.solid:hover { background: transparent; color: var(--chuna); }
+.pill.line:hover { background: var(--chuna); color: var(--sindoor); }
+.head .pill { min-height: 40px; padding: 0 18px; font-size: 0.95rem; }
+.head .pill:hover { background: currentColor; }
+.head .pill:hover span { color: var(--field, var(--sindoor)); }
+.menu-btn { display: none; background: none; border: 2px solid currentColor; color: inherit; font: inherit; font-weight: 600; border-radius: 999px; min-height: 40px; padding: 0 18px; cursor: pointer; }
+
+.overlay {
+  position: fixed; inset: 0; z-index: 40; background: var(--kajal); color: var(--chuna);
+  padding-top: calc(env(safe-area-inset-top, 0px) + 24px);
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
+  padding-left: var(--gutter); padding-right: var(--gutter-r);
+  display: flex; flex-direction: column; gap: 28px;
+}
+.overlay-top { display: flex; justify-content: space-between; align-items: center; }
+.overlay nav { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; }
+.overlay nav a { font-size: clamp(2rem, 9vw, 3rem); font-weight: 800; font-variation-settings: "wdth" 125; letter-spacing: -0.02em; text-decoration: none; line-height: 1.1; }
+
+/* ---------- fields ---------- */
+.field {
+  position: relative;
+  min-height: 100svh;
+  scroll-snap-align: start;
+  display: flex; flex-direction: column;
+  padding-block: calc(var(--head-h) + 32px) 28px;
+  padding-left: max(var(--edge), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--edge), env(safe-area-inset-right, 0px));
+  overflow: hidden;
+}
+.corners {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  font-size: var(--size-small); margin-top: auto; padding-top: 32px;
+}
+.f-sindoor { background: var(--sindoor); color: var(--chuna); }
+.f-haldi { background: var(--haldi); color: var(--kajal); }
+.f-genda { background: var(--genda); color: var(--kajal); }
+.f-chuna { background: var(--chuna); color: var(--kajal); }
+.f-neel { background: var(--neel); color: var(--chuna); }
+.f-kajal { background: var(--kajal); color: var(--chuna); }
+
+/* hero */
+.hero { justify-content: flex-start; }
+.hero-ring {
+  position: absolute; z-index: 0; pointer-events: none;
+  width: min(92vh, 78vw); aspect-ratio: 1; max-width: 100%;
+  right: -9vw; top: 50%; transform: translateY(-46%);
+}
+.hero-ring path { fill: none; stroke: var(--chuna); stroke-width: 9; stroke-linecap: round; opacity: 0.95; }
+.hero-body { position: relative; z-index: 1; margin-top: auto; display: grid; gap: clamp(24px, 3.5vw, 44px); }
+.hero h1 { font-size: var(--size-hero); max-width: 9.5em; }
+.hero .lede { font-size: var(--size-3); line-height: 1.4; max-width: 30em; }
+.actions { display: flex; flex-wrap: wrap; gap: 14px; }
+
+/* three bands */
+.bands { display: grid; grid-template-columns: repeat(3, 1fr); min-height: 100svh; scroll-snap-align: start; }
+.band {
+  display: flex; flex-direction: column; gap: 20px; text-decoration: none;
+  padding-block: calc(var(--head-h) + 40px) 36px;
+  padding-left: max(clamp(16px, 3vw, 44px), env(safe-area-inset-left, 0px));
+  padding-right: max(clamp(16px, 3vw, 44px), env(safe-area-inset-right, 0px));
+  color: var(--chuna);
+  transition: background-color 200ms ease;
+}
+.band.peepal { background: var(--peepal); }
+.band.neel { background: var(--neel); }
+.band.kattha { background: var(--kattha); }
+.band h2 { font-size: var(--size-2); margin-top: auto; }
+.band p { font-size: var(--size-body); max-width: 22em; }
+.band .go { font-weight: 600; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
+.band:hover .go { text-decoration-thickness: 4px; }
+
+/* on record */
+.record { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(28px, 5vw, 80px); align-items: center; flex: 1; }
+.porthole { position: relative; width: 100%; max-width: 560px; aspect-ratio: 1; justify-self: center; }
+.porthole .inside {
+  position: absolute; inset: 13%; border-radius: 50%; background: var(--kattha); color: var(--chuna);
+  display: grid; place-items: center; text-align: center; padding: 18%; font-size: var(--size-small); line-height: 1.4;
+}
+.porthole svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.porthole svg path { fill: none; stroke: var(--kajal); stroke-width: 8; stroke-linecap: round; }
+.record-text { display: grid; gap: 22px; min-width: 0; }
+.record-text .who { font-size: var(--size-1); }
+.record-text .role { font-size: var(--size-3); line-height: 1.35; }
+.record-text blockquote { margin: 0; font-size: var(--size-2); font-weight: 700; font-variation-settings: "wdth" 85; line-height: 1.05; letter-spacing: -0.015em; text-wrap: balance; }
+.f-haldi .pill.solid { background: var(--kajal); color: var(--haldi); border-color: var(--kajal); }
+.f-haldi .pill.solid:hover { background: transparent; color: var(--kajal); }
+.f-haldi .pill.line:hover { background: var(--kajal); color: var(--haldi); }
+
+/* ledger */
+.ledger { margin-block: auto; display: grid; gap: clamp(8px, 2vw, 20px); }
+.ledger p { max-width: none; font-size: var(--size-2); font-weight: 700; font-variation-settings: "wdth" 90; line-height: 1.05; letter-spacing: -0.015em; }
+.ledger .n { font-size: 2.6em; font-weight: 800; font-variation-settings: "wdth" 125; line-height: 0.8; vertical-align: -0.12em; letter-spacing: -0.04em; margin-right: 0.08em; font-variant-numeric: tabular-nums; }
+.ledger .since { font-size: var(--size-3); font-weight: 500; font-variation-settings: "wdth" 100; letter-spacing: 0; }
+
+/* brands */
+.brands-head { display: grid; gap: 14px; }
+.brands-head h2 { font-size: var(--size-1); }
+.brand-list { list-style: none; margin: auto 0 0; padding: 0; border-top: 2px solid currentColor; }
+.brand-list li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: baseline; padding-block: clamp(14px, 2vw, 22px); border-bottom: 2px solid currentColor; }
+.brand-list .name { font-size: var(--size-2); font-weight: 800; font-variation-settings: "wdth" 115; letter-spacing: -0.02em; line-height: 1; }
+.brand-list .what { font-size: var(--size-body); text-align: right; }
+.brand-list .more .name { font-weight: 500; font-variation-settings: "wdth" 100; }
+
+/* join + footer */
+.join h2 { font-size: var(--size-1); max-width: 10em; margin-top: auto; }
+.join .stamp { position: absolute; right: max(var(--edge), env(safe-area-inset-right, 0px)); top: calc(var(--head-h) + 24px); width: clamp(90px, 12vw, 150px); aspect-ratio: 1; max-width: 100%; }
+.stamp path { fill: none; stroke: var(--sindoor); stroke-width: 12; stroke-linecap: round; }
+.stamp text { fill: var(--sindoor); font-family: var(--font); font-weight: 700; font-size: 15px; letter-spacing: 3px; }
+.f-kajal .pill.solid { background: var(--sindoor); color: var(--chuna); border-color: var(--sindoor); }
+.f-kajal .pill.solid:hover { background: transparent; color: var(--chuna); border-color: var(--chuna); }
+.join-row { display: grid; gap: 28px; margin-top: 32px; }
+.foot { margin-top: clamp(48px, 8vw, 96px); padding-top: 28px; border-top: 2px solid var(--chuna); display: grid; grid-template-columns: 1.4fr repeat(3, minmax(0, 1fr)); gap: 28px; }
+.foot h3 { margin: 0 0 10px; font-size: var(--size-small); font-weight: 600; }
+.foot ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.foot a { text-decoration: none; }
+.foot a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.letter { display: grid; gap: 12px; min-width: 0; }
+.letter .row { display: flex; gap: 10px; flex-wrap: wrap; }
+.letter input[type="email"] { flex: 1 1 200px; min-width: 0; min-height: 48px; border-radius: 999px; border: 2px solid var(--chuna); background: transparent; color: var(--chuna); padding: 0 20px; font: inherit; }
+.letter input[type="email"]::placeholder { color: var(--chuna); opacity: 0.6; }
+.letter button { min-height: 48px; border-radius: 999px; border: 2px solid var(--chuna); background: var(--chuna); color: var(--kajal); padding: 0 22px; font: inherit; font-weight: 600; cursor: pointer; }
+.letter label.consent { display: flex; gap: 10px; align-items: flex-start; font-size: var(--size-small); line-height: 1.4; }
+.letter label.consent input { width: 18px; height: 18px; margin-top: 2px; accent-color: var(--sindoor); flex: none; }
+.letter .status { font-size: var(--size-small); min-height: 1.4em; }
+.signoff { margin-top: 36px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: var(--size-small); }
+.signoff .hi { font-family: var(--font-hi); font-size: 1.15rem; }
+
+
+/* why: the research, set as a ledger */
+.why-head { display: grid; gap: 16px; max-width: 46rem; }
+.why-head h2 { font-size: var(--size-1); }
+.facts { list-style: none; margin: clamp(32px, 5vw, 64px) 0 0; padding: 0; border-top: 2px solid var(--chuna); }
+.facts li { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(16px, 4vw, 56px); align-items: start; padding-block: clamp(20px, 3vw, 36px); border-bottom: 2px solid var(--chuna); }
+.facts .fig { font-size: var(--size-1); font-weight: 800; font-variation-settings: "wdth" 125; line-height: 0.9; letter-spacing: -0.04em; color: var(--haldi); font-variant-numeric: tabular-nums; }
+.facts .fig small { display: block; margin-top: 10px; font-size: var(--size-small); font-weight: 500; font-variation-settings: "wdth" 100; letter-spacing: 0; color: var(--chuna); line-height: 1.35; }
+.facts .say { display: grid; gap: 10px; min-width: 0; }
+.facts .say p { font-size: var(--size-3); line-height: 1.35; max-width: 30em; }
+.facts .src { font-size: var(--size-small); opacity: 0.85; }
+.facts .src a { text-underline-offset: 3px; }
+.why-close { margin-top: clamp(32px, 5vw, 64px); font-size: var(--size-2); font-weight: 700; font-variation-settings: "wdth" 90; line-height: 1.1; letter-spacing: -0.015em; max-width: 22em; text-wrap: balance; }
+
+/* how we work: two real sequences */
+.how-head { display: grid; gap: 16px; max-width: 46rem; }
+.how-head h2 { font-size: var(--size-1); }
+.tracks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(32px, 6vw, 96px); margin-top: clamp(32px, 5vw, 64px); }
+.track h3 { margin: 0 0 18px; font-size: var(--size-2); font-weight: 800; font-variation-settings: "wdth" 115; letter-spacing: -0.02em; line-height: 1; }
+.track ol { list-style: none; margin: 0; padding: 0; counter-reset: step; border-top: 2px solid var(--kajal); }
+.track li { counter-increment: step; display: grid; grid-template-columns: 3.2rem minmax(0, 1fr); gap: 12px; padding-block: 16px; border-bottom: 2px solid var(--kajal); }
+.track li::before { content: counter(step); font-size: 2rem; font-weight: 800; font-variation-settings: "wdth" 125; line-height: 1; color: var(--sindoor); }
+.track li strong { display: block; font-weight: 700; }
+
+/* ---------- motion: the one moment ---------- */
+.draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 1.8s cubic-bezier(.6,.05,.25,1) 0.2s forwards; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .draw { animation: none; stroke-dashoffset: 0; }
+}
+
+/* ---------- small screens ---------- */
+@media (max-width: 900px) {
+  .nav a:not(.pill) { display: none; }
+  .menu-btn { display: inline-flex; align-items: center; }
+  .bands { grid-template-columns: 1fr; min-height: 0; }
+  .band { min-height: 62svh; padding-block: 40px 32px; }
+  .band:first-child { padding-top: calc(var(--head-h) + 40px); }
+  .record { grid-template-columns: 1fr; }
+  .facts li { grid-template-columns: 1fr; gap: 10px; }
+  .tracks { grid-template-columns: 1fr; }
+  .porthole { max-width: 420px; }
+  .foot { grid-template-columns: 1fr 1fr; }
+  .letter { grid-column: 1 / -1; }
+  .hero-ring { width: 120vw; right: -48vw; top: 34%; }
+}
+@media (max-width: 520px) {
+  .head .pill { display: none; }
+  .brand-list li { grid-template-columns: 1fr; gap: 4px; }
+  .brand-list .what { text-align: left; }
+  .foot { grid-template-columns: 1fr; }
+  .hero-ring { width: 150vw; right: -78vw; top: 30%; }
+}
+
+/* ---------- community and brand pages ---------- */
+.f-peepal { background: var(--peepal); color: var(--chuna); }
+.f-kattha { background: var(--kattha); color: var(--chuna); }
+.f-peepal .pill.solid { color: var(--peepal); }
+.f-peepal .pill.line:hover { color: var(--peepal); }
+.f-kattha .pill.solid { color: var(--kattha); }
+.f-kattha .pill.line:hover { color: var(--kattha); }
+.f-neel .pill.solid { color: var(--neel); }
+.f-neel .pill.line:hover { color: var(--neel); }
+.f-genda .pill.solid { background: var(--kajal); color: var(--genda); border-color: var(--kajal); }
+.f-genda .pill.solid:hover { background: transparent; color: var(--kajal); }
+.f-genda .pill.line:hover { background: var(--kajal); color: var(--genda); }
+.f-chuna .pill.solid { background: var(--sindoor); color: var(--chuna); border-color: var(--sindoor); }
+.f-chuna .pill.solid:hover { background: transparent; color: var(--sindoor); }
+.f-genda .hero-ring path, .f-haldi .hero-ring path { stroke: var(--kajal); }
+
+.case-head { display: grid; gap: 16px; max-width: 46rem; }
+.case-head h2 { font-size: var(--size-1); }
+.cases { list-style: none; margin: clamp(32px, 5vw, 64px) 0 0; padding: 0; border-top: 2px solid currentColor; }
+.cases li {
+  display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); grid-auto-flow: row dense;
+  column-gap: clamp(16px, 4vw, 56px); row-gap: 12px;
+  padding-block: clamp(22px, 3vw, 36px); border-bottom: 2px solid currentColor;
+}
+.cases li > .where, .cases li > h3 { grid-column: 1; }
+.cases li > p:not(.where) { grid-column: 2; }
+.cases h3 { margin: 0; font-size: var(--size-2); font-weight: 800; font-variation-settings: "wdth" 115; letter-spacing: -0.02em; line-height: 1; }
+.cases .what-happened { font-size: var(--size-body); max-width: 38em; }
+.cases .lesson { font-size: var(--size-3); line-height: 1.35; font-weight: 600; max-width: 30em; }
+.cases .lesson strong { font-weight: 800; }
+.cases .src { font-size: var(--size-small); opacity: 0.85; }
+.cases .src a { text-underline-offset: 3px; }
+.f-chuna .cases .lesson strong { color: var(--sindoor); }
+.cases.on-dark .lesson strong { color: var(--haldi); }
+
+.principles { list-style: none; margin: clamp(32px, 5vw, 64px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(28px, 4vw, 56px); }
+.principles li { border-top: 2px solid currentColor; padding-top: 18px; display: grid; gap: 10px; }
+.principles h3 { margin: 0; font-size: var(--size-2); font-weight: 800; font-variation-settings: "wdth" 115; letter-spacing: -0.02em; line-height: 1; text-wrap: balance; }
+
+.brand-grid { margin-top: clamp(32px, 5vw, 64px); display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 16px; }
+.brand-card {
+  display: flex; flex-direction: column; gap: 12px; min-height: 320px; padding: 24px;
+  text-decoration: none; transition: transform 200ms ease;
+}
+.brand-card .tag { font-size: var(--size-small); }
+.brand-card .bname { margin-top: auto; font-size: var(--size-2); font-weight: 800; font-variation-settings: "wdth" 120; letter-spacing: -0.02em; line-height: 0.95; }
+.brand-card .bline { max-width: 22em; }
+.brand-card .open { font-weight: 600; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
+.brand-card:hover .open { text-decoration-thickness: 4px; }
+.bc-peepal { background: var(--peepal); color: var(--chuna); }
+.bc-haldi { background: var(--haldi); color: var(--kajal); }
+.bc-kattha { background: var(--kattha); color: var(--chuna); }
+.bc-genda { background: var(--genda); color: var(--kajal); }
+.brand-card.join-card { background: transparent; color: var(--chuna); border: 2px dashed var(--chuna); }
+
+.brand-list a.name { text-decoration: none; }
+.brand-list a.name:hover { text-decoration: underline; text-underline-offset: 8px; text-decoration-thickness: 3px; }
+
+/* brand page */
+.brand-hero h1 { font-size: var(--size-hero); max-width: 8em; }
+.about { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(32px, 6vw, 96px); margin-block: auto; }
+.about .idea { display: grid; gap: 18px; }
+.about .idea h2 { font-size: var(--size-1); }
+.about .idea p { font-size: var(--size-3); line-height: 1.45; }
+.facts-list { margin: 0; border-top: 2px solid currentColor; align-self: start; }
+.facts-list div { display: grid; grid-template-columns: 8.5em minmax(0, 1fr); gap: 12px; padding-block: 14px; border-bottom: 2px solid currentColor; }
+.facts-list dt { font-weight: 700; }
+.facts-list dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.todo { border-bottom: 2px dashed currentColor; opacity: 0.75; }
+.next-brands { list-style: none; margin: clamp(28px, 4vw, 48px) 0 0; padding: 0; border-top: 2px solid currentColor; }
+.next-brands li { border-bottom: 2px solid currentColor; }
+.next-brands a { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: baseline; padding-block: 16px; text-decoration: none; }
+.next-brands .name { font-size: var(--size-2); font-weight: 800; font-variation-settings: "wdth" 115; letter-spacing: -0.02em; line-height: 1; }
+.next-brands a:hover .name { text-decoration: underline; text-underline-offset: 8px; text-decoration-thickness: 3px; }
+
+@media (max-width: 900px) {
+  .cases li { grid-template-columns: 1fr; }
+  .cases li > .where, .cases li > h3, .cases li > p:not(.where) { grid-column: 1; }
+  .principles { grid-template-columns: 1fr; }
+  .about { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  .facts-list div { grid-template-columns: 1fr; gap: 2px; }
+  .next-brands a { grid-template-columns: 1fr; gap: 4px; }
+}
+
+@media (max-width: 900px) {
+  .join .stamp { position: static; display: block; width: 88px; margin-bottom: 24px; }
+}
+
+/* made in India badges and seal */
+.badges { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.badges li { border: 2px solid currentColor; border-radius: 999px; padding: 4px 14px; font-weight: 600; font-size: var(--size-small); }
+.badges.small li { padding: 2px 10px; font-size: 0.8rem; border-width: 1.5px; }
+.brands-head .badges { margin-top: 6px; }
+.seal { position: absolute; z-index: 1; right: max(var(--edge), env(safe-area-inset-right, 0px)); top: calc(var(--head-h) + 24px); width: clamp(96px, 11vw, 150px); aspect-ratio: 1; max-width: 100%; }
+.seal path { fill: none; stroke: currentColor; stroke-width: 11; stroke-linecap: round; }
+.seal text { fill: currentColor; font-family: var(--font); font-weight: 800; font-variation-settings: "wdth" 115; font-size: 22px; letter-spacing: 2px; }
+.brand-hero .seal { position: relative; z-index: 1; right: auto; top: auto; display: block; margin-top: 28px; width: clamp(88px, 8vw, 120px); }
+.about .idea h3.sub { margin: 18px 0 0; font-size: var(--size-2); font-weight: 800; font-variation-settings: "wdth" 115; letter-spacing: -0.02em; line-height: 1; }
+@media (max-width: 900px) {
+  .seal { position: static; display: block; width: 92px; margin-bottom: 20px; }
+  .brand-hero .seal { margin: 24px 0 0; width: 84px; }
+}
+
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+
+/* =========================================================
+   Identity v2: the Zeroing mark and Bricolage Grotesque
+   ========================================================= */
+:root {
+  --font-display: "Bricolage Grotesque", "Anek Latin", "Arial Narrow", system-ui, sans-serif;
+  --display-vars: "opsz" 96, "wdth" 88;
+}
+
+/* headlines: condensed, heavy, tight, like the big type in the Span frames */
+.display, .cases h3, .principles h3, .track h3, .brand-card .bname, .next-brands .name,
+.brand-list .name, .ledger .n, .facts .fig, .about .idea h3.sub, .overlay nav a, .ep-name {
+  font-family: var(--font-display);
+  font-variation-settings: var(--display-vars);
+  font-weight: 800;
+  letter-spacing: -0.012em;
+}
+.display { line-height: 0.9; }
+.hero h1, .brand-hero h1 { letter-spacing: -0.018em; }
+.record-text blockquote, .ledger p, .why-close {
+  font-family: var(--font-display); font-variation-settings: "opsz" 48, "wdth" 85; font-weight: 600; letter-spacing: -0.015em;
+}
+.facts .fig small { font-family: var(--font); font-variation-settings: "wdth" 100; }
+
+/* the Abduzeedo frame line: small, wide-spaced capitals at the edge of a field */
+.corners, .file-strip, .where, .record-text > .narrow:first-child, .tag {
+  text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.72rem; font-weight: 600;
+  font-variation-settings: "wdth" 100;
+}
+
+/* wordmark */
+.mark { gap: 10px; font-family: var(--font-display); font-variation-settings: "opsz" 24, "wdth" 90; font-weight: 800; font-size: 1.3rem; letter-spacing: -0.01em; }
+.mark svg.logo { width: 1.75em; height: auto; aspect-ratio: 1373 / 1002; margin: 0; transform: none; }
+.mark svg.logo path { fill: currentColor; stroke: none; }
+
+/* hero mark: cropped, tonal, the two halves lock together once on load */
+.hero-mark {
+  position: absolute; z-index: 0; pointer-events: none;
+  width: min(118vh, 74vw); aspect-ratio: 1373 / 1002; max-width: none;
+  right: -10vw; top: 54%; transform: translateY(-50%);
+}
+.hero-mark path { fill: var(--kajal); opacity: 0.13; }
+.f-kajal .hero-mark path { fill: var(--chuna); opacity: 0.08; }
+.hero-mark .top { animation: lock-r 1.6s cubic-bezier(.2,.7,.1,1) both; }
+.hero-mark .bot { animation: lock-l 1.6s cubic-bezier(.2,.7,.1,1) both; }
+@keyframes lock-r { from { transform: translateX(320px); } to { transform: translateX(0); } }
+@keyframes lock-l { from { transform: translateX(-320px); } to { transform: translateX(0); } }
+@media (prefers-reduced-motion: reduce) { .hero-mark .top, .hero-mark .bot { animation: none; } }
+@media (max-width: 900px) { .hero-mark { width: 135vw; right: -52vw; top: 26%; } }
+
+/* the logo, solid, closes every page */
+.join .stamp.logo-stamp { aspect-ratio: 1373 / 1002; width: clamp(120px, 14vw, 200px); }
+.stamp.logo-stamp path { fill: var(--sindoor); stroke: none; }
+
+/* forms */
+.form-wrap { display: grid; gap: clamp(28px, 4vw, 48px); max-width: 60rem; }
+.zform { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 24px; }
+.zform.one { grid-template-columns: 1fr; align-self: start; }
+.zform .f { display: grid; gap: 8px; min-width: 0; }
+.zform .wide { grid-column: 1 / -1; }
+.zform label { font-weight: 600; }
+.zform .opt { font-weight: 400; opacity: 0.7; }
+.zform input:not([type="checkbox"]), .zform textarea, .zform select {
+  width: 100%; min-height: 52px; padding: 12px 16px; border: 2px solid var(--kajal); border-radius: 0;
+  background: var(--chuna); color: var(--kajal); font: inherit; font-size: 1rem;
+}
+.zform textarea { resize: vertical; line-height: 1.45; }
+.zform input:focus-visible, .zform textarea:focus-visible, .zform select:focus-visible { outline: 3px solid var(--sindoor); outline-offset: 2px; }
+.zform small { font-size: var(--size-small); opacity: 0.75; }
+.zform .consent { display: flex; gap: 12px; align-items: flex-start; font-weight: 400; font-size: var(--size-small); line-height: 1.45; }
+.zform .consent input { width: 20px; height: 20px; margin-top: 1px; accent-color: var(--sindoor); flex: none; }
+.zform .submit-row { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
+.zform button.pill { cursor: pointer; font: inherit; font-weight: 600; }
+.zform button[disabled] { opacity: 0.6; cursor: progress; }
+.zform .status { font-weight: 600; max-width: 36em; }
+.form-field .case-head h2 { font-size: var(--size-1); }
+.contact-top { align-items: start; }
+.contact-top h1 { font-size: var(--size-1); }
+.sel { user-select: all; }
+
+/* steps lists reused outside home */
+.track ol.plain { counter-reset: none; }
+.track ol.plain li { counter-increment: none; grid-template-columns: 1.4rem minmax(0, 1fr); }
+.track ol.plain li::before { content: ""; width: 12px; height: 12px; margin-top: 7px; border-radius: 50%; background: var(--sindoor); }
+.about .track h3 { margin-top: 0; }
+
+/* episode archive */
+.episode-grid { margin-top: clamp(32px, 5vw, 64px); display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); gap: 32px 24px; }
+.episode { display: grid; gap: 10px; text-decoration: none; color: inherit; }
+.disc { position: relative; display: block; width: 100%; aspect-ratio: 1; max-width: 100%; border-radius: 50%; }
+.disc svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.disc svg path { fill: none; stroke: currentColor; stroke-width: 4; }
+.d-haldi { background: var(--haldi); color: var(--kajal); }
+.d-empty { color: var(--chuna); opacity: 0.5; }
+.disc .num { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--font-display); font-variation-settings: "opsz" 96, "wdth" 80; font-weight: 800; font-size: clamp(4rem, 9vw, 7rem); }
+.ep-name { font-size: var(--size-3); line-height: 1.05; }
+.ep-role { font-size: var(--size-small); opacity: 0.8; }
+a.episode:hover .ep-name { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
+.anthem { margin-top: clamp(40px, 6vw, 72px); font-size: var(--size-3); max-width: 34em; }
+.anthem .hi { display: block; margin-top: 8px; font-family: var(--font-hi); font-size: var(--size-2); font-weight: 700; }
+
+/* The Other Details and legal: the quiet, typed-file pages */
+.file { background: var(--chuna); }
+.file-strip { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-bottom: 14px; border-bottom: 2px solid currentColor; }
+.file-body { display: grid; gap: 20px; max-width: 44rem; margin-block: clamp(40px, 7vw, 96px) auto; }
+.file-body h1 { font-size: var(--size-1); }
+.file-lead { font-size: var(--size-3); line-height: 1.4; }
+.file-lead.quiet { opacity: 0.75; }
+.stamp-red { position: absolute; right: max(var(--edge), env(safe-area-inset-right, 0px)); bottom: 48px; width: clamp(110px, 12vw, 170px); aspect-ratio: 1; max-width: 100%; transform: rotate(-8deg); color: var(--sindoor); }
+.stamp-red path { fill: none; stroke: currentColor; stroke-width: 8; }
+.stamp-red text { fill: currentColor; font-family: var(--font-display); font-variation-settings: "opsz" 24, "wdth" 85; font-weight: 800; font-size: 26px; letter-spacing: 2px; }
+.legal-nav { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.legal-nav a { border: 2px solid currentColor; border-radius: 999px; padding: 6px 16px; text-decoration: none; font-weight: 600; font-size: var(--size-small); }
+.legal-nav a:hover { background: var(--kajal); color: var(--chuna); }
+.legal-body { max-width: 44rem; margin-top: clamp(32px, 5vw, 56px); display: grid; gap: 14px; }
+.legal-body h1 { font-size: var(--size-1); margin-bottom: 12px; }
+.legal-body h2 { margin: 36px 0 4px; font-family: var(--font-display); font-variation-settings: var(--display-vars); font-weight: 800; font-size: var(--size-2); letter-spacing: -0.02em; line-height: 1; scroll-margin-top: calc(var(--head-h) + 24px); }
+.legal-body h3 { margin: 14px 0 0; font-size: var(--size-3); }
+.legal-body ul { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; max-width: 34em; }
+.legal-body .facts-list { margin-top: 8px; }
+
+@media (max-width: 900px) {
+  .zform { grid-template-columns: 1fr; }
+  .stamp-red { position: static; display: block; margin-top: 32px; }
+}
+</style>
+</head>
+<body>
+<header class="head" id="head">
+  <a class="mark" href="index.html#top" aria-label="Zeroing, home"><svg class="logo" viewBox="0 0 1373 1002" aria-hidden="true"><path fill-rule="evenodd" d="M365.7 1000.9C243.6 990.8 133.8 925.9 66.5 824.0C29.7 768.4 8.5 707.8 1.9 639.5C0.2 621.9 0.4 583.4 2.4 565.0C4.0 549.5 7.6 527.7 10.8 513.9L12.5 506.5L160.1 506.2L307.7 506.0L438.6 374.2C510.6 301.8 598.7 213.0 634.5 177.0C706.4 104.6 710.1 100.9 727.9 86.8C782.0 43.5 849.4 14.4 918.5 4.6C954.1 -0.5 996.7 -0.5 1032.5 4.6C1089.1 12.6 1147.6 35.0 1196.0 67.3C1273.8 119.3 1331.4 197.8 1356.9 287.0C1377.2 357.8 1377.9 428.2 1359.2 501.5L1357.4 508.5L1205.2 509.0L1053.0 509.5L871.3 692.6C771.3 793.4 682.5 882.5 674.0 890.6C641.3 921.8 611.0 942.9 571.5 962.1C525.8 984.3 480.5 996.6 428.5 1001.0C414.7 1002.1 380.1 1002.1 365.7 1000.9ZM423.0 732.6C448.8 727.0 468.8 716.4 489.2 697.4C495.0 692.0 539.6 647.5 588.2 598.5L676.5 509.5L493.0 509.2L309.6 509.0L304.7 513.7C302.0 516.4 297.0 522.2 293.6 526.8C268.8 559.7 261.2 604.2 273.6 643.5C283.3 674.0 305.1 701.3 332.7 717.4C345.8 725.0 362.5 730.9 378.5 733.6C388.8 735.3 412.9 734.8 423.0 732.6ZM1057.0 500.3C1079.9 475.2 1092.8 436.0 1089.1 402.5C1082.6 344.7 1044.4 301.1 987.6 286.9C975.7 283.9 951.5 283.2 937.9 285.5C918.9 288.7 899.0 296.8 883.2 308.0C878.5 311.3 860.6 328.6 832.8 356.8C809.0 380.8 765.9 424.2 737.1 453.2L684.5 506.0L868.2 506.0L1051.8 506.0L1057.0 500.3Z"/></svg><span>Zeroing</span></a>
+  <div class="nav">
+    <a href="index.html#why">Why</a>
+    <a href="independent-society.html">Independent Society</a>
+    <a href="community.html">Community</a>
+    <a href="index.html#how">How we work</a>
+    <a href="join.html">Join</a>
+    <a class="pill" href="episodes/akanksha-sood-singh.html"><span>Listen</span></a>
+    <button class="menu-btn" id="menu-open" type="button" aria-expanded="false" aria-controls="overlay">Menu</button>
+  </div>
+</header>
+
+<div class="overlay" id="overlay" hidden>
+  <div class="overlay-top">
+    <span class="mark"><svg class="logo" viewBox="0 0 1373 1002" aria-hidden="true"><path fill-rule="evenodd" d="M365.7 1000.9C243.6 990.8 133.8 925.9 66.5 824.0C29.7 768.4 8.5 707.8 1.9 639.5C0.2 621.9 0.4 583.4 2.4 565.0C4.0 549.5 7.6 527.7 10.8 513.9L12.5 506.5L160.1 506.2L307.7 506.0L438.6 374.2C510.6 301.8 598.7 213.0 634.5 177.0C706.4 104.6 710.1 100.9 727.9 86.8C782.0 43.5 849.4 14.4 918.5 4.6C954.1 -0.5 996.7 -0.5 1032.5 4.6C1089.1 12.6 1147.6 35.0 1196.0 67.3C1273.8 119.3 1331.4 197.8 1356.9 287.0C1377.2 357.8 1377.9 428.2 1359.2 501.5L1357.4 508.5L1205.2 509.0L1053.0 509.5L871.3 692.6C771.3 793.4 682.5 882.5 674.0 890.6C641.3 921.8 611.0 942.9 571.5 962.1C525.8 984.3 480.5 996.6 428.5 1001.0C414.7 1002.1 380.1 1002.1 365.7 1000.9ZM423.0 732.6C448.8 727.0 468.8 716.4 489.2 697.4C495.0 692.0 539.6 647.5 588.2 598.5L676.5 509.5L493.0 509.2L309.6 509.0L304.7 513.7C302.0 516.4 297.0 522.2 293.6 526.8C268.8 559.7 261.2 604.2 273.6 643.5C283.3 674.0 305.1 701.3 332.7 717.4C345.8 725.0 362.5 730.9 378.5 733.6C388.8 735.3 412.9 734.8 423.0 732.6ZM1057.0 500.3C1079.9 475.2 1092.8 436.0 1089.1 402.5C1082.6 344.7 1044.4 301.1 987.6 286.9C975.7 283.9 951.5 283.2 937.9 285.5C918.9 288.7 899.0 296.8 883.2 308.0C878.5 311.3 860.6 328.6 832.8 356.8C809.0 380.8 765.9 424.2 737.1 453.2L684.5 506.0L868.2 506.0L1051.8 506.0L1057.0 500.3Z"/></svg><span>Zeroing</span></span>
+    <button class="menu-btn" id="menu-close" type="button" style="display:inline-flex">Close</button>
+  </div>
+  <nav aria-label="Main">
+    <a href="index.html#why">Why Zeroing exists</a>
+    <a href="independent-society.html">Independent Society</a>
+    <a href="community.html">Community</a>
+    <a href="the-other-details.html">The Other Details</a>
+    <a href="index.html#how">How we work</a>
+    <a href="join.html">Join</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <a class="pill solid" href="episodes/akanksha-sood-singh.html" style="align-self:flex-start;margin-top:auto">Listen to the latest conversation</a>
+</div>
+
+<main>
+  <section class="field f-chuna file" id="top" data-ink="kajal" data-field="chuna">
+    <div class="file-strip narrow"><span>The Other Details</span><span>Research lab of Zeroing</span><span>File open</span></div>
+    <div class="file-body">
+      <p class="file-lead">Every story about India gets edited.</p>
+      <p class="file-lead quiet">The unpaid invoice. The permission letter that sat on a desk for three months. The savings that paid the rent while the work got done.</p>
+      <h1 class="display">That is the part we keep.</h1>
+      <p>The Other Details is the research lab of Zeroing. We sit with people who built something in this country and ask what it actually took. The money. The paperwork. The years nobody saw. Then we write it down, with sources.</p>
+      <p class="file-lead">Not highlights. A record.</p>
+      <p><a href="https://www.instagram.com/theotherdetails/" target="_blank" rel="noopener">Follow @theotherdetails</a></p>
+    </div>
+    <svg class="stamp-red" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 18a82 82 0 1 1 0 164a82 82 0 1 1 0-164Z"/><text x="100" y="94" text-anchor="middle">ON</text><text x="100" y="122" text-anchor="middle">RECORD</text></svg>
+  </section>
+
+  <section class="field f-chuna file form-field" id="lead" data-ink="kajal" data-field="chuna">
+    <div class="form-wrap">
+      <div class="case-head">
+        <h2 class="display">What detail of your work never makes it into the story?</h2>
+        <p>Answers become leads for our research. We will ask before we use anything you tell us.</p>
+      </div>
+      <form class="zform" data-form="details" novalidate>
+        <input class="hp" type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="f wide"><label for="d-answer">Your answer</label><textarea id="d-answer" name="answer" required maxlength="1800" rows="5"></textarea></div>
+        <div class="f"><label for="d-name">Your name</label><input id="d-name" name="name" required maxlength="120" autocomplete="name"></div>
+        <div class="f"><label for="d-email">Email</label><input id="d-email" name="email" type="email" required autocomplete="email"></div>
+        <label class="consent wide" for="d-consent"><input type="checkbox" id="d-consent" name="consent" required> I agree that Zeroing can store my answer as a research lead and contact me about it, as set out in the privacy notice.</label>
+        <div class="wide submit-row"><button class="pill solid" type="submit">Send the detail</button><p class="status" role="status"></p></div>
+      </form>
+    </div>
+  </section>
+
+  <section class="field f-kajal join" id="join" data-ink="chuna" data-field="kajal">
+    <svg class="stamp logo-stamp" viewBox="0 0 1373 1002" role="img" aria-label="Zeroing logo"><path fill-rule="evenodd" d="M365.7 1000.9C243.6 990.8 133.8 925.9 66.5 824.0C29.7 768.4 8.5 707.8 1.9 639.5C0.2 621.9 0.4 583.4 2.4 565.0C4.0 549.5 7.6 527.7 10.8 513.9L12.5 506.5L160.1 506.2L307.7 506.0L438.6 374.2C510.6 301.8 598.7 213.0 634.5 177.0C706.4 104.6 710.1 100.9 727.9 86.8C782.0 43.5 849.4 14.4 918.5 4.6C954.1 -0.5 996.7 -0.5 1032.5 4.6C1089.1 12.6 1147.6 35.0 1196.0 67.3C1273.8 119.3 1331.4 197.8 1356.9 287.0C1377.2 357.8 1377.9 428.2 1359.2 501.5L1357.4 508.5L1205.2 509.0L1053.0 509.5L871.3 692.6C771.3 793.4 682.5 882.5 674.0 890.6C641.3 921.8 611.0 942.9 571.5 962.1C525.8 984.3 480.5 996.6 428.5 1001.0C414.7 1002.1 380.1 1002.1 365.7 1000.9ZM423.0 732.6C448.8 727.0 468.8 716.4 489.2 697.4C495.0 692.0 539.6 647.5 588.2 598.5L676.5 509.5L493.0 509.2L309.6 509.0L304.7 513.7C302.0 516.4 297.0 522.2 293.6 526.8C268.8 559.7 261.2 604.2 273.6 643.5C283.3 674.0 305.1 701.3 332.7 717.4C345.8 725.0 362.5 730.9 378.5 733.6C388.8 735.3 412.9 734.8 423.0 732.6ZM1057.0 500.3C1079.9 475.2 1092.8 436.0 1089.1 402.5C1082.6 344.7 1044.4 301.1 987.6 286.9C975.7 283.9 951.5 283.2 937.9 285.5C918.9 288.7 899.0 296.8 883.2 308.0C878.5 311.3 860.6 328.6 832.8 356.8C809.0 380.8 765.9 424.2 737.1 453.2L684.5 506.0L868.2 506.0L1051.8 506.0L1057.0 500.3Z"/></svg>
+    <h2 class="display">Building an Indian brand with intent? Grow with us.</h2>
+    <div class="join-row">
+      <p>Tell us about your brand. We read every application and reply within 14 days.</p>
+      <div class="actions"><a class="pill solid" href="join.html">Apply to join Zeroing</a></div>
+    </div>
+
+    <footer class="foot">
+      <form class="letter" id="letter" data-form="newsletter" novalidate>
+        <input class="hp" type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <h3>One letter when a new conversation goes on record. Nothing else.</h3>
+        <div class="row">
+          <label class="sr-only" for="letter-email">Email</label>
+          <input type="email" id="letter-email" name="email" placeholder="you@example.com" autocomplete="email" required>
+          <button type="submit">Send me the letter</button>
+        </div>
+        <label class="consent" for="letter-consent"><input type="checkbox" id="letter-consent" name="consent" required> I agree that Zeroing can email me about new episodes. I can unsubscribe at any time.</label>
+        <p class="status" id="letter-status" role="status"></p>
+      </form>
+      <div><h3>Independent Society</h3><ul><li><a href="independent-society.html">All episodes</a></li><li><a href="episodes/akanksha-sood-singh.html">Latest conversation</a></li><li><a href="independent-society.html#suggest">Suggest a guest</a></li></ul></div>
+      <div><h3>Community</h3><ul><li><a href="community.html">Brands</a></li><li><a href="community.html#learned">What we learned</a></li><li><a href="the-other-details.html">The Other Details</a></li><li><a href="join.html">Join</a></li></ul></div>
+      <div><h3>Zeroing</h3><ul><li><a href="index.html#why">Why Zeroing exists</a></li><li><a href="index.html#how">How we work</a></li><li><a href="contact.html">Contact</a></li><li><a href="legal.html">Disclaimer, privacy and terms</a></li><li><a href="legal.html#grievance">Grievances</a></li></ul></div>
+    </footer>
+    <div class="signoff narrow">
+      <span>Instagram @zeroingnow and @theotherdetails. New Delhi, 2026.</span>
+      <span class="hi" lang="hi">सुबह अभी बाक़ी है</span>
+    </div>
+  </section>
+</main>
+
+<script>
+(function () {
+  // live date in the hero corner, like the day line on a magazine page
+  try {
+    var d = new Date();
+    var t = document.getElementById('today');
+    if (t) t.textContent = d.toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  } catch (e) {}
+
+  // header ink follows the colour field underneath it
+  var head = document.getElementById('head');
+  var root = document.documentElement;
+  var fields = document.querySelectorAll('[data-ink]');
+  function setInk(el) {
+    root.style.setProperty('--ink', 'var(--' + el.dataset.ink + ')');
+    root.style.setProperty('--field', 'var(--' + el.dataset.field + ')');
+  }
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) setInk(en.target); });
+    }, { rootMargin: '-0px 0px -92% 0px', threshold: 0 });
+    fields.forEach(function (f) { io.observe(f); });
+  }
+  setInk(fields[0]);
+
+  // mobile menu
+  var overlay = document.getElementById('overlay');
+  var openBtn = document.getElementById('menu-open');
+  var closeBtn = document.getElementById('menu-close');
+  function close() { overlay.hidden = true; openBtn.setAttribute('aria-expanded', 'false'); openBtn.focus(); }
+  openBtn.addEventListener('click', function () { overlay.hidden = false; openBtn.setAttribute('aria-expanded', 'true'); closeBtn.focus(); });
+  closeBtn.addEventListener('click', close);
+  overlay.addEventListener('click', function (e) { if (e.target.tagName === 'A') { overlay.hidden = true; openBtn.setAttribute('aria-expanded', 'false'); } });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !overlay.hidden) close(); });
+
+  // every form on the site posts to /api/submit, which stores it in the Zeroing database
+  var DONE = {
+    join: 'Thank you. Your application is in. We will write back within 14 days.',
+    guest: 'Thank you. We will look into their work and reach out ourselves.',
+    contact: 'Thank you. Your message is in and we will reply by email.',
+    details: 'Thank you. Your answer is saved, and it may become a lead for our research.',
+    newsletter: 'You are on the list. One letter when a new conversation goes on record.'
+  };
+  document.querySelectorAll('form[data-form]').forEach(function (form) {
+    var status = form.querySelector('.status');
+    var button = form.querySelector('button[type="submit"]');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var bad = Array.prototype.find.call(form.elements, function (el) { return el.willValidate && !el.checkValidity(); });
+      if (bad) {
+        status.textContent = bad.type === 'checkbox' ? 'Tick the consent box so we can store your details.' :
+          bad.type === 'email' ? 'Enter an email address like name@example.com.' :
+          'Fill in ' + ((form.querySelector('label[for="' + bad.id + '"]') || {}).textContent || 'every required field').trim().toLowerCase() + '.';
+        bad.focus();
+        return;
+      }
+      var data = { form: form.dataset.form };
+      new FormData(form).forEach(function (v, k) { data[k] = v; });
+      var consent = form.querySelector('input[name="consent"]');
+      data.consent = !!(consent && consent.checked);
+      var label = consent && form.querySelector('label[for="' + consent.id + '"]');
+      data.consent_text = label ? label.textContent.trim() : '';
+      button.disabled = true;
+      status.textContent = 'Sending.';
+      fetch('/api/submit', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(data) })
+        .then(function (r) { return r.json().catch(function () { return { ok: false }; }); })
+        .then(function (res) {
+          if (res.ok) { form.reset(); status.textContent = DONE[form.dataset.form] || 'Thank you. It is in.'; }
+          else { status.textContent = res.error || 'That did not go through. Try again, or email zeroingindia@gmail.com.'; }
+        })
+        .catch(function () { status.textContent = 'That did not go through. Check your connection and try again, or email zeroingindia@gmail.com.'; })
+        .then(function () { button.disabled = false; });
+    });
+  });
+})();
+</script>
+</body>
+</html>

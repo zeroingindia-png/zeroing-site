@@ -370,3 +370,130 @@ p { margin: 0; max-width: 34em; }
   .seal { position: static; display: block; width: 92px; margin-bottom: 20px; }
   .brand-hero .seal { margin: 24px 0 0; width: 84px; }
 }
+
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+
+/* =========================================================
+   Identity v2: the Zeroing mark and Bricolage Grotesque
+   ========================================================= */
+:root {
+  --font-display: "Bricolage Grotesque", "Anek Latin", "Arial Narrow", system-ui, sans-serif;
+  --display-vars: "opsz" 96, "wdth" 88;
+}
+
+/* headlines: condensed, heavy, tight, like the big type in the Span frames */
+.display, .cases h3, .principles h3, .track h3, .brand-card .bname, .next-brands .name,
+.brand-list .name, .ledger .n, .facts .fig, .about .idea h3.sub, .overlay nav a, .ep-name {
+  font-family: var(--font-display);
+  font-variation-settings: var(--display-vars);
+  font-weight: 800;
+  letter-spacing: -0.012em;
+}
+.display { line-height: 0.9; }
+.hero h1, .brand-hero h1 { letter-spacing: -0.018em; }
+.record-text blockquote, .ledger p, .why-close {
+  font-family: var(--font-display); font-variation-settings: "opsz" 48, "wdth" 85; font-weight: 600; letter-spacing: -0.015em;
+}
+.facts .fig small { font-family: var(--font); font-variation-settings: "wdth" 100; }
+
+/* the Abduzeedo frame line: small, wide-spaced capitals at the edge of a field */
+.corners, .file-strip, .where, .record-text > .narrow:first-child, .tag {
+  text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.72rem; font-weight: 600;
+  font-variation-settings: "wdth" 100;
+}
+
+/* wordmark */
+.mark { gap: 10px; font-family: var(--font-display); font-variation-settings: "opsz" 24, "wdth" 90; font-weight: 800; font-size: 1.3rem; letter-spacing: -0.01em; }
+.mark svg.logo { width: 1.75em; height: auto; aspect-ratio: 1373 / 1002; margin: 0; transform: none; }
+.mark svg.logo path { fill: currentColor; stroke: none; }
+
+/* hero mark: cropped, tonal, the two halves lock together once on load */
+.hero-mark {
+  position: absolute; z-index: 0; pointer-events: none;
+  width: min(118vh, 74vw); aspect-ratio: 1373 / 1002; max-width: none;
+  right: -10vw; top: 54%; transform: translateY(-50%);
+}
+.hero-mark path { fill: var(--kajal); opacity: 0.13; }
+.f-kajal .hero-mark path { fill: var(--chuna); opacity: 0.08; }
+.hero-mark .top { animation: lock-r 1.6s cubic-bezier(.2,.7,.1,1) both; }
+.hero-mark .bot { animation: lock-l 1.6s cubic-bezier(.2,.7,.1,1) both; }
+@keyframes lock-r { from { transform: translateX(320px); } to { transform: translateX(0); } }
+@keyframes lock-l { from { transform: translateX(-320px); } to { transform: translateX(0); } }
+@media (prefers-reduced-motion: reduce) { .hero-mark .top, .hero-mark .bot { animation: none; } }
+@media (max-width: 900px) { .hero-mark { width: 135vw; right: -52vw; top: 26%; } }
+
+/* the logo, solid, closes every page */
+.join .stamp.logo-stamp { aspect-ratio: 1373 / 1002; width: clamp(120px, 14vw, 200px); }
+.stamp.logo-stamp path { fill: var(--sindoor); stroke: none; }
+
+/* forms */
+.form-wrap { display: grid; gap: clamp(28px, 4vw, 48px); max-width: 60rem; }
+.zform { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 24px; }
+.zform.one { grid-template-columns: 1fr; align-self: start; }
+.zform .f { display: grid; gap: 8px; min-width: 0; }
+.zform .wide { grid-column: 1 / -1; }
+.zform label { font-weight: 600; }
+.zform .opt { font-weight: 400; opacity: 0.7; }
+.zform input:not([type="checkbox"]), .zform textarea, .zform select {
+  width: 100%; min-height: 52px; padding: 12px 16px; border: 2px solid var(--kajal); border-radius: 0;
+  background: var(--chuna); color: var(--kajal); font: inherit; font-size: 1rem;
+}
+.zform textarea { resize: vertical; line-height: 1.45; }
+.zform input:focus-visible, .zform textarea:focus-visible, .zform select:focus-visible { outline: 3px solid var(--sindoor); outline-offset: 2px; }
+.zform small { font-size: var(--size-small); opacity: 0.75; }
+.zform .consent { display: flex; gap: 12px; align-items: flex-start; font-weight: 400; font-size: var(--size-small); line-height: 1.45; }
+.zform .consent input { width: 20px; height: 20px; margin-top: 1px; accent-color: var(--sindoor); flex: none; }
+.zform .submit-row { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
+.zform button.pill { cursor: pointer; font: inherit; font-weight: 600; }
+.zform button[disabled] { opacity: 0.6; cursor: progress; }
+.zform .status { font-weight: 600; max-width: 36em; }
+.form-field .case-head h2 { font-size: var(--size-1); }
+.contact-top { align-items: start; }
+.contact-top h1 { font-size: var(--size-1); }
+.sel { user-select: all; }
+
+/* steps lists reused outside home */
+.track ol.plain { counter-reset: none; }
+.track ol.plain li { counter-increment: none; grid-template-columns: 1.4rem minmax(0, 1fr); }
+.track ol.plain li::before { content: ""; width: 12px; height: 12px; margin-top: 7px; border-radius: 50%; background: var(--sindoor); }
+.about .track h3 { margin-top: 0; }
+
+/* episode archive */
+.episode-grid { margin-top: clamp(32px, 5vw, 64px); display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); gap: 32px 24px; }
+.episode { display: grid; gap: 10px; text-decoration: none; color: inherit; }
+.disc { position: relative; display: block; width: 100%; aspect-ratio: 1; max-width: 100%; border-radius: 50%; }
+.disc svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.disc svg path { fill: none; stroke: currentColor; stroke-width: 4; }
+.d-haldi { background: var(--haldi); color: var(--kajal); }
+.d-empty { color: var(--chuna); opacity: 0.5; }
+.disc .num { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--font-display); font-variation-settings: "opsz" 96, "wdth" 80; font-weight: 800; font-size: clamp(4rem, 9vw, 7rem); }
+.ep-name { font-size: var(--size-3); line-height: 1.05; }
+.ep-role { font-size: var(--size-small); opacity: 0.8; }
+a.episode:hover .ep-name { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
+.anthem { margin-top: clamp(40px, 6vw, 72px); font-size: var(--size-3); max-width: 34em; }
+.anthem .hi { display: block; margin-top: 8px; font-family: var(--font-hi); font-size: var(--size-2); font-weight: 700; }
+
+/* The Other Details and legal: the quiet, typed-file pages */
+.file { background: var(--chuna); }
+.file-strip { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-bottom: 14px; border-bottom: 2px solid currentColor; }
+.file-body { display: grid; gap: 20px; max-width: 44rem; margin-block: clamp(40px, 7vw, 96px) auto; }
+.file-body h1 { font-size: var(--size-1); }
+.file-lead { font-size: var(--size-3); line-height: 1.4; }
+.file-lead.quiet { opacity: 0.75; }
+.stamp-red { position: absolute; right: max(var(--edge), env(safe-area-inset-right, 0px)); bottom: 48px; width: clamp(110px, 12vw, 170px); aspect-ratio: 1; max-width: 100%; transform: rotate(-8deg); color: var(--sindoor); }
+.stamp-red path { fill: none; stroke: currentColor; stroke-width: 8; }
+.stamp-red text { fill: currentColor; font-family: var(--font-display); font-variation-settings: "opsz" 24, "wdth" 85; font-weight: 800; font-size: 26px; letter-spacing: 2px; }
+.legal-nav { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.legal-nav a { border: 2px solid currentColor; border-radius: 999px; padding: 6px 16px; text-decoration: none; font-weight: 600; font-size: var(--size-small); }
+.legal-nav a:hover { background: var(--kajal); color: var(--chuna); }
+.legal-body { max-width: 44rem; margin-top: clamp(32px, 5vw, 56px); display: grid; gap: 14px; }
+.legal-body h1 { font-size: var(--size-1); margin-bottom: 12px; }
+.legal-body h2 { margin: 36px 0 4px; font-family: var(--font-display); font-variation-settings: var(--display-vars); font-weight: 800; font-size: var(--size-2); letter-spacing: -0.02em; line-height: 1; scroll-margin-top: calc(var(--head-h) + 24px); }
+.legal-body h3 { margin: 14px 0 0; font-size: var(--size-3); }
+.legal-body ul { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; max-width: 34em; }
+.legal-body .facts-list { margin-top: 8px; }
+
+@media (max-width: 900px) {
+  .zform { grid-template-columns: 1fr; }
+  .stamp-red { position: static; display: block; margin-top: 32px; }
+}

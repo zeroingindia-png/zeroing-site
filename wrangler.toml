@@ -1,0 +1,8 @@
+name = "zeroing-site"
+pages_build_output_dir = "./public"
+compatibility_date = "2026-10-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "zeroing-forms"
+database_id = "daf9974d-35bf-4e98-b86f-ae5e5d3e50ca"

@@ -6,9 +6,10 @@
 <title>Zeroing Community</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="The Indian brands in Zeroing, and what we learned from small business efforts around the world.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anek+Devanagari:wdth,wght@75..125,300..800&family=Anek+Latin:wdth,wght@75..125,300..800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anek+Devanagari:wdth,wght@75..125,300..800&family=Anek+Latin:wdth,wght@75..125,300..800&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&display=swap">
 <style>
 /* Layout: one full-screen colour field per idea, snapped like a film reel; the hand-drawn zero is the only ornament. */
 :root {
@@ -382,40 +383,169 @@ p { margin: 0; max-width: 34em; }
   .seal { position: static; display: block; width: 92px; margin-bottom: 20px; }
   .brand-hero .seal { margin: 24px 0 0; width: 84px; }
 }
+
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+
+/* =========================================================
+   Identity v2: the Zeroing mark and Bricolage Grotesque
+   ========================================================= */
+:root {
+  --font-display: "Bricolage Grotesque", "Anek Latin", "Arial Narrow", system-ui, sans-serif;
+  --display-vars: "opsz" 96, "wdth" 88;
+}
+
+/* headlines: condensed, heavy, tight, like the big type in the Span frames */
+.display, .cases h3, .principles h3, .track h3, .brand-card .bname, .next-brands .name,
+.brand-list .name, .ledger .n, .facts .fig, .about .idea h3.sub, .overlay nav a, .ep-name {
+  font-family: var(--font-display);
+  font-variation-settings: var(--display-vars);
+  font-weight: 800;
+  letter-spacing: -0.012em;
+}
+.display { line-height: 0.9; }
+.hero h1, .brand-hero h1 { letter-spacing: -0.018em; }
+.record-text blockquote, .ledger p, .why-close {
+  font-family: var(--font-display); font-variation-settings: "opsz" 48, "wdth" 85; font-weight: 600; letter-spacing: -0.015em;
+}
+.facts .fig small { font-family: var(--font); font-variation-settings: "wdth" 100; }
+
+/* the Abduzeedo frame line: small, wide-spaced capitals at the edge of a field */
+.corners, .file-strip, .where, .record-text > .narrow:first-child, .tag {
+  text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.72rem; font-weight: 600;
+  font-variation-settings: "wdth" 100;
+}
+
+/* wordmark */
+.mark { gap: 10px; font-family: var(--font-display); font-variation-settings: "opsz" 24, "wdth" 90; font-weight: 800; font-size: 1.3rem; letter-spacing: -0.01em; }
+.mark svg.logo { width: 1.75em; height: auto; aspect-ratio: 1373 / 1002; margin: 0; transform: none; }
+.mark svg.logo path { fill: currentColor; stroke: none; }
+
+/* hero mark: cropped, tonal, the two halves lock together once on load */
+.hero-mark {
+  position: absolute; z-index: 0; pointer-events: none;
+  width: min(118vh, 74vw); aspect-ratio: 1373 / 1002; max-width: none;
+  right: -10vw; top: 54%; transform: translateY(-50%);
+}
+.hero-mark path { fill: var(--kajal); opacity: 0.13; }
+.f-kajal .hero-mark path { fill: var(--chuna); opacity: 0.08; }
+.hero-mark .top { animation: lock-r 1.6s cubic-bezier(.2,.7,.1,1) both; }
+.hero-mark .bot { animation: lock-l 1.6s cubic-bezier(.2,.7,.1,1) both; }
+@keyframes lock-r { from { transform: translateX(320px); } to { transform: translateX(0); } }
+@keyframes lock-l { from { transform: translateX(-320px); } to { transform: translateX(0); } }
+@media (prefers-reduced-motion: reduce) { .hero-mark .top, .hero-mark .bot { animation: none; } }
+@media (max-width: 900px) { .hero-mark { width: 135vw; right: -52vw; top: 26%; } }
+
+/* the logo, solid, closes every page */
+.join .stamp.logo-stamp { aspect-ratio: 1373 / 1002; width: clamp(120px, 14vw, 200px); }
+.stamp.logo-stamp path { fill: var(--sindoor); stroke: none; }
+
+/* forms */
+.form-wrap { display: grid; gap: clamp(28px, 4vw, 48px); max-width: 60rem; }
+.zform { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 24px; }
+.zform.one { grid-template-columns: 1fr; align-self: start; }
+.zform .f { display: grid; gap: 8px; min-width: 0; }
+.zform .wide { grid-column: 1 / -1; }
+.zform label { font-weight: 600; }
+.zform .opt { font-weight: 400; opacity: 0.7; }
+.zform input:not([type="checkbox"]), .zform textarea, .zform select {
+  width: 100%; min-height: 52px; padding: 12px 16px; border: 2px solid var(--kajal); border-radius: 0;
+  background: var(--chuna); color: var(--kajal); font: inherit; font-size: 1rem;
+}
+.zform textarea { resize: vertical; line-height: 1.45; }
+.zform input:focus-visible, .zform textarea:focus-visible, .zform select:focus-visible { outline: 3px solid var(--sindoor); outline-offset: 2px; }
+.zform small { font-size: var(--size-small); opacity: 0.75; }
+.zform .consent { display: flex; gap: 12px; align-items: flex-start; font-weight: 400; font-size: var(--size-small); line-height: 1.45; }
+.zform .consent input { width: 20px; height: 20px; margin-top: 1px; accent-color: var(--sindoor); flex: none; }
+.zform .submit-row { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
+.zform button.pill { cursor: pointer; font: inherit; font-weight: 600; }
+.zform button[disabled] { opacity: 0.6; cursor: progress; }
+.zform .status { font-weight: 600; max-width: 36em; }
+.form-field .case-head h2 { font-size: var(--size-1); }
+.contact-top { align-items: start; }
+.contact-top h1 { font-size: var(--size-1); }
+.sel { user-select: all; }
+
+/* steps lists reused outside home */
+.track ol.plain { counter-reset: none; }
+.track ol.plain li { counter-increment: none; grid-template-columns: 1.4rem minmax(0, 1fr); }
+.track ol.plain li::before { content: ""; width: 12px; height: 12px; margin-top: 7px; border-radius: 50%; background: var(--sindoor); }
+.about .track h3 { margin-top: 0; }
+
+/* episode archive */
+.episode-grid { margin-top: clamp(32px, 5vw, 64px); display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); gap: 32px 24px; }
+.episode { display: grid; gap: 10px; text-decoration: none; color: inherit; }
+.disc { position: relative; display: block; width: 100%; aspect-ratio: 1; max-width: 100%; border-radius: 50%; }
+.disc svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.disc svg path { fill: none; stroke: currentColor; stroke-width: 4; }
+.d-haldi { background: var(--haldi); color: var(--kajal); }
+.d-empty { color: var(--chuna); opacity: 0.5; }
+.disc .num { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--font-display); font-variation-settings: "opsz" 96, "wdth" 80; font-weight: 800; font-size: clamp(4rem, 9vw, 7rem); }
+.ep-name { font-size: var(--size-3); line-height: 1.05; }
+.ep-role { font-size: var(--size-small); opacity: 0.8; }
+a.episode:hover .ep-name { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
+.anthem { margin-top: clamp(40px, 6vw, 72px); font-size: var(--size-3); max-width: 34em; }
+.anthem .hi { display: block; margin-top: 8px; font-family: var(--font-hi); font-size: var(--size-2); font-weight: 700; }
+
+/* The Other Details and legal: the quiet, typed-file pages */
+.file { background: var(--chuna); }
+.file-strip { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-bottom: 14px; border-bottom: 2px solid currentColor; }
+.file-body { display: grid; gap: 20px; max-width: 44rem; margin-block: clamp(40px, 7vw, 96px) auto; }
+.file-body h1 { font-size: var(--size-1); }
+.file-lead { font-size: var(--size-3); line-height: 1.4; }
+.file-lead.quiet { opacity: 0.75; }
+.stamp-red { position: absolute; right: max(var(--edge), env(safe-area-inset-right, 0px)); bottom: 48px; width: clamp(110px, 12vw, 170px); aspect-ratio: 1; max-width: 100%; transform: rotate(-8deg); color: var(--sindoor); }
+.stamp-red path { fill: none; stroke: currentColor; stroke-width: 8; }
+.stamp-red text { fill: currentColor; font-family: var(--font-display); font-variation-settings: "opsz" 24, "wdth" 85; font-weight: 800; font-size: 26px; letter-spacing: 2px; }
+.legal-nav { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.legal-nav a { border: 2px solid currentColor; border-radius: 999px; padding: 6px 16px; text-decoration: none; font-weight: 600; font-size: var(--size-small); }
+.legal-nav a:hover { background: var(--kajal); color: var(--chuna); }
+.legal-body { max-width: 44rem; margin-top: clamp(32px, 5vw, 56px); display: grid; gap: 14px; }
+.legal-body h1 { font-size: var(--size-1); margin-bottom: 12px; }
+.legal-body h2 { margin: 36px 0 4px; font-family: var(--font-display); font-variation-settings: var(--display-vars); font-weight: 800; font-size: var(--size-2); letter-spacing: -0.02em; line-height: 1; scroll-margin-top: calc(var(--head-h) + 24px); }
+.legal-body h3 { margin: 14px 0 0; font-size: var(--size-3); }
+.legal-body ul { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; max-width: 34em; }
+.legal-body .facts-list { margin-top: 8px; }
+
+@media (max-width: 900px) {
+  .zform { grid-template-columns: 1fr; }
+  .stamp-red { position: static; display: block; margin-top: 32px; }
+}
 </style>
 </head>
 <body>
 <header class="head" id="head">
-  <a class="mark" href="index.html#top" aria-label="Zeroing, home">ZER<svg viewBox="0 0 200 200" aria-hidden="true"><path d="M74.2 24.4C76.3 23.9 82.6 21.9 87.0 21.2C91.3 20.6 95.7 20.5 100.1 20.7C104.4 21.0 108.8 21.7 113.0 22.7C117.2 23.6 121.3 25.0 125.3 26.4C129.3 27.9 133.2 29.7 137.0 31.6C140.9 33.5 144.6 35.6 148.2 38.0C151.8 40.4 155.4 43.0 158.7 46.0C161.9 48.9 165.0 52.2 167.7 55.7C170.4 59.2 172.8 63.1 174.8 67.1C176.7 71.1 178.2 75.5 179.3 79.8C180.4 84.1 181.0 88.7 181.3 93.1C181.6 97.6 181.4 102.1 181.0 106.6C180.5 111.0 179.6 115.4 178.5 119.7C177.3 124.0 175.8 128.2 173.9 132.2C172.0 136.2 169.7 140.1 167.1 143.6C164.5 147.1 161.5 150.5 158.3 153.4C155.1 156.3 151.5 158.9 147.9 161.1C144.3 163.4 140.4 165.3 136.5 166.9C132.6 168.5 128.6 169.8 124.7 171.0C120.7 172.2 116.7 173.1 112.6 173.9C108.6 174.7 104.5 175.4 100.3 175.8C96.1 176.2 91.9 176.5 87.6 176.3C83.4 176.1 79.0 175.6 74.8 174.7C70.5 173.7 66.3 172.3 62.3 170.5C58.3 168.7 54.5 166.3 50.9 163.7C47.4 161.1 44.2 158.0 41.2 154.7C38.3 151.5 35.6 147.8 33.3 144.1C30.9 140.4 28.9 136.5 27.1 132.5C25.4 128.5 23.9 124.3 22.8 120.1C21.7 115.8 20.9 111.4 20.6 107.1C20.3 102.8 20.3 98.3 20.8 94.0C21.3 89.7 22.3 85.3 23.6 81.2C24.9 77.1 26.6 73.1 28.6 69.3C30.5 65.5 32.9 61.9 35.3 58.4C37.8 55.0 40.5 51.8 43.4 48.7C46.2 45.6 49.2 42.6 52.5 39.9C55.7 37.3 59.1 34.7 62.7 32.5C66.4 30.3 70.2 28.4 74.2 26.9C78.2 25.4 82.4 24.3 86.5 23.6C90.7 23.0 97.2 23.1 99.3 23.0"/></svg>ING</a>
+  <a class="mark" href="index.html#top" aria-label="Zeroing, home"><svg class="logo" viewBox="0 0 1373 1002" aria-hidden="true"><path fill-rule="evenodd" d="M365.7 1000.9C243.6 990.8 133.8 925.9 66.5 824.0C29.7 768.4 8.5 707.8 1.9 639.5C0.2 621.9 0.4 583.4 2.4 565.0C4.0 549.5 7.6 527.7 10.8 513.9L12.5 506.5L160.1 506.2L307.7 506.0L438.6 374.2C510.6 301.8 598.7 213.0 634.5 177.0C706.4 104.6 710.1 100.9 727.9 86.8C782.0 43.5 849.4 14.4 918.5 4.6C954.1 -0.5 996.7 -0.5 1032.5 4.6C1089.1 12.6 1147.6 35.0 1196.0 67.3C1273.8 119.3 1331.4 197.8 1356.9 287.0C1377.2 357.8 1377.9 428.2 1359.2 501.5L1357.4 508.5L1205.2 509.0L1053.0 509.5L871.3 692.6C771.3 793.4 682.5 882.5 674.0 890.6C641.3 921.8 611.0 942.9 571.5 962.1C525.8 984.3 480.5 996.6 428.5 1001.0C414.7 1002.1 380.1 1002.1 365.7 1000.9ZM423.0 732.6C448.8 727.0 468.8 716.4 489.2 697.4C495.0 692.0 539.6 647.5 588.2 598.5L676.5 509.5L493.0 509.2L309.6 509.0L304.7 513.7C302.0 516.4 297.0 522.2 293.6 526.8C268.8 559.7 261.2 604.2 273.6 643.5C283.3 674.0 305.1 701.3 332.7 717.4C345.8 725.0 362.5 730.9 378.5 733.6C388.8 735.3 412.9 734.8 423.0 732.6ZM1057.0 500.3C1079.9 475.2 1092.8 436.0 1089.1 402.5C1082.6 344.7 1044.4 301.1 987.6 286.9C975.7 283.9 951.5 283.2 937.9 285.5C918.9 288.7 899.0 296.8 883.2 308.0C878.5 311.3 860.6 328.6 832.8 356.8C809.0 380.8 765.9 424.2 737.1 453.2L684.5 506.0L868.2 506.0L1051.8 506.0L1057.0 500.3Z"/></svg><span>Zeroing</span></a>
   <div class="nav">
     <a href="index.html#why">Why</a>
-    <a href="index.html#on-record">Independent Society</a>
+    <a href="independent-society.html">Independent Society</a>
     <a href="community.html" aria-current="page">Community</a>
     <a href="index.html#how">How we work</a>
-    <a href="#join">Join</a>
-    <a class="pill" href="index.html#on-record"><span>Listen</span></a>
+    <a href="join.html">Join</a>
+    <a class="pill" href="episodes/akanksha-sood-singh.html"><span>Listen</span></a>
     <button class="menu-btn" id="menu-open" type="button" aria-expanded="false" aria-controls="overlay">Menu</button>
   </div>
 </header>
 
 <div class="overlay" id="overlay" hidden>
   <div class="overlay-top">
-    <span class="mark">ZER<svg viewBox="0 0 200 200" aria-hidden="true"><path d="M74.2 24.4C76.3 23.9 82.6 21.9 87.0 21.2C91.3 20.6 95.7 20.5 100.1 20.7C104.4 21.0 108.8 21.7 113.0 22.7C117.2 23.6 121.3 25.0 125.3 26.4C129.3 27.9 133.2 29.7 137.0 31.6C140.9 33.5 144.6 35.6 148.2 38.0C151.8 40.4 155.4 43.0 158.7 46.0C161.9 48.9 165.0 52.2 167.7 55.7C170.4 59.2 172.8 63.1 174.8 67.1C176.7 71.1 178.2 75.5 179.3 79.8C180.4 84.1 181.0 88.7 181.3 93.1C181.6 97.6 181.4 102.1 181.0 106.6C180.5 111.0 179.6 115.4 178.5 119.7C177.3 124.0 175.8 128.2 173.9 132.2C172.0 136.2 169.7 140.1 167.1 143.6C164.5 147.1 161.5 150.5 158.3 153.4C155.1 156.3 151.5 158.9 147.9 161.1C144.3 163.4 140.4 165.3 136.5 166.9C132.6 168.5 128.6 169.8 124.7 171.0C120.7 172.2 116.7 173.1 112.6 173.9C108.6 174.7 104.5 175.4 100.3 175.8C96.1 176.2 91.9 176.5 87.6 176.3C83.4 176.1 79.0 175.6 74.8 174.7C70.5 173.7 66.3 172.3 62.3 170.5C58.3 168.7 54.5 166.3 50.9 163.7C47.4 161.1 44.2 158.0 41.2 154.7C38.3 151.5 35.6 147.8 33.3 144.1C30.9 140.4 28.9 136.5 27.1 132.5C25.4 128.5 23.9 124.3 22.8 120.1C21.7 115.8 20.9 111.4 20.6 107.1C20.3 102.8 20.3 98.3 20.8 94.0C21.3 89.7 22.3 85.3 23.6 81.2C24.9 77.1 26.6 73.1 28.6 69.3C30.5 65.5 32.9 61.9 35.3 58.4C37.8 55.0 40.5 51.8 43.4 48.7C46.2 45.6 49.2 42.6 52.5 39.9C55.7 37.3 59.1 34.7 62.7 32.5C66.4 30.3 70.2 28.4 74.2 26.9C78.2 25.4 82.4 24.3 86.5 23.6C90.7 23.0 97.2 23.1 99.3 23.0"/></svg>ING</span>
+    <span class="mark"><svg class="logo" viewBox="0 0 1373 1002" aria-hidden="true"><path fill-rule="evenodd" d="M365.7 1000.9C243.6 990.8 133.8 925.9 66.5 824.0C29.7 768.4 8.5 707.8 1.9 639.5C0.2 621.9 0.4 583.4 2.4 565.0C4.0 549.5 7.6 527.7 10.8 513.9L12.5 506.5L160.1 506.2L307.7 506.0L438.6 374.2C510.6 301.8 598.7 213.0 634.5 177.0C706.4 104.6 710.1 100.9 727.9 86.8C782.0 43.5 849.4 14.4 918.5 4.6C954.1 -0.5 996.7 -0.5 1032.5 4.6C1089.1 12.6 1147.6 35.0 1196.0 67.3C1273.8 119.3 1331.4 197.8 1356.9 287.0C1377.2 357.8 1377.9 428.2 1359.2 501.5L1357.4 508.5L1205.2 509.0L1053.0 509.5L871.3 692.6C771.3 793.4 682.5 882.5 674.0 890.6C641.3 921.8 611.0 942.9 571.5 962.1C525.8 984.3 480.5 996.6 428.5 1001.0C414.7 1002.1 380.1 1002.1 365.7 1000.9ZM423.0 732.6C448.8 727.0 468.8 716.4 489.2 697.4C495.0 692.0 539.6 647.5 588.2 598.5L676.5 509.5L493.0 509.2L309.6 509.0L304.7 513.7C302.0 516.4 297.0 522.2 293.6 526.8C268.8 559.7 261.2 604.2 273.6 643.5C283.3 674.0 305.1 701.3 332.7 717.4C345.8 725.0 362.5 730.9 378.5 733.6C388.8 735.3 412.9 734.8 423.0 732.6ZM1057.0 500.3C1079.9 475.2 1092.8 436.0 1089.1 402.5C1082.6 344.7 1044.4 301.1 987.6 286.9C975.7 283.9 951.5 283.2 937.9 285.5C918.9 288.7 899.0 296.8 883.2 308.0C878.5 311.3 860.6 328.6 832.8 356.8C809.0 380.8 765.9 424.2 737.1 453.2L684.5 506.0L868.2 506.0L1051.8 506.0L1057.0 500.3Z"/></svg><span>Zeroing</span></span>
     <button class="menu-btn" id="menu-close" type="button" style="display:inline-flex">Close</button>
   </div>
   <nav aria-label="Main">
     <a href="index.html#why">Why Zeroing exists</a>
-    <a href="index.html#on-record">Independent Society</a>
+    <a href="independent-society.html">Independent Society</a>
     <a href="community.html">Community</a>
+    <a href="the-other-details.html">The Other Details</a>
     <a href="index.html#how">How we work</a>
-    <a href="#join">Join</a>
+    <a href="join.html">Join</a>
+    <a href="contact.html">Contact</a>
   </nav>
-  <a class="pill solid" href="index.html#on-record" style="align-self:flex-start;margin-top:auto">Listen to the latest conversation</a>
+  <a class="pill solid" href="episodes/akanksha-sood-singh.html" style="align-self:flex-start;margin-top:auto">Listen to the latest conversation</a>
 </div>
 
 <main>
   <section class="field f-peepal hero" id="top" data-ink="chuna" data-field="peepal">
-    <svg class="hero-ring" viewBox="0 0 200 200" aria-hidden="true"><path class="draw" pathLength="1" d="M74.2 24.4C76.3 23.9 82.6 21.9 87.0 21.2C91.3 20.6 95.7 20.5 100.1 20.7C104.4 21.0 108.8 21.7 113.0 22.7C117.2 23.6 121.3 25.0 125.3 26.4C129.3 27.9 133.2 29.7 137.0 31.6C140.9 33.5 144.6 35.6 148.2 38.0C151.8 40.4 155.4 43.0 158.7 46.0C161.9 48.9 165.0 52.2 167.7 55.7C170.4 59.2 172.8 63.1 174.8 67.1C176.7 71.1 178.2 75.5 179.3 79.8C180.4 84.1 181.0 88.7 181.3 93.1C181.6 97.6 181.4 102.1 181.0 106.6C180.5 111.0 179.6 115.4 178.5 119.7C177.3 124.0 175.8 128.2 173.9 132.2C172.0 136.2 169.7 140.1 167.1 143.6C164.5 147.1 161.5 150.5 158.3 153.4C155.1 156.3 151.5 158.9 147.9 161.1C144.3 163.4 140.4 165.3 136.5 166.9C132.6 168.5 128.6 169.8 124.7 171.0C120.7 172.2 116.7 173.1 112.6 173.9C108.6 174.7 104.5 175.4 100.3 175.8C96.1 176.2 91.9 176.5 87.6 176.3C83.4 176.1 79.0 175.6 74.8 174.7C70.5 173.7 66.3 172.3 62.3 170.5C58.3 168.7 54.5 166.3 50.9 163.7C47.4 161.1 44.2 158.0 41.2 154.7C38.3 151.5 35.6 147.8 33.3 144.1C30.9 140.4 28.9 136.5 27.1 132.5C25.4 128.5 23.9 124.3 22.8 120.1C21.7 115.8 20.9 111.4 20.6 107.1C20.3 102.8 20.3 98.3 20.8 94.0C21.3 89.7 22.3 85.3 23.6 81.2C24.9 77.1 26.6 73.1 28.6 69.3C30.5 65.5 32.9 61.9 35.3 58.4C37.8 55.0 40.5 51.8 43.4 48.7C46.2 45.6 49.2 42.6 52.5 39.9C55.7 37.3 59.1 34.7 62.7 32.5C66.4 30.3 70.2 28.4 74.2 26.9C78.2 25.4 82.4 24.3 86.5 23.6C90.7 23.0 97.2 23.1 99.3 23.0"/></svg>
+    <svg class="hero-mark" viewBox="0 0 1373 1002" aria-hidden="true"><defs><clipPath id="mt2"><rect width="1373" height="506"/></clipPath><clipPath id="mb2"><rect y="506" width="1373" height="496"/></clipPath></defs><g class="top" clip-path="url(#mt2)"><path fill-rule="evenodd" d="M365.7 1000.9C243.6 990.8 133.8 925.9 66.5 824.0C29.7 768.4 8.5 707.8 1.9 639.5C0.2 621.9 0.4 583.4 2.4 565.0C4.0 549.5 7.6 527.7 10.8 513.9L12.5 506.5L160.1 506.2L307.7 506.0L438.6 374.2C510.6 301.8 598.7 213.0 634.5 177.0C706.4 104.6 710.1 100.9 727.9 86.8C782.0 43.5 849.4 14.4 918.5 4.6C954.1 -0.5 996.7 -0.5 1032.5 4.6C1089.1 12.6 1147.6 35.0 1196.0 67.3C1273.8 119.3 1331.4 197.8 1356.9 287.0C1377.2 357.8 1377.9 428.2 1359.2 501.5L1357.4 508.5L1205.2 509.0L1053.0 509.5L871.3 692.6C771.3 793.4 682.5 882.5 674.0 890.6C641.3 921.8 611.0 942.9 571.5 962.1C525.8 984.3 480.5 996.6 428.5 1001.0C414.7 1002.1 380.1 1002.1 365.7 1000.9ZM423.0 732.6C448.8 727.0 468.8 716.4 489.2 697.4C495.0 692.0 539.6 647.5 588.2 598.5L676.5 509.5L493.0 509.2L309.6 509.0L304.7 513.7C302.0 516.4 297.0 522.2 293.6 526.8C268.8 559.7 261.2 604.2 273.6 643.5C283.3 674.0 305.1 701.3 332.7 717.4C345.8 725.0 362.5 730.9 378.5 733.6C388.8 735.3 412.9 734.8 423.0 732.6ZM1057.0 500.3C1079.9 475.2 1092.8 436.0 1089.1 402.5C1082.6 344.7 1044.4 301.1 987.6 286.9C975.7 283.9 951.5 283.2 937.9 285.5C918.9 288.7 899.0 296.8 883.2 308.0C878.5 311.3 860.6 328.6 832.8 356.8C809.0 380.8 765.9 424.2 737.1 453.2L684.5 506.0L868.2 506.0L1051.8 506.0L1057.0 500.3Z"/></g><g class="bot" clip-path="url(#mb2)"><path fill-rule="evenodd" d="M365.7 1000.9C243.6 990.8 133.8 925.9 66.5 824.0C29.7 768.4 8.5 707.8 1.9 639.5C0.2 621.9 0.4 583.4 2.4 565.0C4.0 549.5 7.6 527.7 10.8 513.9L12.5 506.5L160.1 506.2L307.7 506.0L438.6 374.2C510.6 301.8 598.7 213.0 634.5 177.0C706.4 104.6 710.1 100.9 727.9 86.8C782.0 43.5 849.4 14.4 918.5 4.6C954.1 -0.5 996.7 -0.5 1032.5 4.6C1089.1 12.6 1147.6 35.0 1196.0 67.3C1273.8 119.3 1331.4 197.8 1356.9 287.0C1377.2 357.8 1377.9 428.2 1359.2 501.5L1357.4 508.5L1205.2 509.0L1053.0 509.5L871.3 692.6C771.3 793.4 682.5 882.5 674.0 890.6C641.3 921.8 611.0 942.9 571.5 962.1C525.8 984.3 480.5 996.6 428.5 1001.0C414.7 1002.1 380.1 1002.1 365.7 1000.9ZM423.0 732.6C448.8 727.0 468.8 716.4 489.2 697.4C495.0 692.0 539.6 647.5 588.2 598.5L676.5 509.5L493.0 509.2L309.6 509.0L304.7 513.7C302.0 516.4 297.0 522.2 293.6 526.8C268.8 559.7 261.2 604.2 273.6 643.5C283.3 674.0 305.1 701.3 332.7 717.4C345.8 725.0 362.5 730.9 378.5 733.6C388.8 735.3 412.9 734.8 423.0 732.6ZM1057.0 500.3C1079.9 475.2 1092.8 436.0 1089.1 402.5C1082.6 344.7 1044.4 301.1 987.6 286.9C975.7 283.9 951.5 283.2 937.9 285.5C918.9 288.7 899.0 296.8 883.2 308.0C878.5 311.3 860.6 328.6 832.8 356.8C809.0 380.8 765.9 424.2 737.1 453.2L684.5 506.0L868.2 506.0L1051.8 506.0L1057.0 500.3Z"/></g></svg>
     <div class="hero-body">
       <h1 class="display">One stall is easy to miss. A whole lane is not.</h1>
       <p class="lede">Zeroing is a community of homegrown Indian brands, made in India and working towards sustainability, that open doors for each other. Before building it, we studied how others around the world have tried to help small businesses be seen. Here is what worked, what did not, and what we took from it.</p>
@@ -507,7 +637,7 @@ p { margin: 0; max-width: 34em; }
   </section>
 
   <section class="field f-genda" id="shared" data-ink="kajal" data-field="genda">
-    <svg class="seal" viewBox="0 0 200 200" aria-hidden="true"><path d="M74.2 24.4C76.3 23.9 82.6 21.9 87.0 21.2C91.3 20.6 95.7 20.5 100.1 20.7C104.4 21.0 108.8 21.7 113.0 22.7C117.2 23.6 121.3 25.0 125.3 26.4C129.3 27.9 133.2 29.7 137.0 31.6C140.9 33.5 144.6 35.6 148.2 38.0C151.8 40.4 155.4 43.0 158.7 46.0C161.9 48.9 165.0 52.2 167.7 55.7C170.4 59.2 172.8 63.1 174.8 67.1C176.7 71.1 178.2 75.5 179.3 79.8C180.4 84.1 181.0 88.7 181.3 93.1C181.6 97.6 181.4 102.1 181.0 106.6C180.5 111.0 179.6 115.4 178.5 119.7C177.3 124.0 175.8 128.2 173.9 132.2C172.0 136.2 169.7 140.1 167.1 143.6C164.5 147.1 161.5 150.5 158.3 153.4C155.1 156.3 151.5 158.9 147.9 161.1C144.3 163.4 140.4 165.3 136.5 166.9C132.6 168.5 128.6 169.8 124.7 171.0C120.7 172.2 116.7 173.1 112.6 173.9C108.6 174.7 104.5 175.4 100.3 175.8C96.1 176.2 91.9 176.5 87.6 176.3C83.4 176.1 79.0 175.6 74.8 174.7C70.5 173.7 66.3 172.3 62.3 170.5C58.3 168.7 54.5 166.3 50.9 163.7C47.4 161.1 44.2 158.0 41.2 154.7C38.3 151.5 35.6 147.8 33.3 144.1C30.9 140.4 28.9 136.5 27.1 132.5C25.4 128.5 23.9 124.3 22.8 120.1C21.7 115.8 20.9 111.4 20.6 107.1C20.3 102.8 20.3 98.3 20.8 94.0C21.3 89.7 22.3 85.3 23.6 81.2C24.9 77.1 26.6 73.1 28.6 69.3C30.5 65.5 32.9 61.9 35.3 58.4C37.8 55.0 40.5 51.8 43.4 48.7C46.2 45.6 49.2 42.6 52.5 39.9C55.7 37.3 59.1 34.7 62.7 32.5C66.4 30.3 70.2 28.4 74.2 26.9C78.2 25.4 82.4 24.3 86.5 23.6C90.7 23.0 97.2 23.1 99.3 23.0"/><text x="100" y="94" text-anchor="middle">MADE IN</text><text x="100" y="122" text-anchor="middle">INDIA</text></svg>
+    <svg class="seal" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 18a82 82 0 1 1 0 164a82 82 0 1 1 0-164Z"/><text x="100" y="94" text-anchor="middle">MADE IN</text><text x="100" y="122" text-anchor="middle">INDIA</text></svg>
     <div class="case-head">
       <h2 class="display">What every brand shares</h2>
       <p>Four things a brand must be before it joins Zeroing.</p>
@@ -558,30 +688,28 @@ p { margin: 0; max-width: 34em; }
   </section>
 
   <section class="field f-kajal join" id="join" data-ink="chuna" data-field="kajal">
-    <svg class="stamp" viewBox="0 0 200 200" aria-hidden="true">
-      <path d="M74.2 24.4C76.3 23.9 82.6 21.9 87.0 21.2C91.3 20.6 95.7 20.5 100.1 20.7C104.4 21.0 108.8 21.7 113.0 22.7C117.2 23.6 121.3 25.0 125.3 26.4C129.3 27.9 133.2 29.7 137.0 31.6C140.9 33.5 144.6 35.6 148.2 38.0C151.8 40.4 155.4 43.0 158.7 46.0C161.9 48.9 165.0 52.2 167.7 55.7C170.4 59.2 172.8 63.1 174.8 67.1C176.7 71.1 178.2 75.5 179.3 79.8C180.4 84.1 181.0 88.7 181.3 93.1C181.6 97.6 181.4 102.1 181.0 106.6C180.5 111.0 179.6 115.4 178.5 119.7C177.3 124.0 175.8 128.2 173.9 132.2C172.0 136.2 169.7 140.1 167.1 143.6C164.5 147.1 161.5 150.5 158.3 153.4C155.1 156.3 151.5 158.9 147.9 161.1C144.3 163.4 140.4 165.3 136.5 166.9C132.6 168.5 128.6 169.8 124.7 171.0C120.7 172.2 116.7 173.1 112.6 173.9C108.6 174.7 104.5 175.4 100.3 175.8C96.1 176.2 91.9 176.5 87.6 176.3C83.4 176.1 79.0 175.6 74.8 174.7C70.5 173.7 66.3 172.3 62.3 170.5C58.3 168.7 54.5 166.3 50.9 163.7C47.4 161.1 44.2 158.0 41.2 154.7C38.3 151.5 35.6 147.8 33.3 144.1C30.9 140.4 28.9 136.5 27.1 132.5C25.4 128.5 23.9 124.3 22.8 120.1C21.7 115.8 20.9 111.4 20.6 107.1C20.3 102.8 20.3 98.3 20.8 94.0C21.3 89.7 22.3 85.3 23.6 81.2C24.9 77.1 26.6 73.1 28.6 69.3C30.5 65.5 32.9 61.9 35.3 58.4C37.8 55.0 40.5 51.8 43.4 48.7C46.2 45.6 49.2 42.6 52.5 39.9C55.7 37.3 59.1 34.7 62.7 32.5C66.4 30.3 70.2 28.4 74.2 26.9C78.2 25.4 82.4 24.3 86.5 23.6C90.7 23.0 97.2 23.1 99.3 23.0"/>
-      <text x="100" y="106" text-anchor="middle">ZEROING</text>
-    </svg>
+    <svg class="stamp logo-stamp" viewBox="0 0 1373 1002" role="img" aria-label="Zeroing logo"><path fill-rule="evenodd" d="M365.7 1000.9C243.6 990.8 133.8 925.9 66.5 824.0C29.7 768.4 8.5 707.8 1.9 639.5C0.2 621.9 0.4 583.4 2.4 565.0C4.0 549.5 7.6 527.7 10.8 513.9L12.5 506.5L160.1 506.2L307.7 506.0L438.6 374.2C510.6 301.8 598.7 213.0 634.5 177.0C706.4 104.6 710.1 100.9 727.9 86.8C782.0 43.5 849.4 14.4 918.5 4.6C954.1 -0.5 996.7 -0.5 1032.5 4.6C1089.1 12.6 1147.6 35.0 1196.0 67.3C1273.8 119.3 1331.4 197.8 1356.9 287.0C1377.2 357.8 1377.9 428.2 1359.2 501.5L1357.4 508.5L1205.2 509.0L1053.0 509.5L871.3 692.6C771.3 793.4 682.5 882.5 674.0 890.6C641.3 921.8 611.0 942.9 571.5 962.1C525.8 984.3 480.5 996.6 428.5 1001.0C414.7 1002.1 380.1 1002.1 365.7 1000.9ZM423.0 732.6C448.8 727.0 468.8 716.4 489.2 697.4C495.0 692.0 539.6 647.5 588.2 598.5L676.5 509.5L493.0 509.2L309.6 509.0L304.7 513.7C302.0 516.4 297.0 522.2 293.6 526.8C268.8 559.7 261.2 604.2 273.6 643.5C283.3 674.0 305.1 701.3 332.7 717.4C345.8 725.0 362.5 730.9 378.5 733.6C388.8 735.3 412.9 734.8 423.0 732.6ZM1057.0 500.3C1079.9 475.2 1092.8 436.0 1089.1 402.5C1082.6 344.7 1044.4 301.1 987.6 286.9C975.7 283.9 951.5 283.2 937.9 285.5C918.9 288.7 899.0 296.8 883.2 308.0C878.5 311.3 860.6 328.6 832.8 356.8C809.0 380.8 765.9 424.2 737.1 453.2L684.5 506.0L868.2 506.0L1051.8 506.0L1057.0 500.3Z"/></svg>
     <h2 class="display">Building an Indian brand with intent? Grow with us.</h2>
     <div class="join-row">
       <p>Tell us about your brand. We read every application and reply within 14 days.</p>
-      <div class="actions"><a class="pill solid" href="#join">Apply to join Zeroing</a></div>
+      <div class="actions"><a class="pill solid" href="join.html">Apply to join Zeroing</a></div>
     </div>
 
     <footer class="foot">
-      <form class="letter" id="letter" novalidate>
+      <form class="letter" id="letter" data-form="newsletter" novalidate>
+        <input class="hp" type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true">
         <h3>One letter when a new conversation goes on record. Nothing else.</h3>
         <div class="row">
           <label class="sr-only" for="letter-email">Email</label>
           <input type="email" id="letter-email" name="email" placeholder="you@example.com" autocomplete="email" required>
           <button type="submit">Send me the letter</button>
         </div>
-        <label class="consent" for="letter-consent"><input type="checkbox" id="letter-consent" name="consent"> I agree that Zeroing can email me about new episodes. I can unsubscribe at any time.</label>
+        <label class="consent" for="letter-consent"><input type="checkbox" id="letter-consent" name="consent" required> I agree that Zeroing can email me about new episodes. I can unsubscribe at any time.</label>
         <p class="status" id="letter-status" role="status"></p>
       </form>
-      <div><h3>Listen</h3><ul><li><a href="index.html#on-record">YouTube</a></li><li><a href="index.html#on-record">Spotify</a></li></ul></div>
-      <div><h3>Community</h3><ul><li><a href="community.html">Brands</a></li><li><a href="community.html#learned">What we learned</a></li><li><a href="#join">Join</a></li></ul></div>
-      <div><h3>Zeroing</h3><ul><li><a href="index.html#why">Why Zeroing exists</a></li><li><a href="index.html#how">How we work</a></li><li><a href="#join">Contact</a></li><li><a href="#join">Disclaimer and privacy</a></li></ul></div>
+      <div><h3>Independent Society</h3><ul><li><a href="independent-society.html">All episodes</a></li><li><a href="episodes/akanksha-sood-singh.html">Latest conversation</a></li><li><a href="independent-society.html#suggest">Suggest a guest</a></li></ul></div>
+      <div><h3>Community</h3><ul><li><a href="community.html">Brands</a></li><li><a href="community.html#learned">What we learned</a></li><li><a href="the-other-details.html">The Other Details</a></li><li><a href="join.html">Join</a></li></ul></div>
+      <div><h3>Zeroing</h3><ul><li><a href="index.html#why">Why Zeroing exists</a></li><li><a href="index.html#how">How we work</a></li><li><a href="contact.html">Contact</a></li><li><a href="legal.html">Disclaimer, privacy and terms</a></li><li><a href="legal.html#grievance">Grievances</a></li></ul></div>
     </footer>
     <div class="signoff narrow">
       <span>Instagram @zeroingnow and @theotherdetails. New Delhi, 2026.</span>
@@ -595,7 +723,8 @@ p { margin: 0; max-width: 34em; }
   // live date in the hero corner, like the day line on a magazine page
   try {
     var d = new Date();
-    document.getElementById('today').textContent = d.toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    var t = document.getElementById('today');
+    if (t) t.textContent = d.toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
   } catch (e) {}
 
   // header ink follows the colour field underneath it
@@ -624,16 +753,44 @@ p { margin: 0; max-width: 34em; }
   overlay.addEventListener('click', function (e) { if (e.target.tagName === 'A') { overlay.hidden = true; openBtn.setAttribute('aria-expanded', 'false'); } });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !overlay.hidden) close(); });
 
-  // newsletter: preview only, the live site posts this to the form service
-  var form = document.getElementById('letter');
-  var status = document.getElementById('letter-status');
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    var email = document.getElementById('letter-email');
-    var consent = document.getElementById('letter-consent');
-    if (!email.value || !email.checkValidity()) { status.textContent = 'Enter an email address like name@example.com.'; email.focus(); return; }
-    if (!consent.checked) { status.textContent = 'Tick the box to agree before we can send you the letter.'; consent.focus(); return; }
-    status.textContent = 'This is the preview, so nothing was sent. On the live site this adds you to the list.';
+  // every form on the site posts to /api/submit, which stores it in the Zeroing database
+  var DONE = {
+    join: 'Thank you. Your application is in. We will write back within 14 days.',
+    guest: 'Thank you. We will look into their work and reach out ourselves.',
+    contact: 'Thank you. Your message is in and we will reply by email.',
+    details: 'Thank you. Your answer is saved, and it may become a lead for our research.',
+    newsletter: 'You are on the list. One letter when a new conversation goes on record.'
+  };
+  document.querySelectorAll('form[data-form]').forEach(function (form) {
+    var status = form.querySelector('.status');
+    var button = form.querySelector('button[type="submit"]');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var bad = Array.prototype.find.call(form.elements, function (el) { return el.willValidate && !el.checkValidity(); });
+      if (bad) {
+        status.textContent = bad.type === 'checkbox' ? 'Tick the consent box so we can store your details.' :
+          bad.type === 'email' ? 'Enter an email address like name@example.com.' :
+          'Fill in ' + ((form.querySelector('label[for="' + bad.id + '"]') || {}).textContent || 'every required field').trim().toLowerCase() + '.';
+        bad.focus();
+        return;
+      }
+      var data = { form: form.dataset.form };
+      new FormData(form).forEach(function (v, k) { data[k] = v; });
+      var consent = form.querySelector('input[name="consent"]');
+      data.consent = !!(consent && consent.checked);
+      var label = consent && form.querySelector('label[for="' + consent.id + '"]');
+      data.consent_text = label ? label.textContent.trim() : '';
+      button.disabled = true;
+      status.textContent = 'Sending.';
+      fetch('/api/submit', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(data) })
+        .then(function (r) { return r.json().catch(function () { return { ok: false }; }); })
+        .then(function (res) {
+          if (res.ok) { form.reset(); status.textContent = DONE[form.dataset.form] || 'Thank you. It is in.'; }
+          else { status.textContent = res.error || 'That did not go through. Try again, or email zeroingindia@gmail.com.'; }
+        })
+        .catch(function () { status.textContent = 'That did not go through. Check your connection and try again, or email zeroingindia@gmail.com.'; })
+        .then(function () { button.disabled = false; });
+    });
   });
 })();
 </script>
