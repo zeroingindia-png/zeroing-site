@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ampor Eyewear in Zeroing</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Ampor Eyewear: Eyewear. Part of the Zeroing community.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anek+Devanagari:wdth,wght@75..125,300..800&family=Anek+Latin:wdth,wght@75..125,300..800&display=swap">
+<style>
+/* Layout: one full-screen colour field per idea, snapped like a film reel; the hand-drawn zero is the only ornament. */
+:root {
+  --sindoor: #C1272D;
+  --haldi: #E8A317;
+  --genda: #E8701A;
+  --peepal: #2F5D3A;
+  --neel: #23306E;
+  --kattha: #6B2E1F;
+  --chuna: #F7F3EC;
+  --kajal: #1A1A1A;
+
+  --font: "Anek Latin", "Anek Devanagari", "Segoe UI", system-ui, sans-serif;
+  --font-hi: "Anek Devanagari", "Anek Latin", "Nirmala UI", "Mangal", sans-serif;
+
+  --size-hero: clamp(3.4rem, 11vw, 10.5rem);
+  --size-1: clamp(2.6rem, 7vw, 6.5rem);
+  --size-2: clamp(1.9rem, 4.2vw, 3.6rem);
+  --size-3: clamp(1.25rem, 2vw, 1.6rem);
+  --size-body: clamp(1.05rem, 1.25vw, 1.2rem);
+  --size-small: 0.9rem;
+
+  --gutter: max(16px, env(safe-area-inset-left, 0px));
+  --gutter-r: max(16px, env(safe-area-inset-right, 0px));
+  --edge: clamp(16px, 4vw, 56px);
+  --head-h: 64px;
+
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; scroll-snap-type: y proximity; }
+body {
+  margin: 0;
+  background: var(--kajal);
+  color: var(--chuna);
+  font-family: var(--font);
+  font-size: var(--size-body);
+  line-height: 1.5;
+  font-variation-settings: "wdth" 100;
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px);
+  z-index: 30; background: var(--field, var(--sindoor));
+}
+a { color: inherit; }
+:focus-visible { outline: 3px solid currentColor; outline-offset: 4px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- type ---------- */
+.display {
+  font-weight: 800;
+  font-variation-settings: "wdth" 125;
+  line-height: 0.9;
+  letter-spacing: -0.035em;
+  margin: 0;
+  text-wrap: balance;
+}
+.narrow { font-variation-settings: "wdth" 75; font-weight: 500; letter-spacing: 0.01em; }
+p { margin: 0; max-width: 34em; }
+
+/* ---------- header ---------- */
+.head {
+  position: fixed; z-index: 20; top: env(safe-area-inset-top, 0px); left: 0; right: 0;
+  height: var(--head-h);
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  padding-left: max(var(--edge), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--edge), env(safe-area-inset-right, 0px));
+  color: var(--ink, var(--chuna));
+  transition: color 200ms ease;
+}
+.mark { display: inline-flex; align-items: center; text-decoration: none; font-weight: 800; font-variation-settings: "wdth" 125; font-size: 1.35rem; letter-spacing: 0.02em; }
+.mark svg { width: 1.02em; height: 1.02em; margin: 0 0.04em; transform: translateY(0.02em); }
+.mark svg path { stroke: currentColor; stroke-width: 22; fill: none; stroke-linecap: round; }
+.nav { display: flex; align-items: center; gap: clamp(16px, 2vw, 32px); }
+.nav a { text-decoration: none; font-size: 0.98rem; font-weight: 500; }
+.nav a:hover { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
+.pill {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 48px; padding: 0 26px; border-radius: 999px;
+  font-weight: 600; font-size: 1rem; text-decoration: none; white-space: nowrap;
+  border: 2px solid currentColor;
+  transition: background-color 200ms ease, color 200ms ease;
+}
+.pill.solid { background: var(--chuna); color: var(--sindoor); border-color: var(--chuna); }
+.pill.solid:hover { background: transparent; color: var(--chuna); }
+.pill.line:hover { background: var(--chuna); color: var(--sindoor); }
+.head .pill { min-height: 40px; padding: 0 18px; font-size: 0.95rem; }
+.head .pill:hover { background: currentColor; }
+.head .pill:hover span { color: var(--field, var(--sindoor)); }
+.menu-btn { display: none; background: none; border: 2px solid currentColor; color: inherit; font: inherit; font-weight: 600; border-radius: 999px; min-height: 40px; padding: 0 18px; cursor: pointer; }
+
+.overlay {
+  position: fixed; inset: 0; z-index: 40; background: var(--kajal); color: var(--chuna);
+  padding-top: calc(env(safe-area-inset-top, 0px) + 24px);
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
+  padding-left: var(--gutter); padding-right: var(--gutter-r);
+  display: flex; flex-direction: column; gap: 28px;
+}
+.overlay-top { display: flex; justify-content: space-between; align-items: center; }
+.overlay nav { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; }
+.overlay nav a { font-size: clamp(2rem, 9vw, 3rem); font-weight: 800; font-variation-settings: "wdth" 125; letter-spacing: -0.02em; text-decoration: none; line-height: 1.1; }
+
+/* ---------- fields ---------- */
+.field {
+  position: relative;
+  min-height: 100svh;
+  scroll-snap-align: start;
+  display: flex; flex-direction: column;
+  padding-block: calc(var(--head-h) + 32px) 28px;
+  padding-left: max(var(--edge), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--edge), env(safe-area-inset-right, 0px));
+  overflow: hidden;
+}
+.corners {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  font-size: var(--size-small); margin-top: auto; padding-top: 32px;
+}
+.f-sindoor { background: var(--sindoor); color: var(--chuna); }
+.f-haldi { background: var(--haldi); color: var(--kajal); }
+.f-genda { background: var(--genda); color: var(--kajal); }
+.f-chuna { background: var(--chuna); color: var(--kajal); }
+.f-neel { background: var(--neel); color: var(--chuna); }
+.f-kajal { background: var(--kajal); color: var(--chuna); }
+
+/* hero */
+.hero { justify-content: flex-start; }
+.hero-ring {
+  position: absolute; z-index: 0; pointer-events: none;
+  width: min(92vh, 78vw); aspect-ratio: 1; max-width: 100%;
+  right: -9vw; top: 50%; transform: translateY(-46%);
+}
+.hero-ring path { fill: none; stroke: var(--chuna); stroke-width: 9; stroke-linecap: round; opacity: 0.95; }
+.hero-body { position: relative; z-index: 1; margin-top: auto; display: grid; gap: clamp(24px, 3.5vw, 44px); }
+.hero h1 { font-size: var(--size-hero); max-width: 9.5em; }
+.hero .lede { font-size: var(--size-3); line-height: 1.4; max-width: 30em; }
+.actions { display: flex; flex-wrap: wrap; gap: 14px; }
+
+/* three bands */
+.bands { display: grid; grid-template-columns: repeat(3, 1fr); min-height: 100svh; scroll-snap-align: start; }
+.band {
+  display: flex; flex-direction: column; gap: 20px; text-decoration: none;
+  padding-block: calc(var(--head-h) + 40px) 36px;
+  padding-left: max(clamp(16px, 3vw, 44px), env(safe-area-inset-left, 0px));
+  padding-right: max(clamp(16px, 3vw, 44px), env(safe-area-inset-right, 0px));
+  color: var(--chuna);
+  transition: background-color 200ms ease;
+}
+.band.peepal { background: var(--peepal); }
+.band.neel { background: var(--neel); }
+.band.kattha { background: var(--kattha); }
+.band h2 { font-size: var(--size-2); margin-top: auto; }
+.band p { font-size: var(--size-body); max-width: 22em; }
+.band .go { font-weight: 600; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
+.band:hover .go { text-decoration-thickness: 4px; }
+
+/* on record */
+.record { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(28px, 5vw, 80px); align-items: center; flex: 1; }
+.porthole { position: relative; width: 100%; max-width: 560px; aspect-ratio: 1; justify-self: center; }
+.porthole .inside {
+  position: absolute; inset: 13%; border-radius: 50%; background: var(--kattha); color: var(--chuna);
+  display: grid; place-items: center; text-align: center; padding: 18%; font-size: var(--size-small); line-height: 1.4;
+}
+.porthole svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.porthole svg path { fill: none; stroke: var(--kajal); stroke-width: 8; stroke-linecap: round; }
+.record-text { display: grid; gap: 22px; min-width: 0; }
+.record-text .who { font-size: var(--size-1); }
+.record-text .role { font-size: var(--size-3); line-height: 1.35; }
+.record-text blockquote { margin: 0; font-size: var(--size-2); font-weight: 700; font-variation-settings: "wdth" 85; line-height: 1.05; letter-spacing: -0.015em; text-wrap: balance; }
+.f-haldi .pill.solid { background: var(--kajal); color: var(--haldi); border-color: var(--kajal); }
+.f-haldi .pill.solid:hover { background: transparent; color: var(--kajal); }
+.f-haldi .pill.line:hover { background: var(--kajal); color: var(--haldi); }
+
+/* ledger */
+.ledger { margin-block: auto; display: grid; gap: clamp(8px, 2vw, 20px); }
+.ledger p { max-width: none; font-size: var(--size-2); font-weight: 700; font-variation-settings: "wdth" 90; line-height: 1.05; letter-spacing: -0.015em; }
+.ledger .n { font-size: 2.6em; font-weight: 800; font-variation-settings: "wdth" 125; line-height: 0.8; vertical-align: -0.12em; letter-spacing: -0.04em; margin-right: 0.08em; font-variant-numeric: tabular-nums; }
+.ledger .since { font-size: var(--size-3); font-weight: 500; font-variation-settings: "wdth" 100; letter-spacing: 0; }
+
+/* brands */
+.brands-head { display: grid; gap: 14px; }
+.brands-head h2 { font-size: var(--size-1); }
+.brand-list { list-style: none; margin: auto 0 0; padding: 0; border-top: 2px solid currentColor; }
+.brand-list li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: baseline; padding-block: clamp(14px, 2vw, 22px); border-bottom: 2px solid currentColor; }
+.brand-list .name { font-size: var(--size-2); font-weight: 800; font-variation-settings: "wdth" 115; letter-spacing: -0.02em; line-height: 1; }
+.brand-list .what { font-size: var(--size-body); text-align: right; }
+.brand-list .more .name { font-weight: 500; font-variation-settings: "wdth" 100; }
+
+/* join + footer */
+.join h2 { font-size: var(--size-1); max-width: 10em; margin-top: auto; }
+.join .stamp { position: absolute; right: max(var(--edge), env(safe-area-inset-right, 0px)); top: calc(var(--head-h) + 24px); width: clamp(90px, 12vw, 150px); aspect-ratio: 1; max-width: 100%; }
+.stamp path { fill: none; stroke: var(--sindoor); stroke-width: 12; stroke-linecap: round; }
+.stamp text { fill: var(--sindoor); font-family: var(--font); font-weight: 700; font-size: 15px; letter-spacing: 3px; }
+.f-kajal .pill.solid { background: var(--sindoor); color: var(--chuna); border-color: var(--sindoor); }
+.f-kajal .pill.solid:hover { background: transparent; color: var(--chuna); border-color: var(--chuna); }
+.join-row { display: grid; gap: 28px; margin-top: 32px; }
+.foot { margin-top: clamp(48px, 8vw, 96px); padding-top: 28px; border-top: 2px solid var(--chuna); display: grid; grid-template-columns: 1.4fr repeat(3, minmax(0, 1fr)); gap: 28px; }
+.foot h3 { margin: 0 0 10px; font-size: var(--size-small); font-weight: 600; }
+.foot ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.foot a { text-decoration: none; }
+.foot a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.letter { display: grid; gap: 12px; min-width: 0; }
+.letter .row { display: flex; gap: 10px; flex-wrap: wrap; }
+.letter input[type="email"] { flex: 1 1 200px; min-width: 0; min-height: 48px; border-radius: 999px; border: 2px solid var(--chuna); background: transparent; color: var(--chuna); padding: 0 20px; font: inherit; }
+.letter input[type="email"]::placeholder { color: var(--chuna); opacity: 0.6; }
+.letter button { min-height: 48px; border-radius: 999px; border: 2px solid var(--chuna); background: var(--chuna); color: var(--kajal); padding: 0 22px; font: inherit; font-weight: 600; cursor: pointer; }
+.letter label.consent { display: flex; gap: 10px; align-items: flex-start; font-size: var(--size-small); line-height: 1.4; }
+.letter label.consent input { width: 18px; height: 18px; margin-top: 2px; accent-color: var(--sindoor); flex: none; }
+.letter .status { font-size: var(--size-small); min-height: 1.4em; }
+.signoff { margin-top: 36px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: var(--size-small); }
+.signoff .hi { font-family: var(--font-hi); font-size: 1.15rem; }
+
+
+/* why: the research, set as a ledger */
+.why-head { display: grid; gap: 16px; max-width: 46rem; }
+.why-head h2 { font-size: var(--size-1); }
+.facts { list-style: none; margin: clamp(32px, 5vw, 64px) 0 0; padding: 0; border-top: 2px solid var(--chuna); }
+.facts li { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(16px, 4vw, 56px); align-items: start; padding-block: clamp(20px, 3vw, 36px); border-bottom: 2px solid var(--chuna); }
+.facts .fig { font-size: var(--size-1); font-weight: 800; font-variation-settings: "wdth" 125; line-height: 0.9; letter-spacing: -0.04em; color: var(--haldi); font-variant-numeric: tabular-nums; }
+.facts .fig small { display: block; margin-top: 10px; font-size: var(--size-small); font-weight: 500; font-variation-settings: "wdth" 100; letter-spacing: 0; color: var(--chuna); line-height: 1.35; }
+.facts .say { display: grid; gap: 10px; min-width: 0; }
+.facts .say p { font-size: var(--size-3); line-height: 1.35; max-width: 30em; }
+.facts .src { font-size: var(--size-small); opacity: 0.85; }
+.facts .src a { text-underline-offset: 3px; }
+.why-close { margin-top: clamp(32px, 5vw, 64px); font-size: var(--size-2); font-weight: 700; font-variation-settings: "wdth" 90; line-height: 1.1; letter-spacing: -0.015em; max-width: 22em; text-wrap: balance; }
+
+/* how we work: two real sequences */
+.how-head { display: grid; gap: 16px; max-width: 46rem; }
+.how-head h2 { font-size: var(--size-1); }
+.tracks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(32px, 6vw, 96px); margin-top: clamp(32px, 5vw, 64px); }
+.track h3 { margin: 0 0 18px; font-size: var(--size-2); font-weight: 800; font-variation-settings: "wdth" 115; letter-spacing: -0.02em; line-height: 1; }
+.track ol { list-style: none; margin: 0; padding: 0; counter-reset: step; border-top: 2px solid var(--kajal); }
+.track li { counter-increment: step; display: grid; grid-template-columns: 3.2rem minmax(0, 1fr); gap: 12px; padding-block: 16px; border-bottom: 2px solid var(--kajal); }
+.track li::before { content: counter(step); font-size: 2rem; font-weight: 800; font-variation-settings: "wdth" 125; line-height: 1; color: var(--sindoor); }
+.track li strong { display: block; font-weight: 700; }
+
+/* ---------- motion: the one moment ---------- */
+.draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 1.8s cubic-bezier(.6,.05,.25,1) 0.2s forwards; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .draw { animation: none; stroke-dashoffset: 0; }
+}
+
+/* ---------- small screens ---------- */
+@media (max-width: 900px) {
+  .nav a:not(.pill) { display: none; }
+  .menu-btn { display: inline-flex; align-items: center; }
+  .bands { grid-template-columns: 1fr; min-height: 0; }
+  .band { min-height: 62svh; padding-block: 40px 32px; }
+  .band:first-child { padding-top: calc(var(--head-h) + 40px); }
+  .record { grid-template-columns: 1fr; }
+  .facts li { grid-template-columns: 1fr; gap: 10px; }
+  .tracks { grid-template-columns: 1fr; }
+  .porthole { max-width: 420px; }
+  .foot { grid-template-columns: 1fr 1fr; }
+  .letter { grid-column: 1 / -1; }
+  .hero-ring { width: 120vw; right: -48vw; top: 34%; }
+}
+@media (max-width: 520px) {
+  .head .pill { display: none; }
+  .brand-list li { grid-template-columns: 1fr; gap: 4px; }
+  .brand-list .what { text-align: left; }
+  .foot { grid-template-columns: 1fr; }
+  .hero-ring { width: 150vw; right: -78vw; top: 30%; }
+}
+
+/* ---------- community and brand pages ---------- */
+.f-peepal { background: var(--peepal); color: var(--chuna); }
+.f-kattha { background: var(--kattha); color: var(--chuna); }
+.f-peepal .pill.solid { color: var(--peepal); }
+.f-peepal .pill.line:hover { color: var(--peepal); }
+.f-kattha .pill.solid { color: var(--kattha); }
+.f-kattha .pill.line:hover { color: var(--kattha); }
+.f-neel .pill.solid { color: var(--neel); }
+.f-neel .pill.line:hover { color: var(--neel); }
+.f-genda .pill.solid { background: var(--kajal); color: var(--genda); border-color: var(--kajal); }
+.f-genda .pill.solid:hover { background: transparent; color: var(--kajal); }
+.f-genda .pill.line:hover { background: var(--kajal); color: var(--genda); }
+.f-chuna .pill.solid { background: var(--sindoor); color: var(--chuna); border-color: var(--sindoor); }
+.f-chuna .pill.solid:hover { background: transparent; color: var(--sindoor); }
+.f-genda .hero-ring path, .f-haldi .hero-ring path { stroke: var(--kajal); }
+
+.case-head { display: grid; gap: 16px; max-width: 46rem; }
+.case-head h2 { font-size: var(--size-1); }
+.cases { list-style: none; margin: clamp(32px, 5vw, 64px) 0 0; padding: 0; border-top: 2px solid currentColor; }
+.cases li {
+  display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); grid-auto-flow: row dense;
+  column-gap: clamp(16px, 4vw, 56px); row-gap: 12px;
+  padding-block: clamp(22px, 3vw, 36px); border-bottom: 2px solid currentColor;
+}
+.cases li > .where, .cases li > h3 { grid-column: 1; }
+.cases li > p:not(.where) { grid-column: 2; }
+.cases h3 { margin: 0; font-size: var(--size-2); font-weight: 800; font-variation-settings: "wdth" 115; letter-spacing: -0.02em; line-height: 1; }
+.cases .what-happened { font-size: var(--size-body); max-width: 38em; }
+.cases .lesson { font-size: var(--size-3); line-height: 1.35; font-weight: 600; max-width: 30em; }
+.cases .lesson strong { font-weight: 800; }
+.cases .src { font-size: var(--size-small); opacity: 0.85; }
+.cases .src a { text-underline-offset: 3px; }
+.f-chuna .cases .lesson strong { color: var(--sindoor); }
+.cases.on-dark .lesson strong { color: var(--haldi); }
+
+.principles { list-style: none; margin: clamp(32px, 5vw, 64px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(28px, 4vw, 56px); }
+.principles li { border-top: 2px solid currentColor; padding-top: 18px; display: grid; gap: 10px; }
+.principles h3 { margin: 0; font-size: var(--size-2); font-weight: 800; font-variation-settings: "wdth" 115; letter-spacing: -0.02em; line-height: 1; text-wrap: balance; }
+
+.brand-grid { margin-top: clamp(32px, 5vw, 64px); display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 16px; }
+.brand-card {
+  display: flex; flex-direction: column; gap: 12px; min-height: 320px; padding: 24px;
+  text-decoration: none; transition: transform 200ms ease;
+}
+.brand-card .tag { font-size: var(--size-small); }
+.brand-card .bname { margin-top: auto; font-size: var(--size-2); font-weight: 800; font-variation-settings: "wdth" 120; letter-spacing: -0.02em; line-height: 0.95; }
+.brand-card .bline { max-width: 22em; }
+.brand-card .open { font-weight: 600; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
+.brand-card:hover .open { text-decoration-thickness: 4px; }
+.bc-peepal { background: var(--peepal); color: var(--chuna); }
+.bc-haldi { background: var(--haldi); color: var(--kajal); }
+.bc-kattha { background: var(--kattha); color: var(--chuna); }
+.bc-genda { background: var(--genda); color: var(--kajal); }
+.brand-card.join-card { background: transparent; color: var(--chuna); border: 2px dashed var(--chuna); }
+
+.brand-list a.name { text-decoration: none; }
+.brand-list a.name:hover { text-decoration: underline; text-underline-offset: 8px; text-decoration-thickness: 3px; }
+
+/* brand page */
+.brand-hero h1 { font-size: var(--size-hero); max-width: 8em; }
+.about { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(32px, 6vw, 96px); margin-block: auto; }
+.about .idea { display: grid; gap: 18px; }
+.about .idea h2 { font-size: var(--size-1); }
+.about .idea p { font-size: var(--size-3); line-height: 1.45; }
+.facts-list { margin: 0; border-top: 2px solid currentColor; align-self: start; }
+.facts-list div { display: grid; grid-template-columns: 8.5em minmax(0, 1fr); gap: 12px; padding-block: 14px; border-bottom: 2px solid currentColor; }
+.facts-list dt { font-weight: 700; }
+.facts-list dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.todo { border-bottom: 2px dashed currentColor; opacity: 0.75; }
+.next-brands { list-style: none; margin: clamp(28px, 4vw, 48px) 0 0; padding: 0; border-top: 2px solid currentColor; }
+.next-brands li { border-bottom: 2px solid currentColor; }
+.next-brands a { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: baseline; padding-block: 16px; text-decoration: none; }
+.next-brands .name { font-size: var(--size-2); font-weight: 800; font-variation-settings: "wdth" 115; letter-spacing: -0.02em; line-height: 1; }
+.next-brands a:hover .name { text-decoration: underline; text-underline-offset: 8px; text-decoration-thickness: 3px; }
+
+@media (max-width: 900px) {
+  .cases li { grid-template-columns: 1fr; }
+  .cases li > .where, .cases li > h3, .cases li > p:not(.where) { grid-column: 1; }
+  .principles { grid-template-columns: 1fr; }
+  .about { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  .facts-list div { grid-template-columns: 1fr; gap: 2px; }
+  .next-brands a { grid-template-columns: 1fr; gap: 4px; }
+}
+
+@media (max-width: 900px) {
+  .join .stamp { position: static; display: block; width: 88px; margin-bottom: 24px; }
+}
+</style>
+</head>
+<body>
+<header class="head" id="head">
+  <a class="mark" href="../index.html#top" aria-label="Zeroing, home">ZER<svg viewBox="0 0 200 200" aria-hidden="true"><path d="M74.2 24.4C76.3 23.9 82.6 21.9 87.0 21.2C91.3 20.6 95.7 20.5 100.1 20.7C104.4 21.0 108.8 21.7 113.0 22.7C117.2 23.6 121.3 25.0 125.3 26.4C129.3 27.9 133.2 29.7 137.0 31.6C140.9 33.5 144.6 35.6 148.2 38.0C151.8 40.4 155.4 43.0 158.7 46.0C161.9 48.9 165.0 52.2 167.7 55.7C170.4 59.2 172.8 63.1 174.8 67.1C176.7 71.1 178.2 75.5 179.3 79.8C180.4 84.1 181.0 88.7 181.3 93.1C181.6 97.6 181.4 102.1 181.0 106.6C180.5 111.0 179.6 115.4 178.5 119.7C177.3 124.0 175.8 128.2 173.9 132.2C172.0 136.2 169.7 140.1 167.1 143.6C164.5 147.1 161.5 150.5 158.3 153.4C155.1 156.3 151.5 158.9 147.9 161.1C144.3 163.4 140.4 165.3 136.5 166.9C132.6 168.5 128.6 169.8 124.7 171.0C120.7 172.2 116.7 173.1 112.6 173.9C108.6 174.7 104.5 175.4 100.3 175.8C96.1 176.2 91.9 176.5 87.6 176.3C83.4 176.1 79.0 175.6 74.8 174.7C70.5 173.7 66.3 172.3 62.3 170.5C58.3 168.7 54.5 166.3 50.9 163.7C47.4 161.1 44.2 158.0 41.2 154.7C38.3 151.5 35.6 147.8 33.3 144.1C30.9 140.4 28.9 136.5 27.1 132.5C25.4 128.5 23.9 124.3 22.8 120.1C21.7 115.8 20.9 111.4 20.6 107.1C20.3 102.8 20.3 98.3 20.8 94.0C21.3 89.7 22.3 85.3 23.6 81.2C24.9 77.1 26.6 73.1 28.6 69.3C30.5 65.5 32.9 61.9 35.3 58.4C37.8 55.0 40.5 51.8 43.4 48.7C46.2 45.6 49.2 42.6 52.5 39.9C55.7 37.3 59.1 34.7 62.7 32.5C66.4 30.3 70.2 28.4 74.2 26.9C78.2 25.4 82.4 24.3 86.5 23.6C90.7 23.0 97.2 23.1 99.3 23.0"/></svg>ING</a>
+  <div class="nav">
+    <a href="../index.html#why">Why</a>
+    <a href="../index.html#on-record">Independent Society</a>
+    <a href="../community.html" aria-current="page">Community</a>
+    <a href="../index.html#how">How we work</a>
+    <a href="#join">Join</a>
+    <a class="pill" href="../index.html#on-record"><span>Listen</span></a>
+    <button class="menu-btn" id="menu-open" type="button" aria-expanded="false" aria-controls="overlay">Menu</button>
+  </div>
+</header>
+
+<div class="overlay" id="overlay" hidden>
+  <div class="overlay-top">
+    <span class="mark">ZER<svg viewBox="0 0 200 200" aria-hidden="true"><path d="M74.2 24.4C76.3 23.9 82.6 21.9 87.0 21.2C91.3 20.6 95.7 20.5 100.1 20.7C104.4 21.0 108.8 21.7 113.0 22.7C117.2 23.6 121.3 25.0 125.3 26.4C129.3 27.9 133.2 29.7 137.0 31.6C140.9 33.5 144.6 35.6 148.2 38.0C151.8 40.4 155.4 43.0 158.7 46.0C161.9 48.9 165.0 52.2 167.7 55.7C170.4 59.2 172.8 63.1 174.8 67.1C176.7 71.1 178.2 75.5 179.3 79.8C180.4 84.1 181.0 88.7 181.3 93.1C181.6 97.6 181.4 102.1 181.0 106.6C180.5 111.0 179.6 115.4 178.5 119.7C177.3 124.0 175.8 128.2 173.9 132.2C172.0 136.2 169.7 140.1 167.1 143.6C164.5 147.1 161.5 150.5 158.3 153.4C155.1 156.3 151.5 158.9 147.9 161.1C144.3 163.4 140.4 165.3 136.5 166.9C132.6 168.5 128.6 169.8 124.7 171.0C120.7 172.2 116.7 173.1 112.6 173.9C108.6 174.7 104.5 175.4 100.3 175.8C96.1 176.2 91.9 176.5 87.6 176.3C83.4 176.1 79.0 175.6 74.8 174.7C70.5 173.7 66.3 172.3 62.3 170.5C58.3 168.7 54.5 166.3 50.9 163.7C47.4 161.1 44.2 158.0 41.2 154.7C38.3 151.5 35.6 147.8 33.3 144.1C30.9 140.4 28.9 136.5 27.1 132.5C25.4 128.5 23.9 124.3 22.8 120.1C21.7 115.8 20.9 111.4 20.6 107.1C20.3 102.8 20.3 98.3 20.8 94.0C21.3 89.7 22.3 85.3 23.6 81.2C24.9 77.1 26.6 73.1 28.6 69.3C30.5 65.5 32.9 61.9 35.3 58.4C37.8 55.0 40.5 51.8 43.4 48.7C46.2 45.6 49.2 42.6 52.5 39.9C55.7 37.3 59.1 34.7 62.7 32.5C66.4 30.3 70.2 28.4 74.2 26.9C78.2 25.4 82.4 24.3 86.5 23.6C90.7 23.0 97.2 23.1 99.3 23.0"/></svg>ING</span>
+    <button class="menu-btn" id="menu-close" type="button" style="display:inline-flex">Close</button>
+  </div>
+  <nav aria-label="Main">
+    <a href="../index.html#why">Why Zeroing exists</a>
+    <a href="../index.html#on-record">Independent Society</a>
+    <a href="../community.html">Community</a>
+    <a href="../index.html#how">How we work</a>
+    <a href="#join">Join</a>
+  </nav>
+  <a class="pill solid" href="../index.html#on-record" style="align-self:flex-start;margin-top:auto">Listen to the latest conversation</a>
+</div>
+
+<main>
+  <section class="field f-haldi hero brand-hero" id="top" data-ink="kajal" data-field="haldi">
+    <svg class="hero-ring" viewBox="0 0 200 200" aria-hidden="true"><path class="draw" pathLength="1" d="M74.2 24.4C76.3 23.9 82.6 21.9 87.0 21.2C91.3 20.6 95.7 20.5 100.1 20.7C104.4 21.0 108.8 21.7 113.0 22.7C117.2 23.6 121.3 25.0 125.3 26.4C129.3 27.9 133.2 29.7 137.0 31.6C140.9 33.5 144.6 35.6 148.2 38.0C151.8 40.4 155.4 43.0 158.7 46.0C161.9 48.9 165.0 52.2 167.7 55.7C170.4 59.2 172.8 63.1 174.8 67.1C176.7 71.1 178.2 75.5 179.3 79.8C180.4 84.1 181.0 88.7 181.3 93.1C181.6 97.6 181.4 102.1 181.0 106.6C180.5 111.0 179.6 115.4 178.5 119.7C177.3 124.0 175.8 128.2 173.9 132.2C172.0 136.2 169.7 140.1 167.1 143.6C164.5 147.1 161.5 150.5 158.3 153.4C155.1 156.3 151.5 158.9 147.9 161.1C144.3 163.4 140.4 165.3 136.5 166.9C132.6 168.5 128.6 169.8 124.7 171.0C120.7 172.2 116.7 173.1 112.6 173.9C108.6 174.7 104.5 175.4 100.3 175.8C96.1 176.2 91.9 176.5 87.6 176.3C83.4 176.1 79.0 175.6 74.8 174.7C70.5 173.7 66.3 172.3 62.3 170.5C58.3 168.7 54.5 166.3 50.9 163.7C47.4 161.1 44.2 158.0 41.2 154.7C38.3 151.5 35.6 147.8 33.3 144.1C30.9 140.4 28.9 136.5 27.1 132.5C25.4 128.5 23.9 124.3 22.8 120.1C21.7 115.8 20.9 111.4 20.6 107.1C20.3 102.8 20.3 98.3 20.8 94.0C21.3 89.7 22.3 85.3 23.6 81.2C24.9 77.1 26.6 73.1 28.6 69.3C30.5 65.5 32.9 61.9 35.3 58.4C37.8 55.0 40.5 51.8 43.4 48.7C46.2 45.6 49.2 42.6 52.5 39.9C55.7 37.3 59.1 34.7 62.7 32.5C66.4 30.3 70.2 28.4 74.2 26.9C78.2 25.4 82.4 24.3 86.5 23.6C90.7 23.0 97.2 23.1 99.3 23.0"/></svg>
+    <div class="hero-body">
+      <h1 class="display">Ampor Eyewear</h1>
+      <p class="lede">Indian eyewear.</p>
+      <div class="actions"><a class="pill solid" href="https://www.instagram.com/amporeyewear/" target="_blank" rel="noopener">Visit Ampor Eyewear</a></div>
+    </div>
+    <div class="corners narrow"><span>Part of the Zeroing community</span><span>Presented Independent Society</span></div>
+  </section>
+
+  <section class="field f-chuna" id="about" data-ink="kajal" data-field="chuna">
+    <div class="about">
+      <div class="idea">
+        <h2 class="display">The idea</h2>
+        <p>Ampor Eyewear makes eyewear and was one of the two brands that presented the first conversation of Independent Society.</p>
+      </div>
+      <dl class="facts-list">
+        <div><dt>Makes</dt><dd>Eyewear</dd></div>
+        <div><dt>Made in</dt><dd><span class="todo">To confirm</span></dd></div>
+        <div><dt>Founder</dt><dd><span class="todo">To confirm</span></dd></div>
+        <div><dt>In Zeroing</dt><dd>Presented Independent Society</dd></div>
+        <div><dt>Website</dt><dd><span class="todo">To confirm</span></dd></div>
+        <div><dt>Instagram</dt><dd><a href="https://www.instagram.com/amporeyewear/" target="_blank" rel="noopener">@amporeyewear</a></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="field f-neel" id="more" data-ink="chuna" data-field="neel">
+    <div class="case-head">
+      <h2 class="display">More from the community</h2>
+      <p>Every brand here keeps its own shop. Zeroing introduces you; you buy from them directly.</p>
+    </div>
+    <ul class="next-brands">
+      <li><a href="vedi-kade.html"><span class="name">Vedi Kade</span><span>Tamil cultural clothing for today</span></a></li>
+      <li><a href="indso.html"><span class="name">INDSO</span><span>Botanical skincare gels</span></a></li>
+      <li><a href="syzygy-living.html"><span class="name">Syzygy Living</span><span>Design homeware</span></a></li>
+      <li><a href="../community.html"><span class="name">The whole community</span><span>What we learned, and how we work together</span></a></li>
+    </ul>
+  </section>
+
+  <section class="field f-kajal join" id="join" data-ink="chuna" data-field="kajal">
+    <svg class="stamp" viewBox="0 0 200 200" aria-hidden="true">
+      <path d="M74.2 24.4C76.3 23.9 82.6 21.9 87.0 21.2C91.3 20.6 95.7 20.5 100.1 20.7C104.4 21.0 108.8 21.7 113.0 22.7C117.2 23.6 121.3 25.0 125.3 26.4C129.3 27.9 133.2 29.7 137.0 31.6C140.9 33.5 144.6 35.6 148.2 38.0C151.8 40.4 155.4 43.0 158.7 46.0C161.9 48.9 165.0 52.2 167.7 55.7C170.4 59.2 172.8 63.1 174.8 67.1C176.7 71.1 178.2 75.5 179.3 79.8C180.4 84.1 181.0 88.7 181.3 93.1C181.6 97.6 181.4 102.1 181.0 106.6C180.5 111.0 179.6 115.4 178.5 119.7C177.3 124.0 175.8 128.2 173.9 132.2C172.0 136.2 169.7 140.1 167.1 143.6C164.5 147.1 161.5 150.5 158.3 153.4C155.1 156.3 151.5 158.9 147.9 161.1C144.3 163.4 140.4 165.3 136.5 166.9C132.6 168.5 128.6 169.8 124.7 171.0C120.7 172.2 116.7 173.1 112.6 173.9C108.6 174.7 104.5 175.4 100.3 175.8C96.1 176.2 91.9 176.5 87.6 176.3C83.4 176.1 79.0 175.6 74.8 174.7C70.5 173.7 66.3 172.3 62.3 170.5C58.3 168.7 54.5 166.3 50.9 163.7C47.4 161.1 44.2 158.0 41.2 154.7C38.3 151.5 35.6 147.8 33.3 144.1C30.9 140.4 28.9 136.5 27.1 132.5C25.4 128.5 23.9 124.3 22.8 120.1C21.7 115.8 20.9 111.4 20.6 107.1C20.3 102.8 20.3 98.3 20.8 94.0C21.3 89.7 22.3 85.3 23.6 81.2C24.9 77.1 26.6 73.1 28.6 69.3C30.5 65.5 32.9 61.9 35.3 58.4C37.8 55.0 40.5 51.8 43.4 48.7C46.2 45.6 49.2 42.6 52.5 39.9C55.7 37.3 59.1 34.7 62.7 32.5C66.4 30.3 70.2 28.4 74.2 26.9C78.2 25.4 82.4 24.3 86.5 23.6C90.7 23.0 97.2 23.1 99.3 23.0"/>
+      <text x="100" y="106" text-anchor="middle">ZEROING</text>
+    </svg>
+    <h2 class="display">Building an Indian brand with intent? Grow with us.</h2>
+    <div class="join-row">
+      <p>Tell us about your brand. We read every application and reply within 14 days.</p>
+      <div class="actions"><a class="pill solid" href="#join">Apply to join Zeroing</a></div>
+    </div>
+
+    <footer class="foot">
+      <form class="letter" id="letter" novalidate>
+        <h3>One letter when a new conversation goes on record. Nothing else.</h3>
+        <div class="row">
+          <label class="sr-only" for="letter-email">Email</label>
+          <input type="email" id="letter-email" name="email" placeholder="you@example.com" autocomplete="email" required>
+          <button type="submit">Send me the letter</button>
+        </div>
+        <label class="consent" for="letter-consent"><input type="checkbox" id="letter-consent" name="consent"> I agree that Zeroing can email me about new episodes. I can unsubscribe at any time.</label>
+        <p class="status" id="letter-status" role="status"></p>
+      </form>
+      <div><h3>Listen</h3><ul><li><a href="../index.html#on-record">YouTube</a></li><li><a href="../index.html#on-record">Spotify</a></li></ul></div>
+      <div><h3>Community</h3><ul><li><a href="../community.html">Brands</a></li><li><a href="../community.html#learned">What we learned</a></li><li><a href="#join">Join</a></li></ul></div>
+      <div><h3>Zeroing</h3><ul><li><a href="../index.html#why">Why Zeroing exists</a></li><li><a href="../index.html#how">How we work</a></li><li><a href="#join">Contact</a></li><li><a href="#join">Disclaimer and privacy</a></li></ul></div>
+    </footer>
+    <div class="signoff narrow">
+      <span>Instagram @zeroingnow and @theotherdetails. New Delhi, 2026.</span>
+      <span class="hi" lang="hi">सुबह अभी बाक़ी है</span>
+    </div>
+  </section>
+</main>
+
+<script>
+(function () {
+  // live date in the hero corner, like the day line on a magazine page
+  try {
+    var d = new Date();
+    document.getElementById('today').textContent = d.toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  } catch (e) {}
+
+  // header ink follows the colour field underneath it
+  var head = document.getElementById('head');
+  var root = document.documentElement;
+  var fields = document.querySelectorAll('[data-ink]');
+  function setInk(el) {
+    root.style.setProperty('--ink', 'var(--' + el.dataset.ink + ')');
+    root.style.setProperty('--field', 'var(--' + el.dataset.field + ')');
+  }
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) setInk(en.target); });
+    }, { rootMargin: '-0px 0px -92% 0px', threshold: 0 });
+    fields.forEach(function (f) { io.observe(f); });
+  }
+  setInk(fields[0]);
+
+  // mobile menu
+  var overlay = document.getElementById('overlay');
+  var openBtn = document.getElementById('menu-open');
+  var closeBtn = document.getElementById('menu-close');
+  function close() { overlay.hidden = true; openBtn.setAttribute('aria-expanded', 'false'); openBtn.focus(); }
+  openBtn.addEventListener('click', function () { overlay.hidden = false; openBtn.setAttribute('aria-expanded', 'true'); closeBtn.focus(); });
+  closeBtn.addEventListener('click', close);
+  overlay.addEventListener('click', function (e) { if (e.target.tagName === 'A') { overlay.hidden = true; openBtn.setAttribute('aria-expanded', 'false'); } });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !overlay.hidden) close(); });
+
+  // newsletter: preview only, the live site posts this to the form service
+  var form = document.getElementById('letter');
+  var status = document.getElementById('letter-status');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var email = document.getElementById('letter-email');
+    var consent = document.getElementById('letter-consent');
+    if (!email.value || !email.checkValidity()) { status.textContent = 'Enter an email address like name@example.com.'; email.focus(); return; }
+    if (!consent.checked) { status.textContent = 'Tick the box to agree before we can send you the letter.'; consent.focus(); return; }
+    status.textContent = 'This is the preview, so nothing was sent. On the live site this adds you to the list.';
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,10 +1,3 @@
-<title>Zeroing</title>
-<meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Zeroing is a community of Indian brands and the people behind them, and home of the Independent Society podcast.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anek+Devanagari:wdth,wght@75..125,300..800&family=Anek+Latin:wdth,wght@75..125,300..800&display=swap">
-<style>
 /* Layout: one full-screen colour field per idea, snapped like a film reel; the hand-drawn zero is the only ornament. */
 :root {
   --sindoor: #C1272D;
@@ -272,250 +265,93 @@ p { margin: 0; max-width: 34em; }
   .foot { grid-template-columns: 1fr; }
   .hero-ring { width: 150vw; right: -78vw; top: 30%; }
 }
-</style>
 
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="zero" viewBox="0 0 200 200"><path d="RING"/></symbol>
-</svg>
+/* ---------- community and brand pages ---------- */
+.f-peepal { background: var(--peepal); color: var(--chuna); }
+.f-kattha { background: var(--kattha); color: var(--chuna); }
+.f-peepal .pill.solid { color: var(--peepal); }
+.f-peepal .pill.line:hover { color: var(--peepal); }
+.f-kattha .pill.solid { color: var(--kattha); }
+.f-kattha .pill.line:hover { color: var(--kattha); }
+.f-neel .pill.solid { color: var(--neel); }
+.f-neel .pill.line:hover { color: var(--neel); }
+.f-genda .pill.solid { background: var(--kajal); color: var(--genda); border-color: var(--kajal); }
+.f-genda .pill.solid:hover { background: transparent; color: var(--kajal); }
+.f-genda .pill.line:hover { background: var(--kajal); color: var(--genda); }
+.f-chuna .pill.solid { background: var(--sindoor); color: var(--chuna); border-color: var(--sindoor); }
+.f-chuna .pill.solid:hover { background: transparent; color: var(--sindoor); }
+.f-genda .hero-ring path, .f-haldi .hero-ring path { stroke: var(--kajal); }
 
-<header class="head" id="head">
-  <a class="mark" href="#top" aria-label="Zeroing, home">ZER<svg viewBox="0 0 200 200" aria-hidden="true"><path d="RING"/></svg>ING</a>
-  <div class="nav">
-    <a href="#why">Why</a>
-    <a href="#on-record">Independent Society</a>
-    <a href="#brands">Community</a>
-    <a href="#how">How we work</a>
-    <a href="#join">Join</a>
-    <a class="pill" href="#on-record"><span>Listen</span></a>
-    <button class="menu-btn" id="menu-open" type="button" aria-expanded="false" aria-controls="overlay">Menu</button>
-  </div>
-</header>
+.case-head { display: grid; gap: 16px; max-width: 46rem; }
+.case-head h2 { font-size: var(--size-1); }
+.cases { list-style: none; margin: clamp(32px, 5vw, 64px) 0 0; padding: 0; border-top: 2px solid currentColor; }
+.cases li {
+  display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); grid-auto-flow: row dense;
+  column-gap: clamp(16px, 4vw, 56px); row-gap: 12px;
+  padding-block: clamp(22px, 3vw, 36px); border-bottom: 2px solid currentColor;
+}
+.cases li > .where, .cases li > h3 { grid-column: 1; }
+.cases li > p:not(.where) { grid-column: 2; }
+.cases h3 { margin: 0; font-size: var(--size-2); font-weight: 800; font-variation-settings: "wdth" 115; letter-spacing: -0.02em; line-height: 1; }
+.cases .what-happened { font-size: var(--size-body); max-width: 38em; }
+.cases .lesson { font-size: var(--size-3); line-height: 1.35; font-weight: 600; max-width: 30em; }
+.cases .lesson strong { font-weight: 800; }
+.cases .src { font-size: var(--size-small); opacity: 0.85; }
+.cases .src a { text-underline-offset: 3px; }
+.f-chuna .cases .lesson strong { color: var(--sindoor); }
+.cases.on-dark .lesson strong { color: var(--haldi); }
 
-<div class="overlay" id="overlay" hidden>
-  <div class="overlay-top">
-    <span class="mark">ZER<svg viewBox="0 0 200 200" aria-hidden="true"><path d="RING"/></svg>ING</span>
-    <button class="menu-btn" id="menu-close" type="button" style="display:inline-flex">Close</button>
-  </div>
-  <nav aria-label="Main">
-    <a href="#why">Why Zeroing exists</a>
-    <a href="#on-record">Independent Society</a>
-    <a href="#brands">Community</a>
-    <a href="#how">How we work</a>
-    <a href="#join">Join</a>
-  </nav>
-  <a class="pill solid" href="#on-record" style="align-self:flex-start;margin-top:auto">Listen to the latest conversation</a>
-</div>
+.principles { list-style: none; margin: clamp(32px, 5vw, 64px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(28px, 4vw, 56px); }
+.principles li { border-top: 2px solid currentColor; padding-top: 18px; display: grid; gap: 10px; }
+.principles h3 { margin: 0; font-size: var(--size-2); font-weight: 800; font-variation-settings: "wdth" 115; letter-spacing: -0.02em; line-height: 1; text-wrap: balance; }
 
-<main>
-  <section class="field f-sindoor hero" id="top" data-ink="chuna" data-field="sindoor">
-    <svg class="hero-ring" viewBox="0 0 200 200" aria-hidden="true"><path class="draw" pathLength="1" d="RING"/></svg>
-    <div class="hero-body">
-      <h1 class="display">No Indian brand should grow alone.</h1>
-      <p class="lede">Zeroing is a community of Indian brands and the people behind them. We open doors for each other, and we keep an honest record of how work in this country actually gets done.</p>
-      <div class="actions">
-        <a class="pill solid" href="#on-record">Listen to Independent Society</a>
-        <a class="pill line" href="#brands">Meet the community</a>
-      </div>
-    </div>
-    <div class="corners narrow"><span>New Delhi</span><span id="today">Sunday, 18 October 2026</span></div>
-  </section>
+.brand-grid { margin-top: clamp(32px, 5vw, 64px); display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 16px; }
+.brand-card {
+  display: flex; flex-direction: column; gap: 12px; min-height: 320px; padding: 24px;
+  text-decoration: none; transition: transform 200ms ease;
+}
+.brand-card .tag { font-size: var(--size-small); }
+.brand-card .bname { margin-top: auto; font-size: var(--size-2); font-weight: 800; font-variation-settings: "wdth" 120; letter-spacing: -0.02em; line-height: 0.95; }
+.brand-card .bline { max-width: 22em; }
+.brand-card .open { font-weight: 600; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
+.brand-card:hover .open { text-decoration-thickness: 4px; }
+.bc-peepal { background: var(--peepal); color: var(--chuna); }
+.bc-haldi { background: var(--haldi); color: var(--kajal); }
+.bc-kattha { background: var(--kattha); color: var(--chuna); }
+.bc-genda { background: var(--genda); color: var(--kajal); }
+.brand-card.join-card { background: transparent; color: var(--chuna); border: 2px dashed var(--chuna); }
 
-  <section class="bands" id="what" aria-label="What Zeroing does" data-ink="chuna" data-field="peepal">
-    <a class="band peepal" href="#brands">
-      <h2 class="display">The community</h2>
-      <p>Indian brands made with intent. One brand's customer finds another. One founder's supplier helps the next.</p>
-      <span class="go">Meet the brands</span>
-    </a>
-    <a class="band neel" href="#on-record">
-      <h2 class="display">Independent Society</h2>
-      <p>Our podcast. One person, one long honest conversation about what their working life in India actually looked like.</p>
-      <span class="go">Listen</span>
-    </a>
-    <a class="band kattha" href="#join">
-      <h2 class="display">The Other Details</h2>
-      <p>Our research lab. The money, the paperwork, the years nobody saw. Written down, with sources.</p>
-      <span class="go">Read the notes</span>
-    </a>
-  </section>
+.brand-list a.name { text-decoration: none; }
+.brand-list a.name:hover { text-decoration: underline; text-underline-offset: 8px; text-decoration-thickness: 3px; }
 
+/* brand page */
+.brand-hero h1 { font-size: var(--size-hero); max-width: 8em; }
+.about { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(32px, 6vw, 96px); margin-block: auto; }
+.about .idea { display: grid; gap: 18px; }
+.about .idea h2 { font-size: var(--size-1); }
+.about .idea p { font-size: var(--size-3); line-height: 1.45; }
+.facts-list { margin: 0; border-top: 2px solid currentColor; align-self: start; }
+.facts-list div { display: grid; grid-template-columns: 8.5em minmax(0, 1fr); gap: 12px; padding-block: 14px; border-bottom: 2px solid currentColor; }
+.facts-list dt { font-weight: 700; }
+.facts-list dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.todo { border-bottom: 2px dashed currentColor; opacity: 0.75; }
+.next-brands { list-style: none; margin: clamp(28px, 4vw, 48px) 0 0; padding: 0; border-top: 2px solid currentColor; }
+.next-brands li { border-bottom: 2px solid currentColor; }
+.next-brands a { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: baseline; padding-block: 16px; text-decoration: none; }
+.next-brands .name { font-size: var(--size-2); font-weight: 800; font-variation-settings: "wdth" 115; letter-spacing: -0.02em; line-height: 1; }
+.next-brands a:hover .name { text-decoration: underline; text-underline-offset: 8px; text-decoration-thickness: 3px; }
 
-  <section class="field f-kajal" id="why" data-ink="chuna" data-field="kajal">
-    <div class="why-head">
-      <h2 class="display">Why Zeroing exists</h2>
-      <p>India runs on small businesses and on people whose work is never written down. These are the numbers we started from.</p>
-    </div>
-    <ol class="facts">
-      <li>
-        <div class="fig">8.7 crore<small>small businesses registered on Udyam, June 2026</small></div>
-        <div class="say"><p>Together they make about 31% of India's GDP and almost half of its exports, and employ 38.9 crore people.</p>
-        <p class="src">Source: <a href="https://ianslive.in/indias-msme-sector-output-crosses-31-per-cent-of-gdp-jobs-touch-389-crore--20260626131803" target="_blank" rel="noopener">official MSME fact sheet, reported by IANS, 26 June 2026</a></p></div>
-      </li>
-      <li>
-        <div class="fig">13 in 100<small>use social media to find customers</small></div>
-        <div class="say"><p>Seven in ten still depend on word of mouth and traditional selling. Reaching buyers beyond their own town is a bigger problem for them than getting a loan.</p>
-        <p class="src">Source: <a href="https://india.entrepreneur.com/en-in/news-and-trends/why-are-msmes-still-unable-to-access-newer-markets/491615" target="_blank" rel="noopener">SIDBI, Understanding Indian MSME Sector, 2025, a survey of over 2,000 businesses</a></p></div>
-      </li>
-      <li>
-        <div class="fig">9 in 10<small>Indian workers work informally</small></div>
-        <div class="say"><p>Fewer than one in ten has a job contract longer than a year, and about one in ten has any social security. Most of the country's working life leaves no record.</p>
-        <p class="src">Source: <a href="https://www.dataforindia.com/informal-sector-sizing/" target="_blank" rel="noopener">Data For India, from the Periodic Labour Force Survey 2024</a></p></div>
-      </li>
-      <li>
-        <div class="fig">Together<small>small firms get better at their craft</small></div>
-        <div class="say"><p>A study of two foundry clusters in South India found that firms which cooperated, with each other and along their supply chain, built significantly stronger technical capability.</p>
-        <p class="src">Source: <a href="https://www.inderscience.com/info/inarticle.php?artid=6565" target="_blank" rel="noopener">Raghavendra and Bala Subrahmanya, International Journal of Management and Enterprise Development, 2005</a></p></div>
-      </li>
-    </ol>
-    <p class="why-close">So Zeroing does two things. We help Indian brands find each other's customers, and we keep an honest record of how work here actually gets done.</p>
-  </section>
+@media (max-width: 900px) {
+  .cases li { grid-template-columns: 1fr; }
+  .cases li > .where, .cases li > h3, .cases li > p:not(.where) { grid-column: 1; }
+  .principles { grid-template-columns: 1fr; }
+  .about { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  .facts-list div { grid-template-columns: 1fr; gap: 2px; }
+  .next-brands a { grid-template-columns: 1fr; gap: 4px; }
+}
 
-  <section class="field f-chuna" id="how" data-ink="kajal" data-field="chuna">
-    <div class="how-head">
-      <h2 class="display">How we work</h2>
-      <p>Two simple routines, run the same way every time.</p>
-    </div>
-    <div class="tracks">
-      <div class="track">
-        <h3>With brands</h3>
-        <ol>
-          <li><div><strong>You apply.</strong> Tell us what you make, where, and one door you could open for another brand.</div></li>
-          <li><div><strong>We meet the founder.</strong> A short call, so both sides know it fits.</div></li>
-          <li><div><strong>We introduce you.</strong> To brands whose customers, suppliers or stalls overlap with yours.</div></li>
-          <li><div><strong>We grow in public.</strong> Brands present Independent Society together and are credited on every episode.</div></li>
-        </ol>
-      </div>
-      <div class="track">
-        <h3>With the record</h3>
-        <ol>
-          <li><div><strong>We research for weeks,</strong> so the guest never has to explain the basics.</div></li>
-          <li><div><strong>We film where they work or live,</strong> in a single unhurried day.</div></li>
-          <li><div><strong>We ask about the years,</strong> not the awards.</div></li>
-          <li><div><strong>We write down The Other Details:</strong> the money, the permissions, the paperwork. With sources.</div></li>
-        </ol>
-      </div>
-    </div>
-  </section>
-
-  <section class="field f-haldi" id="on-record" data-ink="kajal" data-field="haldi">
-    <div class="record">
-      <div class="porthole">
-        <div class="inside">A frame from Akanksha's shoot goes inside the zero</div>
-        <svg viewBox="0 0 200 200" aria-hidden="true"><path d="RING"/></svg>
-      </div>
-      <div class="record-text">
-        <p class="narrow">On record now, Independent Society episode 1</p>
-        <h2 class="display who">Akanksha Sood Singh</h2>
-        <p class="role">Wildlife filmmaker. Founder, The Gaia People and Women of the Wild.</p>
-        <blockquote>“I don't want to see it as just another meme page.”</blockquote>
-        <div class="actions">
-          <a class="pill solid" href="#on-record">Watch on YouTube</a>
-          <a class="pill line" href="#on-record">Listen on Spotify</a>
-        </div>
-      </div>
-    </div>
-    <div class="corners narrow"><span>Presented by INDSO and Ampor Eyewear</span><span>Released June 2026</span></div>
-  </section>
-
-  <section class="field f-genda" id="year" data-ink="kajal" data-field="genda">
-    <div class="ledger">
-      <p class="since">Since January 2026</p>
-      <p><span class="n">4</span>brands brought the first conversation to life.</p>
-      <p><span class="n">3</span>more joined the community.</p>
-      <p><span class="n">1</span>conversation is on record, and the next is coming.</p>
-    </div>
-  </section>
-
-  <section class="field f-neel" id="brands" data-ink="chuna" data-field="neel">
-    <div class="brands-head">
-      <h2 class="display">Made here.<br>Made to last.</h2>
-      <p>One small Indian brand is a stall at the end of the row. Together, we are the whole lane.</p>
-    </div>
-    <ul class="brand-list">
-      <li><span class="name">INDSO</span><span class="what">Botanical skincare gels</span></li>
-      <li><span class="name">Ampor Eyewear</span><span class="what">Eyewear</span></li>
-      <li><span class="name">Syzygy Living</span><span class="what">Design homeware</span></li>
-      <li><span class="name">Vedi Kade</span><span class="what">Community brand</span></li>
-      <li class="more"><span class="name">And three more</span><span class="what">Joined this year</span></li>
-    </ul>
-  </section>
-
-  <section class="field f-kajal join" id="join" data-ink="chuna" data-field="kajal">
-    <svg class="stamp" viewBox="0 0 200 200" aria-hidden="true">
-      <path d="RING"/>
-      <text x="100" y="106" text-anchor="middle">ZEROING</text>
-    </svg>
-    <h2 class="display">Building an Indian brand with intent? Grow with us.</h2>
-    <div class="join-row">
-      <p>Tell us about your brand. We read every application and reply within 14 days.</p>
-      <div class="actions"><a class="pill solid" href="#join">Apply to join Zeroing</a></div>
-    </div>
-
-    <footer class="foot">
-      <form class="letter" id="letter" novalidate>
-        <h3>One letter when a new conversation goes on record. Nothing else.</h3>
-        <div class="row">
-          <label class="sr-only" for="letter-email">Email</label>
-          <input type="email" id="letter-email" name="email" placeholder="you@example.com" autocomplete="email" required>
-          <button type="submit">Send me the letter</button>
-        </div>
-        <label class="consent" for="letter-consent"><input type="checkbox" id="letter-consent" name="consent"> I agree that Zeroing can email me about new episodes. I can unsubscribe at any time.</label>
-        <p class="status" id="letter-status" role="status"></p>
-      </form>
-      <div><h3>Listen</h3><ul><li><a href="#on-record">YouTube</a></li><li><a href="#on-record">Spotify</a></li></ul></div>
-      <div><h3>Community</h3><ul><li><a href="#brands">Brands</a></li><li><a href="#join">Join</a></li><li><a href="#what">The Other Details</a></li></ul></div>
-      <div><h3>Zeroing</h3><ul><li><a href="#why">Why Zeroing exists</a></li><li><a href="#how">How we work</a></li><li><a href="#join">Contact</a></li><li><a href="#join">Disclaimer and privacy</a></li></ul></div>
-    </footer>
-    <div class="signoff narrow">
-      <span>Instagram @zeroingnow and @theotherdetails. New Delhi, 2026.</span>
-      <span class="hi" lang="hi">सुबह अभी बाक़ी है</span>
-    </div>
-  </section>
-</main>
-
-<script>
-(function () {
-  // live date in the hero corner, like the day line on a magazine page
-  try {
-    var d = new Date();
-    document.getElementById('today').textContent = d.toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
-  } catch (e) {}
-
-  // header ink follows the colour field underneath it
-  var head = document.getElementById('head');
-  var root = document.documentElement;
-  var fields = document.querySelectorAll('[data-ink]');
-  function setInk(el) {
-    root.style.setProperty('--ink', 'var(--' + el.dataset.ink + ')');
-    root.style.setProperty('--field', 'var(--' + el.dataset.field + ')');
-  }
-  if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) { if (en.isIntersecting) setInk(en.target); });
-    }, { rootMargin: '-0px 0px -92% 0px', threshold: 0 });
-    fields.forEach(function (f) { io.observe(f); });
-  }
-  setInk(fields[0]);
-
-  // mobile menu
-  var overlay = document.getElementById('overlay');
-  var openBtn = document.getElementById('menu-open');
-  var closeBtn = document.getElementById('menu-close');
-  function close() { overlay.hidden = true; openBtn.setAttribute('aria-expanded', 'false'); openBtn.focus(); }
-  openBtn.addEventListener('click', function () { overlay.hidden = false; openBtn.setAttribute('aria-expanded', 'true'); closeBtn.focus(); });
-  closeBtn.addEventListener('click', close);
-  overlay.addEventListener('click', function (e) { if (e.target.tagName === 'A') { overlay.hidden = true; openBtn.setAttribute('aria-expanded', 'false'); } });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !overlay.hidden) close(); });
-
-  // newsletter: preview only, the live site posts this to the form service
-  var form = document.getElementById('letter');
-  var status = document.getElementById('letter-status');
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    var email = document.getElementById('letter-email');
-    var consent = document.getElementById('letter-consent');
-    if (!email.value || !email.checkValidity()) { status.textContent = 'Enter an email address like name@example.com.'; email.focus(); return; }
-    if (!consent.checked) { status.textContent = 'Tick the box to agree before we can send you the letter.'; consent.focus(); return; }
-    status.textContent = 'This is the preview, so nothing was sent. On the live site this adds you to the list.';
-  });
-})();
-</script>
+@media (max-width: 900px) {
+  .join .stamp { position: static; display: block; width: 88px; margin-bottom: 24px; }
+}
