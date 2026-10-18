@@ -367,6 +367,21 @@ p { margin: 0; max-width: 34em; }
 @media (max-width: 900px) {
   .join .stamp { position: static; display: block; width: 88px; margin-bottom: 24px; }
 }
+
+/* made in India badges and seal */
+.badges { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.badges li { border: 2px solid currentColor; border-radius: 999px; padding: 4px 14px; font-weight: 600; font-size: var(--size-small); }
+.badges.small li { padding: 2px 10px; font-size: 0.8rem; border-width: 1.5px; }
+.brands-head .badges { margin-top: 6px; }
+.seal { position: absolute; z-index: 1; right: max(var(--edge), env(safe-area-inset-right, 0px)); top: calc(var(--head-h) + 24px); width: clamp(96px, 11vw, 150px); aspect-ratio: 1; max-width: 100%; }
+.seal path { fill: none; stroke: currentColor; stroke-width: 11; stroke-linecap: round; }
+.seal text { fill: currentColor; font-family: var(--font); font-weight: 800; font-variation-settings: "wdth" 115; font-size: 22px; letter-spacing: 2px; }
+.brand-hero .seal { position: relative; z-index: 1; right: auto; top: auto; display: block; margin-top: 28px; width: clamp(88px, 8vw, 120px); }
+.about .idea h3.sub { margin: 18px 0 0; font-size: var(--size-2); font-weight: 800; font-variation-settings: "wdth" 115; letter-spacing: -0.02em; line-height: 1; }
+@media (max-width: 900px) {
+  .seal { position: static; display: block; width: 92px; margin-bottom: 20px; }
+  .brand-hero .seal { margin: 24px 0 0; width: 84px; }
+}
 </style>
 </head>
 <body>
@@ -406,7 +421,8 @@ p { margin: 0; max-width: 34em; }
       <p class="lede">Design homeware.</p>
       <div class="actions"><a class="pill solid" href="https://www.instagram.com/syzygyliving/" target="_blank" rel="noopener">Visit Syzygy Living</a></div>
     </div>
-    <div class="corners narrow"><span>Part of the Zeroing community</span><span>Community brand</span></div>
+    <svg class="seal" viewBox="0 0 200 200" aria-hidden="true"><path d="M74.2 24.4C76.3 23.9 82.6 21.9 87.0 21.2C91.3 20.6 95.7 20.5 100.1 20.7C104.4 21.0 108.8 21.7 113.0 22.7C117.2 23.6 121.3 25.0 125.3 26.4C129.3 27.9 133.2 29.7 137.0 31.6C140.9 33.5 144.6 35.6 148.2 38.0C151.8 40.4 155.4 43.0 158.7 46.0C161.9 48.9 165.0 52.2 167.7 55.7C170.4 59.2 172.8 63.1 174.8 67.1C176.7 71.1 178.2 75.5 179.3 79.8C180.4 84.1 181.0 88.7 181.3 93.1C181.6 97.6 181.4 102.1 181.0 106.6C180.5 111.0 179.6 115.4 178.5 119.7C177.3 124.0 175.8 128.2 173.9 132.2C172.0 136.2 169.7 140.1 167.1 143.6C164.5 147.1 161.5 150.5 158.3 153.4C155.1 156.3 151.5 158.9 147.9 161.1C144.3 163.4 140.4 165.3 136.5 166.9C132.6 168.5 128.6 169.8 124.7 171.0C120.7 172.2 116.7 173.1 112.6 173.9C108.6 174.7 104.5 175.4 100.3 175.8C96.1 176.2 91.9 176.5 87.6 176.3C83.4 176.1 79.0 175.6 74.8 174.7C70.5 173.7 66.3 172.3 62.3 170.5C58.3 168.7 54.5 166.3 50.9 163.7C47.4 161.1 44.2 158.0 41.2 154.7C38.3 151.5 35.6 147.8 33.3 144.1C30.9 140.4 28.9 136.5 27.1 132.5C25.4 128.5 23.9 124.3 22.8 120.1C21.7 115.8 20.9 111.4 20.6 107.1C20.3 102.8 20.3 98.3 20.8 94.0C21.3 89.7 22.3 85.3 23.6 81.2C24.9 77.1 26.6 73.1 28.6 69.3C30.5 65.5 32.9 61.9 35.3 58.4C37.8 55.0 40.5 51.8 43.4 48.7C46.2 45.6 49.2 42.6 52.5 39.9C55.7 37.3 59.1 34.7 62.7 32.5C66.4 30.3 70.2 28.4 74.2 26.9C78.2 25.4 82.4 24.3 86.5 23.6C90.7 23.0 97.2 23.1 99.3 23.0"/><text x="100" y="94" text-anchor="middle">MADE IN</text><text x="100" y="122" text-anchor="middle">INDIA</text></svg>
+    <div class="corners narrow"><span>Homegrown and made in India</span><span>Community brand</span></div>
   </section>
 
   <section class="field f-chuna" id="about" data-ink="kajal" data-field="chuna">
@@ -414,10 +430,13 @@ p { margin: 0; max-width: 34em; }
       <div class="idea">
         <h2 class="display">The idea</h2>
         <p>Syzygy Living makes design homeware. Its name comes from the word for three heavenly bodies falling into line.</p>
+        <h3 class="sub">Working towards sustainability</h3>
+        <p><span class="todo">To confirm with the founder: what the brand already does on materials, packaging or making, and the next step it is working on.</span></p>
       </div>
       <dl class="facts-list">
         <div><dt>Makes</dt><dd>Design homeware</dd></div>
-        <div><dt>Made in</dt><dd><span class="todo">To confirm</span></dd></div>
+        <div><dt>Made in</dt><dd>India</dd></div>
+        <div><dt>Homegrown</dt><dd>Yes, Indian founded and run</dd></div>
         <div><dt>Founder</dt><dd><span class="todo">To confirm</span></dd></div>
         <div><dt>In Zeroing</dt><dd>Community brand</dd></div>
         <div><dt>Website</dt><dd><span class="todo">To confirm</span></dd></div>

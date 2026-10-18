@@ -367,6 +367,21 @@ p { margin: 0; max-width: 34em; }
 @media (max-width: 900px) {
   .join .stamp { position: static; display: block; width: 88px; margin-bottom: 24px; }
 }
+
+/* made in India badges and seal */
+.badges { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.badges li { border: 2px solid currentColor; border-radius: 999px; padding: 4px 14px; font-weight: 600; font-size: var(--size-small); }
+.badges.small li { padding: 2px 10px; font-size: 0.8rem; border-width: 1.5px; }
+.brands-head .badges { margin-top: 6px; }
+.seal { position: absolute; z-index: 1; right: max(var(--edge), env(safe-area-inset-right, 0px)); top: calc(var(--head-h) + 24px); width: clamp(96px, 11vw, 150px); aspect-ratio: 1; max-width: 100%; }
+.seal path { fill: none; stroke: currentColor; stroke-width: 11; stroke-linecap: round; }
+.seal text { fill: currentColor; font-family: var(--font); font-weight: 800; font-variation-settings: "wdth" 115; font-size: 22px; letter-spacing: 2px; }
+.brand-hero .seal { position: relative; z-index: 1; right: auto; top: auto; display: block; margin-top: 28px; width: clamp(88px, 8vw, 120px); }
+.about .idea h3.sub { margin: 18px 0 0; font-size: var(--size-2); font-weight: 800; font-variation-settings: "wdth" 115; letter-spacing: -0.02em; line-height: 1; }
+@media (max-width: 900px) {
+  .seal { position: static; display: block; width: 92px; margin-bottom: 20px; }
+  .brand-hero .seal { margin: 24px 0 0; width: 84px; }
+}
 </style>
 </head>
 <body>
@@ -520,7 +535,8 @@ p { margin: 0; max-width: 34em; }
   <section class="field f-neel" id="brands" data-ink="chuna" data-field="neel">
     <div class="brands-head">
       <h2 class="display">Made here.<br>Made to last.</h2>
-      <p>One small Indian brand is a stall at the end of the row. Together, we are the whole lane.</p>
+      <p>Every brand in Zeroing is homegrown and made in India, by an owner you can meet. Each one is working towards making things more sustainably, and says how on its own page.</p>
+      <ul class="badges"><li>Made in India</li><li>Homegrown</li><li>Working towards sustainability</li></ul>
     </div>
     <ul class="brand-list">
       <li><a class="name" href="brands/indso.html">INDSO</a><span class="what">Botanical skincare gels</span></li>

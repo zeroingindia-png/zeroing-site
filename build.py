@@ -25,6 +25,7 @@ BRANDS = [
         ],
         "role": "Community brand",
         "city": "",
+        "sustainability": "",
         "founder": "",
         "site": "",
         "instagram": "",
@@ -41,6 +42,7 @@ BRANDS = [
         ],
         "role": "Presented Independent Society",
         "city": "",
+        "sustainability": "",
         "founder": "",
         "site": "https://indso.in",
         "instagram": "indso.in",
@@ -54,6 +56,7 @@ BRANDS = [
         "idea": ["Ampor Eyewear makes eyewear and was one of the two brands that presented the first conversation of Independent Society."],
         "role": "Presented Independent Society",
         "city": "",
+        "sustainability": "",
         "founder": "",
         "site": "",
         "instagram": "amporeyewear",
@@ -67,6 +70,7 @@ BRANDS = [
         "idea": ["Syzygy Living makes design homeware. Its name comes from the word for three heavenly bodies falling into line."],
         "role": "Community brand",
         "city": "",
+        "sustainability": "",
         "founder": "",
         "site": "",
         "instagram": "syzygyliving",
@@ -135,6 +139,7 @@ def brand_card(b, P):
             f'        <span class="tag">{html.escape(b["role"])}</span>\n'
             f'        <span class="bname">{html.escape(b["name"])}</span>\n'
             f'        <span class="bline">{html.escape(b["makes"])}</span>\n'
+            f'        <ul class="badges small"><li>Made in India</li><li>Homegrown</li></ul>\n'
             f'        <span class="open">Open the brand page</span>\n'
             f'      </a>')
 
@@ -142,6 +147,8 @@ def brand_card(b, P):
 def brand_main(b):
     ink = "kajal" if b["colour"] in ("haldi", "genda") else "chuna"
     idea = "\n".join(f"        <p>{html.escape(p)}</p>" for p in b["idea"])
+    sus = (f"<p>{html.escape(b['sustainability'])}</p>" if b.get("sustainability")
+           else '<p><span class="todo">To confirm with the founder: what the brand already does on materials, packaging or making, and the next step it is working on.</span></p>')
     shop_url = b["site"] or (f'https://www.instagram.com/{b["instagram"]}/' if b["instagram"] else "")
     shop_btn = (f'<a class="pill solid" href="{shop_url}" target="_blank" rel="noopener">Visit {html.escape(b["name"])}</a>'
                 if shop_url else '<span class="pill line" aria-disabled="true">Shop link coming soon</span>')
@@ -156,7 +163,8 @@ def brand_main(b):
       <p class="lede">{html.escape(b['line'])}</p>
       <div class="actions">{shop_btn}</div>
     </div>
-    <div class="corners narrow"><span>Part of the Zeroing community</span><span>{html.escape(b['role'])}</span></div>
+    <svg class="seal" viewBox="0 0 200 200" aria-hidden="true"><path d="RING"/><text x="100" y="94" text-anchor="middle">MADE IN</text><text x="100" y="122" text-anchor="middle">INDIA</text></svg>
+    <div class="corners narrow"><span>Homegrown and made in India</span><span>{html.escape(b['role'])}</span></div>
   </section>
 
   <section class="field f-chuna" id="about" data-ink="kajal" data-field="chuna">
@@ -164,10 +172,13 @@ def brand_main(b):
       <div class="idea">
         <h2 class="display">The idea</h2>
 {idea}
+        <h3 class="sub">Working towards sustainability</h3>
+        {sus}
       </div>
       <dl class="facts-list">
         <div><dt>Makes</dt><dd>{html.escape(b['makes'])}</dd></div>
-        <div><dt>Made in</dt><dd>{html.escape(b['city']) or TODO}</dd></div>
+        <div><dt>Made in</dt><dd>India{(', ' + html.escape(b['city'])) if b['city'] else ''}</dd></div>
+        <div><dt>Homegrown</dt><dd>Yes, Indian founded and run</dd></div>
         <div><dt>Founder</dt><dd>{html.escape(b['founder']) or TODO}</dd></div>
         <div><dt>In Zeroing</dt><dd>{html.escape(b['role'])}</dd></div>
         <div><dt>Website</dt><dd>{site_link(b['site'])}</dd></div>
