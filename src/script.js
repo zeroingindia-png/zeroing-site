@@ -60,7 +60,7 @@
     var groups = ['.case-head', '.why-head', '.how-head', '.brands-head', '.craft-head', '.facts li', '.cases li', '.principles li',
       '.track li', '.brand-card', '.brand-list li', '.next-brands li', '.episode', '.part', '.highlights li', '.ledger p',
       '.record-text > *', '.about .idea > *', '.facts-list div', '.why-close', '.anthem', '.form-wrap', '.file-body > *',
-      '.photo', '.porthole', '.listen-row', '.join h2', '.join-row', '.web', '.cine'];
+      '.photo', '.porthole', '.listen-row', '.join h2', '.join-row', '.web', '.cine', '.stepper', '.rec-card'];
     var items = document.querySelectorAll(groups.join(','));
     var seen = new Map();
     items.forEach(function (el) {

@@ -7,7 +7,7 @@ Writes every page into public/ (what Cloudflare Pages serves) and preview.html
 Edit the brand details in BRANDS and the episode links in EPISODES below; write "" for anything not confirmed yet.
 Photographs live in public/media/. Keep them under about 500 KB each.
 """
-import html, json, os, re
+import html, json, math, os, re
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(ROOT, "src")
@@ -26,6 +26,11 @@ def mf(v):
     """'/media/x.jpg' (as the editor saves it) -> 'x.jpg'."""
     v = (v or "").strip()
     return v.split("media/")[-1] if v else ""
+
+
+def T(t):
+    """Escape text and turn *words* into <em>words</em> (set in the serif italic)."""
+    return re.sub(r"\*([^*]+)\*", r"<em>\1</em>", E(t or ""))
 
 
 def slugify(t):
@@ -86,7 +91,7 @@ HEAD = """<title>{title}</title>
 <link rel="icon" href="%%ROOT%%favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anek+Devanagari:wdth,wght@75..125,300..800&family=Anek+Latin:wdth,wght@75..125,300..800&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anek+Devanagari:wdth,wght@75..125,300..800&family=Anek+Latin:wdth,wght@75..125,300..800&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@500&display=swap">
 <script>document.documentElement.classList.add('js')</script>
 <style>
 {css}</style>"""
@@ -325,6 +330,58 @@ def spotify_embed(url, title):
             f'loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>')
 
 
+def orbit_html(P):
+    """Community hero: the brands' own photographs circling the headline, like stalls around a lane."""
+    items = []
+    for b in BRANDS:
+        if b.get("hero") and not b.get("wordmark"):
+            items.append(("photo", b.get("thumb") or b["hero"][0], b["name"]))
+        elif b.get("wordmark"):
+            items.append(("word", b["wordmark"][0], b["name"]))
+        elif b.get("tape"):
+            items.append(("tape", b["tape"], b["name"]))
+        else:
+            items.append(("colour", b["colour"], b["name"]))
+    for c in HOME_CRAFT:
+        items.append(("photo", c[0], ""))
+    items = items[:10]
+    n = len(items)
+    out = []
+    for i, (kind, val, label) in enumerate(items):
+        # two arcs, left and right of the headline, so the words stay clear
+        half = (n + 1) // 2
+        k, m = (i // 2, half) if True else (0, 1)
+        t = (k + 0.5) / m
+        a = (-68 + 136 * t) if i % 2 == 0 else (248 - 136 * t)
+        x = 50 + 43 * math.cos(math.radians(a))
+        y = 50 + 44 * math.sin(math.radians(a))
+        size = [148, 118, 132, 104][i % 4]
+        rot = [-6, 4, -3, 7, -5, 3][i % 6]
+        style = f'--x:{x:.1f}%;--y:{y:.1f}%;--s:{size}px;--r:{rot}deg;--i:{i};--f:{7 + i % 4}s'
+        cls = "o-card" + (" o-hide-s" if i % 2 else "")
+        if kind == "colour":
+            body = f'<span class="o-colour" style="background:var(--{val})"><span>{E(label)}</span></span>'
+        elif kind == "tape":
+            body = f'<span class="o-tape">{img(val, "", P)}</span>'
+        elif kind == "word":
+            body = f'<span class="o-word">{img(val, "", P)}</span>'
+        else:
+            body = img(val, "", P)
+        tag = f'<span class="o-label">{E(label)}</span>' if label and kind != "colour" else ""
+        out.append(f'<span class="{cls}" style="{style}">{body}{tag}</span>')
+    return "\n      ".join(out)
+
+
+def record_card():
+    parts = EPISODES[0]["parts"]
+    rows = [("Episodes on record", len(parts)), ("Moments in the highlights", len(HIGHLIGHTS)), ("Brands that presented it", 2)]
+    li = "".join(f'<li><span>{E(k)}</span><b>{v}</b></li>' for k, v in rows)
+    return (f'<aside class="rec-card" aria-label="This conversation in numbers"><div class="rec-top"><span>Akanksha Sood Singh</span>'
+            f'<span class="rec-badge">Part two is out</span></div>'
+            f'<p class="rec-title">Part one <span aria-hidden="true">&#8594;</span> <em>Part two</em></p><ul>{li}</ul></aside>')
+
+
+
 def web_svg():
     """A line drawing of the community: every brand tied to the centre, and to each other. It draws itself on arrival."""
     cx, cy = 500, 215
@@ -379,14 +436,14 @@ def build():
         for (c, h, go), bd in zip(band_links, H_.get("bands", [])))
     ledger = "\n".join(f'      <p><span class="n">{int(l.get("number") or 0)}</span>{E(l.get("text", ""))}</p>' for l in H_.get("ledger", []))
     home = (read("pages", "home.html")
-            .replace("{HERO_TITLE}", E(H_.get("hero_title", ""))).replace("{HERO_TEXT}", E(H_.get("hero_text", "")))
+            .replace("{HERO_TITLE}", T(H_.get("hero_title", ""))).replace("{HERO_TEXT}", E(H_.get("hero_text", "")))
             .replace("{BANDS}", bands)
-            .replace("{CRAFT}", craft_reel(HOME_CRAFT, H_.get("craft_title", ""), E(H_.get("craft_text", "")), ""))
+            .replace("{CRAFT}", craft_reel(HOME_CRAFT, H_.get("craft_title", ""), T(H_.get("craft_text", "")), ""))
             .replace("{RECORD_LABEL}", E(H_.get("record_label", ""))).replace("{RECORD_NAME}", E(H_.get("record_name", "")))
             .replace("{RECORD_ROLE}", E(H_.get("record_role", ""))).replace("{RECORD_QUOTE}", E(H_.get("record_quote", "")))
             .replace("{RECORD_IMAGE}", mf(H_.get("record_image")))
             .replace("{LEDGER_SINCE}", E(H_.get("ledger_since", ""))).replace("{LEDGER}", ledger)
-            .replace("{BRANDS_TITLE}", E(H_.get("brands_title", ""))).replace("{BRANDS_TEXT}", E(H_.get("brands_text", "")))
+            .replace("{BRANDS_TITLE}", T(H_.get("brands_title", ""))).replace("{BRANDS_TEXT}", E(H_.get("brands_text", "")))
             .replace("{HOME_BRANDS}", "\n".join(home_brand_row(b, "") for b in BRANDS))
             .replace("{LISTEN_LATEST}", listen_buttons(p2))
             .replace("{WEB}", web_svg()))
@@ -399,7 +456,7 @@ def build():
 
     # community
     cards = "\n".join(brand_card(b, "") for b in BRANDS)
-    main = read("pages", "community.html").replace("{BRAND_CARDS}", cards).replace("{BRAND_COUNT}", str(len(BRANDS) + 3))
+    main = read("pages", "community.html").replace("{ORBIT}", orbit_html("")).replace("{BRAND_CARDS}", cards).replace("{BRAND_COUNT}", str(len(BRANDS) + 3))
     head, body = page("Zeroing Community",
                       "The Indian brands in Zeroing, and what we learned from small business efforts around the world.",
                       main, P="", H="index.html", current="community")
@@ -416,6 +473,7 @@ def build():
                .replace("{EP1_LINKS}", listen_buttons(p1)).replace("{EP2_LINKS}", listen_buttons(p2))
                .replace("{EP1_TITLE}", E(p1["title"])).replace("{EP2_TITLE}", E(p2["title"]))
                .replace("{HIGHLIGHTS}", highlights_html(p2["spotify"]))
+               .replace("{RECORD_CARD}", record_card())
                .replace("{YOUTUBE_CHANNEL_BTN}", f'<a class="pill line" href="{YOUTUBE_CHANNEL}" target="_blank" rel="noopener">Watch on YouTube <span class="arr" aria-hidden="true">&#8599;</span></a>' if YOUTUBE_CHANNEL else ""))
     simple = [
         ("independent-society.html", "Independent Society", "Long, honest conversations about what working life in India actually looked like.", is_main, "podcast"),

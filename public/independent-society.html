@@ -10,7 +10,7 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anek+Devanagari:wdth,wght@75..125,300..800&family=Anek+Latin:wdth,wght@75..125,300..800&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anek+Devanagari:wdth,wght@75..125,300..800&family=Anek+Latin:wdth,wght@75..125,300..800&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@500&display=swap">
 <script>document.documentElement.classList.add('js')</script>
 <style>
 /* Zeroing
@@ -639,6 +639,105 @@ a.episode:hover .disc img { filter: none; transform: scale(1.06); }
   .facts-list div { grid-template-columns: 1fr; gap: 2px; }
   .next-brands a { grid-template-columns: 1fr; gap: 4px; }
 }
+
+/* =========================================================
+   Graphics pass 2: orbit, stepper, record card, source tags, torn paper
+   ========================================================= */
+:root {
+  --font-serif: "Instrument Serif", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+em { font-style: italic; }
+.display em, .rec-title em { font-family: var(--font-serif); font-weight: 400; font-variation-settings: normal; letter-spacing: 0; }
+
+/* orbit hero: the brands' photographs circle the headline */
+.orbit-hero { justify-content: center; align-items: center; text-align: center; background: radial-gradient(120% 90% at 50% 50%, #fffdf8 0%, var(--chuna) 55%, var(--chuna-2) 100%); }
+.orbit { position: absolute; inset: calc(var(--head-h) + 8px) 2% 40px; pointer-events: none; }
+.o-card {
+  position: absolute; left: var(--x); top: var(--y); width: var(--s); aspect-ratio: 4 / 5;
+  translate: -50% -50%; rotate: var(--r);
+  border-radius: 14px; overflow: visible; background: #fff;
+  box-shadow: 0 1px 0 rgba(22,21,20,0.06), 0 18px 40px -18px rgba(22,21,20,0.35);
+  animation: o-in 1600ms var(--ease) both, o-float var(--f) ease-in-out infinite alternate;
+  animation-delay: calc(var(--i) * 90ms), calc(1600ms + var(--i) * 300ms);
+}
+.o-card > img, .o-card > span:first-child { display: block; width: 100%; height: 100%; border-radius: 14px; overflow: hidden; object-fit: cover; }
+.o-word, .o-tape { display: grid !important; place-items: center; padding: 14%; background: #fff; }
+.o-tape { background: var(--haldi); padding: 10%; }
+.o-word img, .o-tape img { width: 100%; height: auto; }
+.o-colour { display: grid !important; place-items: center; padding: 12%; }
+.o-colour span { font-family: var(--font-display); font-variation-settings: var(--display-vars); font-weight: 800; color: var(--chuna); font-size: 1.05rem; line-height: 1; }
+.o-label {
+  position: absolute; left: 50%; bottom: -14px; translate: -50% 0; white-space: nowrap;
+  background: var(--kajal); color: var(--chuna); border-radius: 999px; padding: 4px 10px;
+  font-size: 0.72rem; font-weight: 600; rotate: calc(var(--r) * -1);
+}
+@keyframes o-in { from { opacity: 0; scale: 0.6; translate: -50% -20%; } }
+@keyframes o-float { to { transform: translateY(-12px); } }
+@keyframes o-fade { from { opacity: 0; transform: translateY(16px); } }
+.orbit-text { position: relative; z-index: 1; display: grid; justify-items: center; gap: 22px; max-width: 40rem; margin: auto; padding-block: 40px; }
+.orbit-text h1 { font-size: clamp(2.6rem, 6vw, 5.6rem); max-width: 11em; }
+.orbit-text .lede { font-size: var(--size-body); line-height: 1.5; max-width: 34em; }
+.orbit-text .actions { justify-content: center; }
+.orbit-hero .corners { width: 100%; text-align: left; }
+
+/* stepper: the four steps a brand takes, joined by a line that fills */
+.stepper { list-style: none; margin: clamp(28px, 4vw, 48px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); position: relative; max-width: 980px; }
+.stepper::before, .stepper::after { content: ""; position: absolute; left: 12.5%; right: 12.5%; top: 21px; height: 2px; background: rgba(22,21,20,0.14); }
+.stepper::after { background: var(--sindoor); transform-origin: left; transform: scaleX(1); }
+.stepper li { position: relative; z-index: 1; display: grid; justify-items: center; gap: 12px; text-align: center; }
+.stepper .dot { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--sindoor); color: var(--chuna); font-weight: 700; box-shadow: 0 0 0 6px var(--chuna); }
+.stepper .st { font-weight: 600; }
+.js .stepper.rv { opacity: 1; transform: none; }
+.js .stepper.rv::after { transform: scaleX(0); transition: transform 2200ms var(--ease-in-out) 300ms; }
+.js .stepper.rv.in::after { transform: scaleX(1); }
+.js .stepper.rv .dot { background: var(--chuna); color: var(--kajal); outline: 2px solid rgba(22,21,20,0.25); outline-offset: -2px; transition: background-color 500ms var(--ease), color 500ms var(--ease), outline-color 500ms; }
+.js .stepper.rv.in li:nth-child(1) .dot { transition-delay: 300ms; }
+.js .stepper.rv.in li:nth-child(2) .dot { transition-delay: 1000ms; }
+.js .stepper.rv.in li:nth-child(3) .dot { transition-delay: 1700ms; }
+.js .stepper.rv.in li:nth-child(4) .dot { transition-delay: 2400ms; }
+.js .stepper.rv.in .dot { background: var(--sindoor); color: var(--chuna); outline-color: transparent; }
+
+/* record card: the conversation at a glance */
+.head-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 24rem); gap: 32px clamp(32px, 6vw, 96px); align-items: end; }
+.rec-card { border: 1px solid rgba(255,255,255,0.14); border-radius: 18px; background: rgba(255,255,255,0.04); padding: 18px 22px 10px; position: relative; overflow: hidden; }
+.rec-card::before { content: ""; position: absolute; left: 14px; right: 14px; top: 8px; height: 0; border-top: 2px dashed rgba(255,255,255,0.22); }
+.rec-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 10px; font-size: var(--size-small); opacity: 0.8; }
+.rec-badge { border: 1px solid var(--haldi); color: var(--haldi); border-radius: 999px; padding: 2px 10px; font-size: 0.78rem; font-weight: 600; white-space: nowrap; }
+.rec-title { margin: 14px 0 8px; font-family: var(--font-display); font-variation-settings: var(--display-vars); font-weight: 800; font-size: 2rem; line-height: 1.05; }
+.rec-title em { color: var(--haldi); font-size: 1.12em; }
+.rec-card ul { list-style: none; margin: 0; padding: 0; }
+.rec-card li { display: flex; justify-content: space-between; gap: 12px; padding: 12px 0; border-top: 1px solid rgba(255,255,255,0.12); }
+.rec-card li b { font-family: var(--font-mono); font-weight: 500; color: var(--haldi); }
+
+/* where each figure comes from */
+.facts li { position: relative; }
+.dom { position: absolute; right: 0; top: clamp(20px, 3vw, 34px); font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0; text-transform: none; opacity: 0.6; }
+.facts li { padding-top: calc(clamp(22px, 3vw, 36px) + 18px); }
+.highlights .t { font-family: var(--font-mono); font-weight: 500; font-size: 0.92rem; }
+
+/* torn paper: the craft photographs keep a hand-cut lower edge */
+.craft-item .photo {
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 12' preserveAspectRatio='none'%3E%3Cpath d='M0 0H120V6L114 9 108 5 101 10 95 6 88 11 82 7 75 10 69 5 62 9 56 6 49 11 43 7 36 10 30 5 23 9 17 6 10 11 4 7 0 9Z'/%3E%3C/svg%3E") bottom / 100% 14px no-repeat, linear-gradient(#000 0 0) top / 100% calc(100% - 12px) no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 12' preserveAspectRatio='none'%3E%3Cpath d='M0 0H120V6L114 9 108 5 101 10 95 6 88 11 82 7 75 10 69 5 62 9 56 6 49 11 43 7 36 10 30 5 23 9 17 6 10 11 4 7 0 9Z'/%3E%3C/svg%3E") bottom / 100% 14px no-repeat, linear-gradient(#000 0 0) top / 100% calc(100% - 12px) no-repeat;
+}
+
+@media (max-width: 900px) {
+  .head-row { grid-template-columns: 1fr; }
+  .orbit { position: relative; inset: auto; display: flex; justify-content: center; gap: 12px; margin: 8px 0 8px; padding-bottom: 18px; }
+  .o-card { position: relative; left: auto; top: auto; translate: none; width: 74px; animation: o-fade 1200ms var(--ease) both, o-float var(--f) ease-in-out infinite alternate; animation-delay: calc(var(--i) * 90ms), 1400ms; }
+  .o-card:nth-child(n+5) { display: none; }
+  .o-label { font-size: 0.62rem; padding: 3px 7px; }
+  .orbit-text { padding-block: 12px 24px; }
+  .stepper .st { font-size: 0.85rem; }
+  .dom { position: static; display: block; margin-bottom: 4px; }
+  .facts li { padding-top: clamp(22px, 3vw, 36px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .js .stepper.rv::after { transform: scaleX(1); }
+  .js .stepper.rv .dot { background: var(--sindoor); color: var(--chuna); }
+}
+.o-card:has(.o-label) { z-index: 2; }
 </style>
 </head>
 <body>
@@ -675,7 +774,7 @@ a.episode:hover .disc img { filter: none; transform: scale(1.06); }
 
 <main>
   <section class="field f-neel hero" id="top" data-ink="chuna" data-field="neel">
-    <svg class="hero-mark" viewBox="0 0 1373 1002" aria-hidden="true"><defs><clipPath id="mt7"><rect width="1373" height="506"/></clipPath><clipPath id="mb7"><rect y="506" width="1373" height="496"/></clipPath></defs><g class="top" clip-path="url(#mt7)"><path fill-rule="evenodd" d="M365.7 1000.9C243.6 990.8 133.8 925.9 66.5 824.0C29.7 768.4 8.5 707.8 1.9 639.5C0.2 621.9 0.4 583.4 2.4 565.0C4.0 549.5 7.6 527.7 10.8 513.9L12.5 506.5L160.1 506.2L307.7 506.0L438.6 374.2C510.6 301.8 598.7 213.0 634.5 177.0C706.4 104.6 710.1 100.9 727.9 86.8C782.0 43.5 849.4 14.4 918.5 4.6C954.1 -0.5 996.7 -0.5 1032.5 4.6C1089.1 12.6 1147.6 35.0 1196.0 67.3C1273.8 119.3 1331.4 197.8 1356.9 287.0C1377.2 357.8 1377.9 428.2 1359.2 501.5L1357.4 508.5L1205.2 509.0L1053.0 509.5L871.3 692.6C771.3 793.4 682.5 882.5 674.0 890.6C641.3 921.8 611.0 942.9 571.5 962.1C525.8 984.3 480.5 996.6 428.5 1001.0C414.7 1002.1 380.1 1002.1 365.7 1000.9ZM423.0 732.6C448.8 727.0 468.8 716.4 489.2 697.4C495.0 692.0 539.6 647.5 588.2 598.5L676.5 509.5L493.0 509.2L309.6 509.0L304.7 513.7C302.0 516.4 297.0 522.2 293.6 526.8C268.8 559.7 261.2 604.2 273.6 643.5C283.3 674.0 305.1 701.3 332.7 717.4C345.8 725.0 362.5 730.9 378.5 733.6C388.8 735.3 412.9 734.8 423.0 732.6ZM1057.0 500.3C1079.9 475.2 1092.8 436.0 1089.1 402.5C1082.6 344.7 1044.4 301.1 987.6 286.9C975.7 283.9 951.5 283.2 937.9 285.5C918.9 288.7 899.0 296.8 883.2 308.0C878.5 311.3 860.6 328.6 832.8 356.8C809.0 380.8 765.9 424.2 737.1 453.2L684.5 506.0L868.2 506.0L1051.8 506.0L1057.0 500.3Z"/></g><g class="bot" clip-path="url(#mb7)"><path fill-rule="evenodd" d="M365.7 1000.9C243.6 990.8 133.8 925.9 66.5 824.0C29.7 768.4 8.5 707.8 1.9 639.5C0.2 621.9 0.4 583.4 2.4 565.0C4.0 549.5 7.6 527.7 10.8 513.9L12.5 506.5L160.1 506.2L307.7 506.0L438.6 374.2C510.6 301.8 598.7 213.0 634.5 177.0C706.4 104.6 710.1 100.9 727.9 86.8C782.0 43.5 849.4 14.4 918.5 4.6C954.1 -0.5 996.7 -0.5 1032.5 4.6C1089.1 12.6 1147.6 35.0 1196.0 67.3C1273.8 119.3 1331.4 197.8 1356.9 287.0C1377.2 357.8 1377.9 428.2 1359.2 501.5L1357.4 508.5L1205.2 509.0L1053.0 509.5L871.3 692.6C771.3 793.4 682.5 882.5 674.0 890.6C641.3 921.8 611.0 942.9 571.5 962.1C525.8 984.3 480.5 996.6 428.5 1001.0C414.7 1002.1 380.1 1002.1 365.7 1000.9ZM423.0 732.6C448.8 727.0 468.8 716.4 489.2 697.4C495.0 692.0 539.6 647.5 588.2 598.5L676.5 509.5L493.0 509.2L309.6 509.0L304.7 513.7C302.0 516.4 297.0 522.2 293.6 526.8C268.8 559.7 261.2 604.2 273.6 643.5C283.3 674.0 305.1 701.3 332.7 717.4C345.8 725.0 362.5 730.9 378.5 733.6C388.8 735.3 412.9 734.8 423.0 732.6ZM1057.0 500.3C1079.9 475.2 1092.8 436.0 1089.1 402.5C1082.6 344.7 1044.4 301.1 987.6 286.9C975.7 283.9 951.5 283.2 937.9 285.5C918.9 288.7 899.0 296.8 883.2 308.0C878.5 311.3 860.6 328.6 832.8 356.8C809.0 380.8 765.9 424.2 737.1 453.2L684.5 506.0L868.2 506.0L1051.8 506.0L1057.0 500.3Z"/></g></svg>
+    <svg class="hero-mark" viewBox="0 0 1373 1002" aria-hidden="true"><defs><clipPath id="mt6"><rect width="1373" height="506"/></clipPath><clipPath id="mb6"><rect y="506" width="1373" height="496"/></clipPath></defs><g class="top" clip-path="url(#mt6)"><path fill-rule="evenodd" d="M365.7 1000.9C243.6 990.8 133.8 925.9 66.5 824.0C29.7 768.4 8.5 707.8 1.9 639.5C0.2 621.9 0.4 583.4 2.4 565.0C4.0 549.5 7.6 527.7 10.8 513.9L12.5 506.5L160.1 506.2L307.7 506.0L438.6 374.2C510.6 301.8 598.7 213.0 634.5 177.0C706.4 104.6 710.1 100.9 727.9 86.8C782.0 43.5 849.4 14.4 918.5 4.6C954.1 -0.5 996.7 -0.5 1032.5 4.6C1089.1 12.6 1147.6 35.0 1196.0 67.3C1273.8 119.3 1331.4 197.8 1356.9 287.0C1377.2 357.8 1377.9 428.2 1359.2 501.5L1357.4 508.5L1205.2 509.0L1053.0 509.5L871.3 692.6C771.3 793.4 682.5 882.5 674.0 890.6C641.3 921.8 611.0 942.9 571.5 962.1C525.8 984.3 480.5 996.6 428.5 1001.0C414.7 1002.1 380.1 1002.1 365.7 1000.9ZM423.0 732.6C448.8 727.0 468.8 716.4 489.2 697.4C495.0 692.0 539.6 647.5 588.2 598.5L676.5 509.5L493.0 509.2L309.6 509.0L304.7 513.7C302.0 516.4 297.0 522.2 293.6 526.8C268.8 559.7 261.2 604.2 273.6 643.5C283.3 674.0 305.1 701.3 332.7 717.4C345.8 725.0 362.5 730.9 378.5 733.6C388.8 735.3 412.9 734.8 423.0 732.6ZM1057.0 500.3C1079.9 475.2 1092.8 436.0 1089.1 402.5C1082.6 344.7 1044.4 301.1 987.6 286.9C975.7 283.9 951.5 283.2 937.9 285.5C918.9 288.7 899.0 296.8 883.2 308.0C878.5 311.3 860.6 328.6 832.8 356.8C809.0 380.8 765.9 424.2 737.1 453.2L684.5 506.0L868.2 506.0L1051.8 506.0L1057.0 500.3Z"/></g><g class="bot" clip-path="url(#mb6)"><path fill-rule="evenodd" d="M365.7 1000.9C243.6 990.8 133.8 925.9 66.5 824.0C29.7 768.4 8.5 707.8 1.9 639.5C0.2 621.9 0.4 583.4 2.4 565.0C4.0 549.5 7.6 527.7 10.8 513.9L12.5 506.5L160.1 506.2L307.7 506.0L438.6 374.2C510.6 301.8 598.7 213.0 634.5 177.0C706.4 104.6 710.1 100.9 727.9 86.8C782.0 43.5 849.4 14.4 918.5 4.6C954.1 -0.5 996.7 -0.5 1032.5 4.6C1089.1 12.6 1147.6 35.0 1196.0 67.3C1273.8 119.3 1331.4 197.8 1356.9 287.0C1377.2 357.8 1377.9 428.2 1359.2 501.5L1357.4 508.5L1205.2 509.0L1053.0 509.5L871.3 692.6C771.3 793.4 682.5 882.5 674.0 890.6C641.3 921.8 611.0 942.9 571.5 962.1C525.8 984.3 480.5 996.6 428.5 1001.0C414.7 1002.1 380.1 1002.1 365.7 1000.9ZM423.0 732.6C448.8 727.0 468.8 716.4 489.2 697.4C495.0 692.0 539.6 647.5 588.2 598.5L676.5 509.5L493.0 509.2L309.6 509.0L304.7 513.7C302.0 516.4 297.0 522.2 293.6 526.8C268.8 559.7 261.2 604.2 273.6 643.5C283.3 674.0 305.1 701.3 332.7 717.4C345.8 725.0 362.5 730.9 378.5 733.6C388.8 735.3 412.9 734.8 423.0 732.6ZM1057.0 500.3C1079.9 475.2 1092.8 436.0 1089.1 402.5C1082.6 344.7 1044.4 301.1 987.6 286.9C975.7 283.9 951.5 283.2 937.9 285.5C918.9 288.7 899.0 296.8 883.2 308.0C878.5 311.3 860.6 328.6 832.8 356.8C809.0 380.8 765.9 424.2 737.1 453.2L684.5 506.0L868.2 506.0L1051.8 506.0L1057.0 500.3Z"/></g></svg>
     <div class="hero-body">
       <h1 class="display">Independent Society</h1>
       <p class="lede">A podcast where one person at a time has a long honest conversation about what their professional life in India actually looked like from the inside, with no highlights or performance.</p>
@@ -710,9 +809,12 @@ a.episode:hover .disc img { filter: none; transform: scale(1.06); }
   </section>
 
   <section class="field f-kajal" id="episodes" data-ink="chuna" data-field="kajal">
-    <div class="case-head">
-      <h2 class="display">Conversations on record</h2>
-      <p>Each guest gets a colour. Over a season, the zeros become an archive.</p>
+    <div class="head-row">
+      <div class="case-head">
+        <h2 class="display">Conversations on record</h2>
+        <p>Each guest gets a colour. Over a season, the zeros become an archive.</p>
+      </div>
+      <aside class="rec-card" aria-label="This conversation in numbers"><div class="rec-top"><span>Akanksha Sood Singh</span><span class="rec-badge">Part two is out</span></div><p class="rec-title">Part one <span aria-hidden="true">&#8594;</span> <em>Part two</em></p><ul><li><span>Episodes on record</span><b>2</b></li><li><span>Moments in the highlights</span><b>12</b></li><li><span>Brands that presented it</span><b>2</b></li></ul></aside>
     </div>
     <div class="episode-grid">
       <div class="episode">
@@ -876,7 +978,7 @@ a.episode:hover .disc img { filter: none; transform: scale(1.06); }
     var groups = ['.case-head', '.why-head', '.how-head', '.brands-head', '.craft-head', '.facts li', '.cases li', '.principles li',
       '.track li', '.brand-card', '.brand-list li', '.next-brands li', '.episode', '.part', '.highlights li', '.ledger p',
       '.record-text > *', '.about .idea > *', '.facts-list div', '.why-close', '.anthem', '.form-wrap', '.file-body > *',
-      '.photo', '.porthole', '.listen-row', '.join h2', '.join-row', '.web', '.cine'];
+      '.photo', '.porthole', '.listen-row', '.join h2', '.join-row', '.web', '.cine', '.stepper', '.rec-card'];
     var items = document.querySelectorAll(groups.join(','));
     var seen = new Map();
     items.forEach(function (el) {
