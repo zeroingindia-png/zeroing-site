@@ -19,12 +19,12 @@
     }
   ],
   "craft_title": "The work behind the work",
-  "craft_text": "Turmeric before it is a gel. A camera on the sand for a shot of ants. This is the part Zeroing is for: the making, the hands, the years. Every photograph here comes from a brand or a guest in the community.",
+  "craft_text": "Turmeric before it is a gel. A camera on the sand for a shot of ants. This is the part Zeroing is for: the making, the hands, the years. Every photograph here comes from a brand in the community, a guest, or our own shoot.",
   "craft": [
     {
       "image": "/media/indso-saffron-turmeric.jpg",
       "title": "Honey, saffron, turmeric",
-      "note": "Before they go into INDSO's Turmeric Milk Gel.",
+      "note": "Named in INDSO's Turmeric Milk Gel.",
       "wide": false
     },
     {
@@ -36,7 +36,7 @@
     {
       "image": "/media/indso-orange-peel.jpg",
       "title": "Orange",
-      "note": "Before it goes into INDSO's Orange Gel.",
+      "note": "Named in INDSO's Orange Gel with Vitamin C.",
       "wide": false
     },
     {
@@ -48,7 +48,7 @@
     {
       "image": "/media/indso-coffee-beans.jpg",
       "title": "Coffee",
-      "note": "Before it goes into INDSO's Coffee and Cocoa Gel.",
+      "note": "Named in INDSO's Coffee and Cocoa Gel.",
       "wide": false
     },
     {
@@ -73,7 +73,7 @@
   "ledger": [
     {
       "number": 4,
-      "text": "brands brought the first conversation to life."
+      "text": "community brands were credited on the first conversation."
     },
     {
       "number": 3,
@@ -84,8 +84,8 @@
       "text": "episodes are on record, and the next conversation is coming."
     }
   ],
-  "brands_title": "Made here. Made to last.",
-  "brands_text": "Every brand in Zeroing is homegrown and made in India, by an owner you can meet. Each one is working towards making things more sustainably, and says how on its own page. Buy from them directly.",
+  "brands_title": "Made here, by people you can meet.",
+  "brands_text": "Every brand in Zeroing is homegrown and made in India, as its founder has told us. We ask each one to say plainly what it already does on materials, packaging or making, and what it will do next. Buy from them directly.",
   "how_title": "How we work",
   "how_text": "Three things we look after. Every brand, episode and study in Zeroing answers to them.",
   "pillars": [
@@ -114,8 +114,8 @@
       "line": "We ask every brand for one honest next step.",
       "image": "/media/indso-orange-peel.jpg",
       "points": [
-        "No brand here claims to be finished. Each page says what it does now on materials, packaging or making, and what comes next.",
-        "Brands share suppliers, stalls and customers instead of each building alone.",
+        "No brand here is called sustainable by us. Each brand page shows what the founder says it does now on materials, packaging or making, and what comes next, or says the answer is still to come.",
+        "Brands are introduced to each other's suppliers, stalls and customers, so fewer of them build alone.",
         "We grow at the makers' pace, one founder conversation at a time."
       ]
     }

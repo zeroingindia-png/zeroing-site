@@ -957,7 +957,7 @@ img { transition: opacity 700ms var(--ease); }
         <h1 class="display">INDSO</h1>
         <p class="lede">Botanical gels for Indian skin.</p>
         <div class="actions"><a class="pill solid" href="https://indso.in" target="_blank" rel="noopener">Visit INDSO <span class="arr" aria-hidden="true">&#8599;</span></a><a class="pill line" href="https://www.instagram.com/indso.in/" target="_blank" rel="noopener">@indso.in</a></div>
-        <svg class="seal" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 18a82 82 0 1 1 0 164a82 82 0 1 1 0-164Z"/><text x="100" y="94" text-anchor="middle">MADE IN</text><text x="100" y="122" text-anchor="middle">INDIA</text></svg>
+        <svg class="seal" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 18a82 82 0 1 1 0 164a82 82 0 1 1 0-164Z"/><text x="100" y="94" text-anchor="middle">ZEROING</text><text x="100" y="122" text-anchor="middle">COMMUNITY</text></svg>
       </div>
     </div>
     <div class="hero-photo"><img src="../media/indso-jars-stack.jpg" alt="INDSO" fetchpriority="high" decoding="async" data-drift="0.08"></div>
@@ -976,7 +976,7 @@ img { transition: opacity 700ms var(--ease); }
       <dl class="facts-list">
         <div><dt>Makes</dt><dd>Botanical skincare gels</dd></div>
         <div><dt>Made in</dt><dd>India</dd></div>
-        <div><dt>Homegrown</dt><dd>Yes, Indian founded and run</dd></div>
+        <div><dt>Homegrown</dt><dd>Indian founded and run, as the founder has told us</dd></div>
         <div><dt>Founder</dt><dd><span class="todo">To confirm</span></dd></div>
         <div><dt>In Zeroing</dt><dd>Presented Independent Society</dd></div>
         <div><dt>Website</dt><dd><a href="https://indso.in" target="_blank" rel="noopener">indso.in</a></dd></div>
@@ -993,10 +993,10 @@ img { transition: opacity 700ms var(--ease); }
       <div class="craft-track">
         <figure class="craft-item"><div class="photo"><img src="../media/indso-saffron-turmeric.jpg" alt="Honey, saffron, turmeric. In the Turmeric Milk Gel." loading="lazy" decoding="async"></div><figcaption><b>Honey, saffron, turmeric</b><span>In the Turmeric Milk Gel.</span></figcaption></figure>
         <figure class="craft-item"><div class="photo"><img src="../media/indso-turmeric-milk.jpg" alt="Haldi doodh. One of the oldest skincare preparations in Indian homes." loading="lazy" decoding="async"></div><figcaption><b>Haldi doodh</b><span>One of the oldest skincare preparations in Indian homes.</span></figcaption></figure>
-        <figure class="craft-item"><div class="photo"><img src="../media/indso-orange-peel.jpg" alt="Orange. In the Orange Gel with vitamin C." loading="lazy" decoding="async"></div><figcaption><b>Orange</b><span>In the Orange Gel with vitamin C.</span></figcaption></figure>
+        <figure class="craft-item"><div class="photo"><img src="../media/indso-orange-peel.jpg" alt="Orange. In the Orange Gel with Vitamin C." loading="lazy" decoding="async"></div><figcaption><b>Orange</b><span>In the Orange Gel with Vitamin C.</span></figcaption></figure>
         <figure class="craft-item"><div class="photo"><img src="../media/indso-coffee-beans.jpg" alt="Coffee. In the Coffee and Cocoa Gel." loading="lazy" decoding="async"></div><figcaption><b>Coffee</b><span>In the Coffee and Cocoa Gel.</span></figcaption></figure>
-        <figure class="craft-item"><div class="photo"><img src="../media/indso-gel-finger.jpg" alt="The gel. Light enough for Indian heat." loading="lazy" decoding="async"></div><figcaption><b>The gel</b><span>Light enough for Indian heat.</span></figcaption></figure>
-        <figure class="craft-item"><div class="photo"><img src="../media/indso-arm.jpg" alt="On skin. Absorbs without a film." loading="lazy" decoding="async"></div><figcaption><b>On skin</b><span>Absorbs without a film.</span></figcaption></figure>
+        <figure class="craft-item"><div class="photo"><img src="../media/indso-gel-finger.jpg" alt="The gel. As it comes out of the jar." loading="lazy" decoding="async"></div><figcaption><b>The gel</b><span>As it comes out of the jar.</span></figcaption></figure>
+        <figure class="craft-item"><div class="photo"><img src="../media/indso-arm.jpg" alt="On skin. Applied by hand." loading="lazy" decoding="async"></div><figcaption><b>On skin</b><span>Applied by hand.</span></figcaption></figure>
       </div>
       <div class="craft-progress" aria-hidden="true"><i></i></div>
     </div>
@@ -1212,7 +1212,7 @@ img { transition: opacity 700ms var(--ease); }
       e.preventDefault();
       var bad = Array.prototype.find.call(form.elements, function (el) { return el.willValidate && !el.checkValidity(); });
       if (bad) {
-        status.textContent = bad.type === 'checkbox' ? 'Tick the consent box so we can store your details.' :
+        status.textContent = bad.type === 'checkbox' ? (bad.name === 'declaration' ? 'Tick the box to confirm your details are true.' : 'Tick the consent box so we can store your details.') :
           bad.type === 'email' ? 'Enter an email address like name@example.com.' :
           'Fill in ' + ((form.querySelector('label[for="' + bad.id + '"]') || {}).textContent || 'every required field').trim().toLowerCase() + '.';
         bad.focus();

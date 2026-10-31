@@ -283,7 +283,7 @@ def brand_main(b, P="../"):
         <h1 class="display">{E(b['name'])}</h1>
         <p class="lede">{E(b['line'])}</p>
         <div class="actions">{shop_btn}{ig_btn}</div>
-        <svg class="seal" viewBox="0 0 200 200" aria-hidden="true"><path d="RING"/><text x="100" y="94" text-anchor="middle">MADE IN</text><text x="100" y="122" text-anchor="middle">INDIA</text></svg>
+        <svg class="seal" viewBox="0 0 200 200" aria-hidden="true"><path d="RING"/><text x="100" y="94" text-anchor="middle">ZEROING</text><text x="100" y="122" text-anchor="middle">COMMUNITY</text></svg>
       </div>
     </div>
     {photo}
@@ -300,7 +300,7 @@ def brand_main(b, P="../"):
       <dl class="facts-list">
         <div><dt>Makes</dt><dd>{E(b['makes'])}</dd></div>
         <div><dt>Made in</dt><dd>India{(', ' + E(b['city'])) if b['city'] else ''}</dd></div>
-        <div><dt>Homegrown</dt><dd>Yes, Indian founded and run</dd></div>
+        <div><dt>Homegrown</dt><dd>Indian founded and run, as the founder has told us</dd></div>
         <div><dt>Founder</dt><dd>{E(b['founder']) or TODO}</dd></div>
         <div><dt>In Zeroing</dt><dd>{E(b['role'])}</dd></div>
         <div><dt>Website</dt><dd>{site_link(b['site'])}</dd></div>

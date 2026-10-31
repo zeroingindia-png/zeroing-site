@@ -957,7 +957,7 @@ img { transition: opacity 700ms var(--ease); }
         <h1 class="display">Ampor Eyewear</h1>
         <p class="lede">Indian eyewear.</p>
         <div class="actions"><a class="pill solid" href="https://ampor.in" target="_blank" rel="noopener">Visit Ampor Eyewear <span class="arr" aria-hidden="true">&#8599;</span></a><a class="pill line" href="https://www.instagram.com/amporeyewear/" target="_blank" rel="noopener">@amporeyewear</a></div>
-        <svg class="seal" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 18a82 82 0 1 1 0 164a82 82 0 1 1 0-164Z"/><text x="100" y="94" text-anchor="middle">MADE IN</text><text x="100" y="122" text-anchor="middle">INDIA</text></svg>
+        <svg class="seal" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 18a82 82 0 1 1 0 164a82 82 0 1 1 0-164Z"/><text x="100" y="94" text-anchor="middle">ZEROING</text><text x="100" y="122" text-anchor="middle">COMMUNITY</text></svg>
       </div>
     </div>
     
@@ -976,7 +976,7 @@ img { transition: opacity 700ms var(--ease); }
       <dl class="facts-list">
         <div><dt>Makes</dt><dd>Eyewear</dd></div>
         <div><dt>Made in</dt><dd>India</dd></div>
-        <div><dt>Homegrown</dt><dd>Yes, Indian founded and run</dd></div>
+        <div><dt>Homegrown</dt><dd>Indian founded and run, as the founder has told us</dd></div>
         <div><dt>Founder</dt><dd><span class="todo">To confirm</span></dd></div>
         <div><dt>In Zeroing</dt><dd>Presented Independent Society</dd></div>
         <div><dt>Website</dt><dd><a href="https://ampor.in" target="_blank" rel="noopener">ampor.in</a></dd></div>
@@ -1195,7 +1195,7 @@ img { transition: opacity 700ms var(--ease); }
       e.preventDefault();
       var bad = Array.prototype.find.call(form.elements, function (el) { return el.willValidate && !el.checkValidity(); });
       if (bad) {
-        status.textContent = bad.type === 'checkbox' ? 'Tick the consent box so we can store your details.' :
+        status.textContent = bad.type === 'checkbox' ? (bad.name === 'declaration' ? 'Tick the box to confirm your details are true.' : 'Tick the consent box so we can store your details.') :
           bad.type === 'email' ? 'Enter an email address like name@example.com.' :
           'Fill in ' + ((form.querySelector('label[for="' + bad.id + '"]') || {}).textContent || 'every required field').trim().toLowerCase() + '.';
         bad.focus();

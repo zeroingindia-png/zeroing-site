@@ -1178,7 +1178,7 @@ img { transition: opacity 700ms var(--ease); }
       e.preventDefault();
       var bad = Array.prototype.find.call(form.elements, function (el) { return el.willValidate && !el.checkValidity(); });
       if (bad) {
-        status.textContent = bad.type === 'checkbox' ? 'Tick the consent box so we can store your details.' :
+        status.textContent = bad.type === 'checkbox' ? (bad.name === 'declaration' ? 'Tick the box to confirm your details are true.' : 'Tick the consent box so we can store your details.') :
           bad.type === 'email' ? 'Enter an email address like name@example.com.' :
           'Fill in ' + ((form.querySelector('label[for="' + bad.id + '"]') || {}).textContent || 'every required field').trim().toLowerCase() + '.';
         bad.focus();

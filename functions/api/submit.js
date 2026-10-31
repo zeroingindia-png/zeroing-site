@@ -10,7 +10,7 @@ const FORMS = {
   newsletter: ["email"],
 };
 const OPTIONAL = {
-  join: ["website", "phone"],
+  join: ["website", "phone", "declaration"],
   guest: [],
   contact: ["phone"],
   details: [],
