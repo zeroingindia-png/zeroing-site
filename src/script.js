@@ -8,7 +8,7 @@
     if (t) t.textContent = new Date().toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
   } catch (e) {}
 
-  // header ink follows the colour field underneath it; the header tucks away while reading down
+  // header ink follows the colour field underneath it; once the page moves, the header turns to frosted glass
   var head = document.getElementById('head');
   var fields = document.querySelectorAll('[data-ink]');
   function setInk(el) {
@@ -136,7 +136,7 @@
         el.style.transform = 'translate3d(0,' + off.toFixed(1) + 'px,0)';
       });
       var y = window.scrollY;
-      if (head) head.classList.toggle('tuck', y > lastY && y > 240 && overlay.hidden);
+      if (head) head.classList.toggle('solid', y > 60);
       lastY = y;
     }
     function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }

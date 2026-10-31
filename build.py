@@ -253,6 +253,8 @@ def brand_main(b, P="../"):
     nxt = "\n".join(
         f'      <li><a href="{o["slug"]}.html"><span class="name">{E(o["name"])}</span><span>{E(o["makes"])}</span></a></li>'
         for o in others)
+    chapters = [("about", "The idea")] + ([("craft", b["craft_title"])] if b.get("craft") else []) + [("more", "More brands")]
+    LN = localnav(b["name"], chapters).replace('</span></nav>', (f'<a class="ln-buy" href="{shop_url}" target="_blank" rel="noopener">Visit</a>' if shop_url else '') + '</span></nav>')
     return f"""  <section class="field f-{b['colour']} hero brand-hero{cls}" id="top" data-ink="{ink}" data-field="{b['colour']}">
     <div class="hero-text">
       {{HERO_MARK}}
@@ -266,7 +268,7 @@ def brand_main(b, P="../"):
     </div>
     {photo}
   </section>
-{tape}
+{LN}{tape}
   <section class="field f-chuna auto" id="about" data-ink="kajal" data-field="chuna">
     <div class="about">
       <div class="idea">
@@ -298,6 +300,12 @@ def brand_main(b, P="../"):
     </ul>
   </section>
 """
+
+
+def localnav(title, links):
+    """Apple-style chapter bar under the header on long pages."""
+    a = "".join(f'<a href="#{i}">{E(t)}</a>' for i, t in links)
+    return f'  <nav class="localnav" aria-label="On this page"><span class="ln-title">{E(title)}</span><span class="ln-links">{a}</span></nav>\n'
 
 
 def to_seconds(t):
@@ -427,13 +435,16 @@ def build():
 
     # home
     H_ = HOME
-    band_links = [("peepal", "{P}community.html", "Meet the brands"), ("neel", "{P}independent-society.html", "Listen"),
-                  ("kattha", "{P}the-other-details/", "Read the studies")]
-    bands = "\n".join(
-        f'    <a class="band {c}" href="{h}">'
-        + (f'<span class="band-img">{img(mf(bd.get("image")), "", "")}</span>' if bd.get("image") else "")
-        + f'<h2 class="display">{E(bd.get("title", ""))}</h2><p>{E(bd.get("text", ""))}</p><span class="go">{go}</span></a>'
-        for (c, h, go), bd in zip(band_links, H_.get("bands", [])))
+    tile_links = [("t-light t-full", [("{P}community.html", "Meet the brands"), ("{P}join.html", "Apply to join")]),
+                  ("t-dark", [("{P}independent-society.html", "Learn more"), (SPOTIFY_SHOW, "Listen on Spotify")]),
+                  ("t-white", [("{P}the-other-details/", "Read the studies"), ("{P}the-other-details/#lead", "Send a detail")])]
+    def tile(cls_links, bd):
+        cls, links = cls_links
+        ls = "".join(f'<a class="tlink" href="{h}"{" target=_blank rel=noopener" if h.startswith("http") else ""}>{E(t)}</a>' for h, t in links if h)
+        pic = f'<div class="tile-img">{img(mf(bd.get("image")), "", "")}</div>' if bd.get("image") else ""
+        return (f'    <article class="tile {cls}"><div class="tile-text"><h2 class="display">{T(bd.get("title", ""))}</h2>'
+                f'<p>{E(bd.get("text", ""))}</p><div class="tile-links">{ls}</div></div>{pic}</article>')
+    bands = "\n".join(tile(cl, bd) for cl, bd in zip(tile_links, H_.get("bands", [])))
     ledger = "\n".join(f'      <p><span class="n">{int(l.get("number") or 0)}</span>{E(l.get("text", ""))}</p>' for l in H_.get("ledger", []))
     home = (read("pages", "home.html")
             .replace("{HERO_TITLE}", T(H_.get("hero_title", ""))).replace("{HERO_TEXT}", E(H_.get("hero_text", "")))
@@ -475,6 +486,7 @@ def build():
                .replace("{HIGHLIGHTS}", highlights_html(p2["spotify"]))
                .replace("{RECORD_CARD}", record_card())
                .replace("{YOUTUBE_CHANNEL_BTN}", f'<a class="pill line" href="{YOUTUBE_CHANNEL}" target="_blank" rel="noopener">Watch on YouTube <span class="arr" aria-hidden="true">&#8599;</span></a>' if YOUTUBE_CHANNEL else ""))
+    is_main = is_main.replace("  </section>\n", "  </section>\n" + localnav('Independent Society', [('why-show', 'Why it exists'), ('episodes', 'Episodes'), ('highlights', 'Highlights'), ('suggest', 'Suggest a guest')]), 1)
     simple = [
         ("independent-society.html", "Independent Society", "Long, honest conversations about what working life in India actually looked like.", is_main, "podcast"),
         ("join.html", "Join Zeroing", "Apply to join Zeroing, a community of homegrown Indian brands.", read("pages", "join.html"), "join"),
@@ -504,6 +516,7 @@ def build():
             .replace("{HIGHLIGHTS}", highlights_html(p2["spotify"]))
             .replace("{GALLERY}", gallery)
             .replace("{PHOTO_CREDIT}", E(PODCAST.get("photo_credit", ""))))
+    main = main.replace("  </section>\n", "  </section>\n" + localnav('Akanksha Sood Singh', [('parts', 'Both parts'), ('highlights', 'Highlights'), ('about', 'The conversation'), ('field', 'In the field')]), 1)
     head, body = page("Akanksha Sood Singh on Independent Society",
                       "Wildlife filmmaker Akanksha Sood Singh in a two part conversation with Independent Society, episodes 1 and 2.",
                       main, P="../", H="../index.html", current="podcast")
