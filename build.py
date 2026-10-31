@@ -274,6 +274,8 @@ def build():
                       main, P="../", H="../index.html", current="podcast")
     write("episodes/akanksha-sood-singh.html", full_doc(head, body))
     print("built", 8 + len(BRANDS), "pages")
+    from research import build_research
+    build_research()
 
 
 if __name__ == "__main__":

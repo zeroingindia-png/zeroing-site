@@ -1,0 +1,47 @@
+@font-face{font-family:"Satoshi";font-weight:900;font-display:swap;src:url(fonts/Satoshi-Black.woff2) format("woff2")}
+@font-face{font-family:"Gambetta";font-weight:500;font-style:italic;font-display:swap;src:url(fonts/Gambetta-MediumItalic.woff2) format("woff2")}
+@font-face{font-family:"General Sans";font-weight:500;font-display:swap;src:url(fonts/GeneralSans-Medium.woff2) format("woff2")}
+@font-face{font-family:"General Sans";font-weight:600;font-display:swap;src:url(fonts/GeneralSans-Semibold.woff2) format("woff2")}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* A handful of lab components; everything else is utilities in the page markup. */
+@layer base {
+  body { @apply bg-ink text-paper font-body font-medium antialiased;
+    background-image: linear-gradient(rgba(127,227,214,.05) 1px,transparent 1px), linear-gradient(90deg,rgba(127,227,214,.05) 1px,transparent 1px);
+    background-size: 32px 32px; background-attachment: fixed; }
+  a:focus-visible { @apply outline outline-2 outline-offset-4 outline-teal rounded; }
+}
+@layer components {
+  .wrap   { @apply mx-auto max-w-page px-5; }
+  .glass  { @apply rounded-2xl border border-edge bg-glass backdrop-blur; }
+  .chip   { @apply inline-flex w-fit items-center gap-2 self-start justify-self-start rounded-full border border-edge bg-white/[.07] px-3 py-1.5 text-xs font-semibold uppercase tracking-[.14em]; }
+  .chip::before { content:""; @apply h-[7px] w-[7px] rounded-full bg-red; }
+  .chip-teal::before { @apply bg-teal; } .chip-gold::before { @apply bg-gold; }
+  .h-hero { @apply mt-4 font-head text-[clamp(44px,7.4vw,96px)] font-black leading-[.95] tracking-[-.035em] [text-wrap:balance]; }
+  .h-hero i, .h-sec i { @apply font-ital font-medium italic tracking-normal text-red; }
+  .h-hero i { @apply block text-[.92em] leading-[1.05]; }
+  .h-sec  { @apply font-head text-[clamp(30px,4vw,48px)] font-black leading-none tracking-[-.03em] [text-wrap:balance]; }
+  .lede   { @apply mt-5 max-w-[56ch] text-[clamp(17px,2vw,20px)] text-[#cfcabf]; }
+  .row    { @apply grid grid-cols-[20px_1fr_auto] items-center gap-3 border-t border-edge px-5 py-3.5 first:border-t-0; }
+  .row .l { @apply text-[15px] text-muted; } .row .n { @apply text-right font-head text-[22px] font-black tabular-nums; }
+  .dot    { @apply h-2.5 w-2.5 justify-self-center rounded-full bg-teal; }
+  .why    { @apply rounded-xl border border-teal/20 bg-teal/[.06] px-4 py-3.5 text-[#d8d3c8]; }
+  .why b  { @apply text-teal; }
+  .src    { @apply text-[13px] text-dim; }
+  .btn    { @apply inline-flex items-center rounded-full bg-paper px-5 py-3 text-[15px] font-semibold text-ink no-underline; }
+  .btn-ghost { @apply bg-transparent text-paper ring-1 ring-inset ring-edge; }
+  .sticker { @apply absolute z-10 rotate-[-4deg] whitespace-nowrap rounded-[10px] bg-gold px-3.5 py-2 font-head text-lg font-black text-[#14130f] shadow-xl; }
+  .loop   { @apply h-full w-full object-cover; }
+  .fig svg { @apply block h-auto w-full overflow-visible; }
+  .fig text { fill:#9a958b; font:500 13px "General Sans",sans-serif; }
+  .fig .val { fill:#f3efe6; font:900 24px Satoshi,sans-serif; }
+  .fig .lab { fill:#f3efe6; font:600 13px "General Sans",sans-serif; }
+  .key    { @apply mt-3.5 text-xs font-semibold uppercase tracking-[.12em] text-muted; }
+  .vrow   { @apply grid grid-cols-2 items-center gap-3.5 border-t border-edge px-5 py-3.5 text-sm md:grid-cols-[2fr_1.1fr_1.4fr_110px]; }
+  .st     { @apply inline-block rounded-full border px-2.5 py-0.5 text-xs font-semibold; }
+  .st-current { @apply border-teal/40 text-teal; } .st-outdated, .st-check { @apply border-gold/45 text-gold; } .st-excluded { @apply border-red/45 text-red; }
+}
+@media (prefers-reduced-motion: reduce) { video[autoplay] { display: none; } }
