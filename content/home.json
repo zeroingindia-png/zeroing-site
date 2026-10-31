@@ -85,5 +85,58 @@
     }
   ],
   "brands_title": "Made here. Made to last.",
-  "brands_text": "Every brand in Zeroing is homegrown and made in India, by an owner you can meet. Each one is working towards making things more sustainably, and says how on its own page. Buy from them directly."
+  "brands_text": "Every brand in Zeroing is homegrown and made in India, by an owner you can meet. Each one is working towards making things more sustainably, and says how on its own page. Buy from them directly.",
+  "how_title": "How we work",
+  "how_text": "Three things we look after. Every brand, episode and study in Zeroing answers to them.",
+  "pillars": [
+    {
+      "title": "Nature",
+      "line": "We give time to the people who look after it.",
+      "image": "/media/as-filming.jpg",
+      "points": [
+        "Independent Society begins with a wildlife filmmaker who has spent two decades on the species few channels commission.",
+        "Brands build on what grows here: turmeric, saffron, honey, coffee, orange.",
+        "The Other Details traces what our habits cost the land, like the water behind the cloud."
+      ]
+    },
+    {
+      "title": "Culture",
+      "line": "We keep what India already made.",
+      "image": "/media/indso-turmeric-milk.jpg",
+      "points": [
+        "Vedi Kade carries Tamil history into clothes for an ordinary day.",
+        "INDSO starts from haldi doodh, one of the oldest preparations in Indian homes.",
+        "Every episode opens with a voice from 15 August 1947 and closes with a promise."
+      ]
+    },
+    {
+      "title": "Sustainability",
+      "line": "We ask every brand for one honest next step.",
+      "image": "/media/indso-orange-peel.jpg",
+      "points": [
+        "No brand here claims to be finished. Each page says what it does now on materials, packaging or making, and what comes next.",
+        "Brands share suppliers, stalls and customers instead of each building alone.",
+        "We grow at the makers' pace, one founder conversation at a time."
+      ]
+    }
+  ],
+  "steps_title": "How a brand joins",
+  "steps": [
+    {
+      "title": "Apply",
+      "text": "Tell us what you make, where, and one door you could open for another brand."
+    },
+    {
+      "title": "Meet the founder",
+      "text": "A short call, so both sides know it fits."
+    },
+    {
+      "title": "Introductions",
+      "text": "To brands whose customers, suppliers or stalls overlap with yours."
+    },
+    {
+      "title": "Grow in public",
+      "text": "Brands present Independent Society together and are credited on every episode."
+    }
+  ]
 }

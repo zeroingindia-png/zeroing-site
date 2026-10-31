@@ -45,6 +45,25 @@ content:
         fields:
           - { name: number, label: "Number", type: number }
           - { name: text, label: "Words after the number", type: string }
+      - { name: how_title, label: How we work title, type: string }
+      - { name: how_text, label: How we work text, type: text }
+      - name: pillars
+        label: "How we work: nature, culture, sustainability"
+        type: object
+        list: true
+        fields:
+          - { name: title, label: Title, type: string }
+          - { name: line, label: One line, type: string }
+          - { name: image, label: Photo, type: image }
+          - { name: points, label: What we do, type: text, list: true }
+      - { name: steps_title, label: Joining steps title, type: string }
+      - name: steps
+        label: Joining steps
+        type: object
+        list: true
+        fields:
+          - { name: title, label: Step, type: string }
+          - { name: text, label: Explanation, type: text }
       - { name: brands_title, label: "Brands section title", type: string }
       - { name: brands_text, label: "Brands section text", type: text }
 
@@ -64,7 +83,9 @@ content:
       - { name: role, label: "Role in Zeroing", type: string }
       - { name: city, label: "City", type: string }
       - { name: founder, label: "Founder", type: string }
-      - { name: sustainability, label: "Working towards sustainability", type: text }
+      - { name: nature, label: "Nature: how the brand works with nature", type: text }
+      - { name: culture, label: "Culture: what the brand carries forward", type: text }
+      - { name: sustainability, label: "Sustainability: what it does now, and the next step", type: text }
       - { name: website, label: "Website (full link with https://)", type: string }
       - { name: instagram, label: "Instagram handle (without @)", type: string }
       - { name: hero_image, label: "Big photo on the brand page", type: image }

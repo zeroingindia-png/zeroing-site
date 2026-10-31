@@ -865,6 +865,54 @@ img { transition: opacity 700ms var(--ease); }
 @media (prefers-reduced-motion: reduce) {
   .to-top, .toast { transition: none; }
 }
+
+/* How we work: nature, culture, sustainability */
+.pillars { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 3vw, 40px); margin-top: clamp(32px, 5vw, 64px); }
+.pillar { display: grid; gap: 12px; align-content: start; }
+.pillar-img { aspect-ratio: 4 / 3; border-radius: 16px; margin-bottom: 8px; }
+.pillar h3 { margin: 0; font-family: var(--font-display); font-variation-settings: var(--display-vars); font-weight: 800; font-size: var(--size-2); line-height: 1; }
+.pillar:nth-child(1) h3 { color: var(--peepal); }
+.pillar:nth-child(2) h3 { color: var(--genda); }
+.pillar:nth-child(3) h3 { color: var(--sindoor); }
+.pillar-line { font-size: var(--size-3); line-height: 1.3; font-weight: 600; }
+.pillar ul { list-style: none; margin: 4px 0 0; padding: 0; border-top: var(--rule) solid currentColor; }
+.pillar li { padding: 12px 0; border-bottom: 1px solid rgba(22,21,20,0.18); line-height: 1.45; }
+.steps-title { margin: clamp(48px, 7vw, 96px) 0 0; font-family: var(--font-display); font-variation-settings: var(--display-vars); font-weight: 800; font-size: var(--size-2); line-height: 1; }
+.stepper .sd { font-size: var(--size-small); line-height: 1.4; opacity: 0.75; max-width: 16em; }
+@media (max-width: 900px) {
+  .pillars { grid-template-columns: 1fr; }
+  .stepper { grid-template-columns: 1fr; gap: 20px; }
+  .stepper::before, .stepper::after { left: 21px; right: auto; top: 22px; bottom: 22px; width: 2px; height: auto; }
+  .stepper::after { transform-origin: top; }
+  .js .stepper.rv::after { transform: scaleY(0); }
+  .js .stepper.rv.in::after { transform: scaleY(1); }
+  .stepper li { grid-template-columns: 44px 1fr; justify-items: start; text-align: left; column-gap: 16px; row-gap: 2px; }
+  .stepper .dot { grid-row: span 2; }
+}
+
+/* how brands focus */
+.steps-note { margin-top: 10px; opacity: 0.75; }
+.focus-wrap { margin-top: 24px; overflow-x: auto; border: var(--rule) solid currentColor; border-radius: 16px; }
+.focus-table { width: 100%; min-width: 720px; border-collapse: collapse; text-align: left; }
+.focus-table th, .focus-table td { padding: 16px 18px; vertical-align: top; border-bottom: 1px solid rgba(22,21,20,0.14); line-height: 1.45; }
+.focus-table tbody tr:last-child > * { border-bottom: 0; }
+.focus-table thead th { font-family: var(--font-display); font-variation-settings: var(--display-vars); font-weight: 800; font-size: 1.15rem; background: var(--chuna-2); }
+.focus-table thead th:nth-child(2) { color: var(--peepal); }
+.focus-table thead th:nth-child(3) { color: var(--genda); }
+.focus-table thead th:nth-child(4) { color: var(--sindoor); }
+.focus-table tbody th { width: 16%; font-family: var(--font-display); font-variation-settings: var(--display-vars); font-weight: 800; font-size: 1.2rem; }
+.focus-table tbody th a { text-decoration: none; }
+.focus-table tbody th a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.todo-cell span { font-size: var(--size-small); opacity: 0.55; border-bottom: 1px dashed currentColor; }
+.focus { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.fc { border-top: 3px solid currentColor; padding-top: 12px; display: grid; gap: 6px; align-content: start; }
+.fc p { font-size: var(--size-body) !important; line-height: 1.45 !important; }
+.fc-nature { border-color: var(--peepal); } .fc-culture { border-color: var(--genda); } .fc-sustainability { border-color: var(--sindoor); }
+.fk { font-weight: 700; }
+@media (max-width: 900px) { .focus { grid-template-columns: 1fr; } }
+.stepper li { align-content: start; }
+.focus-table { table-layout: fixed; }
+.focus-table thead th:first-child { width: 16%; }
 </style>
 </head>
 <body>
@@ -969,38 +1017,26 @@ img { transition: opacity 700ms var(--ease); }
     <p class="why-close">So Zeroing does two things. We help Indian brands find each other's customers, and we keep an honest record of how work here actually gets done.</p>
   </section>
 
-  <section class="field f-chuna" id="how" data-ink="kajal" data-field="chuna">
+  <section class="field f-chuna auto" id="how" data-ink="kajal" data-field="chuna">
     <div class="how-head">
       <h2 class="display">How we work</h2>
-      <p>Two simple routines, run the same way every time.</p>
+      <p>Three things we look after. Every brand, episode and study in Zeroing answers to them.</p>
     </div>
-    <figure class="web" aria-label="Zeroing connects each brand, the podcast and the research lab, and the brands to each other"><svg viewBox="-190 0 1380 430" role="img" aria-hidden="true"><path class="ln" pathLength="1" d="M500 215 L150 78" style="--d:0ms"/><path class="ln" pathLength="1" d="M500 215 L110 300" style="--d:120ms"/><path class="ln" pathLength="1" d="M500 215 L330 385" style="--d:240ms"/><path class="ln" pathLength="1" d="M500 215 L650 385" style="--d:360ms"/><path class="ln" pathLength="1" d="M500 215 L880 92" style="--d:480ms"/><path class="ln" pathLength="1" d="M500 215 L900 318" style="--d:600ms"/><path class="ln" pathLength="1" d="M500 215 L380 42" style="--d:720ms"/><path class="ln" pathLength="1" d="M500 215 L620 40" style="--d:840ms"/><path class="ln" pathLength="1" d="M500 215 L250 200" style="--d:960ms"/><path class="ln soft" pathLength="1" d="M150 78 Q510 130 880 92" style="--d:900ms"/><path class="ln soft" pathLength="1" d="M110 300 Q497 203 880 92" style="--d:1040ms"/><path class="ln soft" pathLength="1" d="M880 92 Q754 208 900 318" style="--d:1180ms"/><path class="ln soft" pathLength="1" d="M330 385 Q494 326 650 385" style="--d:1320ms"/><path class="ln soft" pathLength="1" d="M150 78 Q347 114 380 42" style="--d:1460ms"/><path class="ln soft" pathLength="1" d="M620 40 Q662 118 880 92" style="--d:1600ms"/><path class="ln soft" pathLength="1" d="M250 200 Q292 238 110 300" style="--d:1740ms"/><path class="ln soft" pathLength="1" d="M650 385 Q679 304 900 318" style="--d:1880ms"/><circle class="pulse" r="3.5"><animateMotion dur="7s" begin="0.0s" repeatCount="indefinite" path="M150 78 Q510 130 880 92"/></circle><circle class="pulse" r="3.5"><animateMotion dur="8s" begin="0.9s" repeatCount="indefinite" path="M110 300 Q497 203 880 92"/></circle><circle class="pulse" r="3.5"><animateMotion dur="9s" begin="1.8s" repeatCount="indefinite" path="M880 92 Q754 208 900 318"/></circle><circle class="pulse" r="3.5"><animateMotion dur="10s" begin="2.7s" repeatCount="indefinite" path="M330 385 Q494 326 650 385"/></circle><circle class="pulse" r="3.5"><animateMotion dur="7s" begin="3.6s" repeatCount="indefinite" path="M150 78 Q347 114 380 42"/></circle><circle class="pulse" r="3.5"><animateMotion dur="8s" begin="4.5s" repeatCount="indefinite" path="M620 40 Q662 118 880 92"/></circle><circle class="pulse" r="3.5"><animateMotion dur="9s" begin="5.4s" repeatCount="indefinite" path="M250 200 Q292 238 110 300"/></circle><circle class="pulse" r="3.5"><animateMotion dur="10s" begin="6.3s" repeatCount="indefinite" path="M650 385 Q679 304 900 318"/></circle><g class="node" style="--d:600ms"><circle cx="150" cy="78" r="8"/><text x="134" y="83" text-anchor="end">INDSO</text></g><g class="node" style="--d:720ms"><circle cx="110" cy="300" r="8"/><text x="94" y="305" text-anchor="end">Ampor Eyewear</text></g><g class="node" style="--d:840ms"><circle cx="330" cy="385" r="8"/><text x="314" y="390" text-anchor="end">Vedi Kade</text></g><g class="node" style="--d:960ms"><circle cx="650" cy="385" r="8"/><text x="666" y="390" text-anchor="start">Syzygy Living</text></g><g class="node" style="--d:1080ms"><circle cx="880" cy="92" r="8"/><text x="896" y="97" text-anchor="start">Independent Society</text></g><g class="node" style="--d:1200ms"><circle cx="900" cy="318" r="8"/><text x="916" y="323" text-anchor="start">The Other Details</text></g><g class="node new" style="--d:1320ms"><circle cx="380" cy="42" r="6"/><text x="364" y="47" text-anchor="end">New brand</text></g><g class="node new" style="--d:1440ms"><circle cx="620" cy="40" r="6"/><text x="636" y="45" text-anchor="start">New brand</text></g><g class="node new" style="--d:1560ms"><circle cx="250" cy="200" r="6"/><text x="234" y="205" text-anchor="end">New brand</text></g><g class="node hub" style="--d:300ms"><circle cx="500" cy="215" r="34"/><text x="500" y="221" text-anchor="middle">Zeroing</text></g></svg></figure>
-    <ol class="stepper" aria-label="How a brand joins Zeroing">
-      <li><span class="dot">1</span><span class="st">Apply</span></li>
-      <li><span class="dot">2</span><span class="st">Meet the founder</span></li>
-      <li><span class="dot">3</span><span class="st">Introductions</span></li>
-      <li><span class="dot">4</span><span class="st">Grow in public</span></li>
+    <div class="pillars">
+      <article class="pillar"><figure class="photo pillar-img"><img src="media/as-filming.jpg" alt="Nature" loading="lazy" decoding="async"></figure><h3>Nature</h3><p class="pillar-line">We give time to the people who look after it.</p><ul><li>Independent Society begins with a wildlife filmmaker who has spent two decades on the species few channels commission.</li><li>Brands build on what grows here: turmeric, saffron, honey, coffee, orange.</li><li>The Other Details traces what our habits cost the land, like the water behind the cloud.</li></ul></article>
+      <article class="pillar"><figure class="photo pillar-img"><img src="media/indso-turmeric-milk.jpg" alt="Culture" loading="lazy" decoding="async"></figure><h3>Culture</h3><p class="pillar-line">We keep what India already made.</p><ul><li>Vedi Kade carries Tamil history into clothes for an ordinary day.</li><li>INDSO starts from haldi doodh, one of the oldest preparations in Indian homes.</li><li>Every episode opens with a voice from 15 August 1947 and closes with a promise.</li></ul></article>
+      <article class="pillar"><figure class="photo pillar-img"><img src="media/indso-orange-peel.jpg" alt="Sustainability" loading="lazy" decoding="async"></figure><h3>Sustainability</h3><p class="pillar-line">We ask every brand for one honest next step.</p><ul><li>No brand here claims to be finished. Each page says what it does now on materials, packaging or making, and what comes next.</li><li>Brands share suppliers, stalls and customers instead of each building alone.</li><li>We grow at the makers&#x27; pace, one founder conversation at a time.</li></ul></article>
+    </div>
+    <h3 class="steps-title">How each brand focuses</h3>
+    <p class="steps-note">In their own words, brand by brand. Where a founder has not told us yet, we say so rather than guess.</p>
+    <div class="focus-wrap"><table class="focus-table"><thead><tr><th scope="col">Brand</th><th scope="col">Nature</th><th scope="col">Culture</th><th scope="col">Sustainability</th></tr></thead><tbody><tr><th scope="row"><a href="brands/indso.html">INDSO</a></th><td>Built on botanicals Indian homes already use: turmeric, saffron, honey, ashwagandha, coffee and orange.</td><td>Starts from haldi doodh and the home preparations Indian families have trusted for generations.</td><td class="todo-cell"><span>To confirm with the founder</span></td></tr><tr><th scope="row"><a href="brands/ampor-eyewear.html">Ampor Eyewear</a></th><td class="todo-cell"><span>To confirm with the founder</span></td><td class="todo-cell"><span>To confirm with the founder</span></td><td class="todo-cell"><span>To confirm with the founder</span></td></tr><tr><th scope="row"><a href="brands/vedi-kade.html">Vedi Kade</a></th><td class="todo-cell"><span>To confirm with the founder</span></td><td>Works Tamil history, stories and symbols into modern clothes for an ordinary day.</td><td class="todo-cell"><span>To confirm with the founder</span></td></tr><tr><th scope="row"><a href="brands/syzygy-living.html">Syzygy Living</a></th><td class="todo-cell"><span>To confirm with the founder</span></td><td class="todo-cell"><span>To confirm with the founder</span></td><td class="todo-cell"><span>To confirm with the founder</span></td></tr></tbody></table></div>
+    <h3 class="steps-title">How a brand joins</h3>
+    <ol class="stepper" aria-label="How a brand joins">
+      <li><span class="dot">1</span><span class="st">Apply</span><span class="sd">Tell us what you make, where, and one door you could open for another brand.</span></li>
+      <li><span class="dot">2</span><span class="st">Meet the founder</span><span class="sd">A short call, so both sides know it fits.</span></li>
+      <li><span class="dot">3</span><span class="st">Introductions</span><span class="sd">To brands whose customers, suppliers or stalls overlap with yours.</span></li>
+      <li><span class="dot">4</span><span class="st">Grow in public</span><span class="sd">Brands present Independent Society together and are credited on every episode.</span></li>
     </ol>
-    <div class="tracks">
-      <div class="track">
-        <h3>With brands</h3>
-        <ol>
-          <li><div><strong>You apply.</strong> Tell us what you make, where, and one door you could open for another brand.</div></li>
-          <li><div><strong>We meet the founder.</strong> A short call, so both sides know it fits.</div></li>
-          <li><div><strong>We introduce you.</strong> To brands whose customers, suppliers or stalls overlap with yours.</div></li>
-          <li><div><strong>We grow in public.</strong> Brands present Independent Society together and are credited on every episode.</div></li>
-        </ol>
-      </div>
-      <div class="track">
-        <h3>With the record</h3>
-        <ol>
-          <li><div><strong>We research for weeks,</strong> so the guest never has to explain the basics.</div></li>
-          <li><div><strong>We film where they work or live,</strong> in a single unhurried day.</div></li>
-          <li><div><strong>We ask about the years,</strong> not the awards.</div></li>
-          <li><div><strong>We write down The Other Details:</strong> the money, the permissions, the paperwork. With sources.</div></li>
-        </ol>
-      </div>
-    </div>
   </section>
 
   <section class="field f-haldi" id="on-record" data-ink="kajal" data-field="haldi">

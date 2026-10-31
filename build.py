@@ -52,7 +52,7 @@ for n, x in enumerate(load("brands.json")):
          "line": x.get("line", ""), "makes": x.get("makes", ""),
          "idea": [q.strip() for q in (x.get("about") or "").split("\n\n") if q.strip()],
          "role": x.get("role") or "Community brand", "city": x.get("city", ""), "founder": x.get("founder", ""),
-         "sustainability": x.get("sustainability", ""), "site": (x.get("website") or "").strip(),
+         "sustainability": x.get("sustainability", ""), "nature": x.get("nature", ""), "culture": x.get("culture", ""), "site": (x.get("website") or "").strip(),
          "instagram": (x.get("instagram") or "").strip().lstrip("@")}
     if x.get("hero_image"):
         d["wordmark" if x.get("hero_is_logo") else "hero"] = (mf(x["hero_image"]), x["name"] + (" logo" if x.get("hero_is_logo") else ""))
@@ -226,6 +226,26 @@ def craft_reel(items, title, line, P, label=""):
 """
 
 
+FOCUS = [("nature", "Nature"), ("culture", "Culture"), ("sustainability", "Sustainability")]
+ASK = "To confirm with the founder"
+
+
+def focus_block(b):
+    cells = "".join(
+        f'<div class="fc fc-{k}"><span class="fk">{t}</span>'
+        + (f'<p>{E(b[k])}</p>' if b.get(k) else f'<p><span class="todo">{ASK}</span></p>') + '</div>' for k, t in FOCUS)
+    return f'<div class="focus">{cells}</div>'
+
+
+def focus_table(P):
+    head = "".join(f'<th scope="col">{t}</th>' for _, t in FOCUS)
+    rows = "".join(
+        f'<tr><th scope="row"><a href="{P}brands/{b["slug"]}.html">{E(b["name"])}</a></th>'
+        + "".join(f'<td>{E(b[k])}</td>' if b.get(k) else f'<td class="todo-cell"><span>{ASK}</span></td>' for k, _ in FOCUS) + '</tr>'
+        for b in BRANDS)
+    return f'<div class="focus-wrap"><table class="focus-table"><thead><tr><th scope="col">Brand</th>{head}</tr></thead><tbody>{rows}</tbody></table></div>'
+
+
 def brand_main(b, P="../"):
     ink = "kajal" if b["colour"] in ("haldi", "genda") else "chuna"
     idea = "\n".join(f"        <p>{E(p)}</p>" for p in b["idea"])
@@ -274,8 +294,8 @@ def brand_main(b, P="../"):
       <div class="idea">
         <h2 class="display">The idea</h2>
 {idea}
-        <h3 class="sub">Working towards sustainability</h3>
-        {sus}
+        <h3 class="sub">How {E(b['name'])} focuses</h3>
+        {focus_block(b)}
       </div>
       <dl class="facts-list">
         <div><dt>Makes</dt><dd>{E(b['makes'])}</dd></div>
@@ -445,6 +465,13 @@ def build():
         return (f'    <article class="tile {cls}"><div class="tile-text"><h2 class="display">{T(bd.get("title", ""))}</h2>'
                 f'<p>{E(bd.get("text", ""))}</p><div class="tile-links">{ls}</div></div>{pic}</article>')
     bands = "\n".join(tile(cl, bd) for cl, bd in zip(tile_links, H_.get("bands", [])))
+    pillars = "\n".join(
+        f'      <article class="pillar"><figure class="photo pillar-img">{img(mf(pl.get("image")), pl.get("title", ""), "")}</figure>'
+        f'<h3>{T(pl.get("title", ""))}</h3><p class="pillar-line">{T(pl.get("line", ""))}</p>'
+        f'<ul>{"".join(f"<li>{E(x)}</li>" for x in pl.get("points", []) if x)}</ul></article>'
+        for pl in H_.get("pillars", []))
+    steps = "\n".join(f'      <li><span class="dot">{i + 1}</span><span class="st">{E(st.get("title", ""))}</span><span class="sd">{E(st.get("text", ""))}</span></li>'
+                      for i, st in enumerate(H_.get("steps", [])))
     ledger = "\n".join(f'      <p><span class="n">{int(l.get("number") or 0)}</span>{E(l.get("text", ""))}</p>' for l in H_.get("ledger", []))
     home = (read("pages", "home.html")
             .replace("{HERO_TITLE}", T(H_.get("hero_title", ""))).replace("{HERO_TEXT}", E(H_.get("hero_text", "")))
@@ -457,7 +484,9 @@ def build():
             .replace("{BRANDS_TITLE}", T(H_.get("brands_title", ""))).replace("{BRANDS_TEXT}", E(H_.get("brands_text", "")))
             .replace("{HOME_BRANDS}", "\n".join(home_brand_row(b, "") for b in BRANDS))
             .replace("{LISTEN_LATEST}", listen_buttons(p2))
-            .replace("{WEB}", web_svg()))
+            .replace("{HOW_TITLE}", T(H_.get("how_title", ""))).replace("{HOW_TEXT}", E(H_.get("how_text", "")))
+            .replace("{PILLARS}", pillars).replace("{STEPS_TITLE}", E(H_.get("steps_title", ""))).replace("{STEPS}", steps)
+            .replace("{FOCUS_TABLE}", focus_table("")))
     head, body = page("Zeroing",
                       "Zeroing is a community of Indian brands and the people behind them, and home of the Independent Society podcast.",
                       home, P="", H="")
@@ -467,7 +496,7 @@ def build():
 
     # community
     cards = "\n".join(brand_card(b, "") for b in BRANDS)
-    main = read("pages", "community.html").replace("{ORBIT}", orbit_html("")).replace("{BRAND_CARDS}", cards).replace("{BRAND_COUNT}", str(len(BRANDS) + 3))
+    main = read("pages", "community.html").replace("{ORBIT}", orbit_html("")).replace("{WEB}", web_svg()).replace("{BRAND_CARDS}", cards).replace("{BRAND_COUNT}", str(len(BRANDS) + 3))
     head, body = page("Zeroing Community",
                       "The Indian brands in Zeroing, and what we learned from small business efforts around the world.",
                       main, P="", H="index.html", current="community")
