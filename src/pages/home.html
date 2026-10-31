@@ -1,8 +1,8 @@
   <section class="field f-sindoor hero" id="top" data-ink="chuna" data-field="sindoor">
     {HERO_MARK}
     <div class="hero-body">
-      <h1 class="display">No Indian brand should grow alone.</h1>
-      <p class="lede">Zeroing is a community of Indian brands and the people behind them. We open doors for each other, and we keep an honest record of how work in this country actually gets done.</p>
+      <h1 class="display">{HERO_TITLE}</h1>
+      <p class="lede">{HERO_TEXT}</p>
       <div class="actions">
         <a class="pill solid" href="{P}independent-society.html">Listen to Independent Society</a>
         <a class="pill line" href="#brands">Meet the community</a>
@@ -12,24 +12,7 @@
   </section>
 
   <section class="bands" id="what" aria-label="What Zeroing does" data-ink="chuna" data-field="peepal">
-    <a class="band peepal" href="{P}community.html">
-      <span class="band-img"><img src="{P}media/indso-spread.jpg" alt="" loading="lazy" decoding="async"></span>
-      <h2 class="display">The community</h2>
-      <p>Indian brands made with intent. One brand's customer finds another. One founder's supplier helps the next.</p>
-      <span class="go">Meet the brands</span>
-    </a>
-    <a class="band neel" href="{P}independent-society.html">
-      <span class="band-img"><img src="{P}media/ep-conversation.jpg" alt="" loading="lazy" decoding="async"></span>
-      <h2 class="display">Independent Society</h2>
-      <p>Our podcast. One person, one long honest conversation about what their working life in India actually looked like.</p>
-      <span class="go">Listen</span>
-    </a>
-    <a class="band kattha" href="{P}the-other-details/">
-      <span class="band-img"><img src="{P}media/as-kargil.jpg" alt="" loading="lazy" decoding="async"></span>
-      <h2 class="display">The Other Details</h2>
-      <p>Our research lab. The money, the paperwork, the years nobody saw. Written down, with sources.</p>
-      <span class="go">Read the studies</span>
-    </a>
+{BANDS}
   </section>
 
 {CRAFT}
@@ -94,14 +77,14 @@
   <section class="field f-haldi" id="on-record" data-ink="kajal" data-field="haldi">
     <div class="record">
       <div class="porthole">
-        <div class="inside"><img src="{P}media/as-portrait.jpg" alt="Akanksha Sood Singh among banana leaves" loading="lazy" decoding="async"></div>
+        <div class="inside"><img src="{P}media/{RECORD_IMAGE}" alt="{RECORD_NAME}" loading="lazy" decoding="async"></div>
         <svg viewBox="0 0 200 200" aria-hidden="true"><path d="RING"/></svg>
       </div>
       <div class="record-text">
-        <p class="narrow">On record now, Independent Society episodes 1 and 2</p>
-        <h2 class="display who">Akanksha Sood Singh</h2>
-        <p class="role">Wildlife filmmaker. Founder, The Gaia People and Women of the Wild.</p>
-        <blockquote>“I don't want to see it as just another meme page.”</blockquote>
+        <p class="narrow">{RECORD_LABEL}</p>
+        <h2 class="display who">{RECORD_NAME}</h2>
+        <p class="role">{RECORD_ROLE}</p>
+        <blockquote>“{RECORD_QUOTE}”</blockquote>
         <div class="actions">
           {LISTEN_LATEST}
           <a class="pill line" href="{P}episodes/akanksha-sood-singh.html">Open the episode</a>
@@ -113,17 +96,15 @@
 
   <section class="field f-genda" id="year" data-ink="kajal" data-field="genda">
     <div class="ledger">
-      <p class="since">Since January 2026</p>
-      <p><span class="n">4</span>brands brought the first conversation to life.</p>
-      <p><span class="n">3</span>more joined the community.</p>
-      <p><span class="n">2</span>episodes are on record, and the next conversation is coming.</p>
+      <p class="since">{LEDGER_SINCE}</p>
+{LEDGER}
     </div>
   </section>
 
   <section class="field f-neel" id="brands" data-ink="chuna" data-field="neel">
     <div class="brands-head">
-      <h2 class="display">Made here.<br>Made to last.</h2>
-      <p>Every brand in Zeroing is homegrown and made in India, by an owner you can meet. Each one is working towards making things more sustainably, and says how on its own page. Buy from them directly.</p>
+      <h2 class="display">{BRANDS_TITLE}</h2>
+      <p>{BRANDS_TEXT}</p>
       <ul class="badges"><li>Made in India</li><li>Homegrown</li><li>Working towards sustainability</li></ul>
     </div>
     <ul class="brand-list">

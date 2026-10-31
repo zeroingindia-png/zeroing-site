@@ -1,0 +1,89 @@
+{
+  "hero_title": "No Indian brand should grow alone.",
+  "hero_text": "Zeroing is a community of Indian brands and the people behind them. We open doors for each other, and we keep an honest record of how work in this country actually gets done.",
+  "bands": [
+    {
+      "title": "The community",
+      "text": "Indian brands made with intent. One brand's customer finds another. One founder's supplier helps the next.",
+      "image": "/media/indso-spread.jpg"
+    },
+    {
+      "title": "Independent Society",
+      "text": "Our podcast. One person, one long honest conversation about what their working life in India actually looked like.",
+      "image": "/media/ep-conversation.jpg"
+    },
+    {
+      "title": "The Other Details",
+      "text": "Our research lab. The money, the paperwork, the years nobody saw. Written down, with sources.",
+      "image": "/media/as-kargil.jpg"
+    }
+  ],
+  "craft_title": "The work behind the work",
+  "craft_text": "Turmeric before it is a gel. A camera on the sand for a shot of ants. This is the part Zeroing is for: the making, the hands, the years. Every photograph here comes from a brand or a guest in the community.",
+  "craft": [
+    {
+      "image": "/media/indso-saffron-turmeric.jpg",
+      "title": "Honey, saffron, turmeric",
+      "note": "Before they go into INDSO's Turmeric Milk Gel.",
+      "wide": false
+    },
+    {
+      "image": "/media/as-filming.jpg",
+      "title": "Flat on the sand",
+      "note": "Akanksha Sood Singh, filming ants.",
+      "wide": true
+    },
+    {
+      "image": "/media/indso-orange-peel.jpg",
+      "title": "Orange",
+      "note": "Before it goes into INDSO's Orange Gel.",
+      "wide": false
+    },
+    {
+      "image": "/media/ep-conversation.jpg",
+      "title": "On record",
+      "note": "Akanksha and Anshul, the day of the conversation.",
+      "wide": true
+    },
+    {
+      "image": "/media/indso-coffee-beans.jpg",
+      "title": "Coffee",
+      "note": "Before it goes into INDSO's Coffee and Cocoa Gel.",
+      "wide": false
+    },
+    {
+      "image": "/media/as-ranthambhore.jpg",
+      "title": "Ranthambhore",
+      "note": "On location for On the Brink.",
+      "wide": true
+    },
+    {
+      "image": "/media/indso-turmeric-milk.jpg",
+      "title": "Haldi doodh",
+      "note": "One of the oldest skincare preparations in Indian homes.",
+      "wide": false
+    }
+  ],
+  "record_label": "On record now, Independent Society episodes 1 and 2",
+  "record_name": "Akanksha Sood Singh",
+  "record_role": "Wildlife filmmaker. Founder, The Gaia People and Women of the Wild.",
+  "record_quote": "I don't want to see it as just another meme page.",
+  "record_image": "/media/as-portrait.jpg",
+  "ledger_since": "Since January 2026",
+  "ledger": [
+    {
+      "number": 4,
+      "text": "brands brought the first conversation to life."
+    },
+    {
+      "number": 3,
+      "text": "more joined the community."
+    },
+    {
+      "number": 2,
+      "text": "episodes are on record, and the next conversation is coming."
+    }
+  ],
+  "brands_title": "Made here. Made to last.",
+  "brands_text": "Every brand in Zeroing is homegrown and made in India, by an owner you can meet. Each one is working towards making things more sustainably, and says how on its own page. Buy from them directly."
+}

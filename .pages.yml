@@ -1,0 +1,119 @@
+# Pages CMS: edit the site's words and photographs at https://app.pagescms.org (sign in with GitHub).
+# Every save is a commit to this repo; Cloudflare Pages rebuilds the site in about a minute.
+media:
+  input: public/media
+  output: /media
+
+content:
+  - name: home
+    label: Home page
+    type: file
+    path: content/home.json
+    format: json
+    fields:
+      - { name: hero_title, label: "Big headline", type: string }
+      - { name: hero_text, label: "Text under the headline", type: text }
+      - name: bands
+        label: The three coloured panels (community, podcast, The Other Details, in that order)
+        type: object
+        list: { min: 3, max: 3 }
+        fields:
+          - { name: title, label: "Title", type: string }
+          - { name: text, label: "Text", type: text }
+          - { name: image, label: "Photo shown on hover", type: image }
+      - { name: craft_title, label: "Photo reel title", type: string }
+      - { name: craft_text, label: "Photo reel text", type: text }
+      - name: craft
+        label: Photo reel
+        type: object
+        list: true
+        fields:
+          - { name: image, label: "Photo", type: image }
+          - { name: title, label: "Caption title", type: string }
+          - { name: note, label: "Caption line", type: string }
+          - { name: wide, label: "Landscape photo", type: boolean }
+      - { name: record_label, label: "On record, small label", type: string }
+      - { name: record_name, label: "On record, guest name", type: string }
+      - { name: record_role, label: "On record, guest description", type: text }
+      - { name: record_quote, label: "On record, quote (no quote marks)", type: text }
+      - { name: record_image, label: "On record, round photo", type: image }
+      - { name: ledger_since, label: "Numbers section, first line", type: string }
+      - name: ledger
+        label: Numbers section
+        type: object
+        list: true
+        fields:
+          - { name: number, label: "Number", type: number }
+          - { name: text, label: "Words after the number", type: string }
+      - { name: brands_title, label: "Brands section title", type: string }
+      - { name: brands_text, label: "Brands section text", type: text }
+
+  - name: brands
+    label: Brands
+    type: file
+    path: content/brands.json
+    format: json
+    list: true
+    fields:
+      - { name: name, label: "Brand name", type: string }
+      - { name: slug, label: "Page address (lowercase-with-dashes; leave empty to make one from the name)", type: string }
+      - { name: colour, label: "Colour (peepal, haldi, genda, kattha, neel or sindoor)", type: string }
+      - { name: line, label: "One line under the name", type: string }
+      - { name: makes, label: "What they make", type: string }
+      - { name: about, label: "About the brand (blank line between paragraphs)", type: text }
+      - { name: role, label: "Role in Zeroing", type: string }
+      - { name: city, label: "City", type: string }
+      - { name: founder, label: "Founder", type: string }
+      - { name: sustainability, label: "Working towards sustainability", type: text }
+      - { name: website, label: "Website (full link with https://)", type: string }
+      - { name: instagram, label: "Instagram handle (without @)", type: string }
+      - { name: hero_image, label: "Big photo on the brand page", type: image }
+      - { name: hero_is_logo, label: "The big photo is a logo (show it on white)", type: boolean }
+      - { name: card_image, label: "Small photo on cards (optional)", type: image }
+      - { name: tape_image, label: "Running strip graphic (optional)", type: image }
+      - { name: craft_title, label: "Photo reel title", type: string }
+      - { name: craft_text, label: "Photo reel text", type: text }
+      - name: craft
+        label: Photo reel (how it is made, what goes in)
+        type: object
+        list: true
+        fields:
+          - { name: image, label: "Photo", type: image }
+          - { name: title, label: "Caption title", type: string }
+          - { name: note, label: "Caption line", type: string }
+
+  - name: podcast
+    label: Podcast
+    type: file
+    path: content/podcast.json
+    format: json
+    fields:
+      - { name: spotify_show, label: "Spotify show link", type: string }
+      - { name: youtube_channel, label: "YouTube channel link", type: string }
+      - name: parts
+        label: Episodes of the current conversation
+        type: object
+        list: true
+        fields:
+          - { name: label, label: "Part (e.g. Part one)", type: string }
+          - { name: ep, label: "Episode (e.g. Episode 01)", type: string }
+          - { name: date, label: "Release date", type: string }
+          - { name: title, label: "Title", type: text }
+          - { name: spotify, label: "Spotify episode link", type: string }
+          - { name: youtube, label: "YouTube episode link", type: string }
+      - name: highlights
+        label: Highlights (each opens the latest episode on Spotify at that time)
+        type: object
+        list: true
+        fields:
+          - { name: time, label: "Time (minutes:seconds, e.g. 12:20)", type: string }
+          - { name: title, label: "What happens", type: string }
+      - name: field_photos
+        label: In the field photos
+        type: object
+        list: true
+        fields:
+          - { name: image, label: "Photo", type: image }
+          - { name: caption, label: "Caption", type: string }
+          - { name: shape, label: "Shape: wide, tall or half", type: string }
+      - { name: photo_credit, label: "Photo credit line", type: string }

@@ -1,0 +1,115 @@
+{
+  "spotify_show": "https://open.spotify.com/show/033rTzaVTcltHLTbWdOEY7",
+  "youtube_channel": "",
+  "parts": [
+    {
+      "label": "Part one",
+      "ep": "Episode 01",
+      "date": "19 June 2026",
+      "title": "First to film Indian lions in the dark. The face behind Women of the Wild.",
+      "spotify": "https://open.spotify.com/episode/5EqHNOgKkfk7a2DqCPe0pG",
+      "youtube": ""
+    },
+    {
+      "label": "Part two",
+      "ep": "Episode 02",
+      "date": "23 October 2026",
+      "title": "275 awards, 22 months without work. How wildlife films really get made.",
+      "spotify": "https://open.spotify.com/episode/5Mla3Abld9ACUyP0nshKPT",
+      "youtube": ""
+    }
+  ],
+  "highlights": [
+    {
+      "time": "1:30",
+      "title": "The Pad Piper, and a National Film Award"
+    },
+    {
+      "time": "5:15",
+      "title": "She said no: the pangolin film"
+    },
+    {
+      "time": "9:45",
+      "title": "Life is also invisible"
+    },
+    {
+      "time": "12:20",
+      "title": "Look beyond the tiger"
+    },
+    {
+      "time": "13:45",
+      "title": "The sarus crane can't sell"
+    },
+    {
+      "time": "17:40",
+      "title": "Ten species, one season"
+    },
+    {
+      "time": "20:45",
+      "title": "275 awards, 22 months without work"
+    },
+    {
+      "time": "29:35",
+      "title": "I want to be remembered: cinema, not content"
+    },
+    {
+      "time": "36:00",
+      "title": "Ten thousand rupees and a kitchen"
+    },
+    {
+      "time": "56:15",
+      "title": "Lions in the dark"
+    },
+    {
+      "time": "65:45",
+      "title": "Beg, borrow, get a camera: how to start"
+    },
+    {
+      "time": "73:45",
+      "title": "We need mad people"
+    }
+  ],
+  "field_photos": [
+    {
+      "image": "/media/as-ranthambhore.jpg",
+      "caption": "Ranthambhore, for On the Brink",
+      "shape": "wide"
+    },
+    {
+      "image": "/media/as-portrait.jpg",
+      "caption": "",
+      "shape": "tall"
+    },
+    {
+      "image": "/media/as-filming.jpg",
+      "caption": "Filming ants",
+      "shape": "half"
+    },
+    {
+      "image": "/media/as-drass.jpg",
+      "caption": "Drass",
+      "shape": "half"
+    },
+    {
+      "image": "/media/as-tsunami.jpg",
+      "caption": "",
+      "shape": "tall"
+    },
+    {
+      "image": "/media/as-kargil.jpg",
+      "caption": "Drass, Kargil",
+      "shape": "wide"
+    },
+    {
+      "image": "/media/as-ladakh.jpg",
+      "caption": "Ladakh, 2022",
+      "shape": "half"
+    },
+    {
+      "image": "/media/as-snow.jpg",
+      "caption": "",
+      "shape": "half"
+    }
+  ],
+  "photo_credit": "Photographs from Akanksha Sood Singh's archive, shared for this episode."
+}

@@ -1,0 +1,117 @@
+[
+  {
+    "name": "INDSO",
+    "slug": "indso",
+    "colour": "peepal",
+    "line": "Botanical gels for Indian skin.",
+    "makes": "Botanical skincare gels",
+    "about": "INDSO makes light botanical gels for Indian skin, Indian heat and city air.\n\nThe range is built on ingredients Indian homes have trusted for generations, such as turmeric, saffron, honey and ashwagandha, with every ingredient listed openly.",
+    "role": "Presented Independent Society",
+    "city": "",
+    "founder": "",
+    "sustainability": "",
+    "website": "https://indso.in",
+    "instagram": "indso.in",
+    "hero_image": "/media/indso-jars-stack.jpg",
+    "hero_is_logo": false,
+    "card_image": "/media/indso-spread.jpg",
+    "tape_image": "",
+    "craft_title": "What goes in",
+    "craft_text": "The ingredients, photographed as they are before they become a gel.",
+    "craft": [
+      {
+        "image": "/media/indso-saffron-turmeric.jpg",
+        "title": "Honey, saffron, turmeric",
+        "note": "In the Turmeric Milk Gel."
+      },
+      {
+        "image": "/media/indso-turmeric-milk.jpg",
+        "title": "Haldi doodh",
+        "note": "One of the oldest skincare preparations in Indian homes."
+      },
+      {
+        "image": "/media/indso-orange-peel.jpg",
+        "title": "Orange",
+        "note": "In the Orange Gel with vitamin C."
+      },
+      {
+        "image": "/media/indso-coffee-beans.jpg",
+        "title": "Coffee",
+        "note": "In the Coffee and Cocoa Gel."
+      },
+      {
+        "image": "/media/indso-gel-finger.jpg",
+        "title": "The gel",
+        "note": "Light enough for Indian heat."
+      },
+      {
+        "image": "/media/indso-arm.jpg",
+        "title": "On skin",
+        "note": "Absorbs without a film."
+      }
+    ]
+  },
+  {
+    "name": "Ampor Eyewear",
+    "slug": "ampor-eyewear",
+    "colour": "haldi",
+    "line": "Indian eyewear.",
+    "makes": "Eyewear",
+    "about": "Ampor Eyewear makes eyewear and was one of the two brands that presented the first conversation of Independent Society.",
+    "role": "Presented Independent Society",
+    "city": "",
+    "founder": "",
+    "sustainability": "",
+    "website": "https://ampor.in",
+    "instagram": "amporeyewear",
+    "hero_image": "",
+    "hero_is_logo": false,
+    "card_image": "",
+    "tape_image": "/media/ampor-tape.jpg",
+    "craft_title": "",
+    "craft_text": "",
+    "craft": []
+  },
+  {
+    "name": "Vedi Kade",
+    "slug": "vedi-kade",
+    "colour": "genda",
+    "line": "Modern clothing that carries Tamil history.",
+    "makes": "Tamil cultural clothing for today",
+    "about": "Vedi Kade designs modern outfits that draw on Tamil history and culture.\n\nStories, symbols and ways of making from Tamil life are worked into clothes you can wear on an ordinary day, so heritage becomes part of what you wear now.",
+    "role": "Community brand",
+    "city": "",
+    "founder": "",
+    "sustainability": "",
+    "website": "",
+    "instagram": "",
+    "hero_image": "/media/vedi-kade-wordmark.jpg",
+    "hero_is_logo": true,
+    "card_image": "",
+    "tape_image": "",
+    "craft_title": "",
+    "craft_text": "",
+    "craft": []
+  },
+  {
+    "name": "Syzygy Living",
+    "slug": "syzygy-living",
+    "colour": "kattha",
+    "line": "Design homeware.",
+    "makes": "Design homeware",
+    "about": "Syzygy Living makes design homeware. Its name comes from the word for three heavenly bodies falling into line.",
+    "role": "Community brand",
+    "city": "",
+    "founder": "",
+    "sustainability": "",
+    "website": "",
+    "instagram": "syzygyliving",
+    "hero_image": "",
+    "hero_is_logo": false,
+    "card_image": "",
+    "tape_image": "",
+    "craft_title": "",
+    "craft_text": "",
+    "craft": []
+  }
+]

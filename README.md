@@ -31,3 +31,16 @@ Without the CLI the pages still build and the last `lab.css` is kept.
 **Add a study:** copy an entry in `studies.json`, give it a new `slug`, add its media and, if it needs a new chart, a block in `charts.js` named after the chapter's `fig`. Every ledger row needs a verdict: `current`, `outdated`, `check` or `excluded`. The repo skill `.claude/skills/research-study/` walks through it.
 
 **Tools that help:** the `tod-research-desk`, `tod-visual-storytelling` and `tod-marketing-desk` skills; the GitHub connector to push; Cloudflare to deploy Pages. Optional: Google Drive for source PDFs, Consensus for papers, Twelve Data for prices.
+
+## Edit words and photos (no code)
+
+1. Go to https://app.pagescms.org and sign in with GitHub.
+2. Open `zeroingindia-png/zeroing-site`. You get three forms: **Home page**, **Brands**, **Podcast**.
+3. Change text, or click a photo to upload a new one. Press **Save**.
+4. Cloudflare rebuilds the site in about a minute.
+
+The words and photos live in `content/home.json`, `content/brands.json`, `content/podcast.json` and `public/media/`.
+Other pages (community, join, contact, legal) are in `src/pages/*.html` and can be edited on GitHub directly.
+Keep photos under about 500 KB (1600 px on the long side is plenty).
+
+Cloudflare Pages settings: build command `python3 build.py`, output directory `public`.

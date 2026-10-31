@@ -7,135 +7,64 @@ Writes every page into public/ (what Cloudflare Pages serves) and preview.html
 Edit the brand details in BRANDS and the episode links in EPISODES below; write "" for anything not confirmed yet.
 Photographs live in public/media/. Keep them under about 500 KB each.
 """
-import html, os
+import html, json, os, re
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(ROOT, "src")
 OUT = os.path.join(ROOT, "public")
 E = html.escape
 
-SPOTIFY_SHOW = "https://open.spotify.com/show/033rTzaVTcltHLTbWdOEY7"
-YOUTUBE_CHANNEL = ""  # paste the Independent Society YouTube channel link here
+CONTENT = os.path.join(ROOT, "content")
 
-BRANDS = [
-    {
-        "slug": "indso",
-        "name": "INDSO",
-        "colour": "peepal",
-        "line": "Botanical gels for Indian skin.",
-        "makes": "Botanical skincare gels",
-        "idea": [
-            "INDSO makes light botanical gels for Indian skin, Indian heat and city air.",
-            "The range is built on ingredients Indian homes have trusted for generations, such as turmeric, saffron, honey and ashwagandha, with every ingredient listed openly.",
-        ],
-        "role": "Presented Independent Society",
-        "city": "",
-        "sustainability": "",
-        "founder": "",
-        "site": "https://indso.in",
-        "instagram": "indso.in",
-        "hero": ("indso-jars-stack.jpg", "INDSO gel jars stacked against a deep red wall"),
-        "thumb": "indso-spread.jpg",
-        "craft_title": "What goes in",
-        "craft_line": "The ingredients, photographed as they are before they become a gel.",
-        "craft": [
-            ("indso-saffron-turmeric.jpg", "Honey, saffron, turmeric", "In the Turmeric Milk Gel."),
-            ("indso-turmeric-milk.jpg", "Haldi doodh", "One of the oldest skincare preparations in Indian homes."),
-            ("indso-orange-peel.jpg", "Orange", "In the Orange Gel with vitamin C."),
-            ("indso-coffee-beans.jpg", "Coffee", "In the Coffee and Cocoa Gel."),
-            ("indso-gel-finger.jpg", "The gel", "Light enough for Indian heat."),
-            ("indso-arm.jpg", "On skin", "Absorbs without a film."),
-        ],
-    },
-    {
-        "slug": "ampor-eyewear",
-        "name": "Ampor Eyewear",
-        "colour": "haldi",
-        "line": "Indian eyewear.",
-        "makes": "Eyewear",
-        "idea": ["Ampor Eyewear makes eyewear and was one of the two brands that presented the first conversation of Independent Society."],
-        "role": "Presented Independent Society",
-        "city": "",
-        "sustainability": "",
-        "founder": "",
-        "site": "https://ampor.in",
-        "instagram": "amporeyewear",
-        "tape": "ampor-tape.jpg",
-    },
-    {
-        "slug": "vedi-kade",
-        "name": "Vedi Kade",
-        "colour": "genda",
-        "line": "Modern clothing that carries Tamil history.",
-        "makes": "Tamil cultural clothing for today",
-        "idea": [
-            "Vedi Kade designs modern outfits that draw on Tamil history and culture.",
-            "Stories, symbols and ways of making from Tamil life are worked into clothes you can wear on an ordinary day, so heritage becomes part of what you wear now.",
-        ],
-        "role": "Community brand",
-        "city": "",
-        "sustainability": "",
-        "founder": "",
-        "site": "",
-        "instagram": "",
-        "wordmark": ("vedi-kade-wordmark.jpg", "Vedi Kade wordmark"),
-    },
-    {
-        "slug": "syzygy-living",
-        "name": "Syzygy Living",
-        "colour": "kattha",
-        "line": "Design homeware.",
-        "makes": "Design homeware",
-        "idea": ["Syzygy Living makes design homeware. Its name comes from the word for three heavenly bodies falling into line."],
-        "role": "Community brand",
-        "city": "",
-        "sustainability": "",
-        "founder": "",
-        "site": "",
-        "instagram": "syzygyliving",
-    },
-]
+
+def load(name):
+    with open(os.path.join(CONTENT, name), encoding="utf-8") as f:
+        return json.load(f)
+
+
+def mf(v):
+    """'/media/x.jpg' (as the editor saves it) -> 'x.jpg'."""
+    v = (v or "").strip()
+    return v.split("media/")[-1] if v else ""
+
+
+def slugify(t):
+    return re.sub(r"[^a-z0-9]+", "-", t.lower()).strip("-")
+
+
+# ---- everything below comes from content/*.json; edit those files (or use Pages CMS), not this script ----
+HOME = load("home.json")
+PODCAST = load("podcast.json")
+SPOTIFY_SHOW = PODCAST.get("spotify_show", "")
+YOUTUBE_CHANNEL = PODCAST.get("youtube_channel", "")
 
 TODO = '<span class="todo">To confirm</span>'
+COLOURS = ["peepal", "haldi", "genda", "kattha", "neel", "sindoor"]
 
-# Paste YouTube links when you have them; the buttons appear on their own.
-EPISODES = [
-    {"slug": "akanksha-sood-singh", "parts": [
-        {"label": "Part one", "ep": "Episode 01", "date": "19 June 2026",
-         "title": "First to film Indian lions in the dark. The face behind Women of the Wild.",
-         "youtube": "", "spotify": "https://open.spotify.com/episode/5EqHNOgKkfk7a2DqCPe0pG"},
-        {"label": "Part two", "ep": "Episode 02", "date": "23 October 2026",
-         "title": "275 awards, 22 months without work. How wildlife films really get made.",
-         "youtube": "", "spotify": "https://open.spotify.com/episode/5Mla3Abld9ACUyP0nshKPT"},
-    ]},
-]
+BRANDS = []
+for n, x in enumerate(load("brands.json")):
+    d = {"slug": x.get("slug") or slugify(x["name"]), "name": x["name"], "colour": x.get("colour") or COLOURS[n % len(COLOURS)],
+         "line": x.get("line", ""), "makes": x.get("makes", ""),
+         "idea": [q.strip() for q in (x.get("about") or "").split("\n\n") if q.strip()],
+         "role": x.get("role") or "Community brand", "city": x.get("city", ""), "founder": x.get("founder", ""),
+         "sustainability": x.get("sustainability", ""), "site": (x.get("website") or "").strip(),
+         "instagram": (x.get("instagram") or "").strip().lstrip("@")}
+    if x.get("hero_image"):
+        d["wordmark" if x.get("hero_is_logo") else "hero"] = (mf(x["hero_image"]), x["name"] + (" logo" if x.get("hero_is_logo") else ""))
+    if x.get("card_image"):
+        d["thumb"] = mf(x["card_image"])
+    if x.get("tape_image"):
+        d["tape"] = mf(x["tape_image"])
+    if x.get("craft"):
+        d["craft"] = [(mf(c["image"]), c.get("title", ""), c.get("note", "")) for c in x["craft"] if c.get("image")]
+        d["craft_title"] = x.get("craft_title") or "How it is made"
+        d["craft_line"] = x.get("craft_text", "")
+    BRANDS.append(d)
 
-# Moments in part two. Times are from the episode master; each link opens Spotify at that point.
-HIGHLIGHTS = [
-    ("1:30", "The Pad Piper, and a National Film Award"),
-    ("5:15", "She said no: the pangolin film"),
-    ("9:45", "Life is also invisible"),
-    ("12:20", "Look beyond the tiger"),
-    ("13:45", "The sarus crane can't sell"),
-    ("17:40", "Ten species, one season"),
-    ("20:45", "275 awards, 22 months without work"),
-    ("29:35", "I want to be remembered: cinema, not content"),
-    ("36:00", "Ten thousand rupees and a kitchen"),
-    ("56:15", "Lions in the dark"),
-    ("65:45", "Beg, borrow, get a camera: how to start"),
-    ("73:45", "We need mad people"),
-]
-
-FIELD_PHOTOS = [
-    ("as-ranthambhore.jpg", "Ranthambhore, for On the Brink", "w"),
-    ("as-portrait.jpg", "", "t"),
-    ("as-filming.jpg", "Filming ants", "h"),
-    ("as-drass.jpg", "Drass", "h"),
-    ("as-tsunami.jpg", "", "t"),
-    ("as-kargil.jpg", "Drass, Kargil", "w"),
-    ("as-ladakh.jpg", "Ladakh, 2022", "h"),
-    ("as-snow.jpg", "", "h"),
-]
+EPISODES = [{"slug": "akanksha-sood-singh", "parts": PODCAST["parts"]}]
+HIGHLIGHTS = [(h["time"], h["title"]) for h in PODCAST.get("highlights", [])]
+FIELD_PHOTOS = [(mf(f["image"]), f.get("caption", ""), {"wide": "w", "tall": "t"}.get(f.get("shape"), "h"))
+                for f in PODCAST.get("field_photos", []) if f.get("image")]
 
 
 def read(*parts):
@@ -432,25 +361,32 @@ def web_svg():
             + "".join(paths) + "".join(dots) + "".join(labels) + hub + '</svg></figure>')
 
 
-HOME_CRAFT = [
-    ("indso-saffron-turmeric.jpg", "Honey, saffron, turmeric", "Before they go into INDSO's Turmeric Milk Gel."),
-    ("as-filming.jpg", "Flat on the sand", "Akanksha Sood Singh, filming ants.", "wide"),
-    ("indso-orange-peel.jpg", "Orange", "Before it goes into INDSO's Orange Gel."),
-    ("ep-conversation.jpg", "On record", "Akanksha and Anshul, the day of the conversation.", "wide"),
-    ("indso-coffee-beans.jpg", "Coffee", "Before it goes into INDSO's Coffee and Cocoa Gel."),
-    ("as-ranthambhore.jpg", "Ranthambhore", "On location for On the Brink.", "wide"),
-    ("indso-turmeric-milk.jpg", "Haldi doodh", "One of the oldest skincare preparations in Indian homes."),
-]
+HOME_CRAFT = [(mf(c["image"]), c.get("title", ""), c.get("note", "")) + (("wide",) if c.get("wide") else ()) for c in HOME.get("craft", []) if c.get("image")]
 
 
 def build():
     ep = EPISODES[0]
-    p1, p2 = ep["parts"]
+    p1, p2 = ep["parts"][0], ep["parts"][-1]
 
     # home
+    H_ = HOME
+    band_links = [("peepal", "{P}community.html", "Meet the brands"), ("neel", "{P}independent-society.html", "Listen"),
+                  ("kattha", "{P}the-other-details/", "Read the studies")]
+    bands = "\n".join(
+        f'    <a class="band {c}" href="{h}">'
+        + (f'<span class="band-img">{img(mf(bd.get("image")), "", "")}</span>' if bd.get("image") else "")
+        + f'<h2 class="display">{E(bd.get("title", ""))}</h2><p>{E(bd.get("text", ""))}</p><span class="go">{go}</span></a>'
+        for (c, h, go), bd in zip(band_links, H_.get("bands", [])))
+    ledger = "\n".join(f'      <p><span class="n">{int(l.get("number") or 0)}</span>{E(l.get("text", ""))}</p>' for l in H_.get("ledger", []))
     home = (read("pages", "home.html")
-            .replace("{CRAFT}", craft_reel(HOME_CRAFT, "The work behind the work",
-                     "Turmeric before it is a gel. A camera on the sand for a shot of ants. This is the part Zeroing is for: the making, the hands, the years. Every photograph here comes from a brand or a guest in the community.", ""))
+            .replace("{HERO_TITLE}", E(H_.get("hero_title", ""))).replace("{HERO_TEXT}", E(H_.get("hero_text", "")))
+            .replace("{BANDS}", bands)
+            .replace("{CRAFT}", craft_reel(HOME_CRAFT, H_.get("craft_title", ""), E(H_.get("craft_text", "")), ""))
+            .replace("{RECORD_LABEL}", E(H_.get("record_label", ""))).replace("{RECORD_NAME}", E(H_.get("record_name", "")))
+            .replace("{RECORD_ROLE}", E(H_.get("record_role", ""))).replace("{RECORD_QUOTE}", E(H_.get("record_quote", "")))
+            .replace("{RECORD_IMAGE}", mf(H_.get("record_image")))
+            .replace("{LEDGER_SINCE}", E(H_.get("ledger_since", ""))).replace("{LEDGER}", ledger)
+            .replace("{BRANDS_TITLE}", E(H_.get("brands_title", ""))).replace("{BRANDS_TEXT}", E(H_.get("brands_text", "")))
             .replace("{HOME_BRANDS}", "\n".join(home_brand_row(b, "") for b in BRANDS))
             .replace("{LISTEN_LATEST}", listen_buttons(p2))
             .replace("{WEB}", web_svg()))
@@ -479,7 +415,8 @@ def build():
     is_main = (read("pages", "independent-society.html")
                .replace("{EP1_LINKS}", listen_buttons(p1)).replace("{EP2_LINKS}", listen_buttons(p2))
                .replace("{EP1_TITLE}", E(p1["title"])).replace("{EP2_TITLE}", E(p2["title"]))
-               .replace("{HIGHLIGHTS}", highlights_html(p2["spotify"])))
+               .replace("{HIGHLIGHTS}", highlights_html(p2["spotify"]))
+               .replace("{YOUTUBE_CHANNEL_BTN}", f'<a class="pill line" href="{YOUTUBE_CHANNEL}" target="_blank" rel="noopener">Watch on YouTube <span class="arr" aria-hidden="true">&#8599;</span></a>' if YOUTUBE_CHANNEL else ""))
     simple = [
         ("independent-society.html", "Independent Society", "Long, honest conversations about what working life in India actually looked like.", is_main, "podcast"),
         ("join.html", "Join Zeroing", "Apply to join Zeroing, a community of homegrown Indian brands.", read("pages", "join.html"), "join"),
@@ -507,7 +444,8 @@ def build():
             .replace("{WATCH}", listen_buttons(p2) + '<a class="pill line" href="#parts">Both parts</a>')
             .replace("{PARTS}", parts)
             .replace("{HIGHLIGHTS}", highlights_html(p2["spotify"]))
-            .replace("{GALLERY}", gallery))
+            .replace("{GALLERY}", gallery)
+            .replace("{PHOTO_CREDIT}", E(PODCAST.get("photo_credit", ""))))
     head, body = page("Akanksha Sood Singh on Independent Society",
                       "Wildlife filmmaker Akanksha Sood Singh in a two part conversation with Independent Society, episodes 1 and 2.",
                       main, P="../", H="../index.html", current="podcast")
