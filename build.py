@@ -58,7 +58,7 @@ BRANDS = [
         "city": "",
         "sustainability": "",
         "founder": "",
-        "site": "",
+        "site": "https://ampor.in",
         "instagram": "amporeyewear",
     },
     {
@@ -81,7 +81,10 @@ TODO = '<span class="todo">To confirm</span>'
 
 # Paste the public links here when you have them; the buttons appear on their own.
 EPISODES = [
-    {"slug": "akanksha-sood-singh", "youtube": "", "spotify": ""},
+    {"slug": "akanksha-sood-singh", "parts": [
+        {"label": "Part one", "ep": "Episode 01", "title": "First to film Indian lions in the dark", "youtube": "", "spotify": ""},
+        {"label": "Part two", "ep": "Episode 02", "title": "The conversation continues", "youtube": "", "spotify": ""},
+    ]},
 ]
 
 
@@ -261,16 +264,27 @@ def build():
         write(out, full_doc(head, body))
 
     ep = EPISODES[0]
-    watch = []
-    if ep["youtube"]:
-        watch.append(f'<a class="pill solid" href="{ep["youtube"]}" target="_blank" rel="noopener">Watch on YouTube</a>')
-    if ep["spotify"]:
-        watch.append(f'<a class="pill line" href="{ep["spotify"]}" target="_blank" rel="noopener">Listen on Spotify</a>')
-    if not watch:
-        watch.append('<span class="pill line" aria-disabled="true">Episode links coming soon</span>')
-    main = read("pages", "episode-akanksha.html").replace("{WATCH}", "\n          ".join(watch))
+
+    def buttons(part, first_solid=True):
+        out = []
+        if part["youtube"]:
+            out.append(f'<a class="pill {"solid" if first_solid else "line"}" href="{part["youtube"]}" target="_blank" rel="noopener">Watch on YouTube</a>')
+        if part["spotify"]:
+            out.append(f'<a class="pill line" href="{part["spotify"]}" target="_blank" rel="noopener">Listen on Spotify</a>')
+        return out or ['<span class="pill line" aria-disabled="true">Links coming soon</span>']
+
+    watch = ['<a class="pill solid" href="#parts">Choose a part</a>']
+    parts = "\n".join(
+        f'      <li class="part">\n'
+        f'        <p class="narrow">{html.escape(p["ep"])}</p>\n'
+        f'        <h3>{html.escape(p["label"])}</h3>\n'
+        f'        <p class="part-title">{html.escape(p["title"])}</p>\n'
+        f'        <div class="actions">{"".join(buttons(p))}</div>\n'
+        f'      </li>' for p in ep["parts"])
+    main = (read("pages", "episode-akanksha.html").replace("{WATCH}", "\n          ".join(watch))
+            .replace("{PARTS}", parts))
     head, body = page("Akanksha Sood Singh on Independent Society",
-                      "Wildlife filmmaker Akanksha Sood Singh in conversation with Independent Society, episode 1.",
+                      "Wildlife filmmaker Akanksha Sood Singh in a two part conversation with Independent Society, episodes 1 and 2.",
                       main, P="../", H="../index.html", current="podcast")
     write("episodes/akanksha-sood-singh.html", full_doc(head, body))
     print("built", 8 + len(BRANDS), "pages")

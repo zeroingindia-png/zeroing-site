@@ -4,3 +4,4 @@ node_modules/
 preview.html
 .preview/
 !public/research/tod-logo.png
+__pycache__/

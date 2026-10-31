@@ -134,7 +134,7 @@ def home_page(studies):
       <div class="grid gap-3.5 p-6"><span class="chip chip-{s['accent']}">{s['chip']}</span><span class="font-head text-[26px] font-black leading-tight tracking-tight [&>i]:font-ital [&>i]:font-medium [&>i]:italic [&>i]:text-red">{s['question']}</span></div>
       <div class="border-t border-edge">{rows(s['card'])}</div>
       <span class="mt-auto border-t border-edge px-6 py-4 text-sm font-semibold text-teal">Read the study · {s['read']} →</span></a>"""
-    main = hero(mosaic, "Zeroing research lab · every number traced", "teal",
+    main = hero(mosaic, "Research lab of Zeroing · every number traced", "teal",
                 "The other details. <i>Drawn so anyone can read them.</i>",
                 "We read the reports behind the headlines, check where each number comes from and how old it is, and turn it into reels, charts and lessons anyone can follow.", ctas, tall=True) + f"""
 <div class="wrap pb-24">

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Akanksha Sood Singh on Independent Society</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Wildlife filmmaker Akanksha Sood Singh in conversation with Independent Society, episode 1.">
+<meta name="description" content="Wildlife filmmaker Akanksha Sood Singh in a two part conversation with Independent Society, episodes 1 and 2.">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -510,6 +510,20 @@ a.episode:hover .ep-name { text-decoration: underline; text-underline-offset: 6p
   .zform { grid-template-columns: 1fr; }
   .stamp-red { position: static; display: block; margin-top: 32px; }
 }
+
+/* episode parts */
+.parts { list-style: none; margin: clamp(32px, 5vw, 64px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.part { display: grid; gap: 10px; align-content: start; padding: clamp(20px, 3vw, 32px); border: 2px solid var(--chuna); }
+.part h3 { margin: 0; font-family: var(--font-display); font-variation-settings: var(--display-vars); font-weight: 800; font-size: var(--size-2); line-height: 1; letter-spacing: -0.012em; }
+.part .narrow { text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.72rem; font-weight: 600; }
+.part-title { font-size: var(--size-3); }
+.part .actions { margin-top: 8px; }
+@media (max-width: 900px) { .parts { grid-template-columns: 1fr; } }
+.episode-grid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 260px)); }
+.episode { min-width: 0; }
+.disc { width: 240px; max-width: 100%; }
+.d-empty { border: 2px dashed currentColor; }
+.d-empty svg { display: none; }
 </style>
 </head>
 <body>
@@ -553,16 +567,37 @@ a.episode:hover .ep-name { text-decoration: underline; text-underline-offset: 6p
         <svg viewBox="0 0 200 200" aria-hidden="true"><path d="M100 18a82 82 0 1 1 0 164a82 82 0 1 1 0-164Z"/></svg>
       </div>
       <div class="record-text">
-        <p class="narrow">Independent Society, episode 1, released June 2026</p>
+        <p class="narrow">Independent Society, episodes 1 and 2</p>
         <h1 class="display who">Akanksha Sood Singh</h1>
         <p class="role">Wildlife filmmaker. Founder, The Gaia People and Women of the Wild India and Pakistan.</p>
         <blockquote>“I don't want to see it as just another meme page.”</blockquote>
         <div class="actions">
-          <span class="pill line" aria-disabled="true">Episode links coming soon</span>
+          <a class="pill solid" href="#parts">Choose a part</a>
         </div>
       </div>
     </div>
-    <div class="corners narrow"><span>Presented by INDSO and Ampor Eyewear</span><span>Independent Society, episode 1</span></div>
+    <div class="corners narrow"><span>Presented by INDSO and Ampor Eyewear</span><span>A conversation in two parts</span></div>
+  </section>
+
+  <section class="field f-kajal" id="parts" data-ink="chuna" data-field="kajal">
+    <div class="case-head">
+      <h2 class="display">One conversation, two parts</h2>
+      <p>Part one went on record in June 2026. In part two, Anshul Kumar continues the conversation with Akanksha.</p>
+    </div>
+    <ol class="parts">
+      <li class="part">
+        <p class="narrow">Episode 01</p>
+        <h3>Part one</h3>
+        <p class="part-title">First to film Indian lions in the dark</p>
+        <div class="actions"><span class="pill line" aria-disabled="true">Links coming soon</span></div>
+      </li>
+      <li class="part">
+        <p class="narrow">Episode 02</p>
+        <h3>Part two</h3>
+        <p class="part-title">The conversation continues</p>
+        <div class="actions"><span class="pill line" aria-disabled="true">Links coming soon</span></div>
+      </li>
+    </ol>
   </section>
 
   <section class="field f-chuna" id="about" data-ink="kajal" data-field="chuna">

@@ -510,6 +510,20 @@ a.episode:hover .ep-name { text-decoration: underline; text-underline-offset: 6p
   .zform { grid-template-columns: 1fr; }
   .stamp-red { position: static; display: block; margin-top: 32px; }
 }
+
+/* episode parts */
+.parts { list-style: none; margin: clamp(32px, 5vw, 64px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.part { display: grid; gap: 10px; align-content: start; padding: clamp(20px, 3vw, 32px); border: 2px solid var(--chuna); }
+.part h3 { margin: 0; font-family: var(--font-display); font-variation-settings: var(--display-vars); font-weight: 800; font-size: var(--size-2); line-height: 1; letter-spacing: -0.012em; }
+.part .narrow { text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.72rem; font-weight: 600; }
+.part-title { font-size: var(--size-3); }
+.part .actions { margin-top: 8px; }
+@media (max-width: 900px) { .parts { grid-template-columns: 1fr; } }
+.episode-grid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 260px)); }
+.episode { min-width: 0; }
+.disc { width: 240px; max-width: 100%; }
+.d-empty { border: 2px dashed currentColor; }
+.d-empty svg { display: none; }
 </style>
 </head>
 <body>
@@ -590,8 +604,13 @@ a.episode:hover .ep-name { text-decoration: underline; text-underline-offset: 6p
         <span class="ep-name">Akanksha Sood Singh</span>
         <span class="ep-role">Wildlife filmmaker. Released June 2026.</span>
       </a>
+      <a class="episode" href="episodes/akanksha-sood-singh.html#parts">
+        <span class="disc d-haldi"><svg viewBox="0 0 200 200" aria-hidden="true"><path d="M100 18a82 82 0 1 1 0 164a82 82 0 1 1 0-164Z"/></svg><span class="num">2</span></span>
+        <span class="ep-name">Akanksha Sood Singh, part two</span>
+        <span class="ep-role">The conversation continues.</span>
+      </a>
       <div class="episode next">
-        <span class="disc d-empty"><svg viewBox="0 0 200 200" aria-hidden="true"><path d="M100 18a82 82 0 1 1 0 164a82 82 0 1 1 0-164Z"/></svg><span class="num">2</span></span>
+        <span class="disc d-empty"><svg viewBox="0 0 200 200" aria-hidden="true"><path d="M100 18a82 82 0 1 1 0 164a82 82 0 1 1 0-164Z"/></svg><span class="num">3</span></span>
         <span class="ep-name">The next conversation</span>
         <span class="ep-role">Coming soon. Get the letter to hear first.</span>
       </div>
