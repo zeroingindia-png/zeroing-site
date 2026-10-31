@@ -787,3 +787,66 @@ em { font-style: italic; }
   .ln-title { display: none; }
   .localnav { justify-content: flex-start; }
 }
+
+/* =========================================================
+   Small details
+   ========================================================= */
+::selection { background: var(--haldi); color: var(--kajal); }
+.progress { position: fixed; z-index: 25; top: env(safe-area-inset-top, 0px); left: 0; right: 0; height: 2px; pointer-events: none; }
+.progress i { display: block; height: 100%; background: var(--sindoor); transform-origin: left; transform: scaleX(0); }
+.f-sindoor ~ * .progress i { background: var(--haldi); }
+
+/* buttons feel pressed */
+.pill, .tlink, .site-chip, .letter button, .copy, .ln-buy { -webkit-tap-highlight-color: transparent; }
+.pill:active, .site-chip:active, .letter button:active, .copy:active, .ln-buy:active { transform: scale(0.97); }
+.pill { transition: background-color var(--t-short) var(--ease), color var(--t-short) var(--ease), border-color var(--t-short) var(--ease), transform 120ms ease; }
+
+/* back to top, with a ring that fills as you read */
+.to-top {
+  position: fixed; z-index: 18; right: max(16px, env(safe-area-inset-right, 0px)); bottom: max(16px, env(safe-area-inset-bottom, 0px));
+  width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center;
+  background: rgba(247, 243, 236, 0.86); color: var(--kajal);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  box-shadow: 0 8px 24px -10px rgba(22, 21, 20, 0.45);
+  opacity: 0; transform: translateY(12px) scale(0.9); pointer-events: none;
+  transition: opacity 500ms var(--ease), transform 500ms var(--ease);
+}
+.to-top.show { opacity: 1; transform: none; pointer-events: auto; }
+.to-top svg { width: 40px; height: 40px; }
+.to-top .ring-bg { fill: none; stroke: rgba(22, 21, 20, 0.12); stroke-width: 2; }
+.to-top .ring { fill: none; stroke: var(--sindoor); stroke-width: 2; stroke-dasharray: 1; stroke-dashoffset: 1; transform: rotate(-90deg); transform-origin: center; }
+.to-top path { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.to-top:hover path { transform: translateY(-2px); transition: transform 300ms var(--ease); }
+
+/* the chapter bar's current section */
+.ln-links a[aria-current] { opacity: 1; font-weight: 600; box-shadow: inset 0 -2px 0 var(--sindoor); padding-bottom: 3px; }
+
+/* copy buttons and the toast */
+.copy { margin-left: 8px; border: 1px solid currentColor; background: none; color: inherit; font: inherit; font-size: 0.78rem; font-weight: 600; border-radius: 999px; padding: 2px 10px; cursor: pointer; opacity: 0.75; transition: opacity 200ms; }
+.copy:hover { opacity: 1; }
+.toast {
+  position: fixed; z-index: 50; left: 50%; bottom: 24px; transform: translate(-50%, 24px);
+  background: var(--kajal); color: var(--chuna); border-radius: 999px; padding: 10px 18px; font-size: 0.9rem; font-weight: 600;
+  opacity: 0; pointer-events: none; transition: opacity 400ms var(--ease), transform 400ms var(--ease);
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+/* characters left */
+.count { font-size: 0.78rem; opacity: 0.55; justify-self: end; font-variant-numeric: tabular-nums; transition: color 200ms, opacity 200ms; }
+.count.low { color: var(--sindoor); opacity: 1; }
+
+/* photographs fade in */
+img.pending { opacity: 0; }
+img { transition: opacity 700ms var(--ease); }
+.photo, .tile-img, .card-img, .thumb, .disc, .porthole .inside { background-color: var(--chuna-2); }
+
+/* episode new badge */
+.new { display: inline-block; vertical-align: 0.15em; margin-left: 6px; font-family: var(--font); font-size: 0.66rem; font-weight: 700; letter-spacing: 0.02em; background: var(--haldi); color: var(--kajal); border-radius: 999px; padding: 2px 8px; }
+
+/* highlights: a small play mark slides in */
+.highlights .t { position: relative; }
+.highlights a:hover .t::before { content: ""; position: absolute; left: -16px; top: 50%; translate: 0 -50%; border-style: solid; border-width: 5px 0 5px 8px; border-color: transparent transparent transparent currentColor; }
+
+@media (prefers-reduced-motion: reduce) {
+  .to-top, .toast { transition: none; }
+}

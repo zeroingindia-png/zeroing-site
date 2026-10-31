@@ -185,4 +185,88 @@
         .then(function () { button.disabled = false; });
     });
   });
+  // ---------- small details ----------
+  (function () {
+    var bar = document.getElementById('progress');
+    var topBtn = document.getElementById('to-top');
+    var ring = document.getElementById('to-top-ring');
+    var toast = document.getElementById('toast');
+    var tid;
+    function say(msg) {
+      if (!toast) return;
+      toast.textContent = msg; toast.classList.add('show');
+      clearTimeout(tid); tid = setTimeout(function () { toast.classList.remove('show'); }, 2200);
+    }
+    // reading progress along the top edge, and on the back-to-top ring
+    function progress() {
+      var h = document.documentElement.scrollHeight - window.innerHeight;
+      var p = h > 0 ? Math.min(window.scrollY / h, 1) : 0;
+      if (bar) bar.style.transform = 'scaleX(' + p.toFixed(4) + ')';
+      if (ring) ring.style.strokeDashoffset = (1 - p).toFixed(4);
+      if (topBtn) topBtn.classList.toggle('show', window.scrollY > window.innerHeight * 1.2);
+    }
+    window.addEventListener('scroll', progress, { passive: true });
+    window.addEventListener('resize', progress); progress();
+
+    // the chapter bar shows where you are
+    var links = document.querySelectorAll('.ln-links a[href^="#"]');
+    if (links.length && 'IntersectionObserver' in window) {
+      var map = {};
+      links.forEach(function (a) { var t = document.getElementById(a.getAttribute('href').slice(1)); if (t) map[t.id] = a; });
+      var spy = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (!en.isIntersecting) return;
+          links.forEach(function (a) { a.removeAttribute('aria-current'); });
+          var a = map[en.target.id]; if (a) a.setAttribute('aria-current', 'true');
+        });
+      }, { rootMargin: '-45% 0px -50% 0px' });
+      Object.keys(map).forEach(function (id) { spy.observe(document.getElementById(id)); });
+    }
+
+    // copy buttons
+    document.querySelectorAll('[data-copy]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var v = b.getAttribute('data-copy');
+        (navigator.clipboard ? navigator.clipboard.writeText(v) : Promise.reject()).then(function () {
+          b.textContent = 'Copied'; say('Copied ' + v); setTimeout(function () { b.textContent = 'Copy'; }, 1800);
+        }, function () { say('Select the text to copy it'); });
+      });
+    });
+
+    // characters left in long answers
+    document.querySelectorAll('textarea[maxlength]').forEach(function (t) {
+      var max = +t.getAttribute('maxlength');
+      var c = document.createElement('span'); c.className = 'count'; c.setAttribute('aria-hidden', 'true');
+      t.insertAdjacentElement('afterend', c);
+      function upd() { var n = max - t.value.length; c.textContent = n + ' characters left'; c.classList.toggle('low', n < max * 0.1); }
+      t.addEventListener('input', upd); upd();
+    });
+
+    // photographs fade in once loaded, never pop
+    document.querySelectorAll('img[loading="lazy"]').forEach(function (im) {
+      if (im.complete) return;
+      im.classList.add('pending');
+      im.addEventListener('load', function () { im.classList.remove('pending'); }, { once: true });
+      im.addEventListener('error', function () { im.classList.remove('pending'); }, { once: true });
+    });
+
+    // a quiet "New" on episodes out in the last 30 days
+    document.querySelectorAll('[data-released]').forEach(function (el) {
+      var d = new Date(el.getAttribute('data-released'));
+      if (!isNaN(d) && (Date.now() - d) / 864e5 < 30) el.insertAdjacentHTML('beforeend', ' <span class="new">New</span>');
+    });
+
+    // time in New Delhi, beside the date
+    var clock = document.getElementById('today');
+    if (clock) {
+      var tick = function () {
+        try {
+          var d = new Date();
+          clock.textContent = d.toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', timeZone: 'Asia/Kolkata' }) + ', ' +
+            d.toLocaleTimeString('en-IN', { hour: 'numeric', minute: '2-digit', timeZone: 'Asia/Kolkata' }).toLowerCase() + ' IST';
+        } catch (e) {}
+      };
+      tick(); setInterval(tick, 30000);
+    }
+  })();
 })();

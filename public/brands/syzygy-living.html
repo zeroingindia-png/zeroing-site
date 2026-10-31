@@ -802,9 +802,73 @@ em { font-style: italic; }
   .ln-title { display: none; }
   .localnav { justify-content: flex-start; }
 }
+
+/* =========================================================
+   Small details
+   ========================================================= */
+::selection { background: var(--haldi); color: var(--kajal); }
+.progress { position: fixed; z-index: 25; top: env(safe-area-inset-top, 0px); left: 0; right: 0; height: 2px; pointer-events: none; }
+.progress i { display: block; height: 100%; background: var(--sindoor); transform-origin: left; transform: scaleX(0); }
+.f-sindoor ~ * .progress i { background: var(--haldi); }
+
+/* buttons feel pressed */
+.pill, .tlink, .site-chip, .letter button, .copy, .ln-buy { -webkit-tap-highlight-color: transparent; }
+.pill:active, .site-chip:active, .letter button:active, .copy:active, .ln-buy:active { transform: scale(0.97); }
+.pill { transition: background-color var(--t-short) var(--ease), color var(--t-short) var(--ease), border-color var(--t-short) var(--ease), transform 120ms ease; }
+
+/* back to top, with a ring that fills as you read */
+.to-top {
+  position: fixed; z-index: 18; right: max(16px, env(safe-area-inset-right, 0px)); bottom: max(16px, env(safe-area-inset-bottom, 0px));
+  width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center;
+  background: rgba(247, 243, 236, 0.86); color: var(--kajal);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  box-shadow: 0 8px 24px -10px rgba(22, 21, 20, 0.45);
+  opacity: 0; transform: translateY(12px) scale(0.9); pointer-events: none;
+  transition: opacity 500ms var(--ease), transform 500ms var(--ease);
+}
+.to-top.show { opacity: 1; transform: none; pointer-events: auto; }
+.to-top svg { width: 40px; height: 40px; }
+.to-top .ring-bg { fill: none; stroke: rgba(22, 21, 20, 0.12); stroke-width: 2; }
+.to-top .ring { fill: none; stroke: var(--sindoor); stroke-width: 2; stroke-dasharray: 1; stroke-dashoffset: 1; transform: rotate(-90deg); transform-origin: center; }
+.to-top path { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.to-top:hover path { transform: translateY(-2px); transition: transform 300ms var(--ease); }
+
+/* the chapter bar's current section */
+.ln-links a[aria-current] { opacity: 1; font-weight: 600; box-shadow: inset 0 -2px 0 var(--sindoor); padding-bottom: 3px; }
+
+/* copy buttons and the toast */
+.copy { margin-left: 8px; border: 1px solid currentColor; background: none; color: inherit; font: inherit; font-size: 0.78rem; font-weight: 600; border-radius: 999px; padding: 2px 10px; cursor: pointer; opacity: 0.75; transition: opacity 200ms; }
+.copy:hover { opacity: 1; }
+.toast {
+  position: fixed; z-index: 50; left: 50%; bottom: 24px; transform: translate(-50%, 24px);
+  background: var(--kajal); color: var(--chuna); border-radius: 999px; padding: 10px 18px; font-size: 0.9rem; font-weight: 600;
+  opacity: 0; pointer-events: none; transition: opacity 400ms var(--ease), transform 400ms var(--ease);
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+/* characters left */
+.count { font-size: 0.78rem; opacity: 0.55; justify-self: end; font-variant-numeric: tabular-nums; transition: color 200ms, opacity 200ms; }
+.count.low { color: var(--sindoor); opacity: 1; }
+
+/* photographs fade in */
+img.pending { opacity: 0; }
+img { transition: opacity 700ms var(--ease); }
+.photo, .tile-img, .card-img, .thumb, .disc, .porthole .inside { background-color: var(--chuna-2); }
+
+/* episode new badge */
+.new { display: inline-block; vertical-align: 0.15em; margin-left: 6px; font-family: var(--font); font-size: 0.66rem; font-weight: 700; letter-spacing: 0.02em; background: var(--haldi); color: var(--kajal); border-radius: 999px; padding: 2px 8px; }
+
+/* highlights: a small play mark slides in */
+.highlights .t { position: relative; }
+.highlights a:hover .t::before { content: ""; position: absolute; left: -16px; top: 50%; translate: 0 -50%; border-style: solid; border-width: 5px 0 5px 8px; border-color: transparent transparent transparent currentColor; }
+
+@media (prefers-reduced-motion: reduce) {
+  .to-top, .toast { transition: none; }
+}
 </style>
 </head>
 <body>
+<div class="progress" aria-hidden="true"><i id="progress"></i></div>
 <header class="head" id="head">
   <a class="mark" href="../index.html#top" aria-label="Zeroing, home"><svg class="logo" viewBox="0 0 1373 1002" aria-hidden="true"><path fill-rule="evenodd" d="M365.7 1000.9C243.6 990.8 133.8 925.9 66.5 824.0C29.7 768.4 8.5 707.8 1.9 639.5C0.2 621.9 0.4 583.4 2.4 565.0C4.0 549.5 7.6 527.7 10.8 513.9L12.5 506.5L160.1 506.2L307.7 506.0L438.6 374.2C510.6 301.8 598.7 213.0 634.5 177.0C706.4 104.6 710.1 100.9 727.9 86.8C782.0 43.5 849.4 14.4 918.5 4.6C954.1 -0.5 996.7 -0.5 1032.5 4.6C1089.1 12.6 1147.6 35.0 1196.0 67.3C1273.8 119.3 1331.4 197.8 1356.9 287.0C1377.2 357.8 1377.9 428.2 1359.2 501.5L1357.4 508.5L1205.2 509.0L1053.0 509.5L871.3 692.6C771.3 793.4 682.5 882.5 674.0 890.6C641.3 921.8 611.0 942.9 571.5 962.1C525.8 984.3 480.5 996.6 428.5 1001.0C414.7 1002.1 380.1 1002.1 365.7 1000.9ZM423.0 732.6C448.8 727.0 468.8 716.4 489.2 697.4C495.0 692.0 539.6 647.5 588.2 598.5L676.5 509.5L493.0 509.2L309.6 509.0L304.7 513.7C302.0 516.4 297.0 522.2 293.6 526.8C268.8 559.7 261.2 604.2 273.6 643.5C283.3 674.0 305.1 701.3 332.7 717.4C345.8 725.0 362.5 730.9 378.5 733.6C388.8 735.3 412.9 734.8 423.0 732.6ZM1057.0 500.3C1079.9 475.2 1092.8 436.0 1089.1 402.5C1082.6 344.7 1044.4 301.1 987.6 286.9C975.7 283.9 951.5 283.2 937.9 285.5C918.9 288.7 899.0 296.8 883.2 308.0C878.5 311.3 860.6 328.6 832.8 356.8C809.0 380.8 765.9 424.2 737.1 453.2L684.5 506.0L868.2 506.0L1051.8 506.0L1057.0 500.3Z"/></svg><span>Zeroing</span></a>
   <div class="nav">
@@ -914,6 +978,8 @@ em { font-style: italic; }
       <span class="hi" lang="hi">सुबह अभी बाक़ी है</span>
     </div>
   </section>
+  <a class="to-top" href="#top" id="to-top" aria-label="Back to the top"><svg viewBox="0 0 40 40" aria-hidden="true"><circle class="ring-bg" cx="20" cy="20" r="18"/><circle class="ring" id="to-top-ring" cx="20" cy="20" r="18" pathLength="1"/><path d="M20 27V13M14 19l6-6 6 6"/></svg></a>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 </main>
 
 <script>
@@ -1104,6 +1170,90 @@ em { font-style: italic; }
         .then(function () { button.disabled = false; });
     });
   });
+  // ---------- small details ----------
+  (function () {
+    var bar = document.getElementById('progress');
+    var topBtn = document.getElementById('to-top');
+    var ring = document.getElementById('to-top-ring');
+    var toast = document.getElementById('toast');
+    var tid;
+    function say(msg) {
+      if (!toast) return;
+      toast.textContent = msg; toast.classList.add('show');
+      clearTimeout(tid); tid = setTimeout(function () { toast.classList.remove('show'); }, 2200);
+    }
+    // reading progress along the top edge, and on the back-to-top ring
+    function progress() {
+      var h = document.documentElement.scrollHeight - window.innerHeight;
+      var p = h > 0 ? Math.min(window.scrollY / h, 1) : 0;
+      if (bar) bar.style.transform = 'scaleX(' + p.toFixed(4) + ')';
+      if (ring) ring.style.strokeDashoffset = (1 - p).toFixed(4);
+      if (topBtn) topBtn.classList.toggle('show', window.scrollY > window.innerHeight * 1.2);
+    }
+    window.addEventListener('scroll', progress, { passive: true });
+    window.addEventListener('resize', progress); progress();
+
+    // the chapter bar shows where you are
+    var links = document.querySelectorAll('.ln-links a[href^="#"]');
+    if (links.length && 'IntersectionObserver' in window) {
+      var map = {};
+      links.forEach(function (a) { var t = document.getElementById(a.getAttribute('href').slice(1)); if (t) map[t.id] = a; });
+      var spy = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (!en.isIntersecting) return;
+          links.forEach(function (a) { a.removeAttribute('aria-current'); });
+          var a = map[en.target.id]; if (a) a.setAttribute('aria-current', 'true');
+        });
+      }, { rootMargin: '-45% 0px -50% 0px' });
+      Object.keys(map).forEach(function (id) { spy.observe(document.getElementById(id)); });
+    }
+
+    // copy buttons
+    document.querySelectorAll('[data-copy]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var v = b.getAttribute('data-copy');
+        (navigator.clipboard ? navigator.clipboard.writeText(v) : Promise.reject()).then(function () {
+          b.textContent = 'Copied'; say('Copied ' + v); setTimeout(function () { b.textContent = 'Copy'; }, 1800);
+        }, function () { say('Select the text to copy it'); });
+      });
+    });
+
+    // characters left in long answers
+    document.querySelectorAll('textarea[maxlength]').forEach(function (t) {
+      var max = +t.getAttribute('maxlength');
+      var c = document.createElement('span'); c.className = 'count'; c.setAttribute('aria-hidden', 'true');
+      t.insertAdjacentElement('afterend', c);
+      function upd() { var n = max - t.value.length; c.textContent = n + ' characters left'; c.classList.toggle('low', n < max * 0.1); }
+      t.addEventListener('input', upd); upd();
+    });
+
+    // photographs fade in once loaded, never pop
+    document.querySelectorAll('img[loading="lazy"]').forEach(function (im) {
+      if (im.complete) return;
+      im.classList.add('pending');
+      im.addEventListener('load', function () { im.classList.remove('pending'); }, { once: true });
+      im.addEventListener('error', function () { im.classList.remove('pending'); }, { once: true });
+    });
+
+    // a quiet "New" on episodes out in the last 30 days
+    document.querySelectorAll('[data-released]').forEach(function (el) {
+      var d = new Date(el.getAttribute('data-released'));
+      if (!isNaN(d) && (Date.now() - d) / 864e5 < 30) el.insertAdjacentHTML('beforeend', ' <span class="new">New</span>');
+    });
+
+    // time in New Delhi, beside the date
+    var clock = document.getElementById('today');
+    if (clock) {
+      var tick = function () {
+        try {
+          var d = new Date();
+          clock.textContent = d.toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', timeZone: 'Asia/Kolkata' }) + ', ' +
+            d.toLocaleTimeString('en-IN', { hour: 'numeric', minute: '2-digit', timeZone: 'Asia/Kolkata' }).toLowerCase() + ' IST';
+        } catch (e) {}
+      };
+      tick(); setInterval(tick, 30000);
+    }
+  })();
 })();
 </script>
 </body>
