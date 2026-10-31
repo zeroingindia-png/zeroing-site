@@ -1,6 +1,6 @@
 ---
 name: research-study
-description: Add or update a The Other Details study page in the Zeroing site's research section (public/research/), from verified data to built page.
+description: Add or update a The Other Details study page in the Zeroing site's The Other Details section (public/the-other-details/), from verified data to built page.
 ---
 
 # Add a research study
@@ -24,7 +24,7 @@ description: Add or update a The Other Details study page in the Zeroing site's 
    - Fair and non-partisan.
    - Sources on screen.
    - Ending: "© Zeroing · The Other Details".
-6. **Build and check.** Run `TAILWIND=/path/to/tailwindcss python3 build.py`. Then open `public/research/` at 1280px and 390px and confirm there is no horizontal scroll, the labels sit on their marks, and every ledger row has a verdict.
+6. **Build and check.** Run `TAILWIND=/path/to/tailwindcss python3 build.py`. Then open `public/the-other-details/` at 1280px and 390px and confirm there is no horizontal scroll, the labels sit on their marks, and every ledger row has a verdict.
 7. **Ship.** Commit on a branch, open a PR and merge. Cloudflare Pages deploys `public/`.
 
 Connectors: GitHub (push), Cloudflare (deploy). Optional: Google Drive, Consensus, Twelve Data.

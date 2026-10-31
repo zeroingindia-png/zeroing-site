@@ -1,4 +1,4 @@
-// Tailwind config for The Other Details research section (public/research/).
+// Tailwind config for The Other Details research section (public/the-other-details/).
 // House palette and Fontshare type from the lab's visual storytelling rules.
 module.exports = {
   content: ["./src/research/**/*.{html,js}"],

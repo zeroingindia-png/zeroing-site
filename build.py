@@ -484,7 +484,6 @@ def build():
         ("independent-society.html", "Independent Society", "Long, honest conversations about what working life in India actually looked like.", is_main, "podcast"),
         ("join.html", "Join Zeroing", "Apply to join Zeroing, a community of homegrown Indian brands.", read("pages", "join.html"), "join"),
         ("contact.html", "Contact Zeroing", "Write to Zeroing.", read("pages", "contact.html"), ""),
-        ("the-other-details.html", "The Other Details", "The research lab of Zeroing: the money, the paperwork, the years nobody saw.", read("pages", "the-other-details.html"), ""),
         ("legal.html", "Zeroing Legal", "Disclaimer, privacy notice, terms of use and grievances for Zeroing.", read("pages", "legal.html"), ""),
     ]
     for out, title, desc, main, current in simple:

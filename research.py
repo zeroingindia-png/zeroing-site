@@ -1,4 +1,4 @@
-"""Build The Other Details research section into public/research/.
+"""Build The Other Details, the research lab of Zeroing, into public/the-other-details/.
 
     python3 build.py          (calls build_research() at the end)
 
@@ -10,7 +10,7 @@ import html, json, os, shutil, subprocess
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(ROOT, "src", "research")
-OUT = os.path.join(ROOT, "public", "research")
+OUT = os.path.join(ROOT, "public", "the-other-details")
 TAILWIND = os.environ.get("TAILWIND", "tailwindcss")   # path to the standalone CLI (v3.4)
 DOT = {"teal": "bg-teal", "red": "bg-red", "gold": "bg-gold"}
 VERDICT = {"current": "Current", "outdated": "Outdated", "check": "Check", "excluded": "Excluded"}
@@ -68,7 +68,7 @@ def footer(crumb):
   <div class="flex items-center gap-2.5 border-b border-edge py-4 text-paper"><img src="tod-logo.png" alt="the other details." class="h-3.5 w-auto"><span class="text-dim">›</span><span>{crumb}</span></div>
   <div class="grid grid-cols-1 gap-6 py-6 sm:grid-cols-2 lg:grid-cols-5">
    {col("Studies", [("The cloud has an address", "data-centres.html"), ("The gold at home", "gold.html"), ("All studies", "index.html")])}
-   {col("The lab", [("How we check data", "method.html"), ("The Other Details", "../the-other-details.html"), ("Send us a detail", "../the-other-details.html#lead")])}
+   {col("The lab", [("How we check data", "method.html"), ("Why the lab exists", "index.html#about"), ("Send us a detail", "index.html#lead")])}
    {col("Primary sources", [("World Gold Council", "https://www.gold.org/goldhub"), ("CEEW", "https://www.ceew.in"), ("MeitY", "https://www.meity.gov.in"), ("WRI India", "https://wri-india.org"), ("Reserve Bank of India", "https://www.rbi.org.in")])}
    {col("Zeroing", [("Home", "../index.html"), ("Independent Society", "../independent-society.html"), ("Community", "../community.html"), ("Contact", "../contact.html")])}
    {col("Follow", [("@theotherdetails", "https://www.instagram.com/theotherdetails/"), ("@zeroingnow", "https://www.instagram.com/zeroingnow/")])}
@@ -123,6 +123,53 @@ def study_page(s):
     return shell(f'{s["title"]} {s["ital"]} · The Other Details', s["lede"], s["slug"], main)
 
 
+ABOUT = """<section id="about" class="lab-about grid gap-6 md:grid-cols-2">
+  <div class="grid gap-4" style="align-content:start"><span class="chip">Why the lab exists</span><h2 class="h-sec">Every story about India <i>gets edited.</i></h2></div>
+  <div class="grid gap-4 leading-relaxed text-muted" style="align-content:start;font-size:17px">
+    <p>The unpaid invoice. The permission letter that sat on a desk for three months. The savings that paid the rent while the work got done. <span class="text-paper">That is the part we keep.</span></p>
+    <p>The Other Details is the research lab of Zeroing, a community of homegrown Indian brands. We read the reports behind the headlines, trace every number to the place it was first published, and draw it so anyone can follow. Not highlights. A record.</p>
+    <p><a class="text-teal" href="https://www.instagram.com/theotherdetails/" target="_blank" rel="noopener">Follow @theotherdetails on Instagram</a></p>
+  </div>
+</section>"""
+
+LEAD = """<section id="lead" class="glass lab-lead mt-20 grid gap-6 p-6 md:grid-cols-2">
+  <div class="grid gap-4" style="align-content:start"><span class="chip chip-teal">Send us a detail</span><h2 class="h-sec">What detail of your work <i>never makes it into the story?</i></h2>
+    <p class="text-muted">Answers become leads for our research. We will ask before we use anything you tell us.</p></div>
+  <form class="lab-form" data-form="details" novalidate>
+    <input class="hp" type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <label for="d-answer">Your answer</label><textarea id="d-answer" name="answer" required maxlength="1800" rows="5"></textarea>
+    <div class="two"><div><label for="d-name">Your name</label><input id="d-name" name="name" required maxlength="120" autocomplete="name"></div>
+    <div><label for="d-email">Email</label><input id="d-email" name="email" type="email" required autocomplete="email"></div></div>
+    <label class="consent" for="d-consent"><input type="checkbox" id="d-consent" name="consent" required><span>I agree that Zeroing can store my answer as a research lead and contact me about it, as set out in the <a href="../legal.html#privacy">privacy notice</a>.</span></label>
+    <div class="row"><button class="btn" type="submit">Send the detail</button><p class="status" role="status"></p></div>
+  </form>
+</section>
+<style>
+.lab-about{margin-top:96px;scroll-margin-top:96px}.lab-lead{scroll-margin-top:96px}@media(min-width:768px){.lab-lead{padding:40px;gap:40px}}
+.lab-form{display:grid;gap:10px;align-content:start}
+.lab-form label{font-size:13px;font-weight:600;color:inherit}
+.lab-form input:not([type=checkbox]),.lab-form textarea{width:100%;box-sizing:border-box;min-height:48px;padding:12px 14px;border-radius:12px;border:1px solid hsla(0,0%,100%,.16);background:hsla(0,0%,100%,.04);color:inherit;font:inherit;font-size:15px}
+.lab-form input:focus,.lab-form textarea:focus{outline:2px solid currentColor;outline-offset:2px}
+.lab-form .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}.lab-form .two>div{display:grid;gap:10px}
+.lab-form .consent{display:flex;gap:10px;align-items:flex-start;font-weight:400;line-height:1.45;opacity:.85}
+.lab-form .consent input{width:18px;height:18px;margin-top:2px;flex:none}
+.lab-form .row{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:6px}
+.lab-form .status{font-size:14px;font-weight:600}
+.lab-form .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.lab-form button[disabled]{opacity:.6}
+@media (max-width:640px){.lab-form .two{grid-template-columns:1fr}}
+</style>
+<script>
+document.querySelectorAll('form.lab-form').forEach(function(form){var st=form.querySelector('.status'),b=form.querySelector('button');
+form.addEventListener('submit',function(e){e.preventDefault();var bad=[].find.call(form.elements,function(el){return el.willValidate&&!el.checkValidity()});
+if(bad){st.textContent=bad.type==='checkbox'?'Tick the consent box so we can store your answer.':bad.type==='email'?'Enter an email address like name@example.com.':'Fill in every field.';bad.focus();return}
+var d={form:'details'};new FormData(form).forEach(function(v,k){d[k]=v});d.consent=true;d.consent_text=form.querySelector('.consent').textContent.trim();
+b.disabled=true;st.textContent='Sending.';fetch('/api/submit',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(d)})
+.then(function(r){return r.json().catch(function(){return{ok:false}})}).then(function(r){if(r.ok){form.reset();st.textContent='Thank you. Your answer is saved, and it may become a lead for our research.'}else{st.textContent=r.error||'That did not go through. Try again, or email zeroingindia@gmail.com.'}})
+.catch(function(){st.textContent='That did not go through. Check your connection and try again.'}).then(function(){b.disabled=false})})});
+</script>"""
+
+
 def home_page(studies):
     mosaic = ('<div class="absolute inset-0 grid grid-cols-2 gap-1 md:grid-cols-[1.2fr_.8fr_1.2fr]" aria-hidden="true">'
               + loop("dc-servers") + loop("gd-bangles") + loop("dc-cracked", "loop max-md:hidden") + "</div>")
@@ -142,8 +189,9 @@ def home_page(studies):
   <div class="mt-10 grid gap-6 md:grid-cols-2">{cards}</div>
   <div class="mt-20 grid gap-3.5"><span class="chip chip-teal">Watch</span><h2 class="h-sec">Each study is also <i>a two-minute film.</i></h2></div>
   {reel_box("reel-cloud", "Reel · 2:13 · 9:16", "The cloud has <i>an address.</i>", "Real footage, dot charts drawn to scale and every source on screen. Made for phones, with captions and narration.")}
+  """ + ABOUT + LEAD + """
 </div>"""
-    return shell("Research · The Other Details", "The research lab of Zeroing: the numbers behind the news, traced to their sources and drawn so anyone can read them.", "home", main)
+    return shell("The Other Details · Research lab of Zeroing", "The research lab of Zeroing: the numbers behind the news, traced to their sources and drawn so anyone can read them.", "home", main)
 
 
 def method_page():

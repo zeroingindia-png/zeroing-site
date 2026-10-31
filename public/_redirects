@@ -1,0 +1,3 @@
+/research/* /the-other-details/:splat 301
+/research /the-other-details/ 301
+/the-other-details.html /the-other-details/ 301

@@ -3,5 +3,5 @@ node_modules/
 *.png
 preview.html
 .preview/
-!public/research/tod-logo.png
+!public/the-other-details/tod-logo.png
 __pycache__/

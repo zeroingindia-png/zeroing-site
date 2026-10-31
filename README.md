@@ -10,7 +10,7 @@ Static site on Cloudflare Pages, with one Pages Function for the forms.
 
 ## Research section (The Other Details)
 
-`public/research/` holds the lab's studies: a landing page, one page per study and a method page. Everything is generated, so edit the sources only.
+`public/the-other-details/` is The Other Details, the research lab, and holds the lab's studies: a landing page, one page per study and a method page. Everything is generated, so edit the sources only.
 
 | File | What it is |
 | --- | --- |
