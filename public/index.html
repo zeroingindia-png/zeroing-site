@@ -913,6 +913,87 @@ img { transition: opacity 700ms var(--ease); }
 .stepper li { align-content: start; }
 .focus-table { table-layout: fixed; }
 .focus-table thead th:first-child { width: 16%; }
+
+/* =========================================================
+   The lane: home opens on one stall at night; scrolling lights the rest
+   ========================================================= */
+.lane-story { position: relative; background: #0e0d0c; color: var(--chuna); }
+.lane-pin { position: relative; height: 100svh; min-height: 640px; overflow: hidden; }
+.js .lane-story.pinned { height: var(--lane-h, 360vh); }
+.js .lane-story.pinned .lane-pin { position: sticky; top: 0; }
+.lane-sky { position: absolute; inset: 0; background: radial-gradient(120% 70% at 70% 0%, #23253c 0%, #15141c 45%, #0e0d0c 75%); }
+.moon { position: absolute; right: 12%; top: 14%; width: 54px; height: 54px; border-radius: 50%; background: #f3ead6; box-shadow: 0 0 60px 18px rgba(243, 234, 214, 0.12); }
+.lane-copy { position: absolute; z-index: 3; left: var(--pad-l); right: var(--pad-r); top: calc(var(--head-h) + 6vh); }
+.lane-line { position: absolute; left: 0; top: 0; margin: 0; max-width: 18em; font-family: var(--font-display); font-variation-settings: var(--display-vars); font-weight: 800; font-size: clamp(2.2rem, 5.4vw, 5rem); line-height: 0.95; opacity: 0; transform: translateY(24px); transition: opacity 900ms var(--ease), transform 900ms var(--ease); }
+.lane-line.l4 { font-family: var(--font); font-weight: 400; font-size: inherit; max-width: 46rem; display: grid; gap: 20px; }
+.lane-line.l4 h1 { font-size: clamp(2.8rem, 7vw, 6.4rem); }
+.lane-line.l4 .lede { font-size: var(--size-3); line-height: 1.4; max-width: 30em; }
+.lane-story[data-s="1"] .l1, .lane-story[data-s="2"] .l2, .lane-story[data-s="3"] .l3, .lane-story[data-s="4"] .l4 { opacity: 1; transform: none; }
+html:not(.js) .lane-line.l4 { opacity: 1; transform: none; position: relative; }
+
+.lane-track { position: absolute; z-index: 2; left: 0; bottom: 12vh; display: flex; align-items: flex-end; gap: clamp(18px, 2.4vw, 34px); padding: 0 6vw 0 calc(50vw - clamp(100px, 11vw, 140px)); will-change: transform; }
+.string { position: absolute; left: 0; right: 0; top: -54px; width: 100%; height: 60px; overflow: visible; }
+.string path { fill: none; stroke: rgba(243, 234, 214, 0.55); stroke-width: 1.4; vector-effect: non-scaling-stroke; stroke-dasharray: 1; stroke-dashoffset: var(--str, 0); }
+.stall {
+  position: relative; flex: none; width: clamp(200px, 22vw, 280px); height: clamp(330px, 46vh, 460px);
+  display: grid; grid-template-rows: 64px auto 1fr 44px; text-decoration: none; color: var(--chuna);
+  filter: grayscale(1) brightness(0.32); transition: filter 1100ms var(--ease), transform 1100ms var(--ease);
+}
+.stall.lit { filter: none; }
+.stall.lit::after { content: ""; position: absolute; left: -20%; right: -20%; bottom: -60px; height: 120px; background: radial-gradient(50% 50% at 50% 50%, rgba(232, 163, 23, 0.28), transparent 70%); pointer-events: none; }
+.stall:hover { transform: translateY(-6px); }
+.awning { position: relative; z-index: 1; background: repeating-linear-gradient(90deg, var(--aw) 0 28px, var(--chuna) 28px 56px); -webkit-mask: radial-gradient(14px at 50% 100%, #0000 97%, #000) 50% / 28px 100%; mask: radial-gradient(14px at 50% 100%, #0000 97%, #000) 50% / 28px 100%; border-radius: 6px 6px 0 0; }
+.bulb { position: absolute; z-index: 2; left: 50%; top: -30px; width: 14px; height: 14px; margin-left: -7px; border-radius: 50%; background: #3a3631; transition: background-color 600ms, box-shadow 600ms; }
+.stall.lit .bulb { background: #ffd78a; box-shadow: 0 0 18px 6px rgba(255, 199, 92, 0.55), 0 0 60px 24px rgba(232, 163, 23, 0.18); }
+.sign { justify-self: center; margin-top: 10px; padding: 6px 14px; background: var(--kajal); color: var(--haldi); border: 2px solid var(--haldi); border-radius: 4px; font-family: var(--font-display); font-variation-settings: "opsz" 24, "wdth" 90; font-weight: 800; font-size: 1.1rem; white-space: nowrap; }
+.goods { margin: 12px 14px 0; border-radius: 8px 8px 0 0; overflow: hidden; background: #2a2622; display: block; }
+.goods img { width: 100%; height: 100%; object-fit: cover; }
+.goods.word { display: grid; place-items: center; background: #fff; padding: 12%; }
+.goods.word.tape { background: var(--haldi); }
+.goods.word img { height: auto; object-fit: contain; }
+.goods.empty { display: grid; place-items: center; border: 2px dashed rgba(243, 234, 214, 0.35); background: transparent; }
+.goods.empty i { font-family: var(--font-serif); font-size: 1.4rem; opacity: 0.8; }
+.counter { display: grid; place-items: center; background: #6b2e1f; border-top: 6px solid #4e2216; padding: 0 10px; }
+.makes { font-size: 0.78rem; font-weight: 600; text-align: center; line-height: 1.15; }
+.ground { position: absolute; left: 0; right: 0; bottom: -18px; height: 2px; background: rgba(243, 234, 214, 0.18); }
+.walker { position: absolute; bottom: 4px; left: 0; width: 9px; height: 18px; border-radius: 5px 5px 2px 2px; background: var(--chuna); opacity: 0; }
+.lane-story.walking .walker { opacity: 0.85; animation: walk calc(14s + var(--w) * 1.7s) linear infinite; animation-delay: calc(var(--w) * -2.3s); }
+.lane-story.walking .walker:nth-child(3n) { background: var(--haldi); }
+.lane-story.walking .walker:nth-child(3n+1) { background: #e8a6a0; }
+@keyframes walk { from { transform: translateX(10vw); } to { transform: translateX(calc(var(--track-w, 2400px) - 30vw)); } }
+.lane-hint { position: absolute; z-index: 3; left: 50%; bottom: 3vh; transform: translateX(-50%); font-size: var(--size-small); opacity: 0.6; transition: opacity 600ms; }
+.lane-story[data-s="4"] .lane-hint { opacity: 0; }
+.lane-story[data-s="4"] .lane-track { opacity: 0.14; }
+.lane-track { transition: opacity 1200ms var(--ease); }
+.lane-corners { position: absolute; z-index: 3; left: var(--pad-l); right: var(--pad-r); bottom: 3vh; padding: 0; }
+html:not(.js) .stall { filter: none; }
+
+/* the film */
+.film-grid { display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
+.film-phone { border-radius: 36px; padding: 10px; background: #2a2724; box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.8); }
+.film-phone video { display: block; width: 100%; aspect-ratio: 9 / 16; border-radius: 28px; background: #000; }
+.film-text { display: grid; gap: 20px; }
+.film-text h2 { font-size: var(--size-1); }
+.film-text p { font-size: var(--size-3); line-height: 1.4; }
+
+@media (max-width: 900px) {
+  .lane-track { bottom: 9vh; padding-left: calc(50vw - 31vw); }
+  .stall { width: 62vw; height: 52vh; }
+  .lane-line { font-size: clamp(2rem, 9vw, 3rem); }
+  .lane-line.l4 h1 { font-size: clamp(2.4rem, 11vw, 3.4rem); }
+  .lane-copy { top: calc(var(--head-h) + 3vh); }
+  .lane-story[data-s="4"] .lane-track { opacity: 0.18; }
+  .film-grid { grid-template-columns: 1fr; }
+  .film-phone { max-width: 320px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stall { filter: none !important; transition: none; }
+  .lane-story .walker { display: none; }
+}
+@media (max-width: 900px) {
+  .moon { top: auto; bottom: 74vh; right: 8%; width: 34px; height: 34px; }
+  .lane-hint { display: none; }
+}
 </style>
 </head>
 <body>
@@ -949,17 +1030,85 @@ img { transition: opacity 700ms var(--ease); }
 </div>
 
 <main>
-  <section class="field f-sindoor hero" id="top" data-ink="chuna" data-field="sindoor">
-    <svg class="hero-mark" viewBox="0 0 1373 1002" aria-hidden="true"><defs><clipPath id="mt1"><rect width="1373" height="506"/></clipPath><clipPath id="mb1"><rect y="506" width="1373" height="496"/></clipPath></defs><g class="top" clip-path="url(#mt1)"><path fill-rule="evenodd" d="M365.7 1000.9C243.6 990.8 133.8 925.9 66.5 824.0C29.7 768.4 8.5 707.8 1.9 639.5C0.2 621.9 0.4 583.4 2.4 565.0C4.0 549.5 7.6 527.7 10.8 513.9L12.5 506.5L160.1 506.2L307.7 506.0L438.6 374.2C510.6 301.8 598.7 213.0 634.5 177.0C706.4 104.6 710.1 100.9 727.9 86.8C782.0 43.5 849.4 14.4 918.5 4.6C954.1 -0.5 996.7 -0.5 1032.5 4.6C1089.1 12.6 1147.6 35.0 1196.0 67.3C1273.8 119.3 1331.4 197.8 1356.9 287.0C1377.2 357.8 1377.9 428.2 1359.2 501.5L1357.4 508.5L1205.2 509.0L1053.0 509.5L871.3 692.6C771.3 793.4 682.5 882.5 674.0 890.6C641.3 921.8 611.0 942.9 571.5 962.1C525.8 984.3 480.5 996.6 428.5 1001.0C414.7 1002.1 380.1 1002.1 365.7 1000.9ZM423.0 732.6C448.8 727.0 468.8 716.4 489.2 697.4C495.0 692.0 539.6 647.5 588.2 598.5L676.5 509.5L493.0 509.2L309.6 509.0L304.7 513.7C302.0 516.4 297.0 522.2 293.6 526.8C268.8 559.7 261.2 604.2 273.6 643.5C283.3 674.0 305.1 701.3 332.7 717.4C345.8 725.0 362.5 730.9 378.5 733.6C388.8 735.3 412.9 734.8 423.0 732.6ZM1057.0 500.3C1079.9 475.2 1092.8 436.0 1089.1 402.5C1082.6 344.7 1044.4 301.1 987.6 286.9C975.7 283.9 951.5 283.2 937.9 285.5C918.9 288.7 899.0 296.8 883.2 308.0C878.5 311.3 860.6 328.6 832.8 356.8C809.0 380.8 765.9 424.2 737.1 453.2L684.5 506.0L868.2 506.0L1051.8 506.0L1057.0 500.3Z"/></g><g class="bot" clip-path="url(#mb1)"><path fill-rule="evenodd" d="M365.7 1000.9C243.6 990.8 133.8 925.9 66.5 824.0C29.7 768.4 8.5 707.8 1.9 639.5C0.2 621.9 0.4 583.4 2.4 565.0C4.0 549.5 7.6 527.7 10.8 513.9L12.5 506.5L160.1 506.2L307.7 506.0L438.6 374.2C510.6 301.8 598.7 213.0 634.5 177.0C706.4 104.6 710.1 100.9 727.9 86.8C782.0 43.5 849.4 14.4 918.5 4.6C954.1 -0.5 996.7 -0.5 1032.5 4.6C1089.1 12.6 1147.6 35.0 1196.0 67.3C1273.8 119.3 1331.4 197.8 1356.9 287.0C1377.2 357.8 1377.9 428.2 1359.2 501.5L1357.4 508.5L1205.2 509.0L1053.0 509.5L871.3 692.6C771.3 793.4 682.5 882.5 674.0 890.6C641.3 921.8 611.0 942.9 571.5 962.1C525.8 984.3 480.5 996.6 428.5 1001.0C414.7 1002.1 380.1 1002.1 365.7 1000.9ZM423.0 732.6C448.8 727.0 468.8 716.4 489.2 697.4C495.0 692.0 539.6 647.5 588.2 598.5L676.5 509.5L493.0 509.2L309.6 509.0L304.7 513.7C302.0 516.4 297.0 522.2 293.6 526.8C268.8 559.7 261.2 604.2 273.6 643.5C283.3 674.0 305.1 701.3 332.7 717.4C345.8 725.0 362.5 730.9 378.5 733.6C388.8 735.3 412.9 734.8 423.0 732.6ZM1057.0 500.3C1079.9 475.2 1092.8 436.0 1089.1 402.5C1082.6 344.7 1044.4 301.1 987.6 286.9C975.7 283.9 951.5 283.2 937.9 285.5C918.9 288.7 899.0 296.8 883.2 308.0C878.5 311.3 860.6 328.6 832.8 356.8C809.0 380.8 765.9 424.2 737.1 453.2L684.5 506.0L868.2 506.0L1051.8 506.0L1057.0 500.3Z"/></g></svg>
-    <div class="hero-body">
-      <h1 class="display">No Indian brand should grow alone.</h1>
-      <p class="lede">Zeroing is a community of Indian brands and the people behind them. We open doors for each other, and we keep an honest record of how work in this country actually gets done.</p>
-      <div class="actions">
-        <a class="pill solid" href="independent-society.html">Listen to Independent Society</a>
-        <a class="pill line" href="#brands">Meet the community</a>
+  <section class="lane-story" id="top" data-ink="chuna" data-field="kajal" style="--n:8">
+    <div class="lane-pin">
+      <div class="lane-sky" aria-hidden="true"><span class="moon"></span></div>
+      <div class="lane-copy">
+        <p class="lane-line l1">One stall is easy to miss.</p>
+        <p class="lane-line l2">A whole lane is not.</p>
+        <p class="lane-line l3">One brand's customer finds the next.</p>
+        <div class="lane-line l4">
+          <h1 class="display">No Indian brand should grow alone.</h1>
+          <p class="lede">Zeroing is a community of Indian brands and the people behind them. We open doors for each other, and we keep an honest record of how work in this country actually gets done.</p>
+          <div class="actions">
+            <a class="pill solid" href="#what">Walk in</a>
+            <a class="pill line" href="join.html">Open a stall here</a>
+          </div>
+        </div>
       </div>
+      <div class="lane-track">
+        <svg class="string" aria-hidden="true" preserveAspectRatio="none" viewBox="0 0 1000 60"><path pathLength="1" d="M0 20 Q 50 52 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20"/></svg>
+      <a class="stall" href="join.html" style="--aw:var(--sindoor);--i:0" data-i="0">
+        <span class="bulb" aria-hidden="true"></span>
+        <span class="awning" aria-hidden="true"></span>
+        <span class="sign">Your brand</span>
+        <span class="goods empty"><i>One stall</i></span>
+        <span class="counter"><span class="makes">Alone, it is easy to miss</span></span>
+      </a>
+      <a class="stall" href="brands/indso.html" style="--aw:var(--haldi);--i:1" data-i="1">
+        <span class="bulb" aria-hidden="true"></span>
+        <span class="awning" aria-hidden="true"></span>
+        <span class="sign">INDSO</span>
+        <span class="goods"><img src="media/indso-spread.jpg" alt="" fetchpriority="high" decoding="async"></span>
+        <span class="counter"><span class="makes">Botanical skincare gels</span></span>
+      </a>
+      <a class="stall" href="brands/ampor-eyewear.html" style="--aw:var(--peepal);--i:2" data-i="2">
+        <span class="bulb" aria-hidden="true"></span>
+        <span class="awning" aria-hidden="true"></span>
+        <span class="sign">Ampor Eyewear</span>
+        <span class="goods word tape"><img src="media/ampor-tape.jpg" alt="" fetchpriority="high" decoding="async"></span>
+        <span class="counter"><span class="makes">Eyewear</span></span>
+      </a>
+      <a class="stall" href="brands/vedi-kade.html" style="--aw:var(--neel);--i:3" data-i="3">
+        <span class="bulb" aria-hidden="true"></span>
+        <span class="awning" aria-hidden="true"></span>
+        <span class="sign">Vedi Kade</span>
+        <span class="goods word"><img src="media/vedi-kade-wordmark.jpg" alt="" fetchpriority="high" decoding="async"></span>
+        <span class="counter"><span class="makes">Tamil cultural clothing for today</span></span>
+      </a>
+      <a class="stall" href="brands/syzygy-living.html" style="--aw:var(--kattha);--i:4" data-i="4">
+        <span class="bulb" aria-hidden="true"></span>
+        <span class="awning" aria-hidden="true"></span>
+        <span class="sign">Syzygy Living</span>
+        <span class="goods empty"></span>
+        <span class="counter"><span class="makes">Design homeware</span></span>
+      </a>
+      <a class="stall" href="community.html" style="--aw:var(--genda);--i:5" data-i="5">
+        <span class="bulb" aria-hidden="true"></span>
+        <span class="awning" aria-hidden="true"></span>
+        <span class="sign">Joining</span>
+        <span class="goods empty"><i>Opening soon</i></span>
+        <span class="counter"><span class="makes">A new brand, 2026</span></span>
+      </a>
+      <a class="stall" href="community.html" style="--aw:var(--sindoor);--i:6" data-i="6">
+        <span class="bulb" aria-hidden="true"></span>
+        <span class="awning" aria-hidden="true"></span>
+        <span class="sign">Joining</span>
+        <span class="goods empty"><i>Opening soon</i></span>
+        <span class="counter"><span class="makes">A new brand, 2026</span></span>
+      </a>
+      <a class="stall" href="community.html" style="--aw:var(--sindoor);--i:7" data-i="7">
+        <span class="bulb" aria-hidden="true"></span>
+        <span class="awning" aria-hidden="true"></span>
+        <span class="sign">Joining</span>
+        <span class="goods empty"><i>Opening soon</i></span>
+        <span class="counter"><span class="makes">A new brand, 2026</span></span>
+      </a>
+        <div class="ground" aria-hidden="true"><i class="walker" style="--w:0"></i><i class="walker" style="--w:1"></i><i class="walker" style="--w:2"></i><i class="walker" style="--w:3"></i><i class="walker" style="--w:4"></i><i class="walker" style="--w:5"></i><i class="walker" style="--w:6"></i><i class="walker" style="--w:7"></i><i class="walker" style="--w:8"></i></div>
+      </div>
+      <div class="lane-hint" aria-hidden="true">Scroll to walk the lane</div>
+      <div class="corners narrow lane-corners"><span>New Delhi</span><span id="today"></span></div>
     </div>
-    <div class="corners narrow"><span>New Delhi</span><span id="today">Saturday, 31 October 2026</span></div>
   </section>
 
   <section class="tiles" id="what" aria-label="What Zeroing does" data-ink="kajal" data-field="chuna">
@@ -976,11 +1125,10 @@ img { transition: opacity 700ms var(--ease); }
       </div>
       <div class="craft-track">
         <figure class="craft-item"><div class="photo"><img src="media/indso-saffron-turmeric.jpg" alt="Honey, saffron, turmeric. Named in INDSO&#x27;s Turmeric Milk Gel." loading="lazy" decoding="async"></div><figcaption><b>Honey, saffron, turmeric</b><span>Named in INDSO&#x27;s Turmeric Milk Gel.</span></figcaption></figure>
-        <figure class="craft-item wide"><div class="photo"><img src="media/as-filming.jpg" alt="Flat on the sand. Akanksha Sood Singh, filming ants." loading="lazy" decoding="async"></div><figcaption><b>Flat on the sand</b><span>Akanksha Sood Singh, filming ants.</span></figcaption></figure>
         <figure class="craft-item"><div class="photo"><img src="media/indso-orange-peel.jpg" alt="Orange. Named in INDSO&#x27;s Orange Gel with Vitamin C." loading="lazy" decoding="async"></div><figcaption><b>Orange</b><span>Named in INDSO&#x27;s Orange Gel with Vitamin C.</span></figcaption></figure>
         <figure class="craft-item wide"><div class="photo"><img src="media/ep-conversation.jpg" alt="On record. Akanksha and Anshul, the day of the conversation." loading="lazy" decoding="async"></div><figcaption><b>On record</b><span>Akanksha and Anshul, the day of the conversation.</span></figcaption></figure>
+        <figure class="craft-item"><div class="photo"><img src="media/indso-gel-finger.jpg" alt="The gel. As it comes out of the jar." loading="lazy" decoding="async"></div><figcaption><b>The gel</b><span>As it comes out of the jar.</span></figcaption></figure>
         <figure class="craft-item"><div class="photo"><img src="media/indso-coffee-beans.jpg" alt="Coffee. Named in INDSO&#x27;s Coffee and Cocoa Gel." loading="lazy" decoding="async"></div><figcaption><b>Coffee</b><span>Named in INDSO&#x27;s Coffee and Cocoa Gel.</span></figcaption></figure>
-        <figure class="craft-item wide"><div class="photo"><img src="media/as-ranthambhore.jpg" alt="Ranthambhore. On location for On the Brink." loading="lazy" decoding="async"></div><figcaption><b>Ranthambhore</b><span>On location for On the Brink.</span></figcaption></figure>
         <figure class="craft-item"><div class="photo"><img src="media/indso-turmeric-milk.jpg" alt="Haldi doodh. INDSO&#x27;s starting point for its Turmeric Milk Gel." loading="lazy" decoding="async"></div><figcaption><b>Haldi doodh</b><span>INDSO&#x27;s starting point for its Turmeric Milk Gel.</span></figcaption></figure>
       </div>
       <div class="craft-progress" aria-hidden="true"><i></i></div>
@@ -1023,7 +1171,7 @@ img { transition: opacity 700ms var(--ease); }
       <p>Three things we look after. Every brand, episode and study in Zeroing answers to them.</p>
     </div>
     <div class="pillars">
-      <article class="pillar"><figure class="photo pillar-img"><img src="media/as-filming.jpg" alt="Nature" loading="lazy" decoding="async"></figure><h3>Nature</h3><p class="pillar-line">We give time to the people who look after it.</p><ul><li>Independent Society begins with a wildlife filmmaker who has spent two decades on the species few channels commission.</li><li>Brands build on what grows here: turmeric, saffron, honey, coffee, orange.</li><li>The Other Details traces what our habits cost the land, like the water behind the cloud.</li></ul></article>
+      <article class="pillar"><figure class="photo pillar-img"><img src="media/indso-coffee-beans.jpg" alt="Nature" loading="lazy" decoding="async"></figure><h3>Nature</h3><p class="pillar-line">We give time to the people who look after it.</p><ul><li>Independent Society begins with a wildlife filmmaker who has spent two decades on the species few channels commission.</li><li>Brands build on what grows here: turmeric, saffron, honey, coffee, orange.</li><li>The Other Details traces what our habits cost the land, like the water behind the cloud.</li></ul></article>
       <article class="pillar"><figure class="photo pillar-img"><img src="media/indso-turmeric-milk.jpg" alt="Culture" loading="lazy" decoding="async"></figure><h3>Culture</h3><p class="pillar-line">We keep what India already made.</p><ul><li>Vedi Kade carries Tamil history into clothes for an ordinary day.</li><li>INDSO starts from haldi doodh, a preparation Indian homes have made for generations.</li><li>Every episode opens with a voice from 15 August 1947.</li></ul></article>
       <article class="pillar"><figure class="photo pillar-img"><img src="media/indso-orange-peel.jpg" alt="Sustainability" loading="lazy" decoding="async"></figure><h3>Sustainability</h3><p class="pillar-line">We ask every brand for one honest next step.</p><ul><li>No brand here is called sustainable by us. Each brand page shows what the founder says it does now on materials, packaging or making, and what comes next, or says the answer is still to come.</li><li>Brands are introduced to each other&#x27;s suppliers, stalls and customers, so fewer of them build alone.</li><li>We grow at the makers&#x27; pace, one founder conversation at a time.</li></ul></article>
     </div>
@@ -1039,24 +1187,15 @@ img { transition: opacity 700ms var(--ease); }
     </ol>
   </section>
 
-  <section class="field f-haldi" id="on-record" data-ink="kajal" data-field="haldi">
-    <div class="record">
-      <div class="porthole">
-        <div class="inside"><img src="media/as-portrait.jpg" alt="Akanksha Sood Singh" loading="lazy" decoding="async"></div>
-        <svg viewBox="0 0 200 200" aria-hidden="true"><path d="M100 18a82 82 0 1 1 0 164a82 82 0 1 1 0-164Z"/></svg>
-      </div>
-      <div class="record-text">
-        <p class="narrow">On record now, Independent Society episodes 1 and 2</p>
-        <h2 class="display who">Akanksha Sood Singh</h2>
-        <p class="role">Wildlife filmmaker. Founder, The Gaia People and Women of the Wild.</p>
-        <blockquote>“You could be a biologist, a filmmaker, a graphic artist, a journalist, anything. As long as there is a nature connect.”</blockquote>
-        <div class="actions">
-          <a class="pill spotify" href="https://open.spotify.com/episode/5Mla3Abld9ACUyP0nshKPT" target="_blank" rel="noopener">Listen on Spotify <span class="arr" aria-hidden="true">&#8599;</span></a>
-          <a class="pill line" href="episodes/akanksha-sood-singh.html">Open the episode</a>
-        </div>
+  <section class="field f-kajal auto film" id="film" data-ink="chuna" data-field="kajal">
+    <div class="film-grid">
+      <div class="film-phone"><video controls playsinline preload="none" poster="media/zeroing-film-poster.jpg" aria-label="Zeroing, a 40 second film"><source src="media/zeroing-film.mp4" type="video/mp4"></video></div>
+      <div class="film-text">
+        <h2 class="display">Zeroing in forty seconds.</h2>
+        <p>The lane, the makers and the record, in one short film made from the community's own photographs. Made for phones; share it freely.</p>
+        <div class="actions"><a class="pill solid" href="community.html">Meet the community</a><a class="pill line" href="independent-society.html">Listen to Independent Society</a></div>
       </div>
     </div>
-    <div class="corners narrow"><span>Presented by INDSO and Ampor Eyewear</span><span>Part two out 23 October 2026</span></div>
   </section>
 
   <section class="field f-genda" id="year" data-ink="kajal" data-field="genda">
@@ -1254,7 +1393,8 @@ img { transition: opacity 700ms var(--ease); }
         el.style.transform = 'translate3d(0,' + off.toFixed(1) + 'px,0)';
       });
       var y = window.scrollY;
-      if (head) head.classList.toggle('solid', y > 60);
+      var laneEl = document.querySelector('.lane-story');
+      if (head) head.classList.toggle('solid', y > (laneEl ? laneEl.offsetHeight - 70 : 60));
       lastY = y;
     }
     function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
@@ -1303,6 +1443,37 @@ img { transition: opacity 700ms var(--ease); }
         .then(function () { button.disabled = false; });
     });
   });
+  // ---------- the lane ----------
+  (function () {
+    var lane = document.querySelector('.lane-story');
+    if (!lane) return;
+    var track = lane.querySelector('.lane-track');
+    var stalls = lane.querySelectorAll('.stall');
+    var n = stalls.length;
+    if (still) { stalls.forEach(function (s) { s.classList.add('lit'); }); lane.setAttribute('data-s', '4'); return; }
+    function size() {
+      lane.classList.add('pinned');
+      lane.style.setProperty('--lane-h', (window.innerHeight * (2.4 + n * 0.22)) + 'px');
+      lane.style.setProperty('--track-w', track.scrollWidth + 'px');
+    }
+    function frame() {
+      var r = lane.getBoundingClientRect(), vh = window.innerHeight;
+      var span = r.height - vh; var p = span > 0 ? Math.min(Math.max(-r.top / span, 0), 1) : 0;
+      var lit = p < 0.1 ? 1 : Math.min(n, 1 + Math.floor((p - 0.1) / 0.45 * n));
+      stalls.forEach(function (s, i) { s.classList.toggle('lit', i < lit); });
+      lane.style.setProperty('--str', Math.max(0, 1 - (p - 0.1) / 0.45).toFixed(3));
+      var st = p < 0.1 ? 1 : p < 0.55 ? 2 : p < 0.78 ? 3 : 4;
+      lane.setAttribute('data-s', String(st));
+      lane.classList.toggle('walking', p > 0.5);
+      var travel = Math.max(0, track.scrollWidth - window.innerWidth);
+      track.style.transform = 'translate3d(' + (-Math.min(p / 0.8, 1) * travel).toFixed(1) + 'px,0,0)';
+    }
+    var tick = false;
+    window.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(function () { tick = false; frame(); }); } }, { passive: true });
+    window.addEventListener('resize', function () { size(); frame(); });
+    size(); frame();
+  })();
+
   // ---------- small details ----------
   (function () {
     var bar = document.getElementById('progress');

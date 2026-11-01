@@ -1,14 +1,27 @@
-  <section class="field f-sindoor hero" id="top" data-ink="chuna" data-field="sindoor">
-    {HERO_MARK}
-    <div class="hero-body">
-      <h1 class="display">{HERO_TITLE}</h1>
-      <p class="lede">{HERO_TEXT}</p>
-      <div class="actions">
-        <a class="pill solid" href="{P}independent-society.html">Listen to Independent Society</a>
-        <a class="pill line" href="#brands">Meet the community</a>
+  <section class="lane-story" id="top" data-ink="chuna" data-field="kajal" style="--n:{LANE_N}">
+    <div class="lane-pin">
+      <div class="lane-sky" aria-hidden="true"><span class="moon"></span></div>
+      <div class="lane-copy">
+        <p class="lane-line l1">One stall is easy to miss.</p>
+        <p class="lane-line l2">A whole lane is not.</p>
+        <p class="lane-line l3">One brand's customer finds the next.</p>
+        <div class="lane-line l4">
+          <h1 class="display">{HERO_TITLE}</h1>
+          <p class="lede">{HERO_TEXT}</p>
+          <div class="actions">
+            <a class="pill solid" href="#what">Walk in</a>
+            <a class="pill line" href="{P}join.html">Open a stall here</a>
+          </div>
+        </div>
       </div>
+      <div class="lane-track">
+        <svg class="string" aria-hidden="true" preserveAspectRatio="none" viewBox="0 0 1000 60"><path pathLength="1" d="M0 20 Q 50 52 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20"/></svg>
+{LANE}
+        <div class="ground" aria-hidden="true">{WALKERS}</div>
+      </div>
+      <div class="lane-hint" aria-hidden="true">Scroll to walk the lane</div>
+      <div class="corners narrow lane-corners"><span>New Delhi</span><span id="today"></span></div>
     </div>
-    <div class="corners narrow"><span>New Delhi</span><span id="today">Saturday, 31 October 2026</span></div>
   </section>
 
   <section class="tiles" id="what" aria-label="What Zeroing does" data-ink="kajal" data-field="chuna">
@@ -63,24 +76,15 @@
     </ol>
   </section>
 
-  <section class="field f-haldi" id="on-record" data-ink="kajal" data-field="haldi">
-    <div class="record">
-      <div class="porthole">
-        <div class="inside"><img src="{P}media/{RECORD_IMAGE}" alt="{RECORD_NAME}" loading="lazy" decoding="async"></div>
-        <svg viewBox="0 0 200 200" aria-hidden="true"><path d="RING"/></svg>
-      </div>
-      <div class="record-text">
-        <p class="narrow">{RECORD_LABEL}</p>
-        <h2 class="display who">{RECORD_NAME}</h2>
-        <p class="role">{RECORD_ROLE}</p>
-        <blockquote>“{RECORD_QUOTE}”</blockquote>
-        <div class="actions">
-          {LISTEN_LATEST}
-          <a class="pill line" href="{P}episodes/akanksha-sood-singh.html">Open the episode</a>
-        </div>
+  <section class="field f-kajal auto film" id="film" data-ink="chuna" data-field="kajal">
+    <div class="film-grid">
+      <div class="film-phone"><video controls playsinline preload="none" poster="{P}media/zeroing-film-poster.jpg" aria-label="Zeroing, a 40 second film"><source src="{P}media/zeroing-film.mp4" type="video/mp4"></video></div>
+      <div class="film-text">
+        <h2 class="display">Zeroing in forty seconds.</h2>
+        <p>The lane, the makers and the record, in one short film made from the community's own photographs. Made for phones; share it freely.</p>
+        <div class="actions"><a class="pill solid" href="{P}community.html">Meet the community</a><a class="pill line" href="{P}independent-society.html">Listen to Independent Society</a></div>
       </div>
     </div>
-    <div class="corners narrow"><span>Presented by INDSO and Ampor Eyewear</span><span>Part two out 23 October 2026</span></div>
   </section>
 
   <section class="field f-genda" id="year" data-ink="kajal" data-field="genda">

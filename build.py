@@ -410,6 +410,41 @@ def record_card():
 
 
 
+AWNINGS = ["sindoor", "haldi", "peepal", "neel", "kattha", "genda", "sindoor"]
+
+
+def lane_html(P):
+    """Home hero: a lane of stalls at night. One is lit; as you scroll the rest light up, strung together."""
+    stalls = []
+    for b in BRANDS:
+        if b.get("wordmark"):
+            goods = f'<span class="goods word">{img(b["wordmark"][0], "", P, eager=True)}</span>'
+        elif b.get("tape"):
+            goods = f'<span class="goods word tape">{img(b["tape"], "", P, eager=True)}</span>'
+        elif b.get("hero"):
+            goods = f'<span class="goods">{img(b.get("thumb") or b["hero"][0], "", P, eager=True)}</span>'
+        else:
+            goods = '<span class="goods empty"></span>'
+        stalls.append((b["name"], b["makes"], f'{P}brands/{b["slug"]}.html', goods))
+    for _ in range(3):
+        stalls.append(("Joining", "A new brand, 2026", f"{P}community.html", '<span class="goods empty"><i>Opening soon</i></span>'))
+    first = ('Your brand', 'Alone, it is easy to miss', f'{P}join.html', '<span class="goods empty"><i>One stall</i></span>')
+    stalls = [first] + stalls
+    out = []
+    for i, (name, makes, href, goods) in enumerate(stalls):
+        c = AWNINGS[i % len(AWNINGS)]
+        out.append(f'''      <a class="stall" href="{href}" style="--aw:var(--{c});--i:{i}" data-i="{i}">
+        <span class="bulb" aria-hidden="true"></span>
+        <span class="awning" aria-hidden="true"></span>
+        <span class="sign">{E(name)}</span>
+        {goods}
+        <span class="counter"><span class="makes">{E(makes)}</span></span>
+      </a>''')
+    n = len(stalls)
+    dots = "".join(f'<i class="walker" style="--w:{k}"></i>' for k in range(9))
+    return "\n".join(out), n, dots
+
+
 def web_svg():
     """A line drawing of the community: every brand tied to the centre, and to each other. It draws itself on arrival."""
     cx, cy = 500, 215
@@ -473,7 +508,9 @@ def build():
     steps = "\n".join(f'      <li><span class="dot">{i + 1}</span><span class="st">{E(st.get("title", ""))}</span><span class="sd">{E(st.get("text", ""))}</span></li>'
                       for i, st in enumerate(H_.get("steps", [])))
     ledger = "\n".join(f'      <p><span class="n">{int(l.get("number") or 0)}</span>{E(l.get("text", ""))}</p>' for l in H_.get("ledger", []))
+    lane, lane_n, walkers = lane_html("")
     home = (read("pages", "home.html")
+            .replace("{LANE}", lane).replace("{LANE_N}", str(lane_n)).replace("{WALKERS}", walkers)
             .replace("{HERO_TITLE}", T(H_.get("hero_title", ""))).replace("{HERO_TEXT}", E(H_.get("hero_text", "")))
             .replace("{BANDS}", bands)
             .replace("{CRAFT}", craft_reel(HOME_CRAFT, H_.get("craft_title", ""), T(H_.get("craft_text", "")), ""))

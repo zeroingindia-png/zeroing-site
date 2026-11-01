@@ -28,12 +28,6 @@
       "wide": false
     },
     {
-      "image": "/media/as-filming.jpg",
-      "title": "Flat on the sand",
-      "note": "Akanksha Sood Singh, filming ants.",
-      "wide": true
-    },
-    {
       "image": "/media/indso-orange-peel.jpg",
       "title": "Orange",
       "note": "Named in INDSO's Orange Gel with Vitamin C.",
@@ -46,16 +40,16 @@
       "wide": true
     },
     {
+      "image": "/media/indso-gel-finger.jpg",
+      "title": "The gel",
+      "note": "As it comes out of the jar.",
+      "wide": false
+    },
+    {
       "image": "/media/indso-coffee-beans.jpg",
       "title": "Coffee",
       "note": "Named in INDSO's Coffee and Cocoa Gel.",
       "wide": false
-    },
-    {
-      "image": "/media/as-ranthambhore.jpg",
-      "title": "Ranthambhore",
-      "note": "On location for On the Brink.",
-      "wide": true
     },
     {
       "image": "/media/indso-turmeric-milk.jpg",
@@ -92,7 +86,7 @@
     {
       "title": "Nature",
       "line": "We give time to the people who look after it.",
-      "image": "/media/as-filming.jpg",
+      "image": "/media/indso-coffee-beans.jpg",
       "points": [
         "Independent Society begins with a wildlife filmmaker who has spent two decades on the species few channels commission.",
         "Brands build on what grows here: turmeric, saffron, honey, coffee, orange.",

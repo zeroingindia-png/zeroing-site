@@ -136,7 +136,8 @@
         el.style.transform = 'translate3d(0,' + off.toFixed(1) + 'px,0)';
       });
       var y = window.scrollY;
-      if (head) head.classList.toggle('solid', y > 60);
+      var laneEl = document.querySelector('.lane-story');
+      if (head) head.classList.toggle('solid', y > (laneEl ? laneEl.offsetHeight - 70 : 60));
       lastY = y;
     }
     function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
@@ -185,6 +186,37 @@
         .then(function () { button.disabled = false; });
     });
   });
+  // ---------- the lane ----------
+  (function () {
+    var lane = document.querySelector('.lane-story');
+    if (!lane) return;
+    var track = lane.querySelector('.lane-track');
+    var stalls = lane.querySelectorAll('.stall');
+    var n = stalls.length;
+    if (still) { stalls.forEach(function (s) { s.classList.add('lit'); }); lane.setAttribute('data-s', '4'); return; }
+    function size() {
+      lane.classList.add('pinned');
+      lane.style.setProperty('--lane-h', (window.innerHeight * (2.4 + n * 0.22)) + 'px');
+      lane.style.setProperty('--track-w', track.scrollWidth + 'px');
+    }
+    function frame() {
+      var r = lane.getBoundingClientRect(), vh = window.innerHeight;
+      var span = r.height - vh; var p = span > 0 ? Math.min(Math.max(-r.top / span, 0), 1) : 0;
+      var lit = p < 0.1 ? 1 : Math.min(n, 1 + Math.floor((p - 0.1) / 0.45 * n));
+      stalls.forEach(function (s, i) { s.classList.toggle('lit', i < lit); });
+      lane.style.setProperty('--str', Math.max(0, 1 - (p - 0.1) / 0.45).toFixed(3));
+      var st = p < 0.1 ? 1 : p < 0.55 ? 2 : p < 0.78 ? 3 : 4;
+      lane.setAttribute('data-s', String(st));
+      lane.classList.toggle('walking', p > 0.5);
+      var travel = Math.max(0, track.scrollWidth - window.innerWidth);
+      track.style.transform = 'translate3d(' + (-Math.min(p / 0.8, 1) * travel).toFixed(1) + 'px,0,0)';
+    }
+    var tick = false;
+    window.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(function () { tick = false; frame(); }); } }, { passive: true });
+    window.addEventListener('resize', function () { size(); frame(); });
+    size(); frame();
+  })();
+
   // ---------- small details ----------
   (function () {
     var bar = document.getElementById('progress');
