@@ -31,8 +31,6 @@
   --ink: #1B1A18;
   --ink-2: #57534C;
   --line: rgba(27, 26, 24, 0.14);
-  /* old names, kept so templates and brand colours still resolve */
-  --chuna: var(--paper); --chuna-2: var(--paper-2); --kajal: var(--ink);
 
   --font: "Anek Latin", "Anek Devanagari", "Segoe UI", system-ui, sans-serif;
   --font-display: "Bricolage Grotesque", "Anek Latin", system-ui, sans-serif;
@@ -81,10 +79,10 @@ h2.display { font-size: var(--h2); }
 h3 { margin: 0; font-size: var(--h3); line-height: 1.15; }
 em { font-family: var(--font-serif); font-weight: 400; font-style: italic; letter-spacing: 0; }
 .lede { font-size: var(--lede); line-height: 1.45; color: var(--ink-2); max-width: 34em; }
-.src, .fine { font-size: var(--small); color: var(--ink-2); }
-.narrow, .corners, .tag, .where, .file-strip, .part .narrow, figcaption, .label { font-size: var(--small); color: var(--ink-2); letter-spacing: 0; text-transform: none; font-weight: 500; }
-p a, dd a, .src a, .fine a, li > a:not([class]) { text-decoration: underline; text-decoration-color: rgba(184, 38, 44, 0.45); text-underline-offset: 3px; text-decoration-thickness: 1.5px; transition: text-decoration-color 200ms; }
-p a:hover, dd a:hover, .src a:hover, .fine a:hover, li > a:not([class]):hover { text-decoration-color: var(--sindoor); }
+.src { font-size: var(--small); color: var(--ink-2); }
+.narrow, .corners, .tag, .where, .file-strip, .part .narrow, figcaption { font-size: var(--small); color: var(--ink-2); letter-spacing: 0; text-transform: none; font-weight: 500; }
+p a, dd a, .src a, li > a:not([class]) { text-decoration: underline; text-decoration-color: rgba(184, 38, 44, 0.45); text-underline-offset: 3px; text-decoration-thickness: 1.5px; transition: text-decoration-color 200ms; }
+p a:hover, dd a:hover, .src a:hover, li > a:not([class]):hover { text-decoration-color: var(--sindoor); }
 .todo { color: var(--ink-2); border-bottom: 1px dashed currentColor; }
 
 /* ---------- 4 header and menu ---------- */
@@ -135,7 +133,6 @@ p a:hover, dd a:hover, .src a:hover, .fine a:hover, li > a:not([class]):hover { 
 .case-head > *, .why-head > *, .how-head > *, .brands-head > * { max-width: 40rem; }
 .case-head p, .why-head p, .how-head p, .brands-head p { font-size: var(--lede); line-height: 1.45; color: var(--ink-2); }
 .corners { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 40px; }
-.hero-mark, .seal, .stamp-red, .web, .orbit, .lane-story, .progress, .to-top { display: none !important; }
 
 /* generic hero on inner pages */
 .hero { padding-top: clamp(56px, 8vw, 112px); padding-bottom: clamp(48px, 7vw, 96px); }
@@ -180,7 +177,6 @@ p a:hover, dd a:hover, .src a:hover, .fine a:hover, li > a:not([class]):hover { 
 .craft-item img { width: 100%; height: 100%; object-fit: cover; }
 .craft-item figcaption { display: grid; gap: 2px; }
 .craft-item figcaption b { font-weight: 700; color: var(--ink); font-size: 1rem; }
-.craft-progress { display: none; }
 
 /* how we work */
 .pillars { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 3vw, 44px); margin-top: clamp(36px, 5vw, 64px); }
@@ -342,9 +338,7 @@ p a:hover, dd a:hover, .src a:hover, .fine a:hover, li > a:not([class]):hover { 
 .episode { display: grid; gap: 8px; align-content: start; text-decoration: none; }
 .disc { position: relative; display: block; width: 100%; aspect-ratio: 1; border-radius: 50%; overflow: hidden; background: var(--paper-2); }
 .disc img { width: 100%; height: 100%; object-fit: cover; }
-.disc svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-.disc svg path { fill: none; stroke: var(--ink); stroke-width: 3; }
-.d-empty { border: 1.5px dashed var(--line); } .d-empty svg { display: none; }
+.d-empty { border: 1.5px dashed var(--line); }
 .disc .num { position: absolute; left: 14%; bottom: 10%; font-family: var(--font-display); font-weight: 700; font-size: 2.6rem; color: #fff; text-shadow: 0 2px 16px rgba(0,0,0,.4); }
 .d-empty .num { color: var(--ink-2); text-shadow: none; left: 50%; top: 50%; bottom: auto; transform: translate(-50%, -50%); }
 .ep-name { font-size: 1.2rem; }
@@ -357,7 +351,6 @@ p a:hover, dd a:hover, .src a:hover, .fine a:hover, li > a:not([class]):hover { 
 .porthole { position: relative; width: 100%; max-width: 480px; aspect-ratio: 1; justify-self: center; }
 .porthole .inside { position: absolute; inset: 0; border-radius: 50%; overflow: hidden; background: var(--paper-2); }
 .porthole .inside img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; }
-.porthole svg { display: none; }
 .record-text { display: grid; gap: 18px; }
 .record-text .who { font-size: var(--h1); }
 .record-text .role { font-size: var(--lede); color: var(--ink-2); }
@@ -425,9 +418,6 @@ p a:hover, dd a:hover, .src a:hover, .fine a:hover, li > a:not([class]):hover { 
 
 /* ---------- 11 files and legal ---------- */
 .file-strip { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
-.file-body { display: grid; gap: 18px; max-width: 44rem; margin-top: 48px; }
-.file-body h1 { font-size: var(--h1); }
-.file-lead { font-size: var(--lede); } .file-lead.quiet { color: var(--ink-2); }
 .legal-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
 .legal-nav a { border: 1px solid var(--line); border-radius: 999px; padding: 5px 14px; text-decoration: none; font-size: var(--small); font-weight: 600; }
 .legal-nav a:hover { border-color: var(--ink); }
@@ -510,22 +500,20 @@ img.pending { opacity: 0; } img { transition: opacity 500ms; }
 </div>
 
 <main>
-  <section class="field f-peepal hero brand-hero" id="top" data-ink="chuna" data-field="peepal">
+  <section class="field f-peepal hero brand-hero" id="top">
     <div class="hero-text">
-      <svg class="hero-mark" viewBox="0 0 1373 1002" aria-hidden="true"><defs><clipPath id="mt1"><rect width="1373" height="506"/></clipPath><clipPath id="mb1"><rect y="506" width="1373" height="496"/></clipPath></defs><g class="top" clip-path="url(#mt1)"><path fill-rule="evenodd" d="M365.7 1000.9C243.6 990.8 133.8 925.9 66.5 824.0C29.7 768.4 8.5 707.8 1.9 639.5C0.2 621.9 0.4 583.4 2.4 565.0C4.0 549.5 7.6 527.7 10.8 513.9L12.5 506.5L160.1 506.2L307.7 506.0L438.6 374.2C510.6 301.8 598.7 213.0 634.5 177.0C706.4 104.6 710.1 100.9 727.9 86.8C782.0 43.5 849.4 14.4 918.5 4.6C954.1 -0.5 996.7 -0.5 1032.5 4.6C1089.1 12.6 1147.6 35.0 1196.0 67.3C1273.8 119.3 1331.4 197.8 1356.9 287.0C1377.2 357.8 1377.9 428.2 1359.2 501.5L1357.4 508.5L1205.2 509.0L1053.0 509.5L871.3 692.6C771.3 793.4 682.5 882.5 674.0 890.6C641.3 921.8 611.0 942.9 571.5 962.1C525.8 984.3 480.5 996.6 428.5 1001.0C414.7 1002.1 380.1 1002.1 365.7 1000.9ZM423.0 732.6C448.8 727.0 468.8 716.4 489.2 697.4C495.0 692.0 539.6 647.5 588.2 598.5L676.5 509.5L493.0 509.2L309.6 509.0L304.7 513.7C302.0 516.4 297.0 522.2 293.6 526.8C268.8 559.7 261.2 604.2 273.6 643.5C283.3 674.0 305.1 701.3 332.7 717.4C345.8 725.0 362.5 730.9 378.5 733.6C388.8 735.3 412.9 734.8 423.0 732.6ZM1057.0 500.3C1079.9 475.2 1092.8 436.0 1089.1 402.5C1082.6 344.7 1044.4 301.1 987.6 286.9C975.7 283.9 951.5 283.2 937.9 285.5C918.9 288.7 899.0 296.8 883.2 308.0C878.5 311.3 860.6 328.6 832.8 356.8C809.0 380.8 765.9 424.2 737.1 453.2L684.5 506.0L868.2 506.0L1051.8 506.0L1057.0 500.3Z"/></g><g class="bot" clip-path="url(#mb1)"><path fill-rule="evenodd" d="M365.7 1000.9C243.6 990.8 133.8 925.9 66.5 824.0C29.7 768.4 8.5 707.8 1.9 639.5C0.2 621.9 0.4 583.4 2.4 565.0C4.0 549.5 7.6 527.7 10.8 513.9L12.5 506.5L160.1 506.2L307.7 506.0L438.6 374.2C510.6 301.8 598.7 213.0 634.5 177.0C706.4 104.6 710.1 100.9 727.9 86.8C782.0 43.5 849.4 14.4 918.5 4.6C954.1 -0.5 996.7 -0.5 1032.5 4.6C1089.1 12.6 1147.6 35.0 1196.0 67.3C1273.8 119.3 1331.4 197.8 1356.9 287.0C1377.2 357.8 1377.9 428.2 1359.2 501.5L1357.4 508.5L1205.2 509.0L1053.0 509.5L871.3 692.6C771.3 793.4 682.5 882.5 674.0 890.6C641.3 921.8 611.0 942.9 571.5 962.1C525.8 984.3 480.5 996.6 428.5 1001.0C414.7 1002.1 380.1 1002.1 365.7 1000.9ZM423.0 732.6C448.8 727.0 468.8 716.4 489.2 697.4C495.0 692.0 539.6 647.5 588.2 598.5L676.5 509.5L493.0 509.2L309.6 509.0L304.7 513.7C302.0 516.4 297.0 522.2 293.6 526.8C268.8 559.7 261.2 604.2 273.6 643.5C283.3 674.0 305.1 701.3 332.7 717.4C345.8 725.0 362.5 730.9 378.5 733.6C388.8 735.3 412.9 734.8 423.0 732.6ZM1057.0 500.3C1079.9 475.2 1092.8 436.0 1089.1 402.5C1082.6 344.7 1044.4 301.1 987.6 286.9C975.7 283.9 951.5 283.2 937.9 285.5C918.9 288.7 899.0 296.8 883.2 308.0C878.5 311.3 860.6 328.6 832.8 356.8C809.0 380.8 765.9 424.2 737.1 453.2L684.5 506.0L868.2 506.0L1051.8 506.0L1057.0 500.3Z"/></g></svg>
       <div class="hero-body">
         <p class="corners narrow" style="margin:0;padding:0">Presented Independent Society</p>
         <h1 class="display">INDSO</h1>
         <p class="lede">Botanical gels for Indian skin.</p>
         <div class="actions"><a class="pill solid" href="https://indso.in" target="_blank" rel="noopener">Visit INDSO <span class="arr" aria-hidden="true">&#8599;</span></a><a class="pill line" href="https://www.instagram.com/indso.in/" target="_blank" rel="noopener">@indso.in</a></div>
-        <svg class="seal" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 18a82 82 0 1 1 0 164a82 82 0 1 1 0-164Z"/><text x="100" y="94" text-anchor="middle">ZEROING</text><text x="100" y="122" text-anchor="middle">COMMUNITY</text></svg>
       </div>
     </div>
-    <div class="hero-photo"><img src="../media/indso-jars-stack.jpg" alt="INDSO" fetchpriority="high" decoding="async" data-drift="0.08"></div>
+    <div class="hero-photo"><img src="../media/indso-jars-stack.jpg" alt="INDSO" fetchpriority="high" decoding="async"></div>
   </section>
   <nav class="localnav" aria-label="On this page"><span class="ln-title">INDSO</span><span class="ln-links"><a href="#about">The idea</a><a href="#craft">What goes in</a><a href="#more">More brands</a><a class="ln-buy" href="https://indso.in" target="_blank" rel="noopener">Visit</a></span></nav>
 
-  <section class="field f-chuna auto" id="about" data-ink="kajal" data-field="chuna">
+  <section class="field f-chuna auto" id="about">
     <div class="about">
       <div class="idea">
         <h2 class="display">The idea</h2>
@@ -545,25 +533,22 @@ img.pending { opacity: 0; } img { transition: opacity 500ms; }
       </dl>
     </div>
   </section>
-  <section class="craft" id="craft" data-ink="kajal" data-field="chuna">
-    <div class="craft-pin">
-      <div class="craft-head">
-        <h2 class="display">What goes in</h2>
-        <p>The ingredients, photographed as they are before they become a gel.</p>
-      </div>
-      <div class="craft-track">
+  <section class="craft" id="craft">
+    <div class="craft-head">
+      <h2 class="display">What goes in</h2>
+      <p>The ingredients, photographed as they are before they become a gel.</p>
+    </div>
+    <div class="craft-track">
         <figure class="craft-item"><div class="photo"><img src="../media/indso-saffron-turmeric.jpg" alt="Honey, saffron, turmeric. In the Turmeric Milk Gel." loading="lazy" decoding="async"></div><figcaption><b>Honey, saffron, turmeric</b><span>In the Turmeric Milk Gel.</span></figcaption></figure>
         <figure class="craft-item"><div class="photo"><img src="../media/indso-turmeric-milk.jpg" alt="Haldi doodh. INDSO&#x27;s starting point for its Turmeric Milk Gel." loading="lazy" decoding="async"></div><figcaption><b>Haldi doodh</b><span>INDSO&#x27;s starting point for its Turmeric Milk Gel.</span></figcaption></figure>
         <figure class="craft-item"><div class="photo"><img src="../media/indso-orange-peel.jpg" alt="Orange. In the Orange Gel with Vitamin C." loading="lazy" decoding="async"></div><figcaption><b>Orange</b><span>In the Orange Gel with Vitamin C.</span></figcaption></figure>
         <figure class="craft-item"><div class="photo"><img src="../media/indso-coffee-beans.jpg" alt="Coffee. In the Coffee and Cocoa Gel." loading="lazy" decoding="async"></div><figcaption><b>Coffee</b><span>In the Coffee and Cocoa Gel.</span></figcaption></figure>
         <figure class="craft-item"><div class="photo"><img src="../media/indso-gel-finger.jpg" alt="The gel. As it comes out of the jar." loading="lazy" decoding="async"></div><figcaption><b>The gel</b><span>As it comes out of the jar.</span></figcaption></figure>
         <figure class="craft-item"><div class="photo"><img src="../media/indso-arm.jpg" alt="On skin. Applied by hand." loading="lazy" decoding="async"></div><figcaption><b>On skin</b><span>Applied by hand.</span></figcaption></figure>
-      </div>
-      <div class="craft-progress" aria-hidden="true"><i></i></div>
     </div>
   </section>
 
-  <section class="field f-neel auto" id="more" data-ink="chuna" data-field="neel">
+  <section class="field f-neel auto" id="more">
     <div class="case-head">
       <h2 class="display">More from the community</h2>
       <p>Every brand here keeps its own shop. Zeroing introduces you; you buy from them directly.</p>
@@ -576,7 +561,7 @@ img.pending { opacity: 0; } img { transition: opacity 500ms; }
     </ul>
   </section>
 
-  <section class="field f-kajal join" id="join" data-ink="chuna" data-field="kajal">
+  <section class="field f-kajal join" id="join">
     <svg class="stamp logo-stamp" viewBox="0 0 1373 1002" role="img" aria-label="Zeroing logo"><path fill-rule="evenodd" d="M365.7 1000.9C243.6 990.8 133.8 925.9 66.5 824.0C29.7 768.4 8.5 707.8 1.9 639.5C0.2 621.9 0.4 583.4 2.4 565.0C4.0 549.5 7.6 527.7 10.8 513.9L12.5 506.5L160.1 506.2L307.7 506.0L438.6 374.2C510.6 301.8 598.7 213.0 634.5 177.0C706.4 104.6 710.1 100.9 727.9 86.8C782.0 43.5 849.4 14.4 918.5 4.6C954.1 -0.5 996.7 -0.5 1032.5 4.6C1089.1 12.6 1147.6 35.0 1196.0 67.3C1273.8 119.3 1331.4 197.8 1356.9 287.0C1377.2 357.8 1377.9 428.2 1359.2 501.5L1357.4 508.5L1205.2 509.0L1053.0 509.5L871.3 692.6C771.3 793.4 682.5 882.5 674.0 890.6C641.3 921.8 611.0 942.9 571.5 962.1C525.8 984.3 480.5 996.6 428.5 1001.0C414.7 1002.1 380.1 1002.1 365.7 1000.9ZM423.0 732.6C448.8 727.0 468.8 716.4 489.2 697.4C495.0 692.0 539.6 647.5 588.2 598.5L676.5 509.5L493.0 509.2L309.6 509.0L304.7 513.7C302.0 516.4 297.0 522.2 293.6 526.8C268.8 559.7 261.2 604.2 273.6 643.5C283.3 674.0 305.1 701.3 332.7 717.4C345.8 725.0 362.5 730.9 378.5 733.6C388.8 735.3 412.9 734.8 423.0 732.6ZM1057.0 500.3C1079.9 475.2 1092.8 436.0 1089.1 402.5C1082.6 344.7 1044.4 301.1 987.6 286.9C975.7 283.9 951.5 283.2 937.9 285.5C918.9 288.7 899.0 296.8 883.2 308.0C878.5 311.3 860.6 328.6 832.8 356.8C809.0 380.8 765.9 424.2 737.1 453.2L684.5 506.0L868.2 506.0L1051.8 506.0L1057.0 500.3Z"/></svg>
     <h2 class="display">Building an Indian brand with intent? Grow with us.</h2>
     <div class="join-row">
