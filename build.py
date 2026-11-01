@@ -338,7 +338,7 @@ def highlights_html(spotify):
         f'      <li><a href="{spotify}?t={to_seconds(t)}" target="_blank" rel="noopener"><span class="t">{t}</span>'
         f'<span class="hl-title">{E(title)}</span><span class="hl-play" aria-hidden="true">Play on Spotify &#8599;</span></a></li>'
         for t, title in HIGHLIGHTS)
-    return f'    <ol class="highlights">\n{rows}\n    </ol>'
+    return f'    <ol class="highlights">\n{rows}\n    </ol>\n    <p class="src" style="margin-top:14px">Times are approximate and may be a few seconds off on Spotify.</p>'
 
 
 def listen_buttons(part, solid=True):
