@@ -227,7 +227,7 @@ def brand_main(b, P="../"):
     idea = "\n".join(f"        <p>{E(p)}</p>" for p in b["idea"])
     shop_url = b["site"] or (f'https://www.instagram.com/{b["instagram"]}/' if b["instagram"] else "")
     shop_btn = (f'<a class="pill solid" href="{shop_url}" target="_blank" rel="noopener">Visit {E(b["name"])} <span class="arr" aria-hidden="true">&#8599;</span></a>'
-                if shop_url else '<span class="pill line" aria-disabled="true">Shop link coming soon</span>')
+                if shop_url else '<span class="pill line" aria-disabled="true">No shop link yet</span>')
     ig_btn = (f'<a class="pill line" href="https://www.instagram.com/{b["instagram"]}/" target="_blank" rel="noopener">@{b["instagram"]}</a>'
               if b["site"] and b["instagram"] else "")
     if b.get("hero"):
@@ -247,7 +247,7 @@ def brand_main(b, P="../"):
     nxt = "\n".join(
         f'      <li><a href="{o["slug"]}.html"><span class="name">{E(o["name"])}</span><span>{E(o["makes"])}</span></a></li>'
         for o in others)
-    chapters = [("about", "The idea")] + ([("craft", b["craft_title"])] if b.get("craft") else []) + [("more", "More brands")]
+    chapters = [("about", "The idea")] + ([("craft", b["craft_title"])] if b.get("craft") else []) + [("more", "More from the community")]
     LN = localnav(b["name"], chapters).replace('</span></nav>', (f'<a class="ln-buy" href="{shop_url}" target="_blank" rel="noopener">Visit</a>' if shop_url else '') + '</span></nav>')
     return f"""  <section class="field f-{b['colour']} hero brand-hero{cls}" id="top">
     <div class="hero-text">
@@ -266,13 +266,13 @@ def brand_main(b, P="../"):
       <div class="idea">
         <h2 class="display">The idea</h2>
 {idea}
-        <h3 class="sub">How {E(b['name'])} focuses</h3>
+        <h3 class="sub">Where {E(b['name'])} stands</h3>
         {focus_block(b)}
       </div>
       <dl class="facts-list">
         <div><dt>Makes</dt><dd>{E(b['makes'])}</dd></div>
         <div><dt>Made in</dt><dd>India{(', ' + E(b['city'])) if b['city'] else ''}</dd></div>
-        <div><dt>Homegrown</dt><dd>Indian founded and run, as the founder has told us</dd></div>
+        <div><dt>Homegrown</dt><dd>Founded and run in India, as the founder has told us</dd></div>
         <div><dt>Founder</dt><dd>{E(b['founder']) or TODO}</dd></div>
         <div><dt>In Zeroing</dt><dd>{E(b['role'])}</dd></div>
         <div><dt>Website</dt><dd>{site_link(b['site'])}</dd></div>
@@ -284,11 +284,11 @@ def brand_main(b, P="../"):
   <section class="field f-neel auto" id="more">
     <div class="case-head">
       <h2 class="display">More from the community</h2>
-      <p>Every brand here keeps its own shop. Zeroing introduces you; you buy from them directly.</p>
+      <p>Every brand here keeps its own shop. We make the introduction. You buy from them.</p>
     </div>
     <ul class="next-brands">
 {nxt}
-      <li><a href="../community.html"><span class="name">The whole community</span><span>What we learned, and how we work together</span></a></li>
+      <li><a href="../community.html"><span class="name">The whole community</span><span>Every brand, and what we have learned together</span></a></li>
     </ul>
   </section>
 """
@@ -310,7 +310,7 @@ def highlights_html(spotify):
         f'      <li><a href="{spotify}?t={to_seconds(t)}" target="_blank" rel="noopener"><span class="t">{t}</span>'
         f'<span class="hl-title">{E(title)}</span><span class="hl-play" aria-hidden="true">Play on Spotify &#8599;</span></a></li>'
         for t, title in HIGHLIGHTS)
-    return f'    <ol class="highlights">\n{rows}\n    </ol>\n    <p class="src" style="margin-top:14px">Times are approximate and may be a few seconds off on Spotify.</p>'
+    return f'    <ol class="highlights">\n{rows}\n    </ol>\n    <p class="src" style="margin-top:14px">Times may be a few seconds off on Spotify.</p>'
 
 
 def listen_buttons(part, solid=True):
@@ -405,7 +405,7 @@ def build():
                .replace("{YOUTUBE_CHANNEL_BTN}", f'<a class="pill line" href="{YOUTUBE_CHANNEL}" target="_blank" rel="noopener">Watch on YouTube <span class="arr" aria-hidden="true">&#8599;</span></a>' if YOUTUBE_CHANNEL else ""))
     is_main = is_main.replace("  </section>\n", "  </section>\n" + localnav('Independent Society', [('why-show', 'Why it exists'), ('episodes', 'Episodes'), ('highlights', 'Highlights'), ('suggest', 'Suggest a guest')]), 1)
     simple = [
-        ("independent-society.html", "Independent Society", "Long, honest conversations about what working life in India actually looked like.", is_main, "podcast"),
+        ("independent-society.html", "Independent Society", "One person at a time, a long honest conversation about working life in India, seen from the inside.", is_main, "podcast"),
         ("join.html", "Join Zeroing", "Apply to join Zeroing, a community of homegrown Indian brands.", read("pages", "join.html"), "join"),
         ("contact.html", "Contact Zeroing", "Write to Zeroing.", read("pages", "contact.html"), ""),
         ("legal.html", "Zeroing Legal", "Disclaimer, privacy notice, terms of use and grievances for Zeroing.", read("pages", "legal.html"), ""),
@@ -435,7 +435,7 @@ def build():
             .replace("{PHOTO_CREDIT}", E(PODCAST.get("photo_credit", ""))))
     main = main.replace("  </section>\n", "  </section>\n" + localnav('Akanksha Sood Singh', [('parts', 'Both parts'), ('highlights', 'Highlights'), ('about', 'The conversation'), ('field', 'In the field')]), 1)
     head, body = page("Akanksha Sood Singh on Independent Society",
-                      "Wildlife filmmaker Akanksha Sood Singh in a two part conversation with Independent Society, episodes 1 and 2.",
+                      "Wildlife filmmaker Akanksha Sood Singh in conversation with Anshul Kumar on Independent Society. Episodes 1 and 2, on Spotify.",
                       main, P="../", H="../index.html", current="podcast")
     write("episodes/akanksha-sood-singh.html", full_doc(head, body))
     print("built", 8 + len(BRANDS), "pages")

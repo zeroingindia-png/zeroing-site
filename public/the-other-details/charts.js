@@ -12,11 +12,11 @@ const $=id=>document.getElementById(id);
  b+=L(5,y0+22,535,y0+22,TEAL,1.5)+T(80,y0+46,'2020','lab','middle')+T(365,y0+46,'2025','lab','middle')+T(80,y0-4*S-30,'375 MW','val','middle')+T(365,y0-9*S-30,'~1,500 MW','val','middle');
  b+=`<rect x="${290-34}" y="${y0-2*S-12}" width="68" height="24" rx="6" fill="#0b0c10" stroke="${TEAL}"/>`+T(290,y0-2*S+5,'= 2020','lab','middle');
  F('f-squares').innerHTML=svg(540,390,b)+'<div class="key">One dot = 15 MW</div>'}
-{const X=y=>60+(y-2020)*38,Y=g=>300-g*18;let b='';[0,5,10,15].forEach(g=>{b+=L(50,Y(g),520,Y(g),GRID,g?1:1.5)+T(42,Y(g)+4,g+' GW','','end')});
+{const X=y=>60+(y-2020)*38,Y=g=>300-g*10.5;let b='';[0,10,20].forEach(g=>{b+=L(50,Y(g),520,Y(g),GRID,g?1:1.5)+T(42,Y(g)+4,g+' GW','','end')});
  [2020,2025,2030,2032].forEach(y=>b+=T(X(y),324,y===2032?'FY32':y,'lab','middle'));
  b+=L(X(2020),Y(.375),X(2025),Y(1.5),P,3)+C(X(2020),Y(.375),5,P)+C(X(2025),Y(1.5),7,P)+T(X(2025)+12,Y(1.5)+20,'1.5 GW today');
  b+=L(X(2025),Y(1.5),X(2030),Y(4.5),GOLD,2,'4 6')+L(X(2025),Y(1.5),X(2030),Y(6.5),GOLD,2,'4 6')+`<rect x="${X(2030)-6}" y="${Y(6.5)}" width="12" height="${Y(4.5)-Y(6.5)}" fill="${GOLD}" opacity=".5" rx="4"/>`+T(X(2030)+14,Y(6.5)+14,'4.5–6.5 GW','lab')+T(X(2030)+14,Y(6.5)+32,'CEEW');
- b+=L(X(2025),Y(1.5),X(2032),Y(13.56),RED,2,'4 6')+C(X(2032),Y(13.56),8,RED)+T(X(2032)-14,Y(13.56)-14,'13.6 GW · power ministry','lab','end');
+ b+=L(X(2025),Y(1.5),X(2032),Y(26.3),RED,2,'4 6')+C(X(2032),Y(26.3),8,RED)+T(X(2032)-14,Y(26.3)-14,'+26.3 GW · power ministry, 2026','lab','end');
  F('f-fan').innerHTML=svg(540,340,b)}
 {let b='';for(let j=0;j<150;j++)b+=C(14+(j%15)*36,14+Math.floor(j/15)*36,11,j<148?P:OFF);
  F('f-people').innerHTML=svg(540,366,b)+'<div class="key">20 lakh L ÷ 135 L ≈ 15,000 people · one dot = 100 people</div>'}

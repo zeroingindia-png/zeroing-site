@@ -127,14 +127,14 @@ ABOUT = """<section id="about" class="lab-about grid gap-6 md:grid-cols-2">
   <div class="grid gap-4" style="align-content:start"><span class="chip">Why the lab exists</span><h2 class="h-sec">Every story about India <i>gets edited.</i></h2></div>
   <div class="grid gap-4 leading-relaxed text-muted" style="align-content:start;font-size:17px">
     <p>The unpaid invoice. The permission letter that sat on a desk for three months. The savings that paid the rent while the work got done. <span class="text-paper">That is the part we keep.</span></p>
-    <p>The Other Details is the research lab of Zeroing, a community of homegrown Indian brands. We read the reports behind the headlines, trace every number to the place it was first published, and draw it so anyone can follow. Not highlights. A record.</p>
+    <p>The Other Details is the research lab of Zeroing, a community of homegrown Indian brands. Every number goes back to the page it was first printed on. Not highlights. A record.</p>
     <p><a class="text-teal" href="https://www.instagram.com/theotherdetails/" target="_blank" rel="noopener">Follow @theotherdetails on Instagram</a></p>
   </div>
 </section>"""
 
 LEAD = """<section id="lead" class="glass lab-lead mt-20 grid gap-6 p-6 md:grid-cols-2">
   <div class="grid gap-4" style="align-content:start"><span class="chip chip-teal">Send us a detail</span><h2 class="h-sec">What detail of your work <i>never makes it into the story?</i></h2>
-    <p class="text-muted">Answers become leads for our research. We will ask before we use anything you tell us.</p></div>
+    <p class="text-muted">Your answer may become a lead for our research. We ask before we use anything you tell us.</p></div>
   <form class="lab-form" data-form="details" novalidate>
     <input class="hp" type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true">
     <label for="d-answer">Your answer</label><textarea id="d-answer" name="answer" required maxlength="1800" rows="5"></textarea>
@@ -181,17 +181,17 @@ def home_page(studies):
       <div class="grid gap-3.5 p-6"><span class="chip chip-{s['accent']}">{s['chip']}</span><span class="font-head text-[26px] font-black leading-tight tracking-tight [&>i]:font-ital [&>i]:font-medium [&>i]:italic [&>i]:text-red">{s['question']}</span></div>
       <div class="border-t border-edge">{rows(s['card'])}</div>
       <span class="mt-auto border-t border-edge px-6 py-4 text-sm font-semibold text-teal">Read the study · {s['read']} →</span></a>"""
-    main = hero(mosaic, "Research lab of Zeroing · every number traced", "teal",
+    main = hero(mosaic, "The research lab of Zeroing", "teal",
                 "The other details. <i>Drawn so anyone can read them.</i>",
-                "We read the reports behind the headlines, check where each number comes from and how old it is, and turn it into reels, charts and lessons anyone can follow.", ctas, tall=True) + f"""
+                "We open the reports behind the headlines, check where each number came from and how old it is, then draw it so it reads on your phone.", ctas, tall=True) + f"""
 <div class="wrap pb-24">
   <div class="mt-20 grid gap-3.5"><span class="chip">Studies</span><h2 class="h-sec">Two questions, <i>answered with data.</i></h2></div>
   <div class="mt-10 grid gap-6 md:grid-cols-2">{cards}</div>
-  <div class="mt-20 grid gap-3.5"><span class="chip chip-teal">Watch</span><h2 class="h-sec">Each study is also <i>a two-minute film.</i></h2></div>
-  {reel_box("reel-cloud", "Reel · 2:13 · 9:16", "The cloud has <i>an address.</i>", "Real footage, dot charts drawn to scale and every source on screen. Made for phones, with captions and narration.")}
+  <div class="mt-20 grid gap-3.5"><span class="chip chip-teal">Watch</span><h2 class="h-sec">Study 01 is also <i>a film for your phone.</i></h2></div>
+  {reel_box("reel-cloud", "Reel · 2:13 · 9:16", "The cloud has <i>an address.</i>", "Real footage. Dot charts drawn to scale. Every source on screen, with captions and narration.")}
   """ + ABOUT + LEAD + """
 </div>"""
-    return shell("The Other Details · Research lab of Zeroing", "The research lab of Zeroing: the numbers behind the news, traced to their sources and drawn so anyone can read them.", "home", main)
+    return shell("The Other Details · The research lab of Zeroing", "The research lab of Zeroing: the numbers behind the news, traced to their sources and drawn so anyone can read them.", "home", main)
 
 
 def method_page():

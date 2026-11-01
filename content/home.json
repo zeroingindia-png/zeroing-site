@@ -1,15 +1,15 @@
 {
   "hero_title": "No Indian brand should grow alone.",
-  "hero_text": "Zeroing is a community of Indian brands and the people behind them. We open doors for each other, and we keep an honest record of how work in this country actually gets done.",
+  "hero_text": "Zeroing is a community of homegrown Indian brands and the people behind them. We open doors for each other. Our podcast and our research lab write down how the work really gets done.",
   "bands": [
     {
       "title": "The community",
-      "text": "Indian brands made with intent. One brand's customer finds another. One founder's supplier helps the next.",
+      "text": "Brands that stand together, like stalls in one lane. One brand's customer finds the next. One founder's supplier helps another.",
       "image": "/media/indso-spread.jpg"
     },
     {
       "title": "Independent Society",
-      "text": "Our podcast. One person, one long honest conversation about what their working life in India actually looked like.",
+      "text": "Our podcast. One person at a time, one long honest conversation about what their working life in India actually looked like, from the inside.",
       "image": "/media/ep-conversation.jpg"
     },
     {
@@ -19,7 +19,7 @@
     }
   ],
   "craft_title": "The work behind the work",
-  "craft_text": "Turmeric before it is a gel. A camera on the sand for a shot of ants. This is the part Zeroing is for: the making, the hands, the years. Every photograph here comes from a brand in the community, a guest, or our own shoot.",
+  "craft_text": "Turmeric before it is a gel. A camera on the sand for a shot of ants. The making, the hands, the years. Every photograph here comes from a brand in the community, a guest, or our own shoot.",
   "craft": [
     {
       "image": "/media/indso-saffron-turmeric.jpg",
@@ -60,7 +60,7 @@
   ],
   "record_label": "On record now, Independent Society episodes 1 and 2",
   "record_name": "Akanksha Sood Singh",
-  "record_role": "Wildlife filmmaker. Founder, The Gaia People and Women of the Wild.",
+  "record_role": "Wildlife filmmaker. Co-founder, The Gaia People. Founder, Women of the Wild.",
   "record_quote": "You could be a biologist, a filmmaker, a graphic artist, a journalist, anything. As long as there is a nature connect.",
   "record_image": "/media/as-portrait.jpg",
   "ledger_since": "Since January 2026",
@@ -79,9 +79,9 @@
     }
   ],
   "brands_title": "Made here, by people you can meet.",
-  "brands_text": "Every brand in Zeroing is homegrown and made in India, as its founder has told us. We ask each one to say plainly what it already does on materials, packaging or making, and what it will do next. Buy from them directly.",
+  "brands_text": "Homegrown and made in India, as each founder tells us. Every brand keeps its own shop. Buy from them directly.",
   "how_title": "How we work",
-  "how_text": "Three things we look after. Every brand, episode and study in Zeroing answers to them.",
+  "how_text": "Three things we look after. Every brand, episode and study answers to them.",
   "pillars": [
     {
       "title": "Nature",
@@ -99,8 +99,8 @@
       "image": "/media/indso-turmeric-milk.jpg",
       "points": [
         "Vedi Kade carries Tamil history into clothes for an ordinary day.",
-        "INDSO starts from haldi doodh, a preparation Indian homes have made for generations.",
-        "Every episode opens with a voice from 15 August 1947."
+        "INDSO starts from haldi doodh, made in Indian kitchens for generations.",
+        "Every episode opens with Nehru's midnight speech of August 1947."
       ]
     },
     {
@@ -108,8 +108,8 @@
       "line": "We ask every brand for one honest next step.",
       "image": "/media/indso-orange-peel.jpg",
       "points": [
-        "No brand here is called sustainable by us. Each brand page shows what the founder says it does now on materials, packaging or making, and what comes next, or says the answer is still to come.",
-        "Brands are introduced to each other's suppliers, stalls and customers, so fewer of them build alone.",
+        "We call no brand sustainable. Each brand page shows what its founder says it does now on materials, packaging or making, and what comes next. Where the founder has not said, the page says so.",
+        "Brands meet each other's suppliers, stalls and customers. Fewer of them build alone.",
         "We grow at the makers' pace, one founder conversation at a time."
       ]
     }
@@ -130,7 +130,7 @@
     },
     {
       "title": "Grow in public",
-      "text": "Brands present Independent Society together and are credited on every episode."
+      "text": "Brands present Independent Society together. The brands that present a conversation are credited on it."
     }
   ]
 }
