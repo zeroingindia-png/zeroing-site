@@ -1,0 +1,48 @@
+  <section class="sec shop-hero" id="top">
+    <div class="case-head">
+      <h1 class="display">Shop the lane.</h1>
+      <p class="lede">Buy straight from the brands. Every button opens the brand's own shop, and you pay the brand directly. Zeroing takes no payment and sells nothing itself.</p>
+    </div>
+  </section>
+
+  <section class="sec" id="shop">
+{SHOP_CARDS}
+  </section>
+
+  <section class="sec sec-tint" id="practices">
+    <div class="case-head">
+      <h2 class="display">How each brand makes it</h2>
+      <p>What each brand does on materials, packaging, making and the people who make it. Every line carries a label, so you know how far we have checked it.</p>
+    </div>
+    <ul class="levels" aria-label="What the labels mean">
+      <li><span class="lv lv-founder">Founder says</span> The founder has told us. We have not seen proof yet.</li>
+      <li><span class="lv lv-proof">Proof shared</span> The brand has shown us a bill, a certificate or photographs.</li>
+      <li><span class="lv lv-checked">Checked by Zeroing</span> We have seen it for ourselves.</li>
+    </ul>
+    <div class="pfilter" role="group" aria-label="Show practices about">
+      <button type="button" class="chip" aria-pressed="true" data-area="all">All</button>
+{AREA_CHIPS}
+    </div>
+{PRACTICES}
+  </section>
+
+  <section class="sec form-field" id="share">
+    <div class="form-wrap">
+      <div class="case-head"><h2 class="display">A brand in Zeroing? Tell us how you make it.</h2><p>Write what you already do and what you will do next. Leave a box empty if it does not apply. We add it to the list above as "Founder says" until you share proof.</p></div>
+      <form class="zform" data-form="practices" novalidate>
+        <input class="hp" type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="f"><label for="p-brand">Your brand's name</label><input id="p-brand" name="brand" required maxlength="120" autocomplete="organization"></div>
+        <div class="f"><label for="p-name">Your name</label><input id="p-name" name="name" required maxlength="120" autocomplete="name"></div>
+        <div class="f wide"><label for="p-materials">Materials <span class="opt">optional</span></label><textarea id="p-materials" name="materials" maxlength="600" rows="2"></textarea><small>What goes in, and where it comes from.</small></div>
+        <div class="f wide"><label for="p-packaging">Packaging <span class="opt">optional</span></label><textarea id="p-packaging" name="packaging" maxlength="600" rows="2"></textarea></div>
+        <div class="f wide"><label for="p-making">Making <span class="opt">optional</span></label><textarea id="p-making" name="making" maxlength="600" rows="2"></textarea><small>Where and how it is made, and by whom.</small></div>
+        <div class="f wide"><label for="p-people">People <span class="opt">optional</span></label><textarea id="p-people" name="people" maxlength="600" rows="2"></textarea><small>How the people who make it are paid and looked after.</small></div>
+        <div class="f wide"><label for="p-next">Your next step</label><textarea id="p-next" name="next" required maxlength="600" rows="2"></textarea><small>One thing you will change, and roughly when.</small></div>
+        <div class="f"><label for="p-proof">Link to proof <span class="opt">optional</span></label><input id="p-proof" name="proof" type="url" placeholder="https://"></div>
+        <div class="f"><label for="p-email">Email</label><input id="p-email" name="email" type="email" required autocomplete="email"></div>
+        <label class="consent wide" for="p-declare"><input type="checkbox" id="p-declare" name="declaration" value="yes" required> <span>I confirm that what I have written is true, and I can show proof if asked.</span></label>
+        <label class="consent wide" for="p-consent"><input type="checkbox" id="p-consent" name="consent" required> <span>I agree that Zeroing can keep these details, publish the practices I describe on this page, and write to me about them, as set out in the <a href="{P}legal.html#privacy">privacy notice</a>.</span></label>
+        <div class="wide submit-row"><button class="pill solid" type="submit">Send</button><p class="status" role="status"></p></div>
+      </form>
+    </div>
+  </section>

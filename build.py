@@ -53,7 +53,9 @@ for n, x in enumerate(load("brands.json")):
          "idea": [q.strip() for q in (x.get("about") or "").split("\n\n") if q.strip()],
          "role": x.get("role") or "Community brand", "city": x.get("city", ""), "founder": x.get("founder", ""),
          "sustainability": x.get("sustainability", ""), "nature": x.get("nature", ""), "culture": x.get("culture", ""), "site": (x.get("website") or "").strip(),
-         "instagram": (x.get("instagram") or "").strip().lstrip("@")}
+         "instagram": (x.get("instagram") or "").strip().lstrip("@"),
+         "products": [p for p in x.get("products", []) if p.get("name") and p.get("link")],
+         "practices": [p for p in x.get("practices", []) if p.get("text")]}
     if x.get("hero_image"):
         d["wordmark" if x.get("hero_is_logo") else "hero"] = (mf(x["hero_image"]), x["name"] + (" logo" if x.get("hero_is_logo") else ""))
     if x.get("card_image"):
@@ -107,6 +109,7 @@ def fill(text, P, H, current=""):
                 .replace("{CUR_COMMUNITY}", cur("community"))
                 .replace("{CUR_IS}", cur("podcast"))
                 .replace("{CUR_JOIN}", cur("join"))
+                .replace("{CUR_SHOP}", cur("shop"))
                 .replace("LOGO", LOGO))
 
 
@@ -127,6 +130,54 @@ def write(path, text):
     os.makedirs(os.path.dirname(full), exist_ok=True)
     with open(full, "w", encoding="utf-8") as f:
         f.write(text)
+
+
+AREAS = ["Materials", "Packaging", "Making", "People", "Next step"]
+LEVELS = {"founder": "Founder says", "proof": "Proof shared", "checked": "Checked by Zeroing"}
+
+
+def shop_url_of(b):
+    if b["site"]:
+        return b["site"], "Visit the shop"
+    if b["instagram"]:
+        return f"https://www.instagram.com/{b['instagram']}/", "Shop on Instagram"
+    return "", ""
+
+
+def shop_cards(P):
+    out = []
+    for b in BRANDS:
+        url, label = shop_url_of(b)
+        head = (f'    <div class="shop-brand"><h2 class="display"><a href="{P}brands/{b["slug"]}.html">{E(b["name"])}</a></h2>'
+                f'<p>{E(b["line"])}</p></div>')
+        cards = []
+        for p in b["products"]:
+            pic = (f'<span class="card-img">{img(mf(p["image"]), p["name"], P)}</span>' if p.get("image")
+                   else f'<span class="card-img colour" style="background:var(--{b["colour"]})"><span>{E(b["name"][:1])}</span></span>')
+            price = f'<span class="price">{E(p["price"])}</span>' if p.get("price") else ""
+            cards.append(f'      <a class="product" href="{E(p["link"])}" target="_blank" rel="noopener">{pic}'
+                         f'<span class="pbody"><span class="pname">{E(p["name"])}</span>{price}'
+                         f'<span class="pgo">Buy on {E(b["name"])} <span aria-hidden="true">&#8599;</span></span></span></a>')
+        if not cards:
+            btn = (f'<a class="pill line" href="{url}" target="_blank" rel="noopener">{label} <span class="arr" aria-hidden="true">&#8599;</span></a>'
+                   if url else '<span class="pill line" aria-disabled="true">No shop link yet</span>')
+            cards.append(f'      <div class="product empty"><span class="pbody"><span class="pname">{"See everything " + E(b["name"]) + " makes on its own shop." if url else "We do not have a shop link for " + E(b["name"]) + " yet."}</span>{btn}</span></div>')
+        out.append(f'    <div class="shop-row">\n{head}\n    <div class="products">\n' + "\n".join(cards) + '\n    </div>\n    </div>')
+    return "\n".join(out)
+
+
+def practices_html(P):
+    rows = []
+    for b in BRANDS:
+        items = "".join(
+            f'<li data-area="{E(p.get("area", ""))}"><span class="parea">{E(p.get("area", ""))}</span>'
+            f'<span class="ptext">{E(p["text"])}</span>'
+            f'<span class="lv lv-{p.get("level", "founder")}">{LEVELS.get(p.get("level", "founder"), LEVELS["founder"])}</span></li>'
+            for p in b["practices"])
+        if not items:
+            items = '<li class="none" data-area="all"><span class="ptext">Not shared yet. We will add it when the founder tells us.</span></li>'
+        rows.append(f'    <div class="pbrand"><h3><a href="{P}brands/{b["slug"]}.html">{E(b["name"])}</a></h3><ul>{items}</ul></div>')
+    return '    <div class="plist">\n' + "\n".join(rows) + '\n    </div>'
 
 
 def ig(handle):
@@ -407,6 +458,9 @@ def build():
     simple = [
         ("independent-society.html", "Independent Society", "One person at a time, a long honest conversation about working life in India, seen from the inside.", is_main, "podcast"),
         ("join.html", "Join Zeroing", "Apply to join Zeroing, a community of homegrown Indian brands.", read("pages", "join.html"), "join"),
+        ("shop.html", "Shop the lane", "Buy straight from the homegrown Indian brands in Zeroing, and see how each one makes it.",
+         read("pages", "shop.html").replace("{SHOP_CARDS}", shop_cards("")).replace("{PRACTICES}", practices_html(""))
+         .replace("{AREA_CHIPS}", "\n".join(f'      <button type="button" class="chip" aria-pressed="false" data-area="{a}">{a}</button>' for a in AREAS)), "shop"),
         ("contact.html", "Contact Zeroing", "Write to Zeroing.", read("pages", "contact.html"), ""),
         ("legal.html", "Zeroing Legal", "Disclaimer, privacy notice, terms of use and grievances for Zeroing.", read("pages", "legal.html"), ""),
     ]

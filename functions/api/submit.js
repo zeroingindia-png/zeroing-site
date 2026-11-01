@@ -1,5 +1,5 @@
 // POST /api/submit
-// Receives every form on the site (join, guest, contact, details, newsletter)
+// Receives every form on the site (join, guest, contact, details, newsletter, practices)
 // and stores it in the D1 database bound as DB. Nothing is emailed or shared.
 
 const FORMS = {
@@ -8,6 +8,7 @@ const FORMS = {
   contact: ["name", "email", "reason", "message"],
   details: ["name", "email", "answer"],
   newsletter: ["email"],
+  practices: ["brand", "name", "next", "email"],
 };
 const OPTIONAL = {
   join: ["website", "phone", "declaration"],
@@ -15,6 +16,7 @@ const OPTIONAL = {
   contact: ["phone"],
   details: [],
   newsletter: [],
+  practices: ["materials", "packaging", "making", "people", "proof", "declaration"],
 };
 const MAX_FIELD = 2000;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;

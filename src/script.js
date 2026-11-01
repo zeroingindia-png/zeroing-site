@@ -81,6 +81,19 @@
     im.addEventListener('load', done, { once: true }); im.addEventListener('error', done, { once: true });
   });
 
+  // practices filter on the shop page
+  var chips = document.querySelectorAll('.pfilter .chip');
+  chips.forEach(function (c) {
+    c.addEventListener('click', function () {
+      var a = c.getAttribute('data-area');
+      chips.forEach(function (x) { x.setAttribute('aria-pressed', x === c ? 'true' : 'false'); });
+      document.querySelectorAll('.plist li').forEach(function (li) {
+        var d = li.getAttribute('data-area');
+        li.hidden = !(a === 'all' || d === a || d === 'all');
+      });
+    });
+  });
+
   // "New" on episodes out in the last 30 days
   document.querySelectorAll('[data-released]').forEach(function (el) {
     var d = new Date(el.getAttribute('data-released'));
@@ -93,7 +106,8 @@
     guest: 'Thank you. We will look into their work and reach out ourselves.',
     contact: 'Thank you. Your message is in and we will reply by email.',
     details: 'Thank you. Your answer is saved, and it may become a lead for our research.',
-    newsletter: 'You are on the list. One letter when a new conversation goes on record.'
+    newsletter: 'You are on the list. One letter when a new conversation goes on record.',
+    practices: 'Thank you. We will read it, check with you, and add it to the list.'
   };
   document.querySelectorAll('form[data-form]').forEach(function (form) {
     var status = form.querySelector('.status');

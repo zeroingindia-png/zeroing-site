@@ -102,6 +102,23 @@ content:
           - { name: image, label: "Photo", type: image }
           - { name: title, label: "Caption title", type: string }
           - { name: note, label: "Caption line", type: string }
+      - name: products
+        label: "Shop: products (each opens on the brand's own shop)"
+        type: object
+        list: true
+        fields:
+          - { name: name, label: "Product name", type: string }
+          - { name: price, label: "Price as shown on the brand's shop, e.g. ₹650", type: string }
+          - { name: image, label: "Photo", type: image }
+          - { name: link, label: "Link to the product on the brand's shop (https://)", type: string }
+      - name: practices
+        label: "Shop: how the brand makes it"
+        type: object
+        list: true
+        fields:
+          - { name: area, label: "Area", type: select, options: { values: [Materials, Packaging, Making, People, Next step] } }
+          - { name: text, label: "What the brand does, in one or two lines", type: text }
+          - { name: level, label: "How far it is checked", type: select, options: { values: [founder, proof, checked] } }
 
   - name: podcast
     label: Podcast

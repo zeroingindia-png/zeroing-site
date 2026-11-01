@@ -51,6 +51,14 @@
         "title": "On skin",
         "note": "Spread by hand."
       }
+    ],
+    "products": [],
+    "practices": [
+      {
+        "area": "Materials",
+        "text": "Botanical ingredients such as turmeric, saffron, honey and ashwagandha. Every ingredient is written on the label.",
+        "level": "founder"
+      }
     ]
   },
   {
@@ -74,7 +82,9 @@
     "tape_image": "/media/ampor-tape.jpg",
     "craft_title": "",
     "craft_text": "",
-    "craft": []
+    "craft": [],
+    "products": [],
+    "practices": []
   },
   {
     "name": "Vedi Kade",
@@ -97,7 +107,9 @@
     "tape_image": "",
     "craft_title": "",
     "craft_text": "",
-    "craft": []
+    "craft": [],
+    "products": [],
+    "practices": []
   },
   {
     "name": "Syzygy Living",
@@ -120,6 +132,8 @@
     "tape_image": "",
     "craft_title": "",
     "craft_text": "",
-    "craft": []
+    "craft": [],
+    "products": [],
+    "practices": []
   }
 ]
