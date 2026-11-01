@@ -5,3 +5,4 @@ preview.html
 .preview/
 !public/the-other-details/tod-logo.png
 __pycache__/
+.claude/worktrees/
