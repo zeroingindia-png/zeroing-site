@@ -4,10 +4,10 @@
 
 Writes every page into public/ (what Cloudflare Pages serves) and preview.html
 (the home page without its <head>, for Claude previews).
-Edit the brand details in BRANDS and the episode links in EPISODES below; write "" for anything not confirmed yet.
+Words, links and photographs live in content/*.json (edited in Pages CMS); write "" for anything not confirmed yet.
 Photographs live in public/media/. Keep them under about 500 KB each.
 """
-import html, json, math, os, re
+import html, json, os, re
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(ROOT, "src")
@@ -61,7 +61,7 @@ for n, x in enumerate(load("brands.json")):
     if x.get("tape_image"):
         d["tape"] = mf(x["tape_image"])
     if x.get("craft"):
-        d["craft"] = [(mf(c["image"]), c.get("title", ""), c.get("note", "")) for c in x["craft"] if c.get("image")]
+        d["craft"] = [(mf(c["image"]), c.get("title", ""), c.get("note", ""), False) for c in x["craft"] if c.get("image")]
         d["craft_title"] = x.get("craft_title") or "How it is made"
         d["craft_line"] = x.get("craft_text", "")
     BRANDS.append(d)
@@ -77,7 +77,6 @@ def read(*parts):
         return f.read()
 
 
-RING = open(os.path.join(ROOT, "ring.txt"), encoding="utf-8").read().strip()
 CSS = read("base.css")
 JS = read("script.js")
 HEADER = read("partials", "header.html")
@@ -96,36 +95,19 @@ HEAD = """<title>{title}</title>
 <style>
 {css}</style>"""
 
-_mark_n = [0]
-
-
-def hero_mark():
-    """The Zeroing mark, cropped huge behind a hero. Its two halves lock together on load."""
-    _mark_n[0] += 1
-    i = _mark_n[0]
-    return (f'<svg class="hero-mark" viewBox="0 0 1373 1002" aria-hidden="true">'
-            f'<defs><clipPath id="mt{i}"><rect width="1373" height="506"/></clipPath>'
-            f'<clipPath id="mb{i}"><rect y="506" width="1373" height="496"/></clipPath></defs>'
-            f'<g class="top" clip-path="url(#mt{i})"><path fill-rule="evenodd" d="LOGO"/></g>'
-            f'<g class="bot" clip-path="url(#mb{i})"><path fill-rule="evenodd" d="LOGO"/></g></svg>')
-
-
-def img(src, alt, P, eager=False, drift=None):
-    d = f' data-drift="{drift}"' if drift else ""
+def img(src, alt, P, eager=False):
     load = 'fetchpriority="high"' if eager else 'loading="lazy"'
-    return f'<img src="{P}media/{src}" alt="{E(alt)}" {load} decoding="async"{d}>'
+    return f'<img src="{P}media/{src}" alt="{E(alt)}" {load} decoding="async">'
 
 
 def fill(text, P, H, current=""):
     cur = lambda name: ' aria-current="page"' if current == name else ""
-    while "{HERO_MARK}" in text:
-        text = text.replace("{HERO_MARK}", hero_mark(), 1)
     return (text.replace("{P}", P).replace("{H}", H)
                 .replace("{SPOTIFY_SHOW}", SPOTIFY_SHOW)
                 .replace("{CUR_COMMUNITY}", cur("community"))
                 .replace("{CUR_IS}", cur("podcast"))
                 .replace("{CUR_JOIN}", cur("join"))
-                .replace("RING", RING).replace("LOGO", LOGO))
+                .replace("LOGO", LOGO))
 
 
 def page(title, desc, main, P, H, current=""):
@@ -204,23 +186,18 @@ def home_brand_row(b, P):
     return (f'      <li>{thumb}<a class="name" href="{P}brands/{b["slug"]}.html">{E(b["name"])}<small>{E(b["makes"])}</small></a>{what}</li>')
 
 
-def craft_reel(items, title, line, P, label=""):
+def craft_reel(items, title, line, P):
     figs = []
-    for it in items:
-        src, t, note = it[0], it[1], it[2]
-        wide = len(it) > 3 and it[3] == "wide"
+    for src, t, note, wide in items:
         figs.append(f'        <figure class="craft-item{" wide" if wide else ""}"><div class="photo">{img(src, t + ". " + note, P)}</div>'
                     f'<figcaption><b>{E(t)}</b><span>{E(note)}</span></figcaption></figure>')
-    return f"""  <section class="craft" id="craft" data-ink="kajal" data-field="chuna">
-    <div class="craft-pin">
-      <div class="craft-head">
-        <h2 class="display">{E(title)}</h2>
-        <p>{line}</p>
-      </div>
-      <div class="craft-track">
+    return f"""  <section class="craft" id="craft">
+    <div class="craft-head">
+      <h2 class="display">{E(title)}</h2>
+      <p>{line}</p>
+    </div>
+    <div class="craft-track">
 {chr(10).join(figs)}
-      </div>
-      <div class="craft-progress" aria-hidden="true"><i></i></div>
     </div>
   </section>
 """
@@ -247,17 +224,14 @@ def focus_table(P):
 
 
 def brand_main(b, P="../"):
-    ink = "kajal" if b["colour"] in ("haldi", "genda") else "chuna"
     idea = "\n".join(f"        <p>{E(p)}</p>" for p in b["idea"])
-    sus = (f"<p>{E(b['sustainability'])}</p>" if b.get("sustainability")
-           else '<p><span class="todo">To confirm with the founder: what the brand already does on materials, packaging or making, and the next step it is working on.</span></p>')
     shop_url = b["site"] or (f'https://www.instagram.com/{b["instagram"]}/' if b["instagram"] else "")
     shop_btn = (f'<a class="pill solid" href="{shop_url}" target="_blank" rel="noopener">Visit {E(b["name"])} <span class="arr" aria-hidden="true">&#8599;</span></a>'
                 if shop_url else '<span class="pill line" aria-disabled="true">Shop link coming soon</span>')
     ig_btn = (f'<a class="pill line" href="https://www.instagram.com/{b["instagram"]}/" target="_blank" rel="noopener">@{b["instagram"]}</a>'
               if b["site"] and b["instagram"] else "")
     if b.get("hero"):
-        photo = f'<div class="hero-photo">{img(b["hero"][0], b["hero"][1], P, eager=True, drift="0.08")}</div>'
+        photo = f'<div class="hero-photo">{img(b["hero"][0], b["hero"][1], P, eager=True)}</div>'
         cls = ""
     elif b.get("wordmark"):
         photo = f'<div class="hero-photo word">{img(b["wordmark"][0], b["wordmark"][1], P, eager=True)}</div>'
@@ -275,21 +249,19 @@ def brand_main(b, P="../"):
         for o in others)
     chapters = [("about", "The idea")] + ([("craft", b["craft_title"])] if b.get("craft") else []) + [("more", "More brands")]
     LN = localnav(b["name"], chapters).replace('</span></nav>', (f'<a class="ln-buy" href="{shop_url}" target="_blank" rel="noopener">Visit</a>' if shop_url else '') + '</span></nav>')
-    return f"""  <section class="field f-{b['colour']} hero brand-hero{cls}" id="top" data-ink="{ink}" data-field="{b['colour']}">
+    return f"""  <section class="field f-{b['colour']} hero brand-hero{cls}" id="top">
     <div class="hero-text">
-      {{HERO_MARK}}
       <div class="hero-body">
         <p class="corners narrow" style="margin:0;padding:0">{E(b['role'])}</p>
         <h1 class="display">{E(b['name'])}</h1>
         <p class="lede">{E(b['line'])}</p>
         <div class="actions">{shop_btn}{ig_btn}</div>
-        <svg class="seal" viewBox="0 0 200 200" aria-hidden="true"><path d="RING"/><text x="100" y="94" text-anchor="middle">ZEROING</text><text x="100" y="122" text-anchor="middle">COMMUNITY</text></svg>
       </div>
     </div>
     {photo}
   </section>
 {LN}{tape}
-  <section class="field f-chuna auto" id="about" data-ink="kajal" data-field="chuna">
+  <section class="field f-chuna auto" id="about">
     <div class="about">
       <div class="idea">
         <h2 class="display">The idea</h2>
@@ -309,7 +281,7 @@ def brand_main(b, P="../"):
     </div>
   </section>
 {craft}
-  <section class="field f-neel auto" id="more" data-ink="chuna" data-field="neel">
+  <section class="field f-neel auto" id="more">
     <div class="case-head">
       <h2 class="display">More from the community</h2>
       <p>Every brand here keeps its own shop. Zeroing introduces you; you buy from them directly.</p>
@@ -358,48 +330,6 @@ def spotify_embed(url, title):
             f'loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>')
 
 
-def orbit_html(P):
-    """Community hero: the brands' own photographs circling the headline, like stalls around a lane."""
-    items = []
-    for b in BRANDS:
-        if b.get("hero") and not b.get("wordmark"):
-            items.append(("photo", b.get("thumb") or b["hero"][0], b["name"]))
-        elif b.get("wordmark"):
-            items.append(("word", b["wordmark"][0], b["name"]))
-        elif b.get("tape"):
-            items.append(("tape", b["tape"], b["name"]))
-        else:
-            items.append(("colour", b["colour"], b["name"]))
-    for c in HOME_CRAFT:
-        items.append(("photo", c[0], ""))
-    items = items[:10]
-    n = len(items)
-    out = []
-    for i, (kind, val, label) in enumerate(items):
-        # two arcs, left and right of the headline, so the words stay clear
-        half = (n + 1) // 2
-        k, m = (i // 2, half) if True else (0, 1)
-        t = (k + 0.5) / m
-        a = (-68 + 136 * t) if i % 2 == 0 else (248 - 136 * t)
-        x = 50 + 43 * math.cos(math.radians(a))
-        y = 50 + 44 * math.sin(math.radians(a))
-        size = [148, 118, 132, 104][i % 4]
-        rot = [-6, 4, -3, 7, -5, 3][i % 6]
-        style = f'--x:{x:.1f}%;--y:{y:.1f}%;--s:{size}px;--r:{rot}deg;--i:{i};--f:{7 + i % 4}s'
-        cls = "o-card" + (" o-hide-s" if i % 2 else "")
-        if kind == "colour":
-            body = f'<span class="o-colour" style="background:var(--{val})"><span>{E(label)}</span></span>'
-        elif kind == "tape":
-            body = f'<span class="o-tape">{img(val, "", P)}</span>'
-        elif kind == "word":
-            body = f'<span class="o-word">{img(val, "", P)}</span>'
-        else:
-            body = img(val, "", P)
-        tag = f'<span class="o-label">{E(label)}</span>' if label and kind != "colour" else ""
-        out.append(f'<span class="{cls}" style="{style}">{body}{tag}</span>')
-    return "\n      ".join(out)
-
-
 def record_card():
     parts = EPISODES[0]["parts"]
     rows = [("Episodes on record", len(parts)), ("Moments in the highlights", len(HIGHLIGHTS)), ("Brands that presented it", 2)]
@@ -409,79 +339,7 @@ def record_card():
             f'<p class="rec-title">Part one <span aria-hidden="true">&#8594;</span> <em>Part two</em></p><ul>{li}</ul></aside>')
 
 
-
-AWNINGS = ["sindoor", "haldi", "peepal", "neel", "kattha", "genda", "sindoor"]
-
-
-def lane_html(P):
-    """Home hero: a lane of stalls at night. One is lit; as you scroll the rest light up, strung together."""
-    stalls = []
-    for b in BRANDS:
-        if b.get("wordmark"):
-            goods = f'<span class="goods word">{img(b["wordmark"][0], "", P, eager=True)}</span>'
-        elif b.get("tape"):
-            goods = f'<span class="goods word tape">{img(b["tape"], "", P, eager=True)}</span>'
-        elif b.get("hero"):
-            goods = f'<span class="goods">{img(b.get("thumb") or b["hero"][0], "", P, eager=True)}</span>'
-        else:
-            goods = '<span class="goods empty"></span>'
-        stalls.append((b["name"], b["makes"], f'{P}brands/{b["slug"]}.html', goods))
-    for _ in range(3):
-        stalls.append(("Joining", "A new brand, 2026", f"{P}community.html", '<span class="goods empty"><i>Opening soon</i></span>'))
-    first = ('Your brand', 'Alone, it is easy to miss', f'{P}join.html', '<span class="goods empty"><i>One stall</i></span>')
-    stalls = [first] + stalls
-    out = []
-    for i, (name, makes, href, goods) in enumerate(stalls):
-        c = AWNINGS[i % len(AWNINGS)]
-        out.append(f'''      <a class="stall" href="{href}" style="--aw:var(--{c});--i:{i}" data-i="{i}">
-        <span class="bulb" aria-hidden="true"></span>
-        <span class="awning" aria-hidden="true"></span>
-        <span class="sign">{E(name)}</span>
-        {goods}
-        <span class="counter"><span class="makes">{E(makes)}</span></span>
-      </a>''')
-    n = len(stalls)
-    dots = "".join(f'<i class="walker" style="--w:{k}"></i>' for k in range(9))
-    return "\n".join(out), n, dots
-
-
-def web_svg():
-    """A line drawing of the community: every brand tied to the centre, and to each other. It draws itself on arrival."""
-    cx, cy = 500, 215
-    nodes = [("INDSO", 150, 78), ("Ampor Eyewear", 110, 300), ("Vedi Kade", 330, 385), ("Syzygy Living", 650, 385),
-             ("Independent Society", 880, 92), ("The Other Details", 900, 318), ("New brand", 380, 42), ("New brand", 620, 40), ("New brand", 250, 200)]
-    cross = [(0, 4), (1, 4), (4, 5), (2, 3), (0, 6), (7, 4), (8, 1), (3, 5)]
-    paths, dots, i = [], [], 0
-
-    def curve(a, b):
-        (x1, y1), (x2, y2) = a, b
-        mx, my = (x1 + x2) / 2, (y1 + y2) / 2
-        qx, qy = mx + (cx - mx) * 0.35, my + (cy - my) * 0.35
-        return f"M{x1} {y1} Q{qx:.0f} {qy:.0f} {x2} {y2}"
-
-    for n, (label, x, y) in enumerate(nodes):
-        d = f"M{cx} {cy} L{x} {y}"
-        paths.append(f'<path class="ln" pathLength="1" d="{d}" style="--d:{n * 120}ms"/>')
-    for k, (a, b) in enumerate(cross):
-        d = curve(nodes[a][1:], nodes[b][1:])
-        paths.append(f'<path class="ln soft" pathLength="1" d="{d}" style="--d:{900 + k * 140}ms"/>')
-        dots.append(f'<circle class="pulse" r="3.5"><animateMotion dur="{7 + k % 4}s" begin="{k * 0.9:.1f}s" repeatCount="indefinite" path="{d}"/></circle>')
-    labels = []
-    for n, (label, x, y) in enumerate(nodes):
-        new = label == "New brand"
-        anchor = "end" if x < cx - 40 else ("start" if x > cx + 40 else "middle")
-        dx = -16 if anchor == "end" else (16 if anchor == "start" else 0)
-        dy = 5 if anchor != "middle" else (-16 if y < cy else 28)
-        labels.append(f'<g class="node{" new" if new else ""}" style="--d:{600 + n * 120}ms"><circle cx="{x}" cy="{y}" r="{6 if new else 8}"/>'
-                      f'<text x="{x + dx}" y="{y + dy}" text-anchor="{anchor}">{E(label)}</text></g>')
-    hub = (f'<g class="node hub" style="--d:300ms"><circle cx="{cx}" cy="{cy}" r="34"/>'
-           f'<text x="{cx}" y="{cy + 6}" text-anchor="middle">Zeroing</text></g>')
-    return ('<figure class="web" aria-label="Zeroing connects each brand, the podcast and the research lab, and the brands to each other">'
-            '<svg viewBox="-190 0 1380 430" role="img" aria-hidden="true">'
-            + "".join(paths) + "".join(dots) + "".join(labels) + hub + '</svg></figure>')
-
-
-HOME_CRAFT = [(mf(c["image"]), c.get("title", ""), c.get("note", "")) + (("wide",) if c.get("wide") else ()) for c in HOME.get("craft", []) if c.get("image")]
+HOME_CRAFT = [(mf(c["image"]), c.get("title", ""), c.get("note", ""), bool(c.get("wide"))) for c in HOME.get("craft", []) if c.get("image")]
 
 
 def build():
@@ -507,17 +365,10 @@ def build():
         for pl in H_.get("pillars", []))
     steps = "\n".join(f'      <li><span class="dot">{i + 1}</span><span class="st">{E(st.get("title", ""))}</span><span class="sd">{E(st.get("text", ""))}</span></li>'
                       for i, st in enumerate(H_.get("steps", [])))
-    ledger = "\n".join(f'      <p><span class="n">{int(l.get("number") or 0)}</span>{E(l.get("text", ""))}</p>' for l in H_.get("ledger", []))
-    lane, lane_n, walkers = lane_html("")
     home = (read("pages", "home.html")
-            .replace("{LANE}", lane).replace("{LANE_N}", str(lane_n)).replace("{WALKERS}", walkers)
             .replace("{HERO_TITLE}", T(H_.get("hero_title", ""))).replace("{HERO_TEXT}", E(H_.get("hero_text", "")))
             .replace("{BANDS}", bands)
             .replace("{CRAFT}", craft_reel(HOME_CRAFT, H_.get("craft_title", ""), T(H_.get("craft_text", "")), ""))
-            .replace("{RECORD_LABEL}", E(H_.get("record_label", ""))).replace("{RECORD_NAME}", E(H_.get("record_name", "")))
-            .replace("{RECORD_ROLE}", E(H_.get("record_role", ""))).replace("{RECORD_QUOTE}", E(H_.get("record_quote", "")))
-            .replace("{RECORD_IMAGE}", mf(H_.get("record_image")))
-            .replace("{LEDGER_SINCE}", E(H_.get("ledger_since", ""))).replace("{LEDGER}", ledger)
             .replace("{BRANDS_TITLE}", T(H_.get("brands_title", ""))).replace("{BRANDS_TEXT}", E(H_.get("brands_text", "")))
             .replace("{HOME_BRANDS}", "\n".join(home_brand_row(b, "") for b in BRANDS))
             .replace("{LISTEN_LATEST}", listen_buttons(p2))
@@ -533,7 +384,7 @@ def build():
 
     # community
     cards = "\n".join(brand_card(b, "") for b in BRANDS)
-    main = read("pages", "community.html").replace("{ORBIT}", orbit_html("")).replace("{WEB}", web_svg()).replace("{BRAND_CARDS}", cards).replace("{BRAND_COUNT}", str(len(BRANDS) + 3))
+    main = read("pages", "community.html").replace("{BRAND_CARDS}", cards).replace("{BRAND_COUNT}", str(len(BRANDS) + 3))
     head, body = page("Zeroing Community",
                       "The Indian brands in Zeroing, and what we learned from small business efforts around the world.",
                       main, P="", H="index.html", current="community")

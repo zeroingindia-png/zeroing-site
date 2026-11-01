@@ -16,8 +16,6 @@
   --ink: #1B1A18;
   --ink-2: #57534C;
   --line: rgba(27, 26, 24, 0.14);
-  /* old names, kept so templates and brand colours still resolve */
-  --chuna: var(--paper); --chuna-2: var(--paper-2); --kajal: var(--ink);
 
   --font: "Anek Latin", "Anek Devanagari", "Segoe UI", system-ui, sans-serif;
   --font-display: "Bricolage Grotesque", "Anek Latin", system-ui, sans-serif;
@@ -66,10 +64,10 @@ h2.display { font-size: var(--h2); }
 h3 { margin: 0; font-size: var(--h3); line-height: 1.15; }
 em { font-family: var(--font-serif); font-weight: 400; font-style: italic; letter-spacing: 0; }
 .lede { font-size: var(--lede); line-height: 1.45; color: var(--ink-2); max-width: 34em; }
-.src, .fine { font-size: var(--small); color: var(--ink-2); }
-.narrow, .corners, .tag, .where, .file-strip, .part .narrow, figcaption, .label { font-size: var(--small); color: var(--ink-2); letter-spacing: 0; text-transform: none; font-weight: 500; }
-p a, dd a, .src a, .fine a, li > a:not([class]) { text-decoration: underline; text-decoration-color: rgba(184, 38, 44, 0.45); text-underline-offset: 3px; text-decoration-thickness: 1.5px; transition: text-decoration-color 200ms; }
-p a:hover, dd a:hover, .src a:hover, .fine a:hover, li > a:not([class]):hover { text-decoration-color: var(--sindoor); }
+.src { font-size: var(--small); color: var(--ink-2); }
+.narrow, .corners, .tag, .where, .file-strip, .part .narrow, figcaption { font-size: var(--small); color: var(--ink-2); letter-spacing: 0; text-transform: none; font-weight: 500; }
+p a, dd a, .src a, li > a:not([class]) { text-decoration: underline; text-decoration-color: rgba(184, 38, 44, 0.45); text-underline-offset: 3px; text-decoration-thickness: 1.5px; transition: text-decoration-color 200ms; }
+p a:hover, dd a:hover, .src a:hover, li > a:not([class]):hover { text-decoration-color: var(--sindoor); }
 .todo { color: var(--ink-2); border-bottom: 1px dashed currentColor; }
 
 /* ---------- 4 header and menu ---------- */
@@ -120,7 +118,6 @@ p a:hover, dd a:hover, .src a:hover, .fine a:hover, li > a:not([class]):hover { 
 .case-head > *, .why-head > *, .how-head > *, .brands-head > * { max-width: 40rem; }
 .case-head p, .why-head p, .how-head p, .brands-head p { font-size: var(--lede); line-height: 1.45; color: var(--ink-2); }
 .corners { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 40px; }
-.hero-mark, .seal, .stamp-red, .web, .orbit, .lane-story, .progress, .to-top { display: none !important; }
 
 /* generic hero on inner pages */
 .hero { padding-top: clamp(56px, 8vw, 112px); padding-bottom: clamp(48px, 7vw, 96px); }
@@ -165,7 +162,6 @@ p a:hover, dd a:hover, .src a:hover, .fine a:hover, li > a:not([class]):hover { 
 .craft-item img { width: 100%; height: 100%; object-fit: cover; }
 .craft-item figcaption { display: grid; gap: 2px; }
 .craft-item figcaption b { font-weight: 700; color: var(--ink); font-size: 1rem; }
-.craft-progress { display: none; }
 
 /* how we work */
 .pillars { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 3vw, 44px); margin-top: clamp(36px, 5vw, 64px); }
@@ -327,9 +323,7 @@ p a:hover, dd a:hover, .src a:hover, .fine a:hover, li > a:not([class]):hover { 
 .episode { display: grid; gap: 8px; align-content: start; text-decoration: none; }
 .disc { position: relative; display: block; width: 100%; aspect-ratio: 1; border-radius: 50%; overflow: hidden; background: var(--paper-2); }
 .disc img { width: 100%; height: 100%; object-fit: cover; }
-.disc svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-.disc svg path { fill: none; stroke: var(--ink); stroke-width: 3; }
-.d-empty { border: 1.5px dashed var(--line); } .d-empty svg { display: none; }
+.d-empty { border: 1.5px dashed var(--line); }
 .disc .num { position: absolute; left: 14%; bottom: 10%; font-family: var(--font-display); font-weight: 700; font-size: 2.6rem; color: #fff; text-shadow: 0 2px 16px rgba(0,0,0,.4); }
 .d-empty .num { color: var(--ink-2); text-shadow: none; left: 50%; top: 50%; bottom: auto; transform: translate(-50%, -50%); }
 .ep-name { font-size: 1.2rem; }
@@ -342,7 +336,6 @@ p a:hover, dd a:hover, .src a:hover, .fine a:hover, li > a:not([class]):hover { 
 .porthole { position: relative; width: 100%; max-width: 480px; aspect-ratio: 1; justify-self: center; }
 .porthole .inside { position: absolute; inset: 0; border-radius: 50%; overflow: hidden; background: var(--paper-2); }
 .porthole .inside img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; }
-.porthole svg { display: none; }
 .record-text { display: grid; gap: 18px; }
 .record-text .who { font-size: var(--h1); }
 .record-text .role { font-size: var(--lede); color: var(--ink-2); }
@@ -410,9 +403,6 @@ p a:hover, dd a:hover, .src a:hover, .fine a:hover, li > a:not([class]):hover { 
 
 /* ---------- 11 files and legal ---------- */
 .file-strip { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
-.file-body { display: grid; gap: 18px; max-width: 44rem; margin-top: 48px; }
-.file-body h1 { font-size: var(--h1); }
-.file-lead { font-size: var(--lede); } .file-lead.quiet { color: var(--ink-2); }
 .legal-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
 .legal-nav a { border: 1px solid var(--line); border-radius: 999px; padding: 5px 14px; text-decoration: none; font-size: var(--small); font-weight: 600; }
 .legal-nav a:hover { border-color: var(--ink); }
