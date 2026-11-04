@@ -29,3 +29,7 @@ const $=id=>document.getElementById(id);
 {let b='',S=22;for(let j=0;j<223;j++){const s=j<25,f=j>=25&&j<35;b+=C(10+(j%22)*S,10+Math.floor(j/22)*S,7,s||f?GOLD:OFF,f?.45:1)}
  b+=T(0,252,'All gold ever mined ≈ 222,600 t','lab')+T(0,272,'Indian homes: 25,000 t (solid) to 34,600 t (faded) · RBI 880 t, under one dot');
  F('f-stock').innerHTML=svg(500,284,b)+'<div class="key">One dot = 1,000 tonnes</div>'}
+{let b='';const Y0=300,K=1.6,bars=[[90,'Bought',162,P],[300,'Sold back',19,RED]];
+ b+=L(40,Y0,500,Y0,'rgba(243,239,230,.5)',1.5);
+ bars.forEach(([x,l,v,c])=>{b+=`<rect x="${x}" y="${Y0-v*K}" width="150" height="${v*K}" rx="6" fill="${c}"/>`+T(x+75,Y0-v*K-14,v+' t','val','middle')+T(x+75,Y0+26,l,'lab','middle')});
+ F('f-missed').innerHTML=svg(540,340,b)+'<div class="key">India, Q3 2026 · tonnes of gold</div>'}
