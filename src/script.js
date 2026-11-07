@@ -18,6 +18,33 @@
   function onScroll() { if (head) head.classList.toggle('solid', window.scrollY > 8); }
   window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
+  // long pages: a thin reading line under the top edge, and a way back up
+  var main = document.querySelector('main');
+  if (main && document.documentElement.scrollHeight > window.innerHeight * 4) {
+    var bar = document.createElement('div'); bar.className = 'progress'; bar.setAttribute('aria-hidden', 'true');
+    var up = document.createElement('a'); up.className = 'to-top'; up.href = '#top'; up.setAttribute('aria-label', 'Back to top'); up.innerHTML = '<span aria-hidden="true">\u2191</span>';
+    up.addEventListener('click', function (e) { e.preventDefault(); window.scrollTo({ top: 0, behavior: still ? 'auto' : 'smooth' }); var f = document.querySelector('.mark'); if (f) f.focus({ preventScroll: true }); });
+    document.body.appendChild(bar); document.body.appendChild(up);
+    var ticking = false;
+    var paint = function () {
+      ticking = false;
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      var r = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+      bar.style.transform = 'scaleX(' + r + ')';
+      up.classList.toggle('show', window.scrollY > window.innerHeight * 1.5);
+    };
+    window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(paint); } }, { passive: true });
+    window.addEventListener('resize', paint); paint();
+  }
+
+  // minutes to read, from the words on the page
+  document.querySelectorAll('[data-readtime]').forEach(function (el) {
+    var count = function (n) { return n ? (n.innerText || '').split(/\s+/).length : 0; };
+    var words = count(main) - count(document.querySelector('main .join'));
+    var m = Math.max(1, Math.round(words / 220));
+    el.textContent = m + ' min read'; el.hidden = false;
+  });
+
   // phone menu
   var overlay = document.getElementById('overlay');
   var openBtn = document.getElementById('menu-open');
@@ -30,7 +57,7 @@
 
   // the one motion: content fades up gently as it arrives
   if (!still && 'IntersectionObserver' in window) {
-    var items = document.querySelectorAll('.tile, .brand-list li, .pillar, .facts li, .brand-card, .cases li, .principles li, .part, .episode, .stepper li, .gallery .photo');
+    var items = document.querySelectorAll('.tile, .shop-row, .pbrand, .brand-list li, .pillar, .facts li, .brand-card, .cases li, .principles li, .part, .episode, .stepper li, .gallery .photo');
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
     }, { rootMargin: '0px 0px -8% 0px' });

@@ -43,7 +43,7 @@ PODCAST = load("podcast.json")
 SPOTIFY_SHOW = PODCAST.get("spotify_show", "")
 YOUTUBE_CHANNEL = PODCAST.get("youtube_channel", "")
 
-TODO = '<span class="todo">To confirm</span>'
+TODO = ''   # unknown values are hidden, never shown as a placeholder
 COLOURS = ["peepal", "haldi", "genda", "kattha", "neel", "sindoor"]
 
 BRANDS = []
@@ -159,11 +159,11 @@ def shop_cards(P):
             cards.append(f'      <a class="product" href="{E(p["link"])}" target="_blank" rel="noopener">{pic}'
                          f'<span class="pbody"><span class="pname">{E(p["name"])}</span>{price}'
                          f'<span class="pgo">Buy on {E(b["name"])} <span aria-hidden="true">&#8599;</span></span></span></a>')
-        if not cards:
-            btn = (f'<a class="pill line" href="{url}" target="_blank" rel="noopener">{label} <span class="arr" aria-hidden="true">&#8599;</span></a>'
-                   if url else '<span class="pill line" aria-disabled="true">No shop link yet</span>')
-            cards.append(f'      <div class="product empty"><span class="pbody"><span class="pname">{"See everything " + E(b["name"]) + " makes on its own shop." if url else "We do not have a shop link for " + E(b["name"]) + " yet."}</span>{btn}</span></div>')
-        out.append(f'    <div class="shop-row">\n{head}\n    <div class="products">\n' + "\n".join(cards) + '\n    </div>\n    </div>')
+        if not cards and url:
+            btn = f'<a class="pill line" href="{url}" target="_blank" rel="noopener">{label} <span class="arr" aria-hidden="true">&#8599;</span></a>'
+            cards.append(f'      <div class="product empty"><span class="pbody"><span class="pname">See everything {E(b["name"])} makes on its own shop.</span>{btn}</span></div>')
+        prods = ('\n    <div class="products">\n' + "\n".join(cards) + '\n    </div>') if cards else ''
+        out.append(f'    <div class="shop-row">\n{head}{prods}\n    </div>')
     return "\n".join(out)
 
 
@@ -176,7 +176,7 @@ def practices_html(P):
             f'<span class="lv lv-{p.get("level", "founder")}">{LEVELS.get(p.get("level", "founder"), LEVELS["founder"])}</span></li>'
             for p in b["practices"])
         if not items:
-            items = '<li class="none" data-area="all"><span class="ptext">Not shared yet. We will add it when the founder tells us.</span></li>'
+            continue   # a brand that has not shared its practices is left out of the list
         rows.append(f'    <div class="pbrand"><h3><a href="{P}brands/{b["slug"]}.html">{E(b["name"])}</a></h3><ul>{items}</ul></div>')
     return '    <div class="plist">\n' + "\n".join(rows) + '\n    </div>'
 
@@ -234,7 +234,7 @@ def home_brand_row(b, P):
     out = b["site"] or (f'https://www.instagram.com/{b["instagram"]}/' if b["instagram"] else "")
     label = b["site"].replace("https://", "") if b["site"] else (f'@{b["instagram"]}' if b["instagram"] else "")
     what = (f'<a class="site-chip" href="{out}" target="_blank" rel="noopener">{label} <span aria-hidden="true">&#8599;</span></a>'
-            if out else '<span class="what">Site coming soon</span>')
+            if out else '')
     return (f'      <li>{thumb}<a class="name" href="{P}brands/{b["slug"]}.html">{E(b["name"])}<small>{E(b["makes"])}</small></a>{what}</li>')
 
 
@@ -256,30 +256,35 @@ def craft_reel(items, title, line, P):
 
 
 FOCUS = [("nature", "Nature"), ("culture", "Culture"), ("sustainability", "Sustainability")]
-ASK = "To confirm with the founder"
 
 
 def focus_block(b):
+    # only what the founder has confirmed; nothing at all if nothing is confirmed
     cells = "".join(
-        f'<div class="fc fc-{k}"><span class="fk">{t}</span>'
-        + (f'<p>{E(b[k])}</p>' if b.get(k) else f'<p><span class="todo">{ASK}</span></p>') + '</div>' for k, t in FOCUS)
-    return f'<div class="focus">{cells}</div>'
+        f'<div class="fc fc-{k}"><span class="fk">{t}</span><p>{E(b[k])}</p></div>' for k, t in FOCUS if b.get(k))
+    return (f'<h3 class="sub">Where {E(b["name"])} stands</h3>\n        <div class="focus">{cells}</div>') if cells else ''
 
 
 def focus_table(P):
-    head = "".join(f'<th scope="col">{t}</th>' for _, t in FOCUS)
+    # brands with nothing confirmed are left out, and so are columns nobody has filled
+    brands = [b for b in BRANDS if any(b.get(k) for k, _ in FOCUS)]
+    cols = [(k, t) for k, t in FOCUS if any(b.get(k) for b in brands)]
+    if not brands or not cols:
+        return ''
+    head = "".join(f'<th scope="col">{t}</th>' for _, t in cols)
     rows = "".join(
         f'<tr><th scope="row"><a href="{P}brands/{b["slug"]}.html">{E(b["name"])}</a></th>'
-        + "".join(f'<td>{E(b[k])}</td>' if b.get(k) else f'<td class="todo-cell"><span>{ASK}</span></td>' for k, _ in FOCUS) + '</tr>'
-        for b in BRANDS)
-    return f'<div class="focus-wrap"><table class="focus-table"><thead><tr><th scope="col">Brand</th>{head}</tr></thead><tbody>{rows}</tbody></table></div>'
+        + "".join(f'<td data-label="{t}">{E(b[k])}</td>' if b.get(k) else '<td class="empty"></td>' for k, t in cols) + '</tr>'
+        for b in brands)
+    return ('<h3 class="steps-title">What each brand tells us</h3>\n    '
+            f'<div class="focus-wrap"><table class="focus-table"><thead><tr><th scope="col">Brand</th>{head}</tr></thead><tbody>{rows}</tbody></table></div>')
 
 
 def brand_main(b, P="../"):
     idea = "\n".join(f"        <p>{E(p)}</p>" for p in b["idea"])
     shop_url = b["site"] or (f'https://www.instagram.com/{b["instagram"]}/' if b["instagram"] else "")
     shop_btn = (f'<a class="pill solid" href="{shop_url}" target="_blank" rel="noopener">Visit {E(b["name"])} <span class="arr" aria-hidden="true">&#8599;</span></a>'
-                if shop_url else '<span class="pill line" aria-disabled="true">No shop link yet</span>')
+                if shop_url else '')
     ig_btn = (f'<a class="pill line" href="https://www.instagram.com/{b["instagram"]}/" target="_blank" rel="noopener">@{b["instagram"]}</a>'
               if b["site"] and b["instagram"] else "")
     if b.get("hero"):
@@ -307,7 +312,7 @@ def brand_main(b, P="../"):
         <p class="corners narrow" style="margin:0;padding:0">{E(b['role'])}</p>
         {f'<p class="brand-logo">{img(b["logo"], b["name"] + " logo", P, eager=True)}</p>' if b.get("logo") else ""}<h1 class="display">{E(b['name'])}</h1>
         <p class="lede">{E(b['line'])}</p>
-        <div class="actions">{shop_btn}{ig_btn}</div>
+        {f'<div class="actions">{shop_btn}{ig_btn}</div>' if shop_btn or ig_btn else ''}
       </div>
     </div>
     {photo}
@@ -318,17 +323,16 @@ def brand_main(b, P="../"):
       <div class="idea">
         <h2 class="display">The idea</h2>
 {idea}
-        <h3 class="sub">Where {E(b['name'])} stands</h3>
         {focus_block(b)}
       </div>
       <dl class="facts-list">
         <div><dt>Makes</dt><dd>{E(b['makes'])}</dd></div>
         <div><dt>Made in</dt><dd>India{(', ' + E(b['city'])) if b['city'] else ''}</dd></div>
         <div><dt>Homegrown</dt><dd>Founded and run in India, as the founder has told us</dd></div>
-        <div><dt>Founder</dt><dd>{E(b['founder']) or TODO}</dd></div>
+        {f"<div><dt>Founder</dt><dd>{E(b['founder'])}</dd></div>" if b['founder'] else ''}
         <div><dt>In Zeroing</dt><dd>{E(b['role'])}</dd></div>
-        <div><dt>Website</dt><dd>{site_link(b['site'])}</dd></div>
-        <div><dt>Instagram</dt><dd>{ig(b['instagram'])}</dd></div>
+        {f"<div><dt>Website</dt><dd>{site_link(b['site'])}</dd></div>" if b['site'] else ''}
+        {f"<div><dt>Instagram</dt><dd>{ig(b['instagram'])}</dd></div>" if b['instagram'] else ''}
       </dl>
     </div>
   </section>
@@ -371,7 +375,7 @@ def listen_buttons(part, solid=True):
         out.append(f'<a class="pill spotify" href="{part["spotify"]}" target="_blank" rel="noopener">Listen on Spotify <span class="arr" aria-hidden="true">&#8599;</span></a>')
     if part["youtube"]:
         out.append(f'<a class="pill {"solid" if solid else "line"}" href="{part["youtube"]}" target="_blank" rel="noopener">Watch on YouTube <span class="arr" aria-hidden="true">&#8599;</span></a>')
-    return "".join(out) or '<span class="pill line" aria-disabled="true">Links coming soon</span>'
+    return "".join(out)
 
 
 def spotify_embed(url, title):

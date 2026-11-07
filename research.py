@@ -50,8 +50,26 @@ def shell(title, desc, here, main):
 </main>
 {footer(crumb)}
 <script src="charts.js"></script>
+{LAB_POLISH}
 </body></html>
 """
+
+
+LAB_POLISH = """<div class="lab-progress" aria-hidden="true"></div>
+<style>
+header nav a{display:inline-flex;align-items:center;min-height:40px}
+footer li a{display:inline-block;padding:3px 0}
+:where([id]){scroll-margin-top:84px}
+:focus-visible{outline:2px solid #f4b942;outline-offset:3px;border-radius:4px}
+.lab-progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:60;pointer-events:none;transform-origin:0 50%;transform:scaleX(0);background:#e0505c}
+@media (max-width:640px){footer li a{padding:7px 0}}
+</style>
+<script>
+(function(){var b=document.querySelector('.lab-progress');if(!b)return;
+if(document.documentElement.scrollHeight<innerHeight*4){b.remove();return}
+var t=false;function p(){t=false;var m=document.documentElement.scrollHeight-innerHeight;b.style.transform='scaleX('+(m>0?Math.min(1,scrollY/m):0)+')'}
+addEventListener('scroll',function(){if(!t){t=true;requestAnimationFrame(p)}},{passive:true});addEventListener('resize',p);p()})();
+</script>"""
 
 
 def footer(crumb):
@@ -127,7 +145,7 @@ ABOUT = """<section id="about" class="lab-about grid gap-6 md:grid-cols-2">
   <div class="grid gap-4" style="align-content:start"><span class="chip">Why the lab exists</span><h2 class="h-sec">Every story about India <i>gets edited.</i></h2></div>
   <div class="grid gap-4 leading-relaxed text-muted" style="align-content:start;font-size:17px">
     <p>The unpaid invoice. The permission letter that sat on a desk for three months. The savings that paid the rent while the work got done. <span class="text-paper">That is the part we keep.</span></p>
-    <p>The Other Details is the research lab of Zeroing, a community of homegrown Indian brands. Every number goes back to the page it was first printed on. Not highlights. A record.</p>
+    <p>The Other Details is the research lab of Zeroing, a community of homegrown Indian brands. It does two jobs. It traces every number we publish to the page it was first printed on. And it checks what our brands say about how they make things, so a practice on the shop page can move from Founder says to Checked by Zeroing.</p>
     <p><a class="text-teal" href="https://www.instagram.com/theotherdetails/" target="_blank" rel="noopener">Follow @theotherdetails on Instagram</a></p>
   </div>
 </section>"""

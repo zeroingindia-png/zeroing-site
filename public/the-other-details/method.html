@@ -33,4 +33,19 @@
  </div>
 </footer>
 <script src="charts.js"></script>
+<div class="lab-progress" aria-hidden="true"></div>
+<style>
+header nav a{display:inline-flex;align-items:center;min-height:40px}
+footer li a{display:inline-block;padding:3px 0}
+:where([id]){scroll-margin-top:84px}
+:focus-visible{outline:2px solid #f4b942;outline-offset:3px;border-radius:4px}
+.lab-progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:60;pointer-events:none;transform-origin:0 50%;transform:scaleX(0);background:#e0505c}
+@media (max-width:640px){footer li a{padding:7px 0}}
+</style>
+<script>
+(function(){var b=document.querySelector('.lab-progress');if(!b)return;
+if(document.documentElement.scrollHeight<innerHeight*4){b.remove();return}
+var t=false;function p(){t=false;var m=document.documentElement.scrollHeight-innerHeight;b.style.transform='scaleX('+(m>0?Math.min(1,scrollY/m):0)+')'}
+addEventListener('scroll',function(){if(!t){t=true;requestAnimationFrame(p)}},{passive:true});addEventListener('resize',p);p()})();
+</script>
 </body></html>
