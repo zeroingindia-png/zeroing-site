@@ -7,7 +7,7 @@
   "title": "The cloud has",
   "ital": "an address.",
   "question": "Where does the internet <i>live, and what does it drink?</i>",
-  "lede": "Every reel you scroll lands in a building. India now has about 1,500 MW of them, most in a few water-short cities. Here is what they burn and drink.",
+  "lede": "Every reel you scroll lands in a building. India now has about 1,500 MW of these buildings, most in a few water-short cities. Here is what they burn and drink.",
   "read": "6 min",
   "hero": "dc-servers",
   "sticker": "4× in five years",
@@ -80,7 +80,7 @@
     "video": "dc-pylon",
     "chip": "02 · Power",
     "title": "Small for now. <i>Nobody agrees what's next.</i>",
-    "text": "Data centres use about half a percent of India's electricity. A CEEW study expects 4.5 to 6.5 GW by 2030; the power ministry now projects an additional 26.3 GW of AI data centre load by FY 2032. Real trend solid, forecasts dashed.",
+    "text": "Data centres use about half a percent of India's electricity. A CEEW study expects 4.5 to 6.5 GW by 2030; the power ministry now projects an additional 26.3 GW of AI data centre load by FY 2032. On the chart, the real trend is solid and the forecasts are dashed.",
     "fig": "fan",
     "why": "<b>How to read it.</b> The two forecasts measure slightly different things, installed capacity and power demand, and still differ by four times or more. That gap is the uncertainty.",
     "src": "CEEW &amp; SYSTEMIQ 2026 · Ministry of Power, Parliament reply, Jul 2026"
@@ -91,7 +91,7 @@
     "title": "One campus, <i>one town.</i>",
     "text": "Chips turn electricity into heat, and the cheapest way to remove heat is evaporating water. A 100 MW campus can use about 20 lakh litres a day. Divided by a city's planning norm of 135 litres per person, that is about 15,000 people.",
     "fig": "people",
-    "why": "<b>Across India.</b> About 150 billion litres in 2024, the daily water of about 3 million people every day of the year, expected to more than double by 2030.",
+    "why": "<b>Across India.</b> About 150 billion litres in 2024. That is the daily water of about 3 million people, every day of the year. It is expected to more than double by 2030.",
     "src": "CEEW &amp; SYSTEMIQ 2026 · CPHEEO norm"
    },
    {

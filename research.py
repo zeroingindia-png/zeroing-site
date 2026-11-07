@@ -230,7 +230,7 @@ def method_page():
              ("Credit the owners", "Data belongs to its original sources and owners. The Other Details only presents it.")]
     cards = "".join(f'<div class="glass p-6"><span class="font-head text-sm font-black tracking-widest text-teal">{i + 1:02d}</span><h3 class="mt-2.5 font-head text-2xl font-black tracking-tight">{h}</h3><p class="mt-2.5 text-muted">{p}</p></div>'
                     for i, (h, p) in enumerate(rules))
-    main = f"""<section class="wrap pb-24 pt-14"><span class="chip chip-teal">How the lab works</span><h1 class="h-hero">Data can be wrong. <i>We check anyway.</i></h1>
+    main = f"""<section class="wrap pb-24 pt-14"><span class="chip chip-teal">How the lab works</span><h1 class="h-hero">Data can be wrong. <i>So we check it.</i></h1>
 <p class="lede">The same six rules run every study, from the first search to the last frame of the reel.</p>
 <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{cards}</div></section>"""
     return shell("Method · The Other Details", "How The Other Details checks every number before it reaches a page or a reel.", "method", main)

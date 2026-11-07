@@ -9,7 +9,7 @@
     },
     {
       "title": "Independent Society",
-      "text": "Our podcast. One person at a time, one long honest conversation about what their working life in India actually looked like, from the inside.",
+      "text": "Our podcast. One person at a time, in one long honest conversation about their working life in India, from the inside.",
       "image": "/media/ep-conversation.jpg"
     },
     {
@@ -69,7 +69,7 @@
     },
     {
       "number": 2,
-      "text": "episodes are on record, and the next conversation is coming."
+      "text": "episodes are on record. The next one is coming."
     }
   ],
   "brands_title": "Made here, by people you can meet.",
@@ -102,7 +102,6 @@
       "image": "/media/indso-orange-peel.jpg",
       "points": [
         "We call no brand sustainable. Each brand page shows what its founder says it does now on materials, packaging or making, and what comes next.",
-        "Brands meet each other's suppliers, stalls and customers. Fewer of them build alone.",
         "We grow at the makers' pace, one founder conversation at a time."
       ]
     }
@@ -123,7 +122,7 @@
     },
     {
       "title": "Grow in public",
-      "text": "Brands present Independent Society together. The brands that present a conversation are credited on it."
+      "text": "Brands present Independent Society together, and each one is credited on the conversation it presents."
     }
   ]
 }
