@@ -540,6 +540,26 @@ def build():
 SITE = "https://zeroingnow.com/"
 
 
+SEO = {
+    "index.html": ("Zeroing · A community of homegrown Indian brands",
+                   "Zeroing brings homegrown, made-in-India brands together like stalls in one lane, with Independent Society, a podcast on working life in India, and a research lab."),
+    "community.html": ("The Zeroing community · Homegrown brands from India",
+                       "Meet the homegrown Indian brands in Zeroing, what we learned from Dastkar, Fashion Revolution and others, and how brands here open doors for each other."),
+    "shop.html": ("Shop the lane · Buy from homegrown Indian brands · Zeroing",
+                  "Buy straight from INDSO, Ampor Eyewear and other homegrown Indian brands in Zeroing, on their own shops, and see how each one makes its products."),
+    "independent-society.html": ("Independent Society · A podcast on working life in India",
+                                 "Independent Society by Zeroing: one person at a time, a long honest conversation about working life in India, seen from the inside. Listen on Spotify."),
+    "episodes/akanksha-sood-singh.html": ("Akanksha Sood Singh, wildlife filmmaker · Independent Society",
+                                          "Wildlife filmmaker Akanksha Sood Singh in conversation with Anshul Kumar on Independent Society by Zeroing. Two parts, on Spotify."),
+    "join.html": ("Join Zeroing · Apply as a homegrown Indian brand",
+                  "Apply to bring your made-in-India brand into Zeroing. Tell us what you make and one door you could open for another brand. We reply within 14 days."),
+    "contact.html": ("Contact Zeroing · Brands, guests, press and creators",
+                     "Write to Zeroing to join as a brand, suggest a podcast guest, ask as press or collaborate as a creator. Based in New Delhi."),
+    "legal.html": ("Disclaimer, privacy and terms · Zeroing",
+                   "How Zeroing handles your data, what we publish and why, and how to raise a grievance."),
+}
+
+
 def _clean_path(rel):
     if rel == "index.html":
         return ""
@@ -550,7 +570,7 @@ def _clean_path(rel):
 
 def share_tags():
     """Give every built page a canonical address and a preview card for WhatsApp, LinkedIn, X and others."""
-    import glob, re as _re
+    import glob, re as _re, datetime as _dt
     for full in glob.glob(os.path.join(OUT, "**", "*.html"), recursive=True):
         rel = os.path.relpath(full, OUT).replace(os.sep, "/")
         if rel.startswith("media/"):
@@ -566,6 +586,16 @@ def share_tags():
             return f'href="{path}{frag}"'
         html = _re.sub(r'href="(?!https?:|mailto:|tel:|//)([^"#?]*?)\.html(#[^"]*)?"', clean, html)
         url = SITE + _clean_path(rel)
+        seo = SEO.get(rel)
+        if rel.startswith("brands/"):
+            b = next((x for x in BRANDS if x["slug"] == rel[7:-5]), None)
+            if b:
+                seo = (f"{b['name']}: {b['makes'] or b['line']} · Zeroing",
+                       f"{b['name']} is a homegrown Indian brand in the Zeroing community. {b['line']} See how it makes things and buy from its own shop.")
+        if seo:
+            html = _re.sub(r"<title>.*?</title>", "<title>" + E(seo[0]) + "</title>", html, count=1, flags=_re.S)
+            html = _re.sub(r'<meta name="description" content="[^"]*">', '<meta name="description" content="' + E(seo[1]) + '">', html, count=1)
+        html = html.replace('<html lang="en">', '<html lang="en-IN">', 1)
         title = (_re.search(r"<title>(.*?)</title>", html, _re.S) or [None, "Zeroing"])[1].strip()
         desc = (_re.search(r'<meta name="description" content="([^"]*)"', html) or [None, ""])[1]
         hero = _re.search(r'class="hero-photo[^"]*"><img src="([^"]+)"', html)
@@ -573,7 +603,7 @@ def share_tags():
         if hero and rel.startswith(("brands/", "episodes/")):
             image = SITE + _re.sub(r"^(\.\./)+", "", hero.group(1))
         tags = (f'\n<link rel="canonical" href="{url}">'
-                f'\n<meta property="og:type" content="website"><meta property="og:site_name" content="Zeroing">'
+                f'\n<meta property="og:type" content="website"><meta property="og:site_name" content="Zeroing"><meta property="og:locale" content="en_IN">'
                 f'\n<meta property="og:url" content="{url}"><meta property="og:title" content="{title}">'
                 f'\n<meta property="og:description" content="{desc}"><meta property="og:image" content="{image}">'
                 f'\n<meta name="twitter:card" content="summary_large_image">')
@@ -582,11 +612,21 @@ def share_tags():
             org = {"@type": "Organization", "name": "Zeroing", "url": SITE, "logo": SITE + "icon-512.png",
                    "description": "A community of homegrown Indian brands.", "email": "zeroingindia@gmail.com",
                    "sameAs": ["https://www.instagram.com/zeroingnow/", "https://www.instagram.com/theotherdetails/"]}
+            faq = {"@type": "FAQPage", "mainEntity": [
+                {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in [
+                    ("What is Zeroing?", "Zeroing is a community of homegrown, made-in-India brands based in New Delhi. The brands open doors for each other and each sells from its own shop."),
+                    ("Which brands are in Zeroing?", "INDSO (botanical skincare gels), Ampor Eyewear, Vedi Kade (modern clothing with Tamil history in it) and Syzygy Living (design homeware), with three more brands that joined in 2026."),
+                    ("What is Independent Society?", "Independent Society is Zeroing's podcast: one person at a time, a long honest conversation about working life in India. It is hosted by Anshul Kumar and is on Spotify."),
+                    ("What is The Other Details?", "The Other Details is the research lab of Zeroing. It traces every number it publishes to the page it was first printed on."),
+                    ("How can a brand join Zeroing?", "A brand applies on the Join page, says what it makes and names one door it could open for another brand. Zeroing replies within 14 days.")]]}
             data = org if rel == "index.html" else {
                 "@type": "PodcastSeries", "name": "Independent Society", "url": url, "author": {"@type": "Person", "name": "Anshul Kumar"},
                 "publisher": org, "sameAs": [PODCAST.get("spotify_show", "")], "description": desc}
             data["@context"] = "https://schema.org"
             tags += '\n<script type="application/ld+json">' + _json.dumps(data, ensure_ascii=False) + "</script>"
+            if rel == "index.html":
+                faq["@context"] = "https://schema.org"
+                tags += '\n<script type="application/ld+json">' + _json.dumps(faq, ensure_ascii=False) + "</script>"
         html = html.replace("</title>", "</title>" + tags, 1)
         open(full, "w", encoding="utf-8").write(html)
     urls = []
@@ -596,8 +636,26 @@ def share_tags():
             continue
         urls.append(SITE + _clean_path(rel))
     open(os.path.join(OUT, "sitemap.xml"), "w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-        + "".join(f"  <url><loc>{u}</loc></url>\n" for u in urls) + "</urlset>\n")
-    open(os.path.join(OUT, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\nSitemap: {SITE}sitemap.xml\n")
+        + "".join(f"  <url><loc>{u}</loc><lastmod>{_dt.date.today().isoformat()}</lastmod></url>\n" for u in urls) + "</urlset>\n")
+    bots = ["GPTBot", "OAI-SearchBot", "ChatGPT-User", "ClaudeBot", "Claude-SearchBot", "Claude-User", "PerplexityBot", "Google-Extended", "Applebot-Extended", "CCBot"]
+    open(os.path.join(OUT, "robots.txt"), "w").write("User-agent: *\nAllow: /\n\n" + "".join(f"User-agent: {b}\nAllow: /\n\n" for b in bots) + f"Sitemap: {SITE}sitemap.xml\n")
+    lines = ["# Zeroing", "",
+             "> Zeroing is a community of homegrown, made-in-India brands based in New Delhi. Brands stand together like stalls in one lane: they open doors for each other, share customers and suppliers, and each sells from its own shop. Zeroing also runs Independent Society, a long-form podcast about working life in India, and The Other Details, a research lab that traces every number it publishes to its source.", "",
+             "## Brands"]
+    for b in BRANDS:
+        site = f" Shop: {b['site']}." if b.get("site") else ""
+        lines.append(f"- [{b['name']}]({SITE}brands/{b['slug']}): {b['line']}{site}")
+    lines += ["", "## Pages",
+              f"- [Home]({SITE}): what Zeroing is and why it exists",
+              f"- [Community]({SITE}community): the brands and what we learned from similar efforts",
+              f"- [Shop the lane]({SITE}shop): buy from each brand on its own shop; practices labelled Founder says, Proof shared or Checked by Zeroing",
+              f"- [Independent Society]({SITE}independent-society): the podcast, hosted by Anshul Kumar, on Spotify",
+              f"- [Akanksha Sood Singh episode]({SITE}episodes/akanksha-sood-singh): wildlife filmmaker, two parts",
+              f"- [The Other Details]({SITE}the-other-details/): research lab studies on data centres and gold, and short reels",
+              f"- [Join]({SITE}join): how a brand applies",
+              f"- [Contact]({SITE}contact): zeroingindia@gmail.com, Instagram @zeroingnow",
+              "", "## Notes", "- Zeroing does not sell products itself and takes no payment.", "- Claims about how brands make things are labelled by how far they have been checked."]
+    open(os.path.join(OUT, "llms.txt"), "w").write("\n".join(lines) + "\n")
 
 
 if __name__ == "__main__":
