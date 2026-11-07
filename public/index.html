@@ -683,6 +683,21 @@ a.product:hover { border-color: var(--ink); }
 
 .lane-gif { margin: clamp(32px, 5vw, 56px) 0 0; border-top: 1px solid rgba(27,26,24,.12); border-bottom: 1px solid rgba(27,26,24,.12); }
 .lane-gif img { display: block; width: 100%; height: auto; }
+
+/* brand pages: logo-led headers and logo cards (no meaningless crops of artwork) */
+.brand-hero h1.brand-mark { line-height: 0; }
+.brand-hero h1.brand-mark img { height: clamp(48px, 6vw, 84px); width: auto; max-width: 100%; }
+.brand-hero .hero-photo.logo { display: grid; place-items: center; aspect-ratio: 4 / 3; background: #fff; border: 1px solid var(--line); padding: 0 14%; }
+.brand-hero .hero-photo.logo img { width: 100%; height: auto; max-height: 40%; object-fit: contain; }
+.brand-card .card-img.logo { display: grid; place-items: center; background: #fff; border-bottom: 1px solid var(--line); padding: 0 18%; }
+.brand-card .card-img.logo img { width: 100%; height: auto; max-height: 34%; object-fit: contain; transition: none; }
+.brand-card:hover .card-img.logo img { transform: none; }
+@media (max-width: 900px) {
+  .brand-hero .hero-photo.logo { aspect-ratio: 16 / 9; padding: 0 18%; }
+}
+@media (max-width: 520px) {
+  .brand-card .card-img.logo { aspect-ratio: 2 / 1; padding: 0 22%; }
+}
 </style>
 </head>
 <body>
@@ -765,7 +780,7 @@ a.product:hover { border-color: var(--ink); }
       <article class="pillar"><h3>Sustainability</h3><p class="pillar-line">We ask every brand for one honest next step.</p><ul><li>We call no brand sustainable. Each brand page shows what its founder says it does now on materials, packaging or making, and what comes next.</li><li>We grow at the makers&#x27; pace, one founder conversation at a time.</li></ul></article>
     </div>
     <h3 class="steps-title">What each brand tells us</h3>
-    <div class="focus-wrap"><table class="focus-table"><thead><tr><th scope="col">Brand</th><th scope="col">Nature</th><th scope="col">Culture</th></tr></thead><tbody><tr><th scope="row"><a href="brands/indso">INDSO</a></th><td data-label="Nature">Turmeric, saffron, honey, ashwagandha, coffee, orange, white tea and black lotus.</td><td data-label="Culture">It starts from haldi doodh, the glass of turmeric milk made at home.</td></tr><tr><th scope="row"><a href="brands/vedi-kade">Vedi Kade</a></th><td class="empty"></td><td data-label="Culture">Tamil history, carried into clothes you wear today.</td></tr></tbody></table></div>
+    <div class="focus-wrap"><table class="focus-table"><thead><tr><th scope="col">Brand</th><th scope="col">Nature</th><th scope="col">Culture</th></tr></thead><tbody><tr><th scope="row"><a href="brands/indso">INDSO</a></th><td data-label="Nature">Turmeric, saffron, honey, ashwagandha, coffee, orange, white tea and black lotus.</td><td data-label="Culture">It starts from haldi doodh, the glass of turmeric milk made at home.</td></tr></tbody></table></div>
     <h3 class="steps-title">How a brand joins</h3>
     <ol class="stepper" aria-label="How a brand joins">
       <li><span class="dot">1</span><span class="st">Apply</span><span class="sd">Tell us what you make, where, and one door you could open for another brand.</span></li>

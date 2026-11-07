@@ -217,12 +217,11 @@ def brand_links(b, cls="site-chip"):
 
 
 def card_img(b, P):
+    # a real photograph if there is a good one, otherwise the brand's own logo; never a cropped strip of artwork
     if b.get("hero"):
         return f'<span class="card-img">{img(b.get("thumb") or b["hero"][0], b["hero"][1], P)}</span>'
-    if b.get("wordmark"):
-        return f'<span class="card-img word">{img(b["wordmark"][0], b["wordmark"][1], P)}</span>'
-    if b.get("tape"):
-        return f'<span class="card-img word" style="background:var(--haldi)">{img(b["tape"], b["name"] + " packing tape", P)}</span>'
+    if b.get("logo"):
+        return f'<span class="card-img logo">{img(b["logo"], b["name"] + " logo", P)}</span>'
     return f'<span class="card-img colour" aria-hidden="true"><span>{E(b["name"][0])}</span></span>'
 
 
@@ -302,58 +301,73 @@ def focus_table(P):
 
 def brand_main(b, P="../"):
     idea = "\n".join(f"        <p>{E(p)}</p>" for p in b["idea"])
-    shop_url = b["site"] or (f'https://www.instagram.com/{b["instagram"]}/' if b["instagram"] else "")
-    shop_btn = (f'<a class="pill solid" href="{shop_url}" target="_blank" rel="noopener">Visit {E(b["name"])} <span class="arr" aria-hidden="true">&#8599;</span></a>'
+    if b["site"]:
+        shop_url, shop_label, nav_label = b["site"], f'Visit {E(b["site"].replace("https://", ""))}', "Visit"
+    elif b["instagram"]:
+        shop_url, shop_label, nav_label = f'https://www.instagram.com/{b["instagram"]}/', f'@{E(b["instagram"])} on Instagram', "Instagram"
+    else:
+        shop_url = shop_label = nav_label = ""
+    shop_btn = (f'<a class="pill solid" href="{shop_url}" target="_blank" rel="noopener">{shop_label} <span class="arr" aria-hidden="true">&#8599;</span></a>'
                 if shop_url else '')
     ig_btn = (f'<a class="pill line" href="https://www.instagram.com/{b["instagram"]}/" target="_blank" rel="noopener">@{b["instagram"]}</a>'
               if b["site"] and b["instagram"] else "")
     if b.get("hero"):
+        # photo-led: the logo is the heading, the photograph sits beside it
         photo = f'<div class="hero-photo">{img(b["hero"][0], b["hero"][1], P, eager=True)}</div>'
+        title = (f'<h1 class="display brand-mark">{img(b["logo"], b["name"], P, eager=True)}</h1>' if b.get("logo")
+                 else f'<h1 class="display">{E(b["name"])}</h1>')
         cls = ""
-    elif b.get("wordmark"):
-        photo = f'<div class="hero-photo word">{img(b["wordmark"][0], b["wordmark"][1], P, eager=True)}</div>'
-        cls = ""
+    elif b.get("logo"):
+        # logo-led: no weak photograph, the brand's own mark on a clean panel
+        photo = f'<div class="hero-photo logo">{img(b["logo"], b["name"] + " logo", P, eager=True)}</div>'
+        title, cls = f'<h1 class="display">{E(b["name"])}</h1>', " logo-led"
     else:
         photo, cls = "", " no-photo"
-    tape = ""
-    if b.get("tape"):
-        one = img(b["tape"], "", P)
-        tape = f'  <div class="tape" aria-label="{E(b["name"])} packing tape"><div class="tape-run">{one * 12}</div></div>\n'
+        title = f'<h1 class="display">{E(b["name"])}</h1>'
     craft = craft_reel(b["craft"], b["craft_title"], E(b["craft_line"]), P) if b.get("craft") else ""
     others = [o for o in BRANDS if o["slug"] != b["slug"]]
     nxt = "\n".join(
         f'      <li><a href="{o["slug"]}.html"><span class="name">{E(o["name"])}</span><span>{E(o["makes"])}</span></a></li>'
         for o in others)
-    chapters = [("about", "The idea")] + ([("craft", b["craft_title"])] if b.get("craft") else []) + [("more", "More from the community")]
-    LN = localnav(b["name"], chapters).replace('</span></nav>', (f'<a class="ln-buy" href="{shop_url}" target="_blank" rel="noopener">Visit</a>' if shop_url else '') + '</span></nav>')
+    focus = focus_block(b)
+    has_story = bool(b["idea"] or focus)
+    about_title = "About" if has_story else "At a glance"
+    chapters = [("about", about_title)] + ([("craft", b["craft_title"])] if b.get("craft") else []) + [("more", "More from the community")]
+    LN = localnav(b["name"], chapters).replace('</span></nav>', (f'<a class="ln-buy" href="{shop_url}" target="_blank" rel="noopener">{nav_label}</a>' if shop_url else '') + '</span></nav>')
+    facts = "".join(x for x in [
+        f"<div><dt>Makes</dt><dd>{E(b['makes'])}</dd></div>" if b['makes'] else '',
+        f"<div><dt>Made in</dt><dd>India{(', ' + E(b['city'])) if b['city'] else ''}</dd></div>",
+        f"<div><dt>Founder</dt><dd>{E(b['founder'])}</dd></div>" if b['founder'] else '',
+        f"<div><dt>Website</dt><dd>{site_link(b['site'])}</dd></div>" if b['site'] else '',
+        f"<div><dt>Instagram</dt><dd>{ig(b['instagram'])}</dd></div>" if b['instagram'] else '',
+    ])
+    if has_story:
+        about = f"""      <div class="idea">
+        <h2 class="display">About</h2>
+{idea}
+        {focus}
+      </div>
+      <dl class="facts-list">{facts}</dl>"""
+    else:
+        about = f"""      <div class="idea">
+        <h2 class="display">At a glance</h2>
+      </div>
+      <dl class="facts-list">{facts}</dl>"""
     return f"""  <section class="field f-{b['colour']} hero brand-hero{cls}" id="top">
     <div class="hero-text">
       <div class="hero-body">
         <p class="corners narrow" style="margin:0;padding:0">{E(b['role'])}</p>
-        {f'<p class="brand-logo">{img(b["logo"], b["name"] + " logo", P, eager=True)}</p>' if b.get("logo") else ""}<h1 class="display">{E(b['name'])}</h1>
+        {title}
         <p class="lede">{E(b['line'])}</p>
         {f'<div class="actions">{shop_btn}{ig_btn}</div>' if shop_btn or ig_btn else ''}
       </div>
     </div>
     {photo}
   </section>
-{LN}{tape}
+{LN}
   <section class="field f-chuna auto" id="about">
     <div class="about">
-      <div class="idea">
-        <h2 class="display">The idea</h2>
-{idea}
-        {focus_block(b)}
-      </div>
-      <dl class="facts-list">
-        <div><dt>Makes</dt><dd>{E(b['makes'])}</dd></div>
-        <div><dt>Made in</dt><dd>India{(', ' + E(b['city'])) if b['city'] else ''}</dd></div>
-        <div><dt>Homegrown</dt><dd>Founded and run in India, as the founder has told us</dd></div>
-        {f"<div><dt>Founder</dt><dd>{E(b['founder'])}</dd></div>" if b['founder'] else ''}
-        <div><dt>In Zeroing</dt><dd>{E(b['role'])}</dd></div>
-        {f"<div><dt>Website</dt><dd>{site_link(b['site'])}</dd></div>" if b['site'] else ''}
-        {f"<div><dt>Instagram</dt><dd>{ig(b['instagram'])}</dd></div>" if b['instagram'] else ''}
-      </dl>
+{about}
     </div>
   </section>
 {craft}

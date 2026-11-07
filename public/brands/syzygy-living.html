@@ -7,7 +7,7 @@
 <link rel="canonical" href="https://zeroingnow.com/brands/syzygy-living">
 <meta property="og:type" content="website"><meta property="og:site_name" content="Zeroing"><meta property="og:locale" content="en_IN">
 <meta property="og:url" content="https://zeroingnow.com/brands/syzygy-living"><meta property="og:title" content="Syzygy Living: Design homeware · Zeroing">
-<meta property="og:description" content="Syzygy Living is a homegrown Indian brand in the Zeroing community. Design homeware. See how it makes things and buy from its own shop."><meta property="og:image" content="https://zeroingnow.com/media/share.jpg">
+<meta property="og:description" content="Syzygy Living is a homegrown Indian brand in the Zeroing community. Design homeware. See how it makes things and buy from its own shop."><meta property="og:image" content="https://zeroingnow.com/media/logo-syzygy-living.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Syzygy Living is a homegrown Indian brand in the Zeroing community. Design homeware. See how it makes things and buy from its own shop.">
@@ -681,6 +681,21 @@ a.product:hover { border-color: var(--ink); }
 
 .lane-gif { margin: clamp(32px, 5vw, 56px) 0 0; border-top: 1px solid rgba(27,26,24,.12); border-bottom: 1px solid rgba(27,26,24,.12); }
 .lane-gif img { display: block; width: 100%; height: auto; }
+
+/* brand pages: logo-led headers and logo cards (no meaningless crops of artwork) */
+.brand-hero h1.brand-mark { line-height: 0; }
+.brand-hero h1.brand-mark img { height: clamp(48px, 6vw, 84px); width: auto; max-width: 100%; }
+.brand-hero .hero-photo.logo { display: grid; place-items: center; aspect-ratio: 4 / 3; background: #fff; border: 1px solid var(--line); padding: 0 14%; }
+.brand-hero .hero-photo.logo img { width: 100%; height: auto; max-height: 40%; object-fit: contain; }
+.brand-card .card-img.logo { display: grid; place-items: center; background: #fff; border-bottom: 1px solid var(--line); padding: 0 18%; }
+.brand-card .card-img.logo img { width: 100%; height: auto; max-height: 34%; object-fit: contain; transition: none; }
+.brand-card:hover .card-img.logo img { transform: none; }
+@media (max-width: 900px) {
+  .brand-hero .hero-photo.logo { aspect-ratio: 16 / 9; padding: 0 18%; }
+}
+@media (max-width: 520px) {
+  .brand-card .card-img.logo { aspect-ratio: 2 / 1; padding: 0 22%; }
+}
 </style>
 </head>
 <body>
@@ -718,35 +733,25 @@ a.product:hover { border-color: var(--ink); }
 </div>
 
 <main>
-  <section class="field f-kattha hero brand-hero no-photo" id="top">
+  <section class="field f-kattha hero brand-hero logo-led" id="top">
     <div class="hero-text">
       <div class="hero-body">
         <p class="corners narrow" style="margin:0;padding:0">Community brand</p>
-        <p class="brand-logo"><img src="../media/logo-syzygy-living.png" alt="Syzygy Living logo" fetchpriority="high" decoding="async"></p><h1 class="display">Syzygy Living</h1>
+        <h1 class="display">Syzygy Living</h1>
         <p class="lede">Design homeware.</p>
-        <div class="actions"><a class="pill solid" href="https://www.instagram.com/syzygyliving/" target="_blank" rel="noopener">Visit Syzygy Living <span class="arr" aria-hidden="true">&#8599;</span></a></div>
+        <div class="actions"><a class="pill solid" href="https://www.instagram.com/syzygyliving/" target="_blank" rel="noopener">@syzygyliving on Instagram <span class="arr" aria-hidden="true">&#8599;</span></a></div>
       </div>
     </div>
-    
+    <div class="hero-photo logo"><img src="../media/logo-syzygy-living.png" alt="Syzygy Living logo" fetchpriority="high" decoding="async"></div>
   </section>
-  <nav class="localnav" aria-label="On this page"><span class="ln-title">Syzygy Living</span><span class="ln-links"><a href="#about">The idea</a><a href="#more">More from the community</a><a class="ln-buy" href="https://www.instagram.com/syzygyliving/" target="_blank" rel="noopener">Visit</a></span></nav>
+  <nav class="localnav" aria-label="On this page"><span class="ln-title">Syzygy Living</span><span class="ln-links"><a href="#about">At a glance</a><a href="#more">More from the community</a><a class="ln-buy" href="https://www.instagram.com/syzygyliving/" target="_blank" rel="noopener">Instagram</a></span></nav>
 
   <section class="field f-chuna auto" id="about">
     <div class="about">
       <div class="idea">
-        <h2 class="display">The idea</h2>
-        <p>Syzygy Living makes design homeware.</p>
-        
+        <h2 class="display">At a glance</h2>
       </div>
-      <dl class="facts-list">
-        <div><dt>Makes</dt><dd>Design homeware</dd></div>
-        <div><dt>Made in</dt><dd>India</dd></div>
-        <div><dt>Homegrown</dt><dd>Founded and run in India, as the founder has told us</dd></div>
-        
-        <div><dt>In Zeroing</dt><dd>Community brand</dd></div>
-        
-        <div><dt>Instagram</dt><dd><a href="https://www.instagram.com/syzygyliving/" target="_blank" rel="noopener">@syzygyliving</a></dd></div>
-      </dl>
+      <dl class="facts-list"><div><dt>Makes</dt><dd>Design homeware</dd></div><div><dt>Made in</dt><dd>India</dd></div><div><dt>Instagram</dt><dd><a href="https://www.instagram.com/syzygyliving/" target="_blank" rel="noopener">@syzygyliving</a></dd></div></dl>
     </div>
   </section>
 

@@ -681,6 +681,21 @@ a.product:hover { border-color: var(--ink); }
 
 .lane-gif { margin: clamp(32px, 5vw, 56px) 0 0; border-top: 1px solid rgba(27,26,24,.12); border-bottom: 1px solid rgba(27,26,24,.12); }
 .lane-gif img { display: block; width: 100%; height: auto; }
+
+/* brand pages: logo-led headers and logo cards (no meaningless crops of artwork) */
+.brand-hero h1.brand-mark { line-height: 0; }
+.brand-hero h1.brand-mark img { height: clamp(48px, 6vw, 84px); width: auto; max-width: 100%; }
+.brand-hero .hero-photo.logo { display: grid; place-items: center; aspect-ratio: 4 / 3; background: #fff; border: 1px solid var(--line); padding: 0 14%; }
+.brand-hero .hero-photo.logo img { width: 100%; height: auto; max-height: 40%; object-fit: contain; }
+.brand-card .card-img.logo { display: grid; place-items: center; background: #fff; border-bottom: 1px solid var(--line); padding: 0 18%; }
+.brand-card .card-img.logo img { width: 100%; height: auto; max-height: 34%; object-fit: contain; transition: none; }
+.brand-card:hover .card-img.logo img { transform: none; }
+@media (max-width: 900px) {
+  .brand-hero .hero-photo.logo { aspect-ratio: 16 / 9; padding: 0 18%; }
+}
+@media (max-width: 520px) {
+  .brand-card .card-img.logo { aspect-ratio: 2 / 1; padding: 0 22%; }
+}
 </style>
 </head>
 <body>
@@ -830,7 +845,7 @@ a.product:hover { border-color: var(--ink); }
     <p class="src" style="margin-top:18px">Four brands are listed. Three more joined in 2026, and their pages go up once their founders confirm the details.</p>
     <div class="brand-grid">
       <article class="brand-card bc-peepal">
-        <span class="card-img"><img src="media/indso-spread.jpg" alt="INDSO" loading="lazy" decoding="async"></span>
+        <span class="card-img"><img src="media/indso-spread-card.jpg" alt="INDSO" loading="lazy" decoding="async"></span>
         <div class="card-body">
           <span class="tag">Presented the first Independent Society conversation</span>
           <a class="bname" href="brands/indso">INDSO</a>
@@ -840,7 +855,7 @@ a.product:hover { border-color: var(--ink); }
         </div>
       </article>
       <article class="brand-card bc-haldi">
-        <span class="card-img word" style="background:var(--haldi)"><img src="media/ampor-tape.jpg" alt="Ampor Eyewear packing tape" loading="lazy" decoding="async"></span>
+        <span class="card-img logo"><img src="media/logo-ampor-eyewear.png" alt="Ampor Eyewear logo" loading="lazy" decoding="async"></span>
         <div class="card-body">
           <span class="tag">Presented the first Independent Society conversation</span>
           <a class="bname" href="brands/ampor-eyewear">Ampor Eyewear</a>
@@ -850,7 +865,7 @@ a.product:hover { border-color: var(--ink); }
         </div>
       </article>
       <article class="brand-card bc-genda">
-        <span class="card-img word"><img src="media/vedi-kade-wordmark.jpg" alt="Vedi Kade logo" loading="lazy" decoding="async"></span>
+        <span class="card-img logo"><img src="media/logo-vedi-kade.png" alt="Vedi Kade logo" loading="lazy" decoding="async"></span>
         <div class="card-body">
           <span class="tag">Community brand</span>
           <a class="bname" href="brands/vedi-kade">Vedi Kade</a>
@@ -860,7 +875,7 @@ a.product:hover { border-color: var(--ink); }
         </div>
       </article>
       <article class="brand-card bc-kattha">
-        <span class="card-img colour" aria-hidden="true"><span>S</span></span>
+        <span class="card-img logo"><img src="media/logo-syzygy-living.png" alt="Syzygy Living logo" loading="lazy" decoding="async"></span>
         <div class="card-body">
           <span class="tag">Community brand</span>
           <a class="bname" href="brands/syzygy-living">Syzygy Living</a>
