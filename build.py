@@ -615,7 +615,7 @@ def share_tags():
             faq = {"@type": "FAQPage", "mainEntity": [
                 {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in [
                     ("What is Zeroing?", "Zeroing is a community of homegrown, made-in-India brands based in New Delhi. The brands open doors for each other and each sells from its own shop."),
-                    ("Which brands are in Zeroing?", "INDSO (botanical skincare gels), Ampor Eyewear, Vedi Kade (modern clothing with Tamil history in it) and Syzygy Living (design homeware), with three more brands that joined in 2026."),
+                    ("Which brands are in Zeroing?", "INDSO (botanical skincare), Ampor Eyewear, Vedi Kade (modern clothing with Tamil history in it) and Syzygy Living (design homeware), with three more brands that joined in 2026."),
                     ("What is Independent Society?", "Independent Society is Zeroing's podcast: one person at a time, a long honest conversation about working life in India. It is hosted by Anshul Kumar and is on Spotify."),
                     ("What is The Other Details?", "The Other Details is the research lab of Zeroing. It traces every number it publishes to the page it was first printed on."),
                     ("How can a brand join Zeroing?", "A brand applies on the Join page, says what it makes and names one door it could open for another brand. Zeroing replies within 14 days.")]]}
