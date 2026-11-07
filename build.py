@@ -524,6 +524,14 @@ def build():
 SITE = "https://zeroingnow.com/"
 
 
+def _clean_path(rel):
+    if rel == "index.html":
+        return ""
+    if rel.endswith("/index.html"):
+        return rel[:-10]
+    return rel[:-5] if rel.endswith(".html") else rel
+
+
 def share_tags():
     """Give every built page a canonical address and a preview card for WhatsApp, LinkedIn, X and others."""
     import glob, re as _re
@@ -534,7 +542,14 @@ def share_tags():
         html = open(full, encoding="utf-8").read()
         if 'property="og:title"' in html:
             continue
-        url = SITE + ("" if rel == "index.html" else rel[:-10] if rel.endswith("/index.html") else rel)
+
+        def clean(m):
+            path, frag = m.group(1), m.group(2) or ""
+            if path == "index" or path.endswith("/index"):
+                path = path[:-5] or "./"
+            return f'href="{path}{frag}"'
+        html = _re.sub(r'href="(?!https?:|mailto:|tel:|//)([^"#?]*?)\.html(#[^"]*)?"', clean, html)
+        url = SITE + _clean_path(rel)
         title = (_re.search(r"<title>(.*?)</title>", html, _re.S) or [None, "Zeroing"])[1].strip()
         desc = (_re.search(r'<meta name="description" content="([^"]*)"', html) or [None, ""])[1]
         hero = _re.search(r'class="hero-photo[^"]*"><img src="([^"]+)"', html)
@@ -553,7 +568,7 @@ def share_tags():
         rel = os.path.relpath(full, OUT).replace(os.sep, "/")
         if rel.startswith("media/") or rel == "404.html":
             continue
-        urls.append(SITE + ("" if rel == "index.html" else rel[:-10] if rel.endswith("/index.html") else rel))
+        urls.append(SITE + _clean_path(rel))
     open(os.path.join(OUT, "sitemap.xml"), "w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
         + "".join(f"  <url><loc>{u}</loc></url>\n" for u in urls) + "</urlset>\n")
     open(os.path.join(OUT, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\nSitemap: {SITE}sitemap.xml\n")
