@@ -830,6 +830,25 @@ body > *:not(.ambient) { position: relative; z-index: 1; }
 @keyframes ambSway { to { transform: rotate(2deg) translateX(14px); } }
 @media (max-width: 700px) { .amb-mark, .amb-awning, .amb-lane.l2 { display: none; } .amb-glow { filter: blur(40px); } }
 @media (prefers-reduced-motion: reduce) { .ambient * { animation: none !important; } }
+
+/* eye-catchers: the awning unrolls, the lane moves */
+.awning-band { --s: 44px; position: relative; z-index: 2; height: calc(var(--s) * 1.5); overflow: hidden; }
+.awning-band span { position: absolute; inset: 0; transform-origin: top; animation: awnUnroll 1100ms cubic-bezier(.2,.8,.2,1) 150ms both, awnSlide 12s linear 1.3s infinite;
+  background: repeating-linear-gradient(90deg, var(--sindoor) 0 var(--s), #F3EBDD var(--s) calc(var(--s) * 2));
+  -webkit-mask: linear-gradient(#000, #000) 0 0 / 100% calc(100% - var(--s) / 2) no-repeat, radial-gradient(circle calc(var(--s) / 2) at 50% 0, #000 97%, transparent 100%) 0 calc(100% - var(--s) / 2) / var(--s) calc(var(--s) / 2) repeat-x;
+          mask: linear-gradient(#000, #000) 0 0 / 100% calc(100% - var(--s) / 2) no-repeat, radial-gradient(circle calc(var(--s) / 2) at 50% 0, #000 97%, transparent 100%) 0 calc(100% - var(--s) / 2) / var(--s) calc(var(--s) / 2) repeat-x;
+  -webkit-mask-position: 0 0, 0 100%; mask-position: 0 0, 0 100%; filter: drop-shadow(0 6px 8px rgba(27,26,24,.08)); }
+@media (max-width: 640px) { .awning-band { --s: 28px; } }
+@keyframes awnUnroll { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes awnSlide { to { transform: translateX(0); } }
+.marquee { margin: 0; width: 100%; overflow: hidden; border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); padding: clamp(10px, 1.4vw, 18px) 0; background: var(--paper); }
+.mq-track { display: inline-flex; align-items: center; gap: clamp(18px, 2.4vw, 36px); white-space: nowrap; animation: mqMove 34s linear infinite; padding-left: 2vw; }
+.mq-item { font-family: var(--font-display); font-weight: 700; font-size: clamp(2rem, 6vw, 5.2rem); line-height: 1; letter-spacing: -.02em; color: var(--ink); }
+.mq-item.mq-out { color: transparent; -webkit-text-stroke: 1.5px var(--sindoor); }
+.mq-dot { color: var(--sindoor); font-size: clamp(1.2rem, 3vw, 2.4rem); }
+.marquee:hover .mq-track { animation-play-state: paused; }
+@keyframes mqMove { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .awning-band span, .mq-track { animation: none !important; } }
 </style>
 </head>
 <body>
