@@ -828,3 +828,10 @@ main { counter-reset: zsec; }
 .touch-light.on { opacity: 1; }
 @media (max-width: 700px) { .amb-mark { display: block; width: 70vw; right: -24vw; top: 30vh; } }
 @media (prefers-reduced-motion: reduce) { .tap-ripple, .touch-light { display: none; } }
+
+/* header: hides while you read down, returns the moment you scroll up */
+.head { transition: transform 420ms cubic-bezier(.2,.8,.2,1), background-color 300ms ease, box-shadow 300ms ease, height 300ms ease, border-color 300ms ease; will-change: transform; }
+.head.solid { background: rgba(246,242,234,.78); -webkit-backdrop-filter: saturate(160%) blur(16px); backdrop-filter: saturate(160%) blur(16px); box-shadow: 0 1px 0 rgba(27,26,24,.06), 0 10px 30px -18px rgba(27,26,24,.25); }
+.head.away { transform: translateY(calc(-100% - 2px)); }
+.head.solid .mark span { letter-spacing: -.01em; }
+@media (prefers-reduced-motion: reduce) { .head { transition: none; } }

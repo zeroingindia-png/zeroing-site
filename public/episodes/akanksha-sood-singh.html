@@ -848,6 +848,13 @@ main { counter-reset: zsec; }
 .touch-light.on { opacity: 1; }
 @media (max-width: 700px) { .amb-mark { display: block; width: 70vw; right: -24vw; top: 30vh; } }
 @media (prefers-reduced-motion: reduce) { .tap-ripple, .touch-light { display: none; } }
+
+/* header: hides while you read down, returns the moment you scroll up */
+.head { transition: transform 420ms cubic-bezier(.2,.8,.2,1), background-color 300ms ease, box-shadow 300ms ease, height 300ms ease, border-color 300ms ease; will-change: transform; }
+.head.solid { background: rgba(246,242,234,.78); -webkit-backdrop-filter: saturate(160%) blur(16px); backdrop-filter: saturate(160%) blur(16px); box-shadow: 0 1px 0 rgba(27,26,24,.06), 0 10px 30px -18px rgba(27,26,24,.25); }
+.head.away { transform: translateY(calc(-100% - 2px)); }
+.head.solid .mark span { letter-spacing: -.01em; }
+@media (prefers-reduced-motion: reduce) { .head { transition: none; } }
 </style>
 </head>
 <body>
@@ -1036,8 +1043,17 @@ main { counter-reset: zsec; }
 
   // a hairline under the header once the page moves
   var head = document.getElementById('head');
-  function onScroll() { if (head) head.classList.toggle('solid', window.scrollY > 8); }
+  var lastY = window.scrollY;
+  function onScroll() {
+    if (!head) return;
+    var y = window.scrollY, menuOpen = document.getElementById('overlay') && !document.getElementById('overlay').hidden;
+    head.classList.toggle('solid', y > 8);
+    if (!menuOpen && y > 160 && y > lastY + 4) head.classList.add('away');
+    else if (y < lastY - 4 || y <= 160) head.classList.remove('away');
+    lastY = y;
+  }
   window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  document.addEventListener('focusin', function (e) { if (head && head.contains(e.target)) head.classList.remove('away'); });
 
   // long pages: a thin reading line under the top edge, and a way back up
   var main = document.querySelector('main');

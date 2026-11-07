@@ -15,8 +15,17 @@
 
   // a hairline under the header once the page moves
   var head = document.getElementById('head');
-  function onScroll() { if (head) head.classList.toggle('solid', window.scrollY > 8); }
+  var lastY = window.scrollY;
+  function onScroll() {
+    if (!head) return;
+    var y = window.scrollY, menuOpen = document.getElementById('overlay') && !document.getElementById('overlay').hidden;
+    head.classList.toggle('solid', y > 8);
+    if (!menuOpen && y > 160 && y > lastY + 4) head.classList.add('away');
+    else if (y < lastY - 4 || y <= 160) head.classList.remove('away');
+    lastY = y;
+  }
   window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  document.addEventListener('focusin', function (e) { if (head && head.contains(e.target)) head.classList.remove('away'); });
 
   // long pages: a thin reading line under the top edge, and a way back up
   var main = document.querySelector('main');
