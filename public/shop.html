@@ -802,6 +802,13 @@ main { counter-reset: zsec; }
   .tile-img, .brand-hero .hero-photo:not(.logo) { outline-offset: 4px; }
 }
 #what { padding-top: clamp(40px, 5vw, 80px); }
+
+/* crafted motion: icons draw themselves, dots fill, figures count up */
+.js .ico.draw * { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1400ms cubic-bezier(.4,0,.2,1); }
+.js .ico.draw.in * { stroke-dashoffset: 0; }
+.js .fact-viz.ready .on { opacity: .12; transition: opacity 260ms ease; transition-delay: calc(var(--k, 0) * 45ms); }
+.js .fact-viz.ready.go .on { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .js .ico.draw * { stroke-dashoffset: 0; transition: none; } .js .fact-viz.ready .on { opacity: 1; transition: none; } }
 </style>
 </head>
 <body>
@@ -997,6 +1004,40 @@ main { counter-reset: zsec; }
       entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
     }, { rootMargin: '0px 0px -8% 0px' });
     items.forEach(function (el) { el.classList.add('rv'); io.observe(el); });
+  }
+
+  // icons draw themselves, dot graphics fill, figures count up, once, as they arrive
+  if (!still && 'IntersectionObserver' in window) {
+    document.querySelectorAll('.ico').forEach(function (svg) {
+      svg.querySelectorAll('path,rect,circle,line,polyline,ellipse').forEach(function (el) { el.setAttribute('pathLength', '1'); });
+      svg.classList.add('draw');
+    });
+    document.querySelectorAll('.fact-viz').forEach(function (v) {
+      v.querySelectorAll('.on').forEach(function (d, i) { d.style.setProperty('--k', i); });
+      v.classList.add('ready');
+    });
+    var figs = [];
+    document.querySelectorAll('.facts .fig').forEach(function (f) {
+      var t = f.firstChild; if (!t || t.nodeType !== 3) return;
+      var m = t.nodeValue.match(/^(\s*)(\d+(?:\.\d+)?)/); if (!m) return;
+      figs.push({ node: t, lead: m[1], num: parseFloat(m[2]), dec: (m[2].split('.')[1] || '').length, rest: t.nodeValue.slice(m[0].length), el: f });
+    });
+    var mo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        var el = en.target; mo.unobserve(el);
+        el.querySelectorAll('.ico').forEach(function (s) { s.classList.add('in'); });
+        var v = el.querySelector('.fact-viz'); if (v) v.classList.add('go');
+        figs.forEach(function (g) {
+          if (!el.contains(g.el) || g.done) return; g.done = true;
+          var t0 = null, dur = 1100;
+          function step(ts) { if (!t0) t0 = ts; var p = Math.min(1, (ts - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+            g.node.nodeValue = g.lead + (g.num * e).toFixed(g.dec) + g.rest; if (p < 1) requestAnimationFrame(step); }
+          requestAnimationFrame(step);
+        });
+      });
+    }, { threshold: 0.35 });
+    document.querySelectorAll('.tile, .pillar, .facts li').forEach(function (el) { mo.observe(el); });
   }
 
   // chapter bar shows where you are

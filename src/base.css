@@ -782,3 +782,10 @@ main { counter-reset: zsec; }
   .tile-img, .brand-hero .hero-photo:not(.logo) { outline-offset: 4px; }
 }
 #what { padding-top: clamp(40px, 5vw, 80px); }
+
+/* crafted motion: icons draw themselves, dots fill, figures count up */
+.js .ico.draw * { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1400ms cubic-bezier(.4,0,.2,1); }
+.js .ico.draw.in * { stroke-dashoffset: 0; }
+.js .fact-viz.ready .on { opacity: .12; transition: opacity 260ms ease; transition-delay: calc(var(--k, 0) * 45ms); }
+.js .fact-viz.ready.go .on { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .js .ico.draw * { stroke-dashoffset: 0; transition: none; } .js .fact-viz.ready .on { opacity: 1; transition: none; } }

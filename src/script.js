@@ -64,6 +64,40 @@
     items.forEach(function (el) { el.classList.add('rv'); io.observe(el); });
   }
 
+  // icons draw themselves, dot graphics fill, figures count up, once, as they arrive
+  if (!still && 'IntersectionObserver' in window) {
+    document.querySelectorAll('.ico').forEach(function (svg) {
+      svg.querySelectorAll('path,rect,circle,line,polyline,ellipse').forEach(function (el) { el.setAttribute('pathLength', '1'); });
+      svg.classList.add('draw');
+    });
+    document.querySelectorAll('.fact-viz').forEach(function (v) {
+      v.querySelectorAll('.on').forEach(function (d, i) { d.style.setProperty('--k', i); });
+      v.classList.add('ready');
+    });
+    var figs = [];
+    document.querySelectorAll('.facts .fig').forEach(function (f) {
+      var t = f.firstChild; if (!t || t.nodeType !== 3) return;
+      var m = t.nodeValue.match(/^(\s*)(\d+(?:\.\d+)?)/); if (!m) return;
+      figs.push({ node: t, lead: m[1], num: parseFloat(m[2]), dec: (m[2].split('.')[1] || '').length, rest: t.nodeValue.slice(m[0].length), el: f });
+    });
+    var mo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        var el = en.target; mo.unobserve(el);
+        el.querySelectorAll('.ico').forEach(function (s) { s.classList.add('in'); });
+        var v = el.querySelector('.fact-viz'); if (v) v.classList.add('go');
+        figs.forEach(function (g) {
+          if (!el.contains(g.el) || g.done) return; g.done = true;
+          var t0 = null, dur = 1100;
+          function step(ts) { if (!t0) t0 = ts; var p = Math.min(1, (ts - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+            g.node.nodeValue = g.lead + (g.num * e).toFixed(g.dec) + g.rest; if (p < 1) requestAnimationFrame(step); }
+          requestAnimationFrame(step);
+        });
+      });
+    }, { threshold: 0.35 });
+    document.querySelectorAll('.tile, .pillar, .facts li').forEach(function (el) { mo.observe(el); });
+  }
+
   // chapter bar shows where you are
   var links = document.querySelectorAll('.ln-links a[href^="#"]');
   if (links.length && 'IntersectionObserver' in window) {
