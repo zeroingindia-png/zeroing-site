@@ -661,6 +661,19 @@ a.product:hover { border-color: var(--ink); }
 @keyframes laneIn { to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .js .lane-title .b2, .js .stall { opacity: 1; transform: none; animation: none; } .awning { transition: none; } }
 @media (max-width: 640px) { .lane { grid-auto-columns: 62%; } .board { height: 84px; } }
+
+/* polish: logos as brand thumbs, quiet lane captions */
+.brand-list .thumb.logo { display: grid; place-items: center; background: #fffdf9; border: 1px solid rgba(27,26,24,.12); padding: 10px; }
+.brand-list .thumb.logo img { width: 100%; height: 100%; object-fit: contain; }
+.stall .what { text-decoration: none; }
+.stall > a { text-decoration: none; }
+.stall > a .what { background-image: none; }
+.pillar h3 { margin-top: 0; }
+.pillars { border-top: 1px solid rgba(27,26,24,.14); padding-top: 28px; }
+.lane a, .lane a .what, .lane a .board { text-decoration: none !important; border-bottom: 0 !important; box-shadow: none !important; }
+.lane a .what { background-image: none !important; }
+.lane a::after { content: none !important; }
+.brand-list .thumb.logo { padding: 6px; }
 </style>
 </head>
 <body>

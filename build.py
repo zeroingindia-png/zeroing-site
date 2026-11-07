@@ -145,7 +145,7 @@ def lane_html(P):
     n = len(ON_HOME)
     for j in range(3):
         stalls.append(f'      <li class="stall empty" style="--i:{n + j}"><span class="awning" aria-hidden="true"></span>'
-                      f'<span class="board"><span class="soon">New in 2026</span></span><span class="what">Page goes up once the founder confirms</span></li>')
+                      f'<span class="board"><span class="soon">New in 2026</span></span></li>')
     stalls.append(f'      <li class="stall open" style="--i:{n + 3}"><a href="{P}join.html"><span class="awning" aria-hidden="true"></span>'
                   f'<span class="board"><span class="soon">Yours?</span></span><span class="what">Take a stall with us</span></a></li>')
     return '    <ol class="lane" aria-label="The lane: brands in Zeroing">\n' + "\n".join(stalls) + '\n    </ol>'
@@ -241,7 +241,9 @@ def brand_card(b, P):
 
 
 def home_brand_row(b, P):
-    if b.get("hero"):
+    if b.get("logo"):
+        thumb = f'<span class="thumb logo">{img(b["logo"], "", P)}</span>'
+    elif b.get("hero"):
         thumb = f'<span class="thumb">{img(b.get("thumb") or b["hero"][0], "", P)}</span>'
     elif b.get("wordmark"):
         thumb = f'<span class="thumb word">{img(b["wordmark"][0], "", P)}</span>'
@@ -433,7 +435,7 @@ def build():
                 f'<p>{E(bd.get("text", ""))}</p><div class="tile-links">{ls}</div></div>{pic}</article>')
     bands = "\n".join(tile(cl, bd) for cl, bd in zip(tile_links, H_.get("bands", [])))
     pillars = "\n".join(
-        f'      <article class="pillar"><figure class="photo pillar-img">{img(mf(pl.get("image")), pl.get("title", ""), "")}</figure>'
+        f'      <article class="pillar">'
         f'<h3>{T(pl.get("title", ""))}</h3><p class="pillar-line">{T(pl.get("line", ""))}</p>'
         f'<ul>{"".join(f"<li>{E(x)}</li>" for x in pl.get("points", []) if x)}</ul></article>'
         for pl in H_.get("pillars", []))

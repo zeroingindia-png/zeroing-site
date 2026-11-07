@@ -661,6 +661,19 @@ a.product:hover { border-color: var(--ink); }
 @keyframes laneIn { to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .js .lane-title .b2, .js .stall { opacity: 1; transform: none; animation: none; } .awning { transition: none; } }
 @media (max-width: 640px) { .lane { grid-auto-columns: 62%; } .board { height: 84px; } }
+
+/* polish: logos as brand thumbs, quiet lane captions */
+.brand-list .thumb.logo { display: grid; place-items: center; background: #fffdf9; border: 1px solid rgba(27,26,24,.12); padding: 10px; }
+.brand-list .thumb.logo img { width: 100%; height: 100%; object-fit: contain; }
+.stall .what { text-decoration: none; }
+.stall > a { text-decoration: none; }
+.stall > a .what { background-image: none; }
+.pillar h3 { margin-top: 0; }
+.pillars { border-top: 1px solid rgba(27,26,24,.14); padding-top: 28px; }
+.lane a, .lane a .what, .lane a .board { text-decoration: none !important; border-bottom: 0 !important; box-shadow: none !important; }
+.lane a .what { background-image: none !important; }
+.lane a::after { content: none !important; }
+.brand-list .thumb.logo { padding: 6px; }
 </style>
 </head>
 <body>
@@ -710,9 +723,9 @@ a.product:hover { border-color: var(--ink); }
       <li class="stall" style="--i:0"><a href="brands/indso"><span class="awning" aria-hidden="true"></span><span class="board"><img src="media/logo-indso.png" alt="INDSO" loading="lazy" decoding="async"></span><span class="what">Botanical skincare gels</span></a></li>
       <li class="stall" style="--i:1"><a href="brands/ampor-eyewear"><span class="awning" aria-hidden="true"></span><span class="board"><img src="media/logo-ampor-eyewear.png" alt="Ampor Eyewear" loading="lazy" decoding="async"></span><span class="what">Eyewear</span></a></li>
       <li class="stall" style="--i:2"><a href="brands/vedi-kade"><span class="awning" aria-hidden="true"></span><span class="board"><img src="media/logo-vedi-kade.png" alt="Vedi Kade" loading="lazy" decoding="async"></span><span class="what">Modern clothing with Tamil history in it</span></a></li>
-      <li class="stall empty" style="--i:3"><span class="awning" aria-hidden="true"></span><span class="board"><span class="soon">New in 2026</span></span><span class="what">Page goes up once the founder confirms</span></li>
-      <li class="stall empty" style="--i:4"><span class="awning" aria-hidden="true"></span><span class="board"><span class="soon">New in 2026</span></span><span class="what">Page goes up once the founder confirms</span></li>
-      <li class="stall empty" style="--i:5"><span class="awning" aria-hidden="true"></span><span class="board"><span class="soon">New in 2026</span></span><span class="what">Page goes up once the founder confirms</span></li>
+      <li class="stall empty" style="--i:3"><span class="awning" aria-hidden="true"></span><span class="board"><span class="soon">New in 2026</span></span></li>
+      <li class="stall empty" style="--i:4"><span class="awning" aria-hidden="true"></span><span class="board"><span class="soon">New in 2026</span></span></li>
+      <li class="stall empty" style="--i:5"><span class="awning" aria-hidden="true"></span><span class="board"><span class="soon">New in 2026</span></span></li>
       <li class="stall open" style="--i:6"><a href="join"><span class="awning" aria-hidden="true"></span><span class="board"><span class="soon">Yours?</span></span><span class="what">Take a stall with us</span></a></li>
     </ol>
     <p class="hero2-note">New Delhi · <span id="today"></span></p>
@@ -722,7 +735,7 @@ a.product:hover { border-color: var(--ink); }
     <div class="doors">
     <article class="tile t-light t-full"><div class="tile-text"><h2 class="display">The community</h2><p>Brands that stand together, like stalls in one lane. One brand&#x27;s customer finds the next. One founder&#x27;s supplier helps another.</p><div class="tile-links"><a class="tlink" href="community">Meet the brands</a><a class="tlink" href="join">Apply to join</a></div></div><div class="tile-img"><img src="media/indso-spread.jpg" alt="" loading="lazy" decoding="async"></div></article>
     <article class="tile t-dark"><div class="tile-text"><h2 class="display">Independent Society</h2><p>Our podcast. One person at a time, one long honest conversation about what their working life in India actually looked like, from the inside.</p><div class="tile-links"><a class="tlink" href="independent-society">Learn more</a><a class="tlink" href="https://open.spotify.com/show/033rTzaVTcltHLTbWdOEY7" target=_blank rel=noopener>Listen on Spotify</a></div></div><div class="tile-img"><img src="media/ep-conversation.jpg" alt="" loading="lazy" decoding="async"></div></article>
-    <article class="tile t-white"><div class="tile-text"><h2 class="display">The Other Details</h2><p>Our research lab. The money, the paperwork, the years nobody saw. Written down, with sources.</p><div class="tile-links"><a class="tlink" href="the-other-details/">Read the studies</a><a class="tlink" href="the-other-details/#lead">Send a detail</a></div></div><div class="tile-img"><img src="media/as-kargil.jpg" alt="" loading="lazy" decoding="async"></div></article>
+    <article class="tile t-white"><div class="tile-text"><h2 class="display">The Other Details</h2><p>Our research lab. The money, the paperwork, the years nobody saw. Written down, with sources.</p><div class="tile-links"><a class="tlink" href="the-other-details/">Read the studies</a><a class="tlink" href="the-other-details/#lead">Send a detail</a></div></div><div class="tile-img"><img src="media/lab-road.jpg" alt="" loading="lazy" decoding="async"></div></article>
     </div>
   </section>
 
@@ -733,25 +746,11 @@ a.product:hover { border-color: var(--ink); }
       <ul class="badges"><li>Made in India</li><li>Homegrown</li></ul>
     </div>
     <ul class="brand-list">
-      <li><span class="thumb"><img src="media/indso-spread.jpg" alt="" loading="lazy" decoding="async"></span><a class="name" href="brands/indso">INDSO<small>Botanical skincare gels</small></a><a class="site-chip" href="https://indso.in" target="_blank" rel="noopener">indso.in <span aria-hidden="true">&#8599;</span></a></li>
-      <li><span class="thumb word" style="background:var(--haldi)"><img src="media/ampor-tape.jpg" alt="" loading="lazy" decoding="async"></span><a class="name" href="brands/ampor-eyewear">Ampor Eyewear<small>Eyewear</small></a><a class="site-chip" href="https://ampor.in" target="_blank" rel="noopener">ampor.in <span aria-hidden="true">&#8599;</span></a></li>
-      <li><span class="thumb word"><img src="media/vedi-kade-wordmark.jpg" alt="" loading="lazy" decoding="async"></span><a class="name" href="brands/vedi-kade">Vedi Kade<small>Modern clothing with Tamil history in it</small></a></li>
-      <li class="more"><span class="thumb blank"></span><a class="name" href="community">Meet the whole community<small>And three more who joined this year</small></a></li>
+      <li><span class="thumb logo"><img src="media/logo-indso.png" alt="" loading="lazy" decoding="async"></span><a class="name" href="brands/indso">INDSO<small>Botanical skincare gels</small></a><a class="site-chip" href="https://indso.in" target="_blank" rel="noopener">indso.in <span aria-hidden="true">&#8599;</span></a></li>
+      <li><span class="thumb logo"><img src="media/logo-ampor-eyewear.png" alt="" loading="lazy" decoding="async"></span><a class="name" href="brands/ampor-eyewear">Ampor Eyewear<small>Eyewear</small></a><a class="site-chip" href="https://ampor.in" target="_blank" rel="noopener">ampor.in <span aria-hidden="true">&#8599;</span></a></li>
+      <li><span class="thumb logo"><img src="media/logo-vedi-kade.png" alt="" loading="lazy" decoding="async"></span><a class="name" href="brands/vedi-kade">Vedi Kade<small>Modern clothing with Tamil history in it</small></a></li>
+      <li class="more"><span class="thumb logo"><img src="zeroing-logo.svg" alt=""></span><a class="name" href="community">Meet the whole community<small>And three more who joined this year</small></a></li>
     </ul>
-  </section>
-
-  <section class="craft" id="craft">
-    <div class="craft-head">
-      <h2 class="display">The work behind the work</h2>
-      <p>Turmeric before it is a gel. A camera on the sand for a shot of ants. The making, the hands, the years. Every photograph here comes from a brand in the community, a guest, or our own shoot.</p>
-    </div>
-    <div class="craft-track">
-        <figure class="craft-item"><div class="photo"><img src="media/indso-saffron-turmeric.jpg" alt="Honey, saffron, turmeric. Named in INDSO&#x27;s Turmeric Milk Gel." loading="lazy" decoding="async"></div><figcaption><b>Honey, saffron, turmeric</b><span>Named in INDSO&#x27;s Turmeric Milk Gel.</span></figcaption></figure>
-        <figure class="craft-item wide"><div class="photo"><img src="media/ampor-tape.jpg" alt="Ampor&#x27;s packing tape. Designed by Ampor for its own parcels." loading="lazy" decoding="async"></div><figcaption><b>Ampor&#x27;s packing tape</b><span>Designed by Ampor for its own parcels.</span></figcaption></figure>
-        <figure class="craft-item"><div class="photo"><img src="media/vedi-kade-wordmark.jpg" alt="Vedi Kade. Tamil history, carried into clothes you wear today." loading="lazy" decoding="async"></div><figcaption><b>Vedi Kade</b><span>Tamil history, carried into clothes you wear today.</span></figcaption></figure>
-        <figure class="craft-item wide"><div class="photo"><img src="media/ep-conversation.jpg" alt="On record. Independent Society, one long conversation at a time." loading="lazy" decoding="async"></div><figcaption><b>On record</b><span>Independent Society, one long conversation at a time.</span></figcaption></figure>
-        <figure class="craft-item"><div class="photo"><img src="media/indso-gel-finger.jpg" alt="The gel. As it comes out of the jar." loading="lazy" decoding="async"></div><figcaption><b>The gel</b><span>As it comes out of the jar.</span></figcaption></figure>
-    </div>
   </section>
 
   <section class="sec" id="how">
@@ -760,9 +759,9 @@ a.product:hover { border-color: var(--ink); }
       <p>Three things we look after. Every brand, episode and study answers to them.</p>
     </div>
     <div class="pillars">
-      <article class="pillar"><figure class="photo pillar-img"><img src="media/indso-coffee-beans.jpg" alt="Nature" loading="lazy" decoding="async"></figure><h3>Nature</h3><p class="pillar-line">We give time to the people who look after it.</p><ul><li>Independent Society begins with a wildlife filmmaker who has spent two decades on the species few channels commission.</li><li>Brands build on what grows here: turmeric, saffron, honey, coffee, orange.</li><li>The Other Details traces what our habits cost the land, like the water behind the cloud.</li></ul></article>
-      <article class="pillar"><figure class="photo pillar-img"><img src="media/indso-turmeric-milk.jpg" alt="Culture" loading="lazy" decoding="async"></figure><h3>Culture</h3><p class="pillar-line">We keep what India already made.</p><ul><li>Vedi Kade carries Tamil history into clothes for an ordinary day.</li><li>INDSO starts from haldi doodh, made in Indian kitchens for generations.</li></ul></article>
-      <article class="pillar"><figure class="photo pillar-img"><img src="media/indso-orange-peel.jpg" alt="Sustainability" loading="lazy" decoding="async"></figure><h3>Sustainability</h3><p class="pillar-line">We ask every brand for one honest next step.</p><ul><li>We call no brand sustainable. Each brand page shows what its founder says it does now on materials, packaging or making, and what comes next.</li><li>Brands meet each other&#x27;s suppliers, stalls and customers. Fewer of them build alone.</li><li>We grow at the makers&#x27; pace, one founder conversation at a time.</li></ul></article>
+      <article class="pillar"><h3>Nature</h3><p class="pillar-line">We give time to the people who look after it.</p><ul><li>Independent Society begins with a wildlife filmmaker who has spent two decades on the species few channels commission.</li><li>Brands build on what grows here: turmeric, saffron, honey, coffee, orange.</li><li>The Other Details traces what our habits cost the land, like the water behind the cloud.</li></ul></article>
+      <article class="pillar"><h3>Culture</h3><p class="pillar-line">We keep what India already made.</p><ul><li>Vedi Kade carries Tamil history into clothes for an ordinary day.</li><li>INDSO starts from haldi doodh, made in Indian kitchens for generations.</li></ul></article>
+      <article class="pillar"><h3>Sustainability</h3><p class="pillar-line">We ask every brand for one honest next step.</p><ul><li>We call no brand sustainable. Each brand page shows what its founder says it does now on materials, packaging or making, and what comes next.</li><li>Brands meet each other&#x27;s suppliers, stalls and customers. Fewer of them build alone.</li><li>We grow at the makers&#x27; pace, one founder conversation at a time.</li></ul></article>
     </div>
     <h3 class="steps-title">What each brand tells us</h3>
     <div class="focus-wrap"><table class="focus-table"><thead><tr><th scope="col">Brand</th><th scope="col">Nature</th><th scope="col">Culture</th></tr></thead><tbody><tr><th scope="row"><a href="brands/indso">INDSO</a></th><td data-label="Nature">Turmeric, saffron, honey, ashwagandha, coffee, orange, white tea and black lotus.</td><td data-label="Culture">It starts from haldi doodh, the glass of turmeric milk made at home.</td></tr><tr><th scope="row"><a href="brands/vedi-kade">Vedi Kade</a></th><td class="empty"></td><td data-label="Culture">Tamil history, carried into clothes you wear today.</td></tr></tbody></table></div>
