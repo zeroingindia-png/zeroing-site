@@ -620,6 +620,41 @@ a.product:hover { border-color: var(--ink); }
 }
 .why-credit { margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--line); font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.6; color: var(--ink-2); }
 .why-credit a { color: var(--ink); }
+
+/* the lane: home hero */
+.hero3 { padding: clamp(40px, 7vw, 96px) var(--pad-l, 20px) clamp(32px, 5vw, 64px); max-width: var(--wrap); margin: 0 auto; }
+.hero3 .kicker { font-family: var(--font-mono, "JetBrains Mono", monospace); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sindoor); margin: 0 0 18px; }
+.lane-title { font-size: clamp(2.6rem, 7.4vw, 6.4rem); line-height: 0.98; max-width: 14ch; margin: 0; }
+.lane-title .b1, .lane-title .b2 { display: block; }
+.lane-title .b2 { color: var(--sindoor); }
+.hero3 .lede { max-width: 46ch; margin-top: 22px; }
+.hero3 .actions { margin-top: 26px; }
+.lane { list-style: none; margin: clamp(40px, 6vw, 72px) 0 0; padding: 0 0 18px; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(124px, 1fr); gap: 0; overflow-x: auto; scroll-snap-type: x mandatory; border-bottom: 3px solid var(--ink); scrollbar-width: thin; }
+.stall { scroll-snap-align: start; border-left: 1px solid rgba(27,26,24,.14); min-width: 0; }
+.stall:first-child { border-left: 0; }
+.stall > a, .stall { color: inherit; text-decoration: none; }
+.stall > a { display: block; height: 100%; }
+.awning { display: block; height: 34px; background: repeating-linear-gradient(90deg, var(--sindoor) 0 22px, var(--paper) 22px 44px);
+  -webkit-mask: radial-gradient(circle 11px at 11px 34px, transparent 10.5px, #000 11px) 0 0 / 22px 100% repeat-x, linear-gradient(#000, #000) 0 0 / 100% 23px no-repeat;
+          mask: radial-gradient(circle 11px at 11px 34px, transparent 10.5px, #000 11px) 0 0 / 22px 100% repeat-x, linear-gradient(#000, #000) 0 0 / 100% 23px no-repeat;
+  transform-origin: top; transition: transform 400ms ease; }
+.board { display: grid; place-items: center; height: 96px; margin: 14px 14px 0; border: 1px solid rgba(27,26,24,.18); background: #fffdf9; border-radius: 6px; padding: 12px; }
+.board img { max-height: 40px; max-width: 100%; width: auto; object-fit: contain; }
+.board .soon { font-family: var(--font-mono, "JetBrains Mono", monospace); font-size: 0.78rem; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); }
+.stall .what { display: block; padding: 12px 14px 0; font-size: 0.92rem; line-height: 1.4; color: var(--ink-2); }
+.stall.empty .awning { background: repeating-linear-gradient(90deg, rgba(27,26,24,.16) 0 22px, var(--paper) 22px 44px); }
+.stall.empty .board { border-style: dashed; background: transparent; }
+.stall.open .awning { background: repeating-linear-gradient(90deg, var(--ink) 0 22px, var(--paper) 22px 44px); }
+.stall.open .board { background: var(--ink); border-color: var(--ink); }
+.stall.open .soon { color: var(--paper); }
+.stall > a:hover .awning, .stall > a:focus-visible .awning { transform: scaleY(1.18); }
+.stall > a:hover .board { border-color: var(--ink); }
+.stall > a:focus-visible { outline: 2px solid var(--sindoor); outline-offset: -2px; }
+.js .lane-title .b2 { opacity: 0; transform: translateY(10px); animation: laneIn 900ms ease 700ms forwards; }
+.js .stall { opacity: 0; animation: laneIn 700ms ease forwards; animation-delay: calc(900ms + var(--i) * 90ms); }
+@keyframes laneIn { to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .js .lane-title .b2, .js .stall { opacity: 1; transform: none; animation: none; } .awning { transition: none; } }
+@media (max-width: 640px) { .lane { grid-auto-columns: 62%; } .board { height: 84px; } }
 </style>
 </head>
 <body>

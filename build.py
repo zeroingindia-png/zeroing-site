@@ -133,6 +133,22 @@ def write(path, text):
         f.write(text)
 
 
+
+def lane_html(P):
+    stalls = []
+    for i, b in enumerate(BRANDS):
+        mark = img(b["logo"], b["name"], P) if b.get("logo") else f'<span class="bname">{E(b["name"])}</span>'
+        stalls.append(f'      <li class="stall" style="--i:{i}"><a href="{P}brands/{b["slug"]}.html"><span class="awning" aria-hidden="true"></span>'
+                      f'<span class="board">{mark}</span><span class="what">{E(b["makes"] or b["line"])}</span></a></li>')
+    n = len(BRANDS)
+    for j in range(3):
+        stalls.append(f'      <li class="stall empty" style="--i:{n + j}"><span class="awning" aria-hidden="true"></span>'
+                      f'<span class="board"><span class="soon">New in 2026</span></span><span class="what">Page goes up once the founder confirms</span></li>')
+    stalls.append(f'      <li class="stall open" style="--i:{n + 3}"><a href="{P}join.html"><span class="awning" aria-hidden="true"></span>'
+                  f'<span class="board"><span class="soon">Yours?</span></span><span class="what">Take a stall with us</span></a></li>')
+    return '    <ol class="lane" aria-label="The lane: brands in Zeroing">\n' + "\n".join(stalls) + '\n    </ol>'
+
+
 AREAS = ["Materials", "Packaging", "Making", "People", "Next step"]
 LEVELS = {"founder": "Founder says", "proof": "Proof shared", "checked": "Checked by Zeroing"}
 
@@ -426,7 +442,7 @@ def build():
             .replace("{BANDS}", bands)
             .replace("{CRAFT}", craft_reel(HOME_CRAFT, H_.get("craft_title", ""), T(H_.get("craft_text", "")), ""))
             .replace("{BRANDS_TITLE}", T(H_.get("brands_title", ""))).replace("{BRANDS_TEXT}", E(H_.get("brands_text", "")))
-            .replace("{HOME_BRANDS}", "\n".join(home_brand_row(b, "") for b in BRANDS))
+            .replace("{HOME_LANE}", lane_html("")).replace("{HOME_BRANDS}", "\n".join(home_brand_row(b, "") for b in BRANDS))
             .replace("{LISTEN_LATEST}", listen_buttons(p2))
             .replace("{HOW_TITLE}", T(H_.get("how_title", ""))).replace("{HOW_TEXT}", E(H_.get("how_text", "")))
             .replace("{PILLARS}", pillars).replace("{STEPS_TITLE}", E(H_.get("steps_title", ""))).replace("{STEPS}", steps)

@@ -28,33 +28,27 @@
       "wide": false
     },
     {
-      "image": "/media/indso-orange-peel.jpg",
-      "title": "Orange",
-      "note": "Named in INDSO's Orange Gel with Vitamin C.",
+      "image": "/media/ampor-tape.jpg",
+      "title": "Ampor's packing tape",
+      "note": "Designed by Ampor for its own parcels.",
+      "wide": true
+    },
+    {
+      "image": "/media/vedi-kade-wordmark.jpg",
+      "title": "Vedi Kade",
+      "note": "Tamil history, carried into clothes you wear today.",
       "wide": false
     },
     {
       "image": "/media/ep-conversation.jpg",
       "title": "On record",
-      "note": "Akanksha and Anshul, the day of the conversation.",
+      "note": "Independent Society, one long conversation at a time.",
       "wide": true
     },
     {
       "image": "/media/indso-gel-finger.jpg",
       "title": "The gel",
       "note": "As it comes out of the jar.",
-      "wide": false
-    },
-    {
-      "image": "/media/indso-coffee-beans.jpg",
-      "title": "Coffee",
-      "note": "Named in INDSO's Coffee and Cocoa Gel.",
-      "wide": false
-    },
-    {
-      "image": "/media/indso-turmeric-milk.jpg",
-      "title": "Haldi doodh",
-      "note": "INDSO's starting point for its Turmeric Milk Gel.",
       "wide": false
     }
   ],

@@ -199,7 +199,7 @@ REELS = """<section id="reels" class="mt-20"><div class="grid gap-3.5"><span cla
 
 def home_page(studies):
     mosaic = ('<div class="absolute inset-0 grid grid-cols-2 gap-1 md:grid-cols-[1.2fr_.8fr_1.2fr]" aria-hidden="true">'
-              + loop("dc-servers") + loop("gd-bangles") + loop("dc-cracked", "loop max-md:hidden") + "</div>")
+              + '<img class="loop" src="media/tod-road.jpg" alt="">' + '<img class="loop" src="media/tod-medicine.jpg" alt="">' + '<img class="loop max-md:hidden" src="media/tod-farm.jpg" alt="">' + "</div>")
     ctas = '<div class="mt-7 flex flex-wrap gap-3"><a class="btn" href="data-centres.html">Start with Study 01</a><a class="btn btn-ghost" href="method.html">How we check data</a></div>'
     cards = ""
     for s in studies:

@@ -620,6 +620,41 @@ a.product:hover { border-color: var(--ink); }
 }
 .why-credit { margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--line); font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.6; color: var(--ink-2); }
 .why-credit a { color: var(--ink); }
+
+/* the lane: home hero */
+.hero3 { padding: clamp(40px, 7vw, 96px) var(--pad-l, 20px) clamp(32px, 5vw, 64px); max-width: var(--wrap); margin: 0 auto; }
+.hero3 .kicker { font-family: var(--font-mono, "JetBrains Mono", monospace); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sindoor); margin: 0 0 18px; }
+.lane-title { font-size: clamp(2.6rem, 7.4vw, 6.4rem); line-height: 0.98; max-width: 14ch; margin: 0; }
+.lane-title .b1, .lane-title .b2 { display: block; }
+.lane-title .b2 { color: var(--sindoor); }
+.hero3 .lede { max-width: 46ch; margin-top: 22px; }
+.hero3 .actions { margin-top: 26px; }
+.lane { list-style: none; margin: clamp(40px, 6vw, 72px) 0 0; padding: 0 0 18px; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(124px, 1fr); gap: 0; overflow-x: auto; scroll-snap-type: x mandatory; border-bottom: 3px solid var(--ink); scrollbar-width: thin; }
+.stall { scroll-snap-align: start; border-left: 1px solid rgba(27,26,24,.14); min-width: 0; }
+.stall:first-child { border-left: 0; }
+.stall > a, .stall { color: inherit; text-decoration: none; }
+.stall > a { display: block; height: 100%; }
+.awning { display: block; height: 34px; background: repeating-linear-gradient(90deg, var(--sindoor) 0 22px, var(--paper) 22px 44px);
+  -webkit-mask: radial-gradient(circle 11px at 11px 34px, transparent 10.5px, #000 11px) 0 0 / 22px 100% repeat-x, linear-gradient(#000, #000) 0 0 / 100% 23px no-repeat;
+          mask: radial-gradient(circle 11px at 11px 34px, transparent 10.5px, #000 11px) 0 0 / 22px 100% repeat-x, linear-gradient(#000, #000) 0 0 / 100% 23px no-repeat;
+  transform-origin: top; transition: transform 400ms ease; }
+.board { display: grid; place-items: center; height: 96px; margin: 14px 14px 0; border: 1px solid rgba(27,26,24,.18); background: #fffdf9; border-radius: 6px; padding: 12px; }
+.board img { max-height: 40px; max-width: 100%; width: auto; object-fit: contain; }
+.board .soon { font-family: var(--font-mono, "JetBrains Mono", monospace); font-size: 0.78rem; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); }
+.stall .what { display: block; padding: 12px 14px 0; font-size: 0.92rem; line-height: 1.4; color: var(--ink-2); }
+.stall.empty .awning { background: repeating-linear-gradient(90deg, rgba(27,26,24,.16) 0 22px, var(--paper) 22px 44px); }
+.stall.empty .board { border-style: dashed; background: transparent; }
+.stall.open .awning { background: repeating-linear-gradient(90deg, var(--ink) 0 22px, var(--paper) 22px 44px); }
+.stall.open .board { background: var(--ink); border-color: var(--ink); }
+.stall.open .soon { color: var(--paper); }
+.stall > a:hover .awning, .stall > a:focus-visible .awning { transform: scaleY(1.18); }
+.stall > a:hover .board { border-color: var(--ink); }
+.stall > a:focus-visible { outline: 2px solid var(--sindoor); outline-offset: -2px; }
+.js .lane-title .b2 { opacity: 0; transform: translateY(10px); animation: laneIn 900ms ease 700ms forwards; }
+.js .stall { opacity: 0; animation: laneIn 700ms ease forwards; animation-delay: calc(900ms + var(--i) * 90ms); }
+@keyframes laneIn { to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .js .lane-title .b2, .js .stall { opacity: 1; transform: none; animation: none; } .awning { transition: none; } }
+@media (max-width: 640px) { .lane { grid-auto-columns: 62%; } .board { height: 84px; } }
 </style>
 </head>
 <body>
@@ -657,20 +692,24 @@ a.product:hover { border-color: var(--ink); }
 </div>
 
 <main>
-  <section class="hero2" id="top">
-    <div class="hero2-text">
-      <h1 class="display">No Indian brand should grow alone.</h1>
-      <p class="lede">Zeroing is a community of homegrown Indian brands and the people behind them. We open doors for each other. Our podcast and our research lab write down how the work really gets done.</p>
-      <div class="actions">
-        <a class="pill solid" href="#brands">Meet the brands</a>
-        <a class="pill line" href="independent-society.html">Listen to Independent Society</a>
-      </div>
+  <section class="hero3" id="top">
+    <p class="kicker">No Indian brand should grow alone.</p>
+    <h1 class="display lane-title"><span class="b1">One stall is easy to miss.</span> <span class="b2">A whole lane is not.</span></h1>
+    <p class="lede">Zeroing is a community of homegrown Indian brands and the people behind them. We open doors for each other. Our podcast and our research lab write down how the work really gets done.</p>
+    <div class="actions">
+      <a class="pill solid" href="#brands">Walk the lane</a>
+      <a class="pill line" href="independent-society.html">Listen to Independent Society</a>
     </div>
-    <div class="hero2-frames" aria-hidden="true">
-      <figure><img src="media/indso-saffron-turmeric.jpg" alt="" fetchpriority="high"></figure>
-      <figure><img src="media/ep-conversation.jpg" alt=""></figure>
-      <figure><img src="media/indso-orange-peel.jpg" alt=""></figure>
-    </div>
+    <ol class="lane" aria-label="The lane: brands in Zeroing">
+      <li class="stall" style="--i:0"><a href="brands/indso.html"><span class="awning" aria-hidden="true"></span><span class="board"><img src="media/logo-indso.png" alt="INDSO" loading="lazy" decoding="async"></span><span class="what">Botanical skincare gels</span></a></li>
+      <li class="stall" style="--i:1"><a href="brands/ampor-eyewear.html"><span class="awning" aria-hidden="true"></span><span class="board"><img src="media/logo-ampor-eyewear.png" alt="Ampor Eyewear" loading="lazy" decoding="async"></span><span class="what">Eyewear</span></a></li>
+      <li class="stall" style="--i:2"><a href="brands/vedi-kade.html"><span class="awning" aria-hidden="true"></span><span class="board"><img src="media/logo-vedi-kade.png" alt="Vedi Kade" loading="lazy" decoding="async"></span><span class="what">Modern clothing with Tamil history in it</span></a></li>
+      <li class="stall" style="--i:3"><a href="brands/syzygy-living.html"><span class="awning" aria-hidden="true"></span><span class="board"><img src="media/logo-syzygy-living.png" alt="Syzygy Living" loading="lazy" decoding="async"></span><span class="what">Design homeware</span></a></li>
+      <li class="stall empty" style="--i:4"><span class="awning" aria-hidden="true"></span><span class="board"><span class="soon">New in 2026</span></span><span class="what">Page goes up once the founder confirms</span></li>
+      <li class="stall empty" style="--i:5"><span class="awning" aria-hidden="true"></span><span class="board"><span class="soon">New in 2026</span></span><span class="what">Page goes up once the founder confirms</span></li>
+      <li class="stall empty" style="--i:6"><span class="awning" aria-hidden="true"></span><span class="board"><span class="soon">New in 2026</span></span><span class="what">Page goes up once the founder confirms</span></li>
+      <li class="stall open" style="--i:7"><a href="join.html"><span class="awning" aria-hidden="true"></span><span class="board"><span class="soon">Yours?</span></span><span class="what">Take a stall with us</span></a></li>
+    </ol>
     <p class="hero2-note">New Delhi · <span id="today"></span></p>
   </section>
 
@@ -704,11 +743,10 @@ a.product:hover { border-color: var(--ink); }
     </div>
     <div class="craft-track">
         <figure class="craft-item"><div class="photo"><img src="media/indso-saffron-turmeric.jpg" alt="Honey, saffron, turmeric. Named in INDSO&#x27;s Turmeric Milk Gel." loading="lazy" decoding="async"></div><figcaption><b>Honey, saffron, turmeric</b><span>Named in INDSO&#x27;s Turmeric Milk Gel.</span></figcaption></figure>
-        <figure class="craft-item"><div class="photo"><img src="media/indso-orange-peel.jpg" alt="Orange. Named in INDSO&#x27;s Orange Gel with Vitamin C." loading="lazy" decoding="async"></div><figcaption><b>Orange</b><span>Named in INDSO&#x27;s Orange Gel with Vitamin C.</span></figcaption></figure>
-        <figure class="craft-item wide"><div class="photo"><img src="media/ep-conversation.jpg" alt="On record. Akanksha and Anshul, the day of the conversation." loading="lazy" decoding="async"></div><figcaption><b>On record</b><span>Akanksha and Anshul, the day of the conversation.</span></figcaption></figure>
+        <figure class="craft-item wide"><div class="photo"><img src="media/ampor-tape.jpg" alt="Ampor&#x27;s packing tape. Designed by Ampor for its own parcels." loading="lazy" decoding="async"></div><figcaption><b>Ampor&#x27;s packing tape</b><span>Designed by Ampor for its own parcels.</span></figcaption></figure>
+        <figure class="craft-item"><div class="photo"><img src="media/vedi-kade-wordmark.jpg" alt="Vedi Kade. Tamil history, carried into clothes you wear today." loading="lazy" decoding="async"></div><figcaption><b>Vedi Kade</b><span>Tamil history, carried into clothes you wear today.</span></figcaption></figure>
+        <figure class="craft-item wide"><div class="photo"><img src="media/ep-conversation.jpg" alt="On record. Independent Society, one long conversation at a time." loading="lazy" decoding="async"></div><figcaption><b>On record</b><span>Independent Society, one long conversation at a time.</span></figcaption></figure>
         <figure class="craft-item"><div class="photo"><img src="media/indso-gel-finger.jpg" alt="The gel. As it comes out of the jar." loading="lazy" decoding="async"></div><figcaption><b>The gel</b><span>As it comes out of the jar.</span></figcaption></figure>
-        <figure class="craft-item"><div class="photo"><img src="media/indso-coffee-beans.jpg" alt="Coffee. Named in INDSO&#x27;s Coffee and Cocoa Gel." loading="lazy" decoding="async"></div><figcaption><b>Coffee</b><span>Named in INDSO&#x27;s Coffee and Cocoa Gel.</span></figcaption></figure>
-        <figure class="craft-item"><div class="photo"><img src="media/indso-turmeric-milk.jpg" alt="Haldi doodh. INDSO&#x27;s starting point for its Turmeric Milk Gel." loading="lazy" decoding="async"></div><figcaption><b>Haldi doodh</b><span>INDSO&#x27;s starting point for its Turmeric Milk Gel.</span></figcaption></figure>
     </div>
   </section>
 
