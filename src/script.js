@@ -64,6 +64,13 @@
     items.forEach(function (el) { el.classList.add('rv'); io.observe(el); });
   }
 
+  // the end of the lane rises when the footer comes into view
+  var lane = document.querySelector('.endlane');
+  if (lane) {
+    if (still || !('IntersectionObserver' in window)) lane.classList.add('in');
+    else { var lo = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { lane.classList.add('in'); lo.disconnect(); } }, { threshold: 0.4 }); lo.observe(lane); }
+  }
+
   // chapter bar shows where you are
   var links = document.querySelectorAll('.ln-links a[href^="#"]');
   if (links.length && 'IntersectionObserver' in window) {

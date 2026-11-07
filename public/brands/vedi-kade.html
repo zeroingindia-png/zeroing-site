@@ -677,6 +677,29 @@ a.product:hover { border-color: var(--ink); }
 #join .actions .pill.line { color: var(--paper); border-color: rgba(246,242,234,.5); }
 #join .actions { display: flex; flex-wrap: wrap; gap: 12px; }
 .collab { margin-top: 24px; } .collab small { display: inline-block; margin-top: 10px; color: var(--ink-2); }
+
+/* end of the lane: footer graphic */
+.endlane { margin: clamp(40px, 6vw, 72px) auto 0; padding-top: 18px; overflow: hidden; }
+.endlane-row { display: flex; align-items: flex-end; gap: clamp(6px, 1vw, 14px); border-bottom: 2px solid rgba(246,242,234,.55); padding: 0 2px; }
+.endlane .s { flex: var(--w) 1 0; height: var(--h); position: relative; border: 1px solid rgba(246,242,234,.35); border-bottom: 0; border-radius: 3px 3px 0 0; background: rgba(246,242,234,.04); transform-origin: bottom; }
+.endlane .s i { position: absolute; left: -4px; right: -4px; top: -14px; height: 18px; transform-origin: top center;
+  background: repeating-linear-gradient(90deg, var(--sindoor) 0 10px, var(--paper) 10px 20px);
+  -webkit-mask: radial-gradient(circle 5px at 5px 18px, transparent 4.6px, #000 5px) 0 0 / 10px 100% repeat-x, linear-gradient(#000,#000) 0 0 / 100% 13px no-repeat;
+          mask: radial-gradient(circle 5px at 5px 18px, transparent 4.6px, #000 5px) 0 0 / 10px 100% repeat-x, linear-gradient(#000,#000) 0 0 / 100% 13px no-repeat; }
+.endlane .s.dim i { background: repeating-linear-gradient(90deg, rgba(246,242,234,.35) 0 10px, transparent 10px 20px); }
+.endlane .s.open { border-style: dashed; border-color: var(--sindoor); background: transparent; }
+.endlane .s.open i { background: repeating-linear-gradient(90deg, var(--sindoor) 0 10px, transparent 10px 20px); }
+.endlane-note { margin: 14px 0 0; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: .04em; color: rgba(246,242,234,.6); }
+.js .endlane .s { transform: translateY(102%); opacity: 0; }
+.js .endlane.in .s { animation: stallUp 900ms cubic-bezier(.2,.7,.2,1) forwards; animation-delay: calc(var(--i) * 70ms); }
+.js .endlane.in .s i { animation: awning 1400ms ease-out forwards; animation-delay: calc(var(--i) * 70ms + 650ms); }
+@keyframes stallUp { to { transform: none; opacity: 1; } }
+@keyframes awning { 0% { transform: rotate(0); } 30% { transform: rotate(-2.5deg); } 60% { transform: rotate(1.2deg); } 100% { transform: rotate(0); } }
+.endlane .s.open { animation-name: stallUp; }
+.js .endlane.in .s.open::after { content: ""; position: absolute; inset: 30% 30% 0; border: 1px solid var(--sindoor); border-bottom: 0; opacity: 0; animation: blinkIn 1200ms ease forwards; animation-delay: 1.6s; }
+@keyframes blinkIn { 0%, 40% { opacity: 0; } 50% { opacity: 1; } 70% { opacity: .3; } 100% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .js .endlane .s { transform: none; opacity: 1; animation: none !important; } .js .endlane .s i, .js .endlane.in .s.open::after { animation: none !important; opacity: 1; } }
+@media (max-width: 640px) { .endlane .s:nth-child(n+7):not(.open) { display: none; } }
 </style>
 </head>
 <body>
@@ -785,6 +808,10 @@ a.product:hover { border-color: var(--ink); }
       <div><h3>Community</h3><ul><li><a href="../community">Brands</a></li><li><a href="../shop">Shop the lane</a></li><li><a href="../community#learned">What we learned</a></li><li><a href="../the-other-details/">The Other Details</a></li><li><a href="../the-other-details/#lead">Send us a detail</a></li><li><a href="../join">Join</a></li></ul></div>
       <div><h3>Zeroing</h3><ul><li><a href="../#why">Why Zeroing exists</a></li><li><a href="../#how">How we work</a></li><li><a href="../contact">Contact</a></li><li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdItIxYCVZ8LFwe6JZj-SaRhk6agmh1VfiQ19riKHPT9JnqQQ/viewform" target="_blank" rel="noopener">Creators: collaborate</a></li><li><a href="../legal">Disclaimer, privacy and terms</a></li><li><a href="../legal#grievance">Grievances</a></li></ul></div>
     </footer>
+    <div class="endlane narrow" aria-hidden="true">
+      <div class="endlane-row"><span class="s" style="--i:0;--w:9;--h:54px"><i></i></span><span class="s" style="--i:1;--w:10;--h:46px"><i></i></span><span class="s" style="--i:2;--w:7;--h:46px"><i></i></span><span class="s dim" style="--i:3;--w:9;--h:46px"><i></i></span><span class="s" style="--i:4;--w:11;--h:54px"><i></i></span><span class="s" style="--i:5;--w:7;--h:46px"><i></i></span><span class="s" style="--i:6;--w:10;--h:70px"><i></i></span><span class="s" style="--i:7;--w:7;--h:54px"><i></i></span><span class="s" style="--i:8;--w:7;--h:70px"><i></i></span><span class="s open" style="--i:9;--w:7;--h:46px"><i></i></span><span class="s" style="--i:10;--w:8;--h:46px"><i></i></span><span class="s" style="--i:11;--w:11;--h:70px"><i></i></span><span class="s dim" style="--i:12;--w:7;--h:54px"><i></i></span><span class="s" style="--i:13;--w:7;--h:54px"><i></i></span></div>
+      <p class="endlane-note">You have reached the end of the lane. There is room for one more stall.</p>
+    </div>
     <div class="signoff narrow">
       <span>Instagram @zeroingnow and @theotherdetails. New Delhi, 2026.</span>
     </div>
@@ -857,6 +884,13 @@ a.product:hover { border-color: var(--ink); }
       entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
     }, { rootMargin: '0px 0px -8% 0px' });
     items.forEach(function (el) { el.classList.add('rv'); io.observe(el); });
+  }
+
+  // the end of the lane rises when the footer comes into view
+  var lane = document.querySelector('.endlane');
+  if (lane) {
+    if (still || !('IntersectionObserver' in window)) lane.classList.add('in');
+    else { var lo = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { lane.classList.add('in'); lo.disconnect(); } }, { threshold: 0.4 }); lo.observe(lane); }
   }
 
   // chapter bar shows where you are
