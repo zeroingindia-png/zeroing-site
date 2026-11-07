@@ -811,8 +811,7 @@ main { counter-reset: zsec; }
 @media (prefers-reduced-motion: reduce) { .js .ico.draw * { stroke-dashoffset: 0; transition: none; } .js .fact-viz.ready .on { opacity: 1; transition: none; } }
 
 /* ambient background: slow, quiet movement behind the content */
-.ambient { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
-body > *:not(.ambient):not(.cursor-dot):not(.cursor-ring):not(.cursor-light):not(.touch-light):not(.tap-ripple) { position: relative; z-index: 1; }
+.ambient { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
 .amb-glow { position: absolute; border-radius: 50%; filter: blur(60px); opacity: .5; will-change: transform; }
 .amb-glow.g1 { width: 46vw; height: 46vw; left: -10vw; top: 6vh; background: radial-gradient(circle, rgba(217,152,26,.20), transparent 65%); animation: ambDrift1 48s ease-in-out infinite alternate; }
 .amb-glow.g2 { width: 40vw; height: 40vw; right: -8vw; bottom: -6vh; background: radial-gradient(circle, rgba(184,38,44,.13), transparent 65%); animation: ambDrift2 56s ease-in-out infinite alternate; }
@@ -837,7 +836,7 @@ body > *:not(.ambient):not(.cursor-dot):not(.cursor-ring):not(.cursor-light):not
 .cursor-dot { width: 6px; height: 6px; margin: -3px 0 0 -3px; border-radius: 50%; background: var(--sindoor); }
 .cursor-ring { width: 34px; height: 34px; margin: -17px 0 0 -17px; border-radius: 50%; border: 1px solid rgba(184,38,44,.45); transition: width 250ms ease, height 250ms ease, margin 250ms ease, background 250ms ease, border-color 250ms ease, opacity 300ms ease; }
 .cursor-ring.hover { width: 64px; height: 64px; margin: -32px 0 0 -32px; background: rgba(184,38,44,.07); border-color: rgba(184,38,44,.25); }
-.cursor-light { z-index: 0; width: 520px; height: 520px; margin: -260px 0 0 -260px; border-radius: 50%; background: radial-gradient(circle, rgba(217,152,26,.13), transparent 62%); }
+.cursor-light { z-index: -1; width: 520px; height: 520px; margin: -260px 0 0 -260px; border-radius: 50%; background: radial-gradient(circle, rgba(217,152,26,.13), transparent 62%); }
 .tilt { transition: transform 400ms cubic-bezier(.2,.8,.2,1); transform-style: preserve-3d; will-change: transform; }
 .magnet { transition: transform 300ms cubic-bezier(.2,.8,.2,1); }
 @media (pointer: coarse), (prefers-reduced-motion: reduce) { .cursor-dot, .cursor-ring, .cursor-light { display: none; } }
@@ -845,7 +844,7 @@ body > *:not(.ambient):not(.cursor-dot):not(.cursor-ring):not(.cursor-light):not
 /* touch: ripple where you tap and a light under your finger */
 .tap-ripple { position: fixed; z-index: 60; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; border: 1.5px solid var(--sindoor); pointer-events: none; animation: tapRipple 650ms cubic-bezier(.2,.8,.2,1) forwards; }
 @keyframes tapRipple { from { transform: scale(1); opacity: .9; } to { transform: scale(5); opacity: 0; } }
-.touch-light { position: fixed; left: 0; top: 0; z-index: 0; width: 360px; height: 360px; margin: -180px 0 0 -180px; border-radius: 50%; pointer-events: none; background: radial-gradient(circle, rgba(217,152,26,.16), transparent 62%); opacity: 0; transition: opacity 500ms ease, transform 500ms cubic-bezier(.2,.8,.2,1); }
+.touch-light { position: fixed; left: 0; top: 0; z-index: -1; width: 360px; height: 360px; margin: -180px 0 0 -180px; border-radius: 50%; pointer-events: none; background: radial-gradient(circle, rgba(217,152,26,.16), transparent 62%); opacity: 0; transition: opacity 500ms ease, transform 500ms cubic-bezier(.2,.8,.2,1); }
 .touch-light.on { opacity: 1; }
 @media (max-width: 700px) { .amb-mark { display: block; width: 70vw; right: -24vw; top: 30vh; } }
 @media (prefers-reduced-motion: reduce) { .tap-ripple, .touch-light { display: none; } }
