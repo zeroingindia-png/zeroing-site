@@ -518,6 +518,45 @@ def build():
     print("built", 8 + len(BRANDS), "pages")
     from research import build_research
     build_research()
+    share_tags()
+
+
+SITE = "https://zeroingnow.com/"
+
+
+def share_tags():
+    """Give every built page a canonical address and a preview card for WhatsApp, LinkedIn, X and others."""
+    import glob, re as _re
+    for full in glob.glob(os.path.join(OUT, "**", "*.html"), recursive=True):
+        rel = os.path.relpath(full, OUT).replace(os.sep, "/")
+        if rel.startswith("media/"):
+            continue
+        html = open(full, encoding="utf-8").read()
+        if 'property="og:title"' in html:
+            continue
+        url = SITE + ("" if rel == "index.html" else rel[:-10] if rel.endswith("/index.html") else rel)
+        title = (_re.search(r"<title>(.*?)</title>", html, _re.S) or [None, "Zeroing"])[1].strip()
+        desc = (_re.search(r'<meta name="description" content="([^"]*)"', html) or [None, ""])[1]
+        hero = _re.search(r'class="hero-photo[^"]*"><img src="([^"]+)"', html)
+        image = SITE + "media/share.jpg"
+        if hero and rel.startswith(("brands/", "episodes/")):
+            image = SITE + _re.sub(r"^(\.\./)+", "", hero.group(1))
+        tags = (f'\n<link rel="canonical" href="{url}">'
+                f'\n<meta property="og:type" content="website"><meta property="og:site_name" content="Zeroing">'
+                f'\n<meta property="og:url" content="{url}"><meta property="og:title" content="{title}">'
+                f'\n<meta property="og:description" content="{desc}"><meta property="og:image" content="{image}">'
+                f'\n<meta name="twitter:card" content="summary_large_image">')
+        html = html.replace("</title>", "</title>" + tags, 1)
+        open(full, "w", encoding="utf-8").write(html)
+    urls = []
+    for full in sorted(glob.glob(os.path.join(OUT, "**", "*.html"), recursive=True)):
+        rel = os.path.relpath(full, OUT).replace(os.sep, "/")
+        if rel.startswith("media/") or rel == "404.html":
+            continue
+        urls.append(SITE + ("" if rel == "index.html" else rel[:-10] if rel.endswith("/index.html") else rel))
+    open(os.path.join(OUT, "sitemap.xml"), "w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        + "".join(f"  <url><loc>{u}</loc></url>\n" for u in urls) + "</urlset>\n")
+    open(os.path.join(OUT, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\nSitemap: {SITE}sitemap.xml\n")
 
 
 if __name__ == "__main__":
