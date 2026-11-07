@@ -55,6 +55,7 @@ for n, x in enumerate(load("brands.json")):
          "sustainability": x.get("sustainability", ""), "nature": x.get("nature", ""), "culture": x.get("culture", ""), "site": (x.get("website") or "").strip(),
          "instagram": (x.get("instagram") or "").strip().lstrip("@"),
          "logo": mf(x["logo"]) if x.get("logo") else "",
+         "home": x.get("show_on_home", True),
          "products": [p for p in x.get("products", []) if p.get("name") and p.get("link")],
          "practices": [p for p in x.get("practices", []) if p.get("text")]}
     if x.get("hero_image"):
@@ -70,6 +71,7 @@ for n, x in enumerate(load("brands.json")):
     BRANDS.append(d)
 
 EPISODES = [{"slug": "akanksha-sood-singh", "parts": PODCAST["parts"]}]
+ON_HOME = [b for b in BRANDS if b["home"]]
 HIGHLIGHTS = [(h["time"], h["title"]) for h in PODCAST.get("highlights", [])]
 FIELD_PHOTOS = [(mf(f["image"]), f.get("caption", ""), {"wide": "w", "tall": "t"}.get(f.get("shape"), "h"))
                 for f in PODCAST.get("field_photos", []) if f.get("image")]
@@ -136,11 +138,11 @@ def write(path, text):
 
 def lane_html(P):
     stalls = []
-    for i, b in enumerate(BRANDS):
+    for i, b in enumerate(ON_HOME):
         mark = img(b["logo"], b["name"], P) if b.get("logo") else f'<span class="bname">{E(b["name"])}</span>'
         stalls.append(f'      <li class="stall" style="--i:{i}"><a href="{P}brands/{b["slug"]}.html"><span class="awning" aria-hidden="true"></span>'
                       f'<span class="board">{mark}</span><span class="what">{E(b["makes"] or b["line"])}</span></a></li>')
-    n = len(BRANDS)
+    n = len(ON_HOME)
     for j in range(3):
         stalls.append(f'      <li class="stall empty" style="--i:{n + j}"><span class="awning" aria-hidden="true"></span>'
                       f'<span class="board"><span class="soon">New in 2026</span></span><span class="what">Page goes up once the founder confirms</span></li>')
@@ -283,7 +285,7 @@ def focus_block(b):
 
 def focus_table(P):
     # brands with nothing confirmed are left out, and so are columns nobody has filled
-    brands = [b for b in BRANDS if any(b.get(k) for k, _ in FOCUS)]
+    brands = [b for b in ON_HOME if any(b.get(k) for k, _ in FOCUS)]
     cols = [(k, t) for k, t in FOCUS if any(b.get(k) for b in brands)]
     if not brands or not cols:
         return ''
@@ -442,7 +444,7 @@ def build():
             .replace("{BANDS}", bands)
             .replace("{CRAFT}", craft_reel(HOME_CRAFT, H_.get("craft_title", ""), T(H_.get("craft_text", "")), ""))
             .replace("{BRANDS_TITLE}", T(H_.get("brands_title", ""))).replace("{BRANDS_TEXT}", E(H_.get("brands_text", "")))
-            .replace("{HOME_LANE}", lane_html("")).replace("{HOME_BRANDS}", "\n".join(home_brand_row(b, "") for b in BRANDS))
+            .replace("{HOME_LANE}", lane_html("")).replace("{HOME_BRANDS}", "\n".join(home_brand_row(b, "") for b in ON_HOME))
             .replace("{LISTEN_LATEST}", listen_buttons(p2))
             .replace("{HOW_TITLE}", T(H_.get("how_title", ""))).replace("{HOW_TEXT}", E(H_.get("how_text", "")))
             .replace("{PILLARS}", pillars).replace("{STEPS_TITLE}", E(H_.get("steps_title", ""))).replace("{STEPS}", steps)

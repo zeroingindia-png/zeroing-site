@@ -60,7 +60,8 @@
         "level": "founder"
       }
     ],
-    "logo": "/media/logo-indso.png"
+    "logo": "/media/logo-indso.png",
+    "show_on_home": true
   },
   {
     "name": "Ampor Eyewear",
@@ -86,7 +87,8 @@
     "craft": [],
     "products": [],
     "practices": [],
-    "logo": "/media/logo-ampor-eyewear.png"
+    "logo": "/media/logo-ampor-eyewear.png",
+    "show_on_home": true
   },
   {
     "name": "Vedi Kade",
@@ -112,7 +114,8 @@
     "craft": [],
     "products": [],
     "practices": [],
-    "logo": "/media/logo-vedi-kade.png"
+    "logo": "/media/logo-vedi-kade.png",
+    "show_on_home": true
   },
   {
     "name": "Syzygy Living",
@@ -138,6 +141,7 @@
     "craft": [],
     "products": [],
     "practices": [],
-    "logo": "/media/logo-syzygy-living.png"
+    "logo": "/media/logo-syzygy-living.png",
+    "show_on_home": false
   }
 ]

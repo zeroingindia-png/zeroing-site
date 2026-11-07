@@ -102,6 +102,7 @@ content:
           - { name: image, label: "Photo", type: image }
           - { name: title, label: "Caption title", type: string }
           - { name: note, label: "Caption line", type: string }
+      - { name: show_on_home, label: "Show on the home page", type: boolean }
       - { name: logo, label: "Logo (dark, on a transparent background)", type: image }
       - name: products
         label: "Shop: products (each opens on the brand's own shop)"
