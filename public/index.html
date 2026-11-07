@@ -680,6 +680,9 @@ a.product:hover { border-color: var(--ink); }
 #join .actions { display: flex; flex-wrap: wrap; gap: 12px; }
 .collab { margin-top: 24px; } .collab small { display: inline-block; margin-top: 10px; color: var(--ink-2); }
 
+
+.lane-gif { margin: clamp(32px, 5vw, 56px) 0 0; border-top: 1px solid rgba(27,26,24,.12); border-bottom: 1px solid rgba(27,26,24,.12); }
+.lane-gif img { display: block; width: 100%; height: auto; }
 </style>
 </head>
 <body>
@@ -725,15 +728,7 @@ a.product:hover { border-color: var(--ink); }
       <a class="pill solid" href="#brands">Walk the lane</a>
       <a class="pill line" href="independent-society">Listen to Independent Society</a>
     </div>
-    <ol class="lane" aria-label="The lane: brands in Zeroing">
-      <li class="stall" style="--i:0"><a href="brands/indso"><span class="awning" aria-hidden="true"></span><span class="board"><img src="media/logo-indso.png" alt="INDSO" loading="lazy" decoding="async"></span><span class="what">Botanical skincare gels</span></a></li>
-      <li class="stall" style="--i:1"><a href="brands/ampor-eyewear"><span class="awning" aria-hidden="true"></span><span class="board"><img src="media/logo-ampor-eyewear.png" alt="Ampor Eyewear" loading="lazy" decoding="async"></span><span class="what">Eyewear</span></a></li>
-      <li class="stall" style="--i:2"><a href="brands/vedi-kade"><span class="awning" aria-hidden="true"></span><span class="board"><img src="media/logo-vedi-kade.png" alt="Vedi Kade" loading="lazy" decoding="async"></span><span class="what">Modern clothing with Tamil history in it</span></a></li>
-      <li class="stall empty" style="--i:3"><span class="awning" aria-hidden="true"></span><span class="board"><span class="soon">New in 2026</span></span></li>
-      <li class="stall empty" style="--i:4"><span class="awning" aria-hidden="true"></span><span class="board"><span class="soon">New in 2026</span></span></li>
-      <li class="stall empty" style="--i:5"><span class="awning" aria-hidden="true"></span><span class="board"><span class="soon">New in 2026</span></span></li>
-      <li class="stall open" style="--i:6"><a href="join"><span class="awning" aria-hidden="true"></span><span class="board"><span class="soon">Yours?</span></span><span class="what">Take a stall with us</span></a></li>
-    </ol>
+    <figure class="lane-gif"><img src="media/lane.gif" width="1600" height="360" alt="The Zeroing mark, then INDSO, Ampor and Vedi Kade appearing side by side on one line" fetchpriority="high"></figure>
     <p class="hero2-note">New Delhi · <span id="today"></span></p>
   </section>
 
