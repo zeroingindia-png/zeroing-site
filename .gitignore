@@ -4,5 +4,7 @@ node_modules/
 preview.html
 .preview/
 !public/the-other-details/tod-logo.png
+!public/media/*.png
+!public/*.png
 __pycache__/
 .claude/worktrees/

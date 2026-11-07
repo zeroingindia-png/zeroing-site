@@ -90,7 +90,7 @@ HEAD = """<title>{title}</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="{desc}">
 <meta name="theme-color" content="#C1272D">
-<link rel="icon" href="%%ROOT%%favicon.svg" type="image/svg+xml">
+<link rel="icon" href="%%ROOT%%favicon.ico" sizes="32x32"><link rel="icon" href="%%ROOT%%favicon.svg" type="image/svg+xml"><link rel="icon" href="%%ROOT%%icon-192.png" type="image/png" sizes="192x192"><link rel="apple-touch-icon" href="%%ROOT%%apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anek+Devanagari:wdth,wght@75..125,300..800&family=Anek+Latin:wdth,wght@75..125,300..800&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@500&display=swap">

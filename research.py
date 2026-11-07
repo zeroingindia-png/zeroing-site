@@ -36,7 +36,7 @@ def shell(title, desc, here, main):
     return f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{html.escape(title)}</title><meta name="description" content="{html.escape(desc)}">
-<link rel="icon" href="../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="lab.css"></head>
+<link rel="icon" href="../favicon.ico" sizes="32x32"><link rel="icon" href="../favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="../apple-touch-icon.png"><link rel="stylesheet" href="lab.css"></head>
 <body>
 <header class="sticky top-0 z-40 border-b border-edge bg-ink/80 backdrop-blur-md">
   <div class="wrap flex items-center justify-between gap-2 py-3.5">
