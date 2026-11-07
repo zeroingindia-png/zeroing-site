@@ -1118,9 +1118,6 @@ main { counter-reset: zsec; }
     var tmark = document.querySelector('.amb-mark');
     addEventListener('touchstart', function (e) {
       var t = e.touches[0]; if (!t) return;
-      var rp = document.createElement('span'); rp.className = 'tap-ripple'; rp.setAttribute('aria-hidden', 'true');
-      rp.style.left = t.clientX + 'px'; rp.style.top = t.clientY + 'px'; document.body.appendChild(rp);
-      setTimeout(function () { rp.remove(); }, 700);
       tlight.style.transform = 'translate(' + t.clientX + 'px,' + t.clientY + 'px)'; tlight.classList.add('on');
     }, { passive: true });
     addEventListener('touchmove', function (e) { var t = e.touches[0]; if (t) tlight.style.transform = 'translate(' + t.clientX + 'px,' + t.clientY + 'px)'; }, { passive: true });
