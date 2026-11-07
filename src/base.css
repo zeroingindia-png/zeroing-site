@@ -653,3 +653,7 @@ a.product:hover { border-color: var(--ink); }
 .lane a .what { background-image: none !important; }
 .lane a::after { content: none !important; }
 .brand-list .thumb.logo { padding: 6px; }
+
+#join .actions .pill.line { color: var(--paper); border-color: rgba(246,242,234,.5); }
+#join .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.collab { margin-top: 24px; } .collab small { display: inline-block; margin-top: 10px; color: var(--ink-2); }
