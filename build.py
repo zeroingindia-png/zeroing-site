@@ -186,6 +186,8 @@ def shop_cards(P):
 
 
 def practices_html(P):
+    if sum(1 for b in BRANDS if b["practices"]) < 3:
+        return ""
     rows = []
     for b in BRANDS:
         items = "".join(
@@ -498,8 +500,8 @@ def build():
         ("independent-society.html", "Independent Society", "One person at a time, a long honest conversation about working life in India, seen from the inside.", is_main, "podcast"),
         ("join.html", "Join Zeroing", "Apply to join Zeroing, a community of homegrown Indian brands.", read("pages", "join.html"), "join"),
         ("shop.html", "Shop the lane", "Buy straight from the homegrown Indian brands in Zeroing, and see how each one makes it.",
-         read("pages", "shop.html").replace("{SHOP_CARDS}", shop_cards("")).replace("{PRACTICES}", practices_html(""))
-         .replace("{AREA_CHIPS}", "\n".join(f'      <button type="button" class="chip" aria-pressed="false" data-area="{a}">{a}</button>' for a in AREAS)), "shop"),
+         (read("pages", "shop.html") if sum(1 for b in BRANDS if b["practices"]) >= 3 else __import__("re").sub(r'\s*<div class="pfilter".*?</div>', '', read("pages", "shop.html"), count=1, flags=__import__("re").S)).replace("{SHOP_CARDS}", shop_cards("")).replace("{PRACTICES}", practices_html(""))
+         .replace("{AREA_CHIPS}", "" if sum(1 for b in BRANDS if b["practices"]) < 3 else "\n".join(f'      <button type="button" class="chip" aria-pressed="false" data-area="{a}">{a}</button>' for a in AREAS)), "shop"),
         ("contact.html", "Contact Zeroing", "Write to Zeroing.", read("pages", "contact.html"), ""),
         ("legal.html", "Zeroing Legal", "Disclaimer, privacy notice, terms of use and grievances for Zeroing.", read("pages", "legal.html"), ""),
     ]

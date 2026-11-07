@@ -157,8 +157,17 @@
       data.consent_text = label ? label.textContent.trim() : '';
       button.disabled = true;
       status.textContent = 'Sending.';
+      var viaMail = function () {
+        var mail = {}; Object.keys(data).forEach(function (k) { if (k !== 'company_website') mail[k] = data[k]; });
+        mail._subject = 'Zeroing website: ' + data.form; mail._template = 'table'; mail._captcha = 'false';
+        if (data.email) mail._replyto = data.email;
+        return fetch('https://formsubmit.co/ajax/zeroingindia@gmail.com', { method: 'POST', headers: { 'content-type': 'application/json', accept: 'application/json' }, body: JSON.stringify(mail) })
+          .then(function (r) { return r.json(); }).then(function (j) { return { ok: j && (j.success === true || j.success === 'true') }; });
+      };
+      if (data.company_website) { status.textContent = DONE[form.dataset.form] || 'Thank you.'; button.disabled = false; return; }
       fetch('/api/submit', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(data) })
-        .then(function (r) { return r.json().catch(function () { return { ok: false }; }); })
+        .then(function (r) { if (!r.ok && r.status !== 400) throw new Error('no api'); return r.json(); })
+        .catch(function () { return viaMail(); })
         .then(function (res) {
           if (res.ok) { form.reset(); status.textContent = DONE[form.dataset.form] || 'Thank you. It is in.'; }
           else { status.textContent = res.error || 'That did not go through. Try again, or email zeroingindia@gmail.com.'; }

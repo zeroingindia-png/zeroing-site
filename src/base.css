@@ -676,3 +676,6 @@ a.product:hover { border-color: var(--ink); }
 @media (max-width: 520px) {
   .brand-card .card-img.logo { aspect-ratio: 2 / 1; padding: 0 22%; }
 }
+
+.pmethod { max-width: 62ch; margin-top: 18px; color: var(--ink-2); font-size: .95rem; }
+.pmethod strong { color: var(--ink); }

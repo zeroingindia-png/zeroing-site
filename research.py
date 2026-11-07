@@ -147,7 +147,7 @@ ABOUT = """<section id="about" class="lab-about grid gap-6 md:grid-cols-2">
   <div class="grid gap-4" style="align-content:start"><span class="chip">Why the lab exists</span><h2 class="h-sec">Every story about India <i>gets edited.</i></h2></div>
   <div class="grid gap-4 leading-relaxed text-muted" style="align-content:start;font-size:17px">
     <p>The unpaid invoice. The permission letter that sat on a desk for three months. The savings that paid the rent while the work got done. <span class="text-paper">That is the part we keep.</span></p>
-    <p>The Other Details is the research lab of Zeroing, a community of homegrown Indian brands. It does two jobs. It traces every number we publish to the page it was first printed on. And it checks what our brands say about how they make things, so a practice on the shop page can move from Founder says to Checked by Zeroing.</p>
+    <p>The Other Details is the research lab of Zeroing, a community of homegrown Indian brands. It does two jobs. It traces every number we publish to the page it was first printed on. And it reviews the proof our brands share about how they make things. Only after that review can a practice on the shop page be marked Checked by Zeroing.</p>
     <p><a class="text-teal" href="https://www.instagram.com/theotherdetails/" target="_blank" rel="noopener">Follow @theotherdetails on Instagram</a></p>
   </div>
 </section>"""
