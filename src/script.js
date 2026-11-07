@@ -138,6 +138,22 @@
     });
   }
 
+  // phones: a ripple where you tap, the warm light follows your finger, the background mark drifts as you scroll
+  if (!still && window.matchMedia && window.matchMedia('(pointer: coarse)').matches) {
+    var tlight = document.createElement('div'); tlight.className = 'touch-light'; tlight.setAttribute('aria-hidden', 'true'); document.body.appendChild(tlight);
+    var tmark = document.querySelector('.amb-mark');
+    addEventListener('touchstart', function (e) {
+      var t = e.touches[0]; if (!t) return;
+      var rp = document.createElement('span'); rp.className = 'tap-ripple'; rp.setAttribute('aria-hidden', 'true');
+      rp.style.left = t.clientX + 'px'; rp.style.top = t.clientY + 'px'; document.body.appendChild(rp);
+      setTimeout(function () { rp.remove(); }, 700);
+      tlight.style.transform = 'translate(' + t.clientX + 'px,' + t.clientY + 'px)'; tlight.classList.add('on');
+    }, { passive: true });
+    addEventListener('touchmove', function (e) { var t = e.touches[0]; if (t) tlight.style.transform = 'translate(' + t.clientX + 'px,' + t.clientY + 'px)'; }, { passive: true });
+    addEventListener('touchend', function () { setTimeout(function () { tlight.classList.remove('on'); }, 900); }, { passive: true });
+    if (tmark) addEventListener('scroll', function () { tmark.style.translate = '0 ' + (-scrollY * 0.06) + 'px'; tmark.style.rotate = (scrollY * 0.01) + 'deg'; }, { passive: true });
+  }
+
   // chapter bar shows where you are
   var links = document.querySelectorAll('.ln-links a[href^="#"]');
   if (links.length && 'IntersectionObserver' in window) {
