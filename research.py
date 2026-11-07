@@ -42,9 +42,9 @@ def shell(title, desc, here, main):
 <body>
 <header class="sticky top-0 z-40 border-b border-edge bg-ink/80 backdrop-blur-md">
   <div class="wrap flex items-center justify-between gap-2 py-3.5">
-    <a href="../index.html" class="chip no-underline max-sm:hidden">Zeroing · The Other Details</a>
+    <a href="../index.html" class="chip no-underline tod-back"><span class="tod-long">Zeroing · The Other Details</span><img class="tod-short" src="../favicon.svg" alt="Zeroing home" width="22" height="22"></a>
     <nav aria-label="Research" class="flex gap-0.5">{links}</nav>
-    <a href="index.html" aria-label="The Other Details research, home"><img src="tod-logo.png" alt="the other details." class="h-4 w-auto shrink-0 sm:h-5"></a>
+    <a href="index.html" class="tod-logo" aria-label="The Other Details research, home"><img src="tod-logo.png" alt="the other details." class="h-4 w-auto shrink-0 sm:h-5"></a>
   </div>
 </header>
 <main>
@@ -61,6 +61,9 @@ LAB_POLISH = """<div class="lab-progress" aria-hidden="true"></div>
 <style>
 header nav a{display:inline-flex;align-items:center;min-height:40px}
 footer li a{display:inline-block;padding:3px 0}
+.tod-short{display:none}
+@media (max-width:639px){.tod-long,.tod-logo,.tod-back::before{display:none}.tod-short{display:block;width:22px;height:22px;border-radius:5px}.tod-back{padding:0;min-height:40px;min-width:40px;display:inline-flex;align-items:center;justify-content:center;background:none;border:0}header nav a{padding-inline:6px;font-size:.8rem}}
+@media (min-width:900px){.tod-reels{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:28px!important}}
 :where([id]){scroll-margin-top:84px}
 :focus-visible{outline:2px solid #f4b942;outline-offset:3px;border-radius:4px}
 .lab-progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:60;pointer-events:none;transform-origin:0 50%;transform:scaleX(0);background:#e0505c}
@@ -90,10 +93,10 @@ def footer(crumb):
    {col("Studies", [("The cloud has an address", "data-centres.html"), ("The gold at home", "gold.html"), ("All studies", "index.html")])}
    {col("The lab", [("How we check data", "method.html"), ("Why the lab exists", "index.html#about"), ("Send us a detail", "index.html#lead")])}
    {col("Primary sources", [("World Gold Council", "https://www.gold.org/goldhub"), ("CEEW", "https://www.ceew.in"), ("MeitY", "https://www.meity.gov.in"), ("WRI India", "https://wri-india.org"), ("Reserve Bank of India", "https://www.rbi.org.in")])}
-   {col("Zeroing", [("Home", "../index.html"), ("Independent Society", "../independent-society.html"), ("Community", "../community.html"), ("Contact", "../contact.html")])}
+   {col("Zeroing", [("Home", "../index.html"), ("Community", "../community.html"), ("Shop the lane", "../shop.html"), ("Independent Society", "../independent-society.html"), ("Join", "../join.html"), ("Contact", "../contact.html")])}
    {col("Follow", [("@theotherdetails", "https://www.instagram.com/theotherdetails/"), ("@zeroingnow", "https://www.instagram.com/zeroingnow/")])}
   </div>
-  <div class="flex flex-wrap justify-between gap-3 border-t border-edge pt-4"><span>© Zeroing · The Other Details. All data credited to its owners.</span><a class="text-muted no-underline hover:text-paper" href="../legal.html">Disclaimer, privacy and terms</a></div>
+  <div class="flex flex-wrap justify-between gap-3 border-t border-edge pt-4"><span>© Zeroing · The Other Details. All data credited to its owners. New Delhi, 2026.</span><a class="text-muted no-underline hover:text-paper" href="../legal.html">Disclaimer, privacy and terms</a></div>
  </div>
 </footer>"""
 

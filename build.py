@@ -434,6 +434,22 @@ def record_card():
 HOME_CRAFT = [(mf(c["image"]), c.get("title", ""), c.get("note", ""), bool(c.get("wide"))) for c in HOME.get("craft", []) if c.get("image")]
 
 
+ICON = {
+    "community": '<path d="M3 9.5 4.5 4h15L21 9.5"/><path d="M3 9.5c0 1.4 1.3 2.5 3 2.5s3-1.1 3-2.5c0 1.4 1.3 2.5 3 2.5s3-1.1 3-2.5c0 1.4 1.3 2.5 3 2.5s3-1.1 3-2.5"/><path d="M5 12v8h14v-8"/><path d="M10 20v-4h4v4"/>',
+    "podcast": '<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0"/><path d="M12 17.5V21M8.5 21h7"/>',
+    "lab": '<circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.3 15.3 5.2 5.2"/><path d="m7.5 12.5 2-2.5 2 1.5 2-3"/>',
+    "nature": '<path d="M5 19C5 11 10 5 19 5c0 9-6 14-14 14z"/><path d="M5 19 13 11"/>',
+    "culture": '<path d="M3 13h18c-1 4-4.5 6-9 6s-8-2-9-6z"/><path d="M12 10.5c-1.6-1.6-1.6-3.8 0-6.5 1.6 2.7 1.6 4.9 0 6.5z"/>',
+    "sustainability": '<path d="M19.5 12a7.5 7.5 0 0 1-13.2 4.9"/><path d="M4.5 12a7.5 7.5 0 0 1 13.2-4.9"/><path d="M18 3.5v3.6h-3.6M6 20.5v-3.6h3.6"/>',
+}
+
+
+def icon(key):
+    d = ICON.get(key)
+    return (f'<svg class="ico" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" '
+            f'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">{d}</svg>') if d else ""
+
+
 def build():
     ep = EPISODES[0]
     p1, p2 = ep["parts"][0], ep["parts"][-1]
@@ -443,16 +459,17 @@ def build():
     tile_links = [("t-light t-full", [("{P}community.html", "Meet the brands"), ("{P}join.html", "Apply to join")]),
                   ("t-dark", [("{P}independent-society.html", "Learn more"), (SPOTIFY_SHOW, "Listen on Spotify")]),
                   ("t-white", [("{P}the-other-details/", "Read the studies"), ("{P}the-other-details/#lead", "Send a detail")])]
-    def tile(cls_links, bd):
+    tile_icons = ["community", "podcast", "lab"]
+    def tile(cls_links, bd, ic=""):
         cls, links = cls_links
         ls = "".join(f'<a class="tlink" href="{h}"{" target=_blank rel=noopener" if h.startswith("http") else ""}>{E(t)}</a>' for h, t in links if h)
         pic = f'<div class="tile-img">{img(mf(bd.get("image")), "", "")}</div>' if bd.get("image") else ""
-        return (f'    <article class="tile {cls}"><div class="tile-text"><h2 class="display">{T(bd.get("title", ""))}</h2>'
+        return (f'    <article class="tile {cls}"><div class="tile-text"><h2 class="display">{icon(ic)}{T(bd.get("title", ""))}</h2>'
                 f'<p>{E(bd.get("text", ""))}</p><div class="tile-links">{ls}</div></div>{pic}</article>')
-    bands = "\n".join(tile(cl, bd) for cl, bd in zip(tile_links, H_.get("bands", [])))
+    bands = "\n".join(tile(cl, bd, ic) for cl, bd, ic in zip(tile_links, H_.get("bands", []), tile_icons))
     pillars = "\n".join(
         f'      <article class="pillar">'
-        f'<h3>{T(pl.get("title", ""))}</h3><p class="pillar-line">{T(pl.get("line", ""))}</p>'
+        f'<h3>{icon(pl.get("title", "").strip().lower())}{T(pl.get("title", ""))}</h3><p class="pillar-line">{T(pl.get("line", ""))}</p>'
         f'<ul>{"".join(f"<li>{E(x)}</li>" for x in pl.get("points", []) if x)}</ul></article>'
         for pl in H_.get("pillars", []))
     steps = "\n".join(f'      <li><span class="dot">{i + 1}</span><span class="st">{E(st.get("title", ""))}</span><span class="sd">{E(st.get("text", ""))}</span></li>'
