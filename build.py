@@ -515,7 +515,21 @@ def build():
                       "Wildlife filmmaker Akanksha Sood Singh in conversation with Anshul Kumar on Independent Society. Episodes 1 and 2, on Spotify.",
                       main, P="../", H="../index.html", current="podcast")
     write("episodes/akanksha-sood-singh.html", full_doc(head, body))
-    print("built", 8 + len(BRANDS), "pages")
+    main404 = """  <section class="hero3" id="top">
+    <p class="kicker">Page not found</p>
+    <h1 class="display lane-title"><span class="b1">This stall has moved.</span> <span class="b2">The lane is still here.</span></h1>
+    <p class="lede">The link may be old or mistyped. Start from one of these.</p>
+    <div class="actions">
+      <a class="pill solid" href="/">Home</a>
+      <a class="pill line" href="/shop">Shop the lane</a>
+      <a class="pill line" href="/independent-society">The podcast</a>
+      <a class="pill line" href="/the-other-details/">The Other Details</a>
+    </div>
+  </section>
+"""
+    head, body = page("Page not found · Zeroing", "This page has moved. Start from the Zeroing home page.", main404, P="/", H="/")
+    write("404.html", full_doc(head, body))
+    print("built", 9 + len(BRANDS), "pages")
     from research import build_research
     build_research()
     share_tags()
