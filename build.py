@@ -632,7 +632,7 @@ def share_tags():
     urls = []
     for full in sorted(glob.glob(os.path.join(OUT, "**", "*.html"), recursive=True)):
         rel = os.path.relpath(full, OUT).replace(os.sep, "/")
-        if rel.startswith("media/") or rel == "404.html":
+        if rel.startswith(("media/", "lab/")) or rel == "404.html":
             continue
         urls.append(SITE + _clean_path(rel))
     open(os.path.join(OUT, "sitemap.xml"), "w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
