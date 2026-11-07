@@ -54,6 +54,7 @@ for n, x in enumerate(load("brands.json")):
          "role": x.get("role") or "Community brand", "city": x.get("city", ""), "founder": x.get("founder", ""),
          "sustainability": x.get("sustainability", ""), "nature": x.get("nature", ""), "culture": x.get("culture", ""), "site": (x.get("website") or "").strip(),
          "instagram": (x.get("instagram") or "").strip().lstrip("@"),
+         "logo": mf(x["logo"]) if x.get("logo") else "",
          "products": [p for p in x.get("products", []) if p.get("name") and p.get("link")],
          "practices": [p for p in x.get("practices", []) if p.get("text")]}
     if x.get("hero_image"):
@@ -148,7 +149,7 @@ def shop_cards(P):
     out = []
     for b in BRANDS:
         url, label = shop_url_of(b)
-        head = (f'    <div class="shop-brand"><h2 class="display"><a href="{P}brands/{b["slug"]}.html">{E(b["name"])}</a></h2>'
+        head = (f'    <div class="shop-brand">{f'<span class="brand-logo">{img(b["logo"], "", P)}</span>' if b.get("logo") else ""}<h2 class="display"><a href="{P}brands/{b["slug"]}.html">{E(b["name"])}</a></h2>'
                 f'<p>{E(b["line"])}</p></div>')
         cards = []
         for p in b["products"]:
@@ -304,7 +305,7 @@ def brand_main(b, P="../"):
     <div class="hero-text">
       <div class="hero-body">
         <p class="corners narrow" style="margin:0;padding:0">{E(b['role'])}</p>
-        <h1 class="display">{E(b['name'])}</h1>
+        {f'<p class="brand-logo">{img(b["logo"], b["name"] + " logo", P, eager=True)}</p>' if b.get("logo") else ""}<h1 class="display">{E(b['name'])}</h1>
         <p class="lede">{E(b['line'])}</p>
         <div class="actions">{shop_btn}{ig_btn}</div>
       </div>

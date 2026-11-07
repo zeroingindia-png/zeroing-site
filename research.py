@@ -170,6 +170,15 @@ b.disabled=true;st.textContent='Sending.';fetch('/api/submit',{method:'POST',hea
 </script>"""
 
 
+REELS = """<section id="reels" class="mt-20"><div class="grid gap-3.5"><span class="chip chip-teal">Reels</span><h2 class="h-sec">New from the lab. <i>One minute each.</i></h2><p class="max-w-[52ch] text-muted">Roads, medicine and ethanol, each number with its source on screen. Tap to play.</p></div>
+<div class="tod-reels"><figure class="tod-reel"><video controls playsinline preload="none" poster="media/road-deaths.jpg"><source src="media/road-deaths.mp4" type="video/mp4"></video><figcaption><span class="chip">Roads</span><span class="t">About 485 people die on India's roads every day.</span></figcaption></figure><figure class="tod-reel"><video controls playsinline preload="none" poster="media/medicine-part1.jpg"><source src="media/medicine-part1.mp4" type="video/mp4"></video><figcaption><span class="chip">Medicine 1/3</span><span class="t">A strip of cholesterol medicine for 229 rupees?</span></figcaption></figure><figure class="tod-reel"><video controls playsinline preload="none" poster="media/medicine-part2.jpg"><source src="media/medicine-part2.mp4" type="video/mp4"></video><figcaption><span class="chip">Medicine 2/3</span><span class="t">Who writes the MRP on your medicine strip?</span></figcaption></figure><figure class="tod-reel"><video controls playsinline preload="none" poster="media/medicine-part3.jpg"><source src="media/medicine-part3.mp4" type="video/mp4"></video><figcaption><span class="chip">Medicine 3/3</span><span class="t">What a typical stay in a private hospital costs.</span></figcaption></figure><figure class="tod-reel"><video controls playsinline preload="none" poster="media/ethanol-part1.jpg"><source src="media/ethanol-part1.mp4" type="video/mp4"></video><figcaption><span class="chip">Ethanol 1/3</span><span class="t">It's not your car.</span></figcaption></figure><figure class="tod-reel"><video controls playsinline preload="none" poster="media/ethanol-part2.jpg"><source src="media/ethanol-part2.mp4" type="video/mp4"></video><figcaption><span class="chip">Ethanol 2/3</span><span class="t">What a litre of ethanol leaves behind at the factory.</span></figcaption></figure><figure class="tod-reel"><video controls playsinline preload="none" poster="media/ethanol-part3.jpg"><source src="media/ethanol-part3.mp4" type="video/mp4"></video><figcaption><span class="chip">Ethanol 3/3</span><span class="t">Ethanol was meant to cut our oil bill.</span></figcaption></figure></div>
+<style>.tod-reels{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:20px;margin-top:28px}
+.tod-reel{margin:0;display:grid;gap:12px}.tod-reel video{width:100%;aspect-ratio:9/16;border-radius:18px;background:#000;border:1px solid hsla(0,0%,100%,.12);object-fit:cover}
+.tod-reel figcaption{display:grid;gap:8px}.tod-reel .t{font-weight:600;line-height:1.35}
+@media (max-width:640px){.tod-reels{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}}</style>
+</section>"""
+
+
 def home_page(studies):
     mosaic = ('<div class="absolute inset-0 grid grid-cols-2 gap-1 md:grid-cols-[1.2fr_.8fr_1.2fr]" aria-hidden="true">'
               + loop("dc-servers") + loop("gd-bangles") + loop("dc-cracked", "loop max-md:hidden") + "</div>")
@@ -189,7 +198,7 @@ def home_page(studies):
   <div class="mt-10 grid gap-6 md:grid-cols-2">{cards}</div>
   <div class="mt-20 grid gap-3.5"><span class="chip chip-teal">Watch</span><h2 class="h-sec">Study 01 is also <i>a film for your phone.</i></h2></div>
   {reel_box("reel-cloud", "Reel · 2:13 · 9:16", "The cloud has <i>an address.</i>", "Real footage. Dot charts drawn to scale. Every source on screen, with captions and narration.")}
-  """ + ABOUT + LEAD + """
+  """ + REELS + ABOUT + LEAD + """
 </div>"""
     return shell("The Other Details · The research lab of Zeroing", "The research lab of Zeroing: the numbers behind the news, traced to their sources and drawn so anyone can read them.", "home", main)
 

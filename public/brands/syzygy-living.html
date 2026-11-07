@@ -509,6 +509,12 @@ a.product:hover { border-color: var(--ink); }
   .product.empty .pbody { grid-template-columns: 1fr; }
   .product.empty .pill { justify-self: start; }
 }
+
+/* brand logos */
+.brand-logo { margin: 0 0 14px; }
+.brand-logo img { height: 34px; width: auto; max-width: 220px; object-fit: contain; object-position: left; }
+.shop-brand .brand-logo { display: block; margin-bottom: 12px; }
+.shop-brand .brand-logo img { height: 26px; }
 </style>
 </head>
 <body>
@@ -550,7 +556,7 @@ a.product:hover { border-color: var(--ink); }
     <div class="hero-text">
       <div class="hero-body">
         <p class="corners narrow" style="margin:0;padding:0">Community brand</p>
-        <h1 class="display">Syzygy Living</h1>
+        <p class="brand-logo"><img src="../media/logo-syzygy-living.png" alt="Syzygy Living logo" fetchpriority="high" decoding="async"></p><h1 class="display">Syzygy Living</h1>
         <p class="lede">Design homeware.</p>
         <div class="actions"><a class="pill solid" href="https://www.instagram.com/syzygyliving/" target="_blank" rel="noopener">Visit Syzygy Living <span class="arr" aria-hidden="true">&#8599;</span></a></div>
       </div>

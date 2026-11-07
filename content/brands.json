@@ -59,7 +59,8 @@
         "text": "Botanical ingredients such as turmeric, saffron, honey and ashwagandha. Every ingredient is written on the label.",
         "level": "founder"
       }
-    ]
+    ],
+    "logo": "/media/logo-indso.png"
   },
   {
     "name": "Ampor Eyewear",
@@ -84,7 +85,8 @@
     "craft_text": "",
     "craft": [],
     "products": [],
-    "practices": []
+    "practices": [],
+    "logo": "/media/logo-ampor-eyewear.png"
   },
   {
     "name": "Vedi Kade",
@@ -109,7 +111,8 @@
     "craft_text": "",
     "craft": [],
     "products": [],
-    "practices": []
+    "practices": [],
+    "logo": "/media/logo-vedi-kade.png"
   },
   {
     "name": "Syzygy Living",
@@ -134,6 +137,7 @@
     "craft_text": "",
     "craft": [],
     "products": [],
-    "practices": []
+    "practices": [],
+    "logo": "/media/logo-syzygy-living.png"
   }
 ]
