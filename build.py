@@ -388,7 +388,7 @@ def spotify_embed(url, title):
 
 def record_card():
     parts = EPISODES[0]["parts"]
-    rows = [("Episodes on record", len(parts)), ("Moments in the highlights", len(HIGHLIGHTS)), ("Brands that presented it", 2)]
+    rows = [("Episodes on record", len(parts)), ("Brands that presented it", 2)]
     li = "".join(f'<li><span>{E(k)}</span><b>{v}</b></li>' for k, v in rows)
     return (f'<aside class="rec-card" aria-label="This conversation in numbers"><div class="rec-top"><span>Akanksha Sood Singh</span>'
             f'<span class="rec-badge">Part two is out</span></div>'
@@ -459,7 +459,7 @@ def build():
                .replace("{HIGHLIGHTS}", highlights_html(p2["spotify"]))
                .replace("{RECORD_CARD}", record_card())
                .replace("{YOUTUBE_CHANNEL_BTN}", f'<a class="pill line" href="{YOUTUBE_CHANNEL}" target="_blank" rel="noopener">Watch on YouTube <span class="arr" aria-hidden="true">&#8599;</span></a>' if YOUTUBE_CHANNEL else ""))
-    is_main = is_main.replace("  </section>\n", "  </section>\n" + localnav('Independent Society', [('why-show', 'Why it exists'), ('episodes', 'Episodes'), ('highlights', 'Highlights'), ('suggest', 'Suggest a guest')]), 1)
+    is_main = is_main.replace("  </section>\n", "  </section>\n" + localnav('Independent Society', [('why-show', 'Why it exists'), ('episodes', 'Episodes'), ('suggest', 'Suggest a guest')]), 1)
     simple = [
         ("independent-society.html", "Independent Society", "One person at a time, a long honest conversation about working life in India, seen from the inside.", is_main, "podcast"),
         ("join.html", "Join Zeroing", "Apply to join Zeroing, a community of homegrown Indian brands.", read("pages", "join.html"), "join"),
@@ -492,7 +492,7 @@ def build():
             .replace("{HIGHLIGHTS}", highlights_html(p2["spotify"]))
             .replace("{GALLERY}", gallery)
             .replace("{PHOTO_CREDIT}", E(PODCAST.get("photo_credit", ""))))
-    main = main.replace("  </section>\n", "  </section>\n" + localnav('Akanksha Sood Singh', [('parts', 'Both parts'), ('highlights', 'Highlights'), ('about', 'The conversation'), ('field', 'In the field')]), 1)
+    main = main.replace("  </section>\n", "  </section>\n" + localnav('Akanksha Sood Singh', [('parts', 'Both parts'), ('about', 'The conversation'), ('field', 'In the field')]), 1)
     head, body = page("Akanksha Sood Singh on Independent Society",
                       "Wildlife filmmaker Akanksha Sood Singh in conversation with Anshul Kumar on Independent Society. Episodes 1 and 2, on Spotify.",
                       main, P="../", H="../index.html", current="podcast")
