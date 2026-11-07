@@ -789,3 +789,23 @@ main { counter-reset: zsec; }
 .js .fact-viz.ready .on { opacity: .12; transition: opacity 260ms ease; transition-delay: calc(var(--k, 0) * 45ms); }
 .js .fact-viz.ready.go .on { opacity: 1; }
 @media (prefers-reduced-motion: reduce) { .js .ico.draw * { stroke-dashoffset: 0; transition: none; } .js .fact-viz.ready .on { opacity: 1; transition: none; } }
+
+/* ambient background: slow, quiet movement behind the content */
+.ambient { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+body > *:not(.ambient) { position: relative; z-index: 1; }
+.amb-glow { position: absolute; border-radius: 50%; filter: blur(60px); opacity: .5; will-change: transform; }
+.amb-glow.g1 { width: 46vw; height: 46vw; left: -10vw; top: 6vh; background: radial-gradient(circle, rgba(217,152,26,.20), transparent 65%); animation: ambDrift1 48s ease-in-out infinite alternate; }
+.amb-glow.g2 { width: 40vw; height: 40vw; right: -8vw; bottom: -6vh; background: radial-gradient(circle, rgba(184,38,44,.13), transparent 65%); animation: ambDrift2 56s ease-in-out infinite alternate; }
+.amb-mark { position: absolute; width: 34vw; max-width: 520px; right: -6vw; top: 22vh; fill: none; stroke: rgba(27,26,24,.04); stroke-width: 6; animation: ambFloat 70s ease-in-out infinite alternate; }
+.amb-mark path { fill: rgba(27,26,24,.018); }
+.amb-lane { position: absolute; left: -10%; width: 120%; height: 1px; background: repeating-linear-gradient(90deg, rgba(184,38,44,.22) 0 6px, transparent 6px 18px); animation: ambLane 5s linear infinite; }
+.amb-lane.l1 { bottom: 14px; opacity: .55; } .amb-lane.l2 { display: none; }
+.amb-awning { display: none; position: absolute; left: 6vw; bottom: 9vh; width: 120px; height: 10px; opacity: .14; background: repeating-linear-gradient(90deg, var(--sindoor) 0 10px, transparent 10px 20px);
+  -webkit-mask: radial-gradient(circle 5px at 5px 10px, transparent 4.6px, #000 5px) 0 0 / 10px 100% repeat-x; mask: radial-gradient(circle 5px at 5px 10px, transparent 4.6px, #000 5px) 0 0 / 10px 100% repeat-x; animation: ambSway 9s ease-in-out infinite alternate; transform-origin: left top; }
+@keyframes ambDrift1 { to { transform: translate(18vw, 22vh) scale(1.15); } }
+@keyframes ambDrift2 { to { transform: translate(-16vw, -24vh) scale(1.1); } }
+@keyframes ambFloat { 0% { transform: translateY(0) rotate(-4deg); } 100% { transform: translateY(18vh) rotate(6deg); } }
+@keyframes ambLane { to { transform: translateX(18px); } }
+@keyframes ambSway { to { transform: rotate(2deg) translateX(14px); } }
+@media (max-width: 700px) { .amb-mark, .amb-awning, .amb-lane.l2 { display: none; } .amb-glow { filter: blur(40px); } }
+@media (prefers-reduced-motion: reduce) { .ambient * { animation: none !important; } }

@@ -809,9 +809,35 @@ main { counter-reset: zsec; }
 .js .fact-viz.ready .on { opacity: .12; transition: opacity 260ms ease; transition-delay: calc(var(--k, 0) * 45ms); }
 .js .fact-viz.ready.go .on { opacity: 1; }
 @media (prefers-reduced-motion: reduce) { .js .ico.draw * { stroke-dashoffset: 0; transition: none; } .js .fact-viz.ready .on { opacity: 1; transition: none; } }
+
+/* ambient background: slow, quiet movement behind the content */
+.ambient { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+body > *:not(.ambient) { position: relative; z-index: 1; }
+.amb-glow { position: absolute; border-radius: 50%; filter: blur(60px); opacity: .5; will-change: transform; }
+.amb-glow.g1 { width: 46vw; height: 46vw; left: -10vw; top: 6vh; background: radial-gradient(circle, rgba(217,152,26,.20), transparent 65%); animation: ambDrift1 48s ease-in-out infinite alternate; }
+.amb-glow.g2 { width: 40vw; height: 40vw; right: -8vw; bottom: -6vh; background: radial-gradient(circle, rgba(184,38,44,.13), transparent 65%); animation: ambDrift2 56s ease-in-out infinite alternate; }
+.amb-mark { position: absolute; width: 34vw; max-width: 520px; right: -6vw; top: 22vh; fill: none; stroke: rgba(27,26,24,.04); stroke-width: 6; animation: ambFloat 70s ease-in-out infinite alternate; }
+.amb-mark path { fill: rgba(27,26,24,.018); }
+.amb-lane { position: absolute; left: -10%; width: 120%; height: 1px; background: repeating-linear-gradient(90deg, rgba(184,38,44,.22) 0 6px, transparent 6px 18px); animation: ambLane 5s linear infinite; }
+.amb-lane.l1 { bottom: 14px; opacity: .55; } .amb-lane.l2 { display: none; }
+.amb-awning { display: none; position: absolute; left: 6vw; bottom: 9vh; width: 120px; height: 10px; opacity: .14; background: repeating-linear-gradient(90deg, var(--sindoor) 0 10px, transparent 10px 20px);
+  -webkit-mask: radial-gradient(circle 5px at 5px 10px, transparent 4.6px, #000 5px) 0 0 / 10px 100% repeat-x; mask: radial-gradient(circle 5px at 5px 10px, transparent 4.6px, #000 5px) 0 0 / 10px 100% repeat-x; animation: ambSway 9s ease-in-out infinite alternate; transform-origin: left top; }
+@keyframes ambDrift1 { to { transform: translate(18vw, 22vh) scale(1.15); } }
+@keyframes ambDrift2 { to { transform: translate(-16vw, -24vh) scale(1.1); } }
+@keyframes ambFloat { 0% { transform: translateY(0) rotate(-4deg); } 100% { transform: translateY(18vh) rotate(6deg); } }
+@keyframes ambLane { to { transform: translateX(18px); } }
+@keyframes ambSway { to { transform: rotate(2deg) translateX(14px); } }
+@media (max-width: 700px) { .amb-mark, .amb-awning, .amb-lane.l2 { display: none; } .amb-glow { filter: blur(40px); } }
+@media (prefers-reduced-motion: reduce) { .ambient * { animation: none !important; } }
 </style>
 </head>
 <body>
+<div class="ambient" aria-hidden="true">
+  <span class="amb-glow g1"></span><span class="amb-glow g2"></span>
+  <svg class="amb-mark" viewBox="0 0 1373 1002"><path fill-rule="evenodd" d="M365.7 1000.9C243.6 990.8 133.8 925.9 66.5 824.0C29.7 768.4 8.5 707.8 1.9 639.5C0.2 621.9 0.4 583.4 2.4 565.0C4.0 549.5 7.6 527.7 10.8 513.9L12.5 506.5L160.1 506.2L307.7 506.0L438.6 374.2C510.6 301.8 598.7 213.0 634.5 177.0C706.4 104.6 710.1 100.9 727.9 86.8C782.0 43.5 849.4 14.4 918.5 4.6C954.1 -0.5 996.7 -0.5 1032.5 4.6C1089.1 12.6 1147.6 35.0 1196.0 67.3C1273.8 119.3 1331.4 197.8 1356.9 287.0C1377.2 357.8 1377.9 428.2 1359.2 501.5L1357.4 508.5L1205.2 509.0L1053.0 509.5L871.3 692.6C771.3 793.4 682.5 882.5 674.0 890.6C641.3 921.8 611.0 942.9 571.5 962.1C525.8 984.3 480.5 996.6 428.5 1001.0C414.7 1002.1 380.1 1002.1 365.7 1000.9ZM423.0 732.6C448.8 727.0 468.8 716.4 489.2 697.4C495.0 692.0 539.6 647.5 588.2 598.5L676.5 509.5L493.0 509.2L309.6 509.0L304.7 513.7C302.0 516.4 297.0 522.2 293.6 526.8C268.8 559.7 261.2 604.2 273.6 643.5C283.3 674.0 305.1 701.3 332.7 717.4C345.8 725.0 362.5 730.9 378.5 733.6C388.8 735.3 412.9 734.8 423.0 732.6ZM1057.0 500.3C1079.9 475.2 1092.8 436.0 1089.1 402.5C1082.6 344.7 1044.4 301.1 987.6 286.9C975.7 283.9 951.5 283.2 937.9 285.5C918.9 288.7 899.0 296.8 883.2 308.0C878.5 311.3 860.6 328.6 832.8 356.8C809.0 380.8 765.9 424.2 737.1 453.2L684.5 506.0L868.2 506.0L1051.8 506.0L1057.0 500.3Z"/></svg>
+  <span class="amb-lane l1"></span><span class="amb-lane l2"></span>
+  <span class="amb-awning"></span>
+</div>
 <header class="head" id="head">
   <a class="mark" href="../#top" aria-label="Zeroing, home"><svg class="logo" viewBox="0 0 1373 1002" aria-hidden="true"><path fill-rule="evenodd" d="M365.7 1000.9C243.6 990.8 133.8 925.9 66.5 824.0C29.7 768.4 8.5 707.8 1.9 639.5C0.2 621.9 0.4 583.4 2.4 565.0C4.0 549.5 7.6 527.7 10.8 513.9L12.5 506.5L160.1 506.2L307.7 506.0L438.6 374.2C510.6 301.8 598.7 213.0 634.5 177.0C706.4 104.6 710.1 100.9 727.9 86.8C782.0 43.5 849.4 14.4 918.5 4.6C954.1 -0.5 996.7 -0.5 1032.5 4.6C1089.1 12.6 1147.6 35.0 1196.0 67.3C1273.8 119.3 1331.4 197.8 1356.9 287.0C1377.2 357.8 1377.9 428.2 1359.2 501.5L1357.4 508.5L1205.2 509.0L1053.0 509.5L871.3 692.6C771.3 793.4 682.5 882.5 674.0 890.6C641.3 921.8 611.0 942.9 571.5 962.1C525.8 984.3 480.5 996.6 428.5 1001.0C414.7 1002.1 380.1 1002.1 365.7 1000.9ZM423.0 732.6C448.8 727.0 468.8 716.4 489.2 697.4C495.0 692.0 539.6 647.5 588.2 598.5L676.5 509.5L493.0 509.2L309.6 509.0L304.7 513.7C302.0 516.4 297.0 522.2 293.6 526.8C268.8 559.7 261.2 604.2 273.6 643.5C283.3 674.0 305.1 701.3 332.7 717.4C345.8 725.0 362.5 730.9 378.5 733.6C388.8 735.3 412.9 734.8 423.0 732.6ZM1057.0 500.3C1079.9 475.2 1092.8 436.0 1089.1 402.5C1082.6 344.7 1044.4 301.1 987.6 286.9C975.7 283.9 951.5 283.2 937.9 285.5C918.9 288.7 899.0 296.8 883.2 308.0C878.5 311.3 860.6 328.6 832.8 356.8C809.0 380.8 765.9 424.2 737.1 453.2L684.5 506.0L868.2 506.0L1051.8 506.0L1057.0 500.3Z"/></svg><span>Zeroing</span></a>
   <div class="nav">
