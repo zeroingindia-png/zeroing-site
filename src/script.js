@@ -98,6 +98,46 @@
     document.querySelectorAll('.tile, .pillar, .facts li').forEach(function (el) { mo.observe(el); });
   }
 
+  // cursor: dot and ring follow the mouse, a soft light trails it, the background mark drifts against it,
+  // cards lean a little and buttons pull towards the pointer. Mouse and trackpad only, never with reduced motion.
+  if (!still && window.matchMedia && window.matchMedia('(pointer: fine)').matches) {
+    var dot = document.createElement('div'), ring = document.createElement('div'), light = document.createElement('div');
+    dot.className = 'cursor-dot'; ring.className = 'cursor-ring'; light.className = 'cursor-light';
+    [light, ring, dot].forEach(function (el) { el.setAttribute('aria-hidden', 'true'); document.body.appendChild(el); });
+    var mx = innerWidth / 2, my = innerHeight / 2, rx = mx, ry = my, lx = mx, ly = my;
+    var mark = document.querySelector('.amb-mark');
+    addEventListener('mousemove', function (e) { mx = e.clientX; my = e.clientY; document.documentElement.classList.add('has-cursor'); }, { passive: true });
+    document.addEventListener('mouseleave', function () { document.documentElement.classList.remove('has-cursor'); });
+    (function loop() {
+      rx += (mx - rx) * 0.2; ry += (my - ry) * 0.2; lx += (mx - lx) * 0.06; ly += (my - ly) * 0.06;
+      dot.style.transform = 'translate(' + mx + 'px,' + my + 'px)';
+      ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px)';
+      light.style.transform = 'translate(' + lx + 'px,' + ly + 'px)';
+      if (mark) mark.style.translate = ((innerWidth / 2 - lx) * 0.03) + 'px ' + ((innerHeight / 2 - ly) * 0.03) + 'px';
+      requestAnimationFrame(loop);
+    })();
+    document.querySelectorAll('a, button, input, textarea, select, label').forEach(function (el) {
+      el.addEventListener('mouseenter', function () { ring.classList.add('hover'); });
+      el.addEventListener('mouseleave', function () { ring.classList.remove('hover'); });
+    });
+    document.querySelectorAll('.tile, .brand-card, .brand-list li, .product, .pillar').forEach(function (el) {
+      el.classList.add('tilt');
+      el.addEventListener('mousemove', function (e) {
+        var r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+        el.style.transform = 'perspective(900px) rotateX(' + (-y * 4) + 'deg) rotateY(' + (x * 4) + 'deg) translateY(-2px)';
+      });
+      el.addEventListener('mouseleave', function () { el.style.transform = ''; });
+    });
+    document.querySelectorAll('.pill').forEach(function (el) {
+      el.classList.add('magnet');
+      el.addEventListener('mousemove', function (e) {
+        var r = el.getBoundingClientRect();
+        el.style.transform = 'translate(' + ((e.clientX - r.left - r.width / 2) * 0.15) + 'px,' + ((e.clientY - r.top - r.height / 2) * 0.25) + 'px)';
+      });
+      el.addEventListener('mouseleave', function () { el.style.transform = ''; });
+    });
+  }
+
   // chapter bar shows where you are
   var links = document.querySelectorAll('.ln-links a[href^="#"]');
   if (links.length && 'IntersectionObserver' in window) {

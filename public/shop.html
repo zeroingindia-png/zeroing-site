@@ -812,7 +812,7 @@ main { counter-reset: zsec; }
 
 /* ambient background: slow, quiet movement behind the content */
 .ambient { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
-body > *:not(.ambient) { position: relative; z-index: 1; }
+body > *:not(.ambient):not(.cursor-dot):not(.cursor-ring):not(.cursor-light) { position: relative; z-index: 1; }
 .amb-glow { position: absolute; border-radius: 50%; filter: blur(60px); opacity: .5; will-change: transform; }
 .amb-glow.g1 { width: 46vw; height: 46vw; left: -10vw; top: 6vh; background: radial-gradient(circle, rgba(217,152,26,.20), transparent 65%); animation: ambDrift1 48s ease-in-out infinite alternate; }
 .amb-glow.g2 { width: 40vw; height: 40vw; right: -8vw; bottom: -6vh; background: radial-gradient(circle, rgba(184,38,44,.13), transparent 65%); animation: ambDrift2 56s ease-in-out infinite alternate; }
@@ -830,24 +830,17 @@ body > *:not(.ambient) { position: relative; z-index: 1; }
 @media (max-width: 700px) { .amb-mark, .amb-awning, .amb-lane.l2 { display: none; } .amb-glow { filter: blur(40px); } }
 @media (prefers-reduced-motion: reduce) { .ambient * { animation: none !important; } }
 
-/* eye-catchers: the awning unrolls, the lane moves */
-.awning-band { --s: 44px; position: relative; z-index: 2; height: calc(var(--s) * 1.5); overflow: hidden; }
-.awning-band span { position: absolute; inset: 0; transform-origin: top; animation: awnUnroll 1100ms cubic-bezier(.2,.8,.2,1) 150ms both, awnSlide 12s linear 1.3s infinite;
-  background: repeating-linear-gradient(90deg, var(--sindoor) 0 var(--s), #F3EBDD var(--s) calc(var(--s) * 2));
-  -webkit-mask: linear-gradient(#000, #000) 0 0 / 100% calc(100% - var(--s) / 2) no-repeat, radial-gradient(circle calc(var(--s) / 2) at 50% 0, #000 97%, transparent 100%) 0 calc(100% - var(--s) / 2) / var(--s) calc(var(--s) / 2) repeat-x;
-          mask: linear-gradient(#000, #000) 0 0 / 100% calc(100% - var(--s) / 2) no-repeat, radial-gradient(circle calc(var(--s) / 2) at 50% 0, #000 97%, transparent 100%) 0 calc(100% - var(--s) / 2) / var(--s) calc(var(--s) / 2) repeat-x;
-  -webkit-mask-position: 0 0, 0 100%; mask-position: 0 0, 0 100%; filter: drop-shadow(0 6px 8px rgba(27,26,24,.08)); }
-@media (max-width: 640px) { .awning-band { --s: 28px; } }
-@keyframes awnUnroll { from { transform: scaleY(0); } to { transform: scaleY(1); } }
-@keyframes awnSlide { to { transform: translateX(0); } }
-.marquee { margin: 0; width: 100%; overflow: hidden; border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); padding: clamp(10px, 1.4vw, 18px) 0; background: var(--paper); }
-.mq-track { display: inline-flex; align-items: center; gap: clamp(18px, 2.4vw, 36px); white-space: nowrap; animation: mqMove 34s linear infinite; padding-left: 2vw; }
-.mq-item { font-family: var(--font-display); font-weight: 700; font-size: clamp(2rem, 6vw, 5.2rem); line-height: 1; letter-spacing: -.02em; color: var(--ink); }
-.mq-item.mq-out { color: transparent; -webkit-text-stroke: 1.5px var(--sindoor); }
-.mq-dot { color: var(--sindoor); font-size: clamp(1.2rem, 3vw, 2.4rem); }
-.marquee:hover .mq-track { animation-play-state: paused; }
-@keyframes mqMove { to { transform: translateX(-50%); } }
-@media (prefers-reduced-motion: reduce) { .awning-band span, .mq-track { animation: none !important; } }
+
+/* cursor: a quiet sindoor dot and ring, a light that follows, cards that lean */
+.cursor-dot, .cursor-ring, .cursor-light { position: fixed; left: 0; top: 0; pointer-events: none; z-index: 60; opacity: 0; transition: opacity 300ms ease; }
+.has-cursor .cursor-dot, .has-cursor .cursor-ring, .has-cursor .cursor-light { opacity: 1; }
+.cursor-dot { width: 6px; height: 6px; margin: -3px 0 0 -3px; border-radius: 50%; background: var(--sindoor); }
+.cursor-ring { width: 34px; height: 34px; margin: -17px 0 0 -17px; border-radius: 50%; border: 1px solid rgba(184,38,44,.45); transition: width 250ms ease, height 250ms ease, margin 250ms ease, background 250ms ease, border-color 250ms ease, opacity 300ms ease; }
+.cursor-ring.hover { width: 64px; height: 64px; margin: -32px 0 0 -32px; background: rgba(184,38,44,.07); border-color: rgba(184,38,44,.25); }
+.cursor-light { z-index: 0; width: 520px; height: 520px; margin: -260px 0 0 -260px; border-radius: 50%; background: radial-gradient(circle, rgba(217,152,26,.13), transparent 62%); }
+.tilt { transition: transform 400ms cubic-bezier(.2,.8,.2,1); transform-style: preserve-3d; will-change: transform; }
+.magnet { transition: transform 300ms cubic-bezier(.2,.8,.2,1); }
+@media (pointer: coarse), (prefers-reduced-motion: reduce) { .cursor-dot, .cursor-ring, .cursor-light { display: none; } }
 </style>
 </head>
 <body>
@@ -1083,6 +1076,46 @@ body > *:not(.ambient) { position: relative; z-index: 1; }
       });
     }, { threshold: 0.35 });
     document.querySelectorAll('.tile, .pillar, .facts li').forEach(function (el) { mo.observe(el); });
+  }
+
+  // cursor: dot and ring follow the mouse, a soft light trails it, the background mark drifts against it,
+  // cards lean a little and buttons pull towards the pointer. Mouse and trackpad only, never with reduced motion.
+  if (!still && window.matchMedia && window.matchMedia('(pointer: fine)').matches) {
+    var dot = document.createElement('div'), ring = document.createElement('div'), light = document.createElement('div');
+    dot.className = 'cursor-dot'; ring.className = 'cursor-ring'; light.className = 'cursor-light';
+    [light, ring, dot].forEach(function (el) { el.setAttribute('aria-hidden', 'true'); document.body.appendChild(el); });
+    var mx = innerWidth / 2, my = innerHeight / 2, rx = mx, ry = my, lx = mx, ly = my;
+    var mark = document.querySelector('.amb-mark');
+    addEventListener('mousemove', function (e) { mx = e.clientX; my = e.clientY; document.documentElement.classList.add('has-cursor'); }, { passive: true });
+    document.addEventListener('mouseleave', function () { document.documentElement.classList.remove('has-cursor'); });
+    (function loop() {
+      rx += (mx - rx) * 0.2; ry += (my - ry) * 0.2; lx += (mx - lx) * 0.06; ly += (my - ly) * 0.06;
+      dot.style.transform = 'translate(' + mx + 'px,' + my + 'px)';
+      ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px)';
+      light.style.transform = 'translate(' + lx + 'px,' + ly + 'px)';
+      if (mark) mark.style.translate = ((innerWidth / 2 - lx) * 0.03) + 'px ' + ((innerHeight / 2 - ly) * 0.03) + 'px';
+      requestAnimationFrame(loop);
+    })();
+    document.querySelectorAll('a, button, input, textarea, select, label').forEach(function (el) {
+      el.addEventListener('mouseenter', function () { ring.classList.add('hover'); });
+      el.addEventListener('mouseleave', function () { ring.classList.remove('hover'); });
+    });
+    document.querySelectorAll('.tile, .brand-card, .brand-list li, .product, .pillar').forEach(function (el) {
+      el.classList.add('tilt');
+      el.addEventListener('mousemove', function (e) {
+        var r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+        el.style.transform = 'perspective(900px) rotateX(' + (-y * 4) + 'deg) rotateY(' + (x * 4) + 'deg) translateY(-2px)';
+      });
+      el.addEventListener('mouseleave', function () { el.style.transform = ''; });
+    });
+    document.querySelectorAll('.pill').forEach(function (el) {
+      el.classList.add('magnet');
+      el.addEventListener('mousemove', function (e) {
+        var r = el.getBoundingClientRect();
+        el.style.transform = 'translate(' + ((e.clientX - r.left - r.width / 2) * 0.15) + 'px,' + ((e.clientY - r.top - r.height / 2) * 0.25) + 'px)';
+      });
+      el.addEventListener('mouseleave', function () { el.style.transform = ''; });
+    });
   }
 
   // chapter bar shows where you are
