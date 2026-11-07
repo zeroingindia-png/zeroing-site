@@ -220,10 +220,11 @@ def brand_links(b, cls="site-chip"):
 
 def card_img(b, P):
     # a real photograph if there is a good one, otherwise the brand's own logo; never a cropped strip of artwork
-    if b.get("hero"):
-        return f'<span class="card-img">{img(b.get("thumb") or b["hero"][0], b["hero"][1], P)}</span>'
+    # every community card shows the brand's own logo, so the brands sit side by side as equals
     if b.get("logo"):
         return f'<span class="card-img logo">{img(b["logo"], b["name"] + " logo", P)}</span>'
+    if b.get("hero"):
+        return f'<span class="card-img">{img(b.get("thumb") or b["hero"][0], b["hero"][1], P)}</span>'
     return f'<span class="card-img colour" aria-hidden="true"><span>{E(b["name"][0])}</span></span>'
 
 
