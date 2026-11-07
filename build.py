@@ -575,6 +575,16 @@ def share_tags():
                 f'\n<meta property="og:url" content="{url}"><meta property="og:title" content="{title}">'
                 f'\n<meta property="og:description" content="{desc}"><meta property="og:image" content="{image}">'
                 f'\n<meta name="twitter:card" content="summary_large_image">')
+        if rel in ("index.html", "independent-society.html"):
+            import json as _json
+            org = {"@type": "Organization", "name": "Zeroing", "url": SITE, "logo": SITE + "icon-512.png",
+                   "description": "A community of homegrown Indian brands.", "email": "zeroingindia@gmail.com",
+                   "sameAs": ["https://www.instagram.com/zeroingnow/", "https://www.instagram.com/theotherdetails/"]}
+            data = org if rel == "index.html" else {
+                "@type": "PodcastSeries", "name": "Independent Society", "url": url, "author": {"@type": "Person", "name": "Anshul Kumar"},
+                "publisher": org, "sameAs": [PODCAST.get("spotify_show", "")], "description": desc}
+            data["@context"] = "https://schema.org"
+            tags += '\n<script type="application/ld+json">' + _json.dumps(data, ensure_ascii=False) + "</script>"
         html = html.replace("</title>", "</title>" + tags, 1)
         open(full, "w", encoding="utf-8").write(html)
     urls = []
