@@ -282,7 +282,7 @@ def home_page(studies):
                 "The other details. <i>Drawn so anyone can read them.</i>",
                 "We open the reports behind the headlines, check where each number came from and how old it is, then draw it so it reads on your phone.", ctas, tall=True) + f"""
 <div class="wrap pb-24">
-  <div class="mt-20 grid gap-3.5"><span class="chip">Studies</span><h2 class="h-sec">Five studies, <i>answered with data.</i></h2></div>
+  <div class="mt-20 grid gap-3.5"><span class="chip">Studies</span><h2 class="h-sec">Two long reads, <i>answered with data.</i></h2></div>
   <div class="mt-10 grid gap-6 md:grid-cols-2">{cards}</div>
   <div class="mt-20 grid gap-3.5"><span class="chip chip-teal">Watch</span><h2 class="h-sec">Study 01 is also <i>a film for your phone.</i></h2></div>
   {reel_box("reel-cloud", "Reel · 2:13 · 9:16", "The cloud has <i>an address.</i>", "Real footage. Dot charts drawn to scale. Every source on screen, with captions and narration.")}

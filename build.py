@@ -564,7 +564,7 @@ def build():
             .replace("{PHOTO_CREDIT}", E(PODCAST.get("photo_credit", ""))))
     main = main.replace("  </section>\n", "  </section>\n" + localnav('Akanksha Sood Singh', [('parts', 'Both parts'), ('about', 'The conversation'), ('research', 'The research'), ('field', 'In the field')]), 1)
     head, body = page("Akanksha Sood Singh on Independent Society",
-                      "Wildlife filmmaker Akanksha Sood Singh in conversation with Anshul Kumar on Independent Society. Episodes 1 and 2, on Spotify.",
+                      "Wildlife filmmaker Akanksha Sood Singh in conversation with Anshul Kumar on Independent Society. Episodes 1 and 2, on YouTube and Spotify.",
                       main, P="../", H="../index.html", current="podcast")
     write("episodes/akanksha-sood-singh.html", full_doc(head, body))
     main404 = """  <section class="hero3" id="top">
@@ -731,7 +731,7 @@ def share_tags():
                 {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in [
                     ("What is Zeroing?", "Zeroing is a community of homegrown, made-in-India brands based in New Delhi. The brands open doors for each other and each sells from its own shop."),
                     ("Which brands are in Zeroing?", "INDSO (botanical skincare), Ampor Eyewear, Vedi Kade (modern clothing with Tamil history in it) and Syzygy Living (design homeware), with three more brands that joined in 2026."),
-                    ("What is Independent Society?", "Independent Society is Zeroing's podcast: one person at a time, a long honest conversation about working life in India. It is hosted by Anshul Kumar and is on Spotify."),
+                    ("What is Independent Society?", "Independent Society is Zeroing's podcast: one person at a time, a long honest conversation about working life in India. It is hosted by Anshul Kumar and is on Spotify and YouTube."),
                     ("What is The Other Details?", "The Other Details is the research lab of Zeroing. It traces every number it publishes to the page it was first printed on."),
                     ("How can a brand join Zeroing?", "A brand applies on the Join page, says what it makes and names one door it could open for another brand. Zeroing replies within 14 days.")]]}
             data = org if rel == "index.html" else {
