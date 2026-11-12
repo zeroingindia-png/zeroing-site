@@ -25,17 +25,17 @@
 
 /* ---------- 1 tokens ---------- */
 :root {
-  --sindoor: #B8262C;
+  --sindoor: #A9392F;
   --haldi: #D9981A;
   --genda: #D96A1A;
-  --peepal: #2F5D3A;
+  --peepal: #4E6B52;
   --neel: #23306E;
   --kattha: #6B2E1F;
-  --paper: #F6F2EA;
-  --paper-2: #EEE8DC;
-  --ink: #1B1A18;
-  --ink-2: #57534C;
-  --line: rgba(27, 26, 24, 0.14);
+  --paper: #F5F0E7;
+  --paper-2: #ECE4D6;
+  --ink: #24211D;
+  --ink-2: #5C564E;
+  --line: rgba(36, 33, 29, 0.12);
 
   --font: "Anek Latin", "Anek Devanagari", "Segoe UI", system-ui, sans-serif;
   --font-display: "Bricolage Grotesque", "Anek Latin", system-ui, sans-serif;
@@ -814,7 +814,7 @@ main { counter-reset: zsec; }
 .ambient { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
 .amb-glow { position: absolute; border-radius: 50%; filter: blur(60px); opacity: .5; will-change: transform; }
 .amb-glow.g1 { width: 46vw; height: 46vw; left: -10vw; top: 6vh; background: radial-gradient(circle, rgba(217,152,26,.20), transparent 65%); animation: ambDrift1 48s ease-in-out infinite alternate; }
-.amb-glow.g2 { width: 40vw; height: 40vw; right: -8vw; bottom: -6vh; background: radial-gradient(circle, rgba(184,38,44,.13), transparent 65%); animation: ambDrift2 56s ease-in-out infinite alternate; }
+.amb-glow.g2 { width: 40vw; height: 40vw; right: -8vw; bottom: -6vh; background: radial-gradient(circle, rgba(78,107,82,.14), transparent 65%); animation: ambDrift2 56s ease-in-out infinite alternate; }
 .amb-mark { position: absolute; width: 34vw; max-width: 520px; right: -6vw; top: 22vh; fill: none; stroke: rgba(27,26,24,.04); stroke-width: 6; animation: ambFloat 70s ease-in-out infinite alternate; }
 .amb-mark path { fill: rgba(27,26,24,.018); }
 .amb-lane { position: absolute; left: -10%; width: 120%; height: 1px; background: repeating-linear-gradient(90deg, rgba(184,38,44,.22) 0 6px, transparent 6px 18px); animation: ambLane 5s linear infinite; }
@@ -855,6 +855,10 @@ main { counter-reset: zsec; }
 .head.away { transform: translateY(calc(-100% - 2px)); }
 .head.solid .mark span { letter-spacing: -.01em; }
 @media (prefers-reduced-motion: reduce) { .head { transition: none; } }
+
+/* softer accents: sage for quiet details, brick red kept for the few things that must be seen */
+.ico, .pillar .ico { color: var(--peepal); }
+::selection { background: rgba(169,57,47,.16); }
 </style>
 </head>
 <body>
