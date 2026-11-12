@@ -125,6 +125,7 @@ def page(title, desc, main, P, H, current=""):
 def full_doc(head, body):
     return ('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
             '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
+            '<meta name="google-site-verification" content="I_2Pg3-2TY7JPOtMuB0WfO8n1XlkgRyKxHc2pVj1v-s">\n'
             + head + "\n</head>\n<body>\n" + body + "</body>\n</html>\n")
 
 
