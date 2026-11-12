@@ -936,6 +936,23 @@ main { counter-reset: zsec; }
 .ls figcaption{position:absolute;left:16px;bottom:14px;z-index:1;color:#fff;font-weight:600;font-size:.95rem}
 .stock-credit{max-width:var(--wrap);margin:12px auto 0;font-size:.78rem;color:var(--ink-2)}
 @media (max-width:760px){.lane-strip{grid-template-columns:1fr 1fr;height:auto}.ls-a{grid-column:1/3;aspect-ratio:16/10}.ls-b,.ls-c{aspect-ratio:3/4}}
+
+/* brand showcase */
+.showcase{list-style:none;max-width:var(--wrap);margin:44px auto 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.sc{display:grid;gap:14px;align-content:start}
+.sc-img{display:block;aspect-ratio:4/5;border-radius:22px;overflow:hidden;background:#fffdf9}
+.sc-img img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s cubic-bezier(.2,.7,.2,1)}
+.sc:hover .sc-img img{transform:scale(1.04)}
+.sc-word .sc-img img{object-fit:contain;padding:18%;background:#fffdf9}
+.sc-more .sc-img{background:var(--ink);display:grid;place-items:center}
+.sc-more .sc-img img{width:38%;height:auto;object-fit:contain;filter:invert(1) brightness(2)}
+.sc-meta{display:grid;gap:3px}
+.sc-name{font-family:var(--font-display);font-weight:700;font-size:1.25rem;color:var(--ink);text-decoration:none}
+.sc-meta span{color:var(--ink-2);font-size:.95rem}
+.sc-out{margin-top:6px;font-size:.9rem;font-weight:600;color:var(--sindoor);text-decoration:none}
+.sc-out:hover{text-decoration:underline}
+@media (max-width:900px){.showcase{grid-template-columns:1fr 1fr}}
+.sc-local .sc-img img{object-position:50% 85%}
 </style>
 </head>
 <body>
@@ -986,10 +1003,10 @@ main { counter-reset: zsec; }
     </div>
       </div>
     <div class="hero-bento" aria-label="Inside Zeroing">
-      <a class="hb hb-a" href="independent-society"><img src="media/ep-conversation.jpg" alt="Akanksha Sood Singh and Anshul Kumar recording Independent Society" fetchpriority="high"><span>Podcast</span></a>
-      <a class="hb hb-b" href="brands/indso"><img src="media/indso-studio-lotus.jpg" alt="An INDSO product photographed in the studio"><span>Brands</span></a>
-      <a class="hb hb-c" href="the-other-details/roads"><img src="media/lab-road.jpg" alt="A road study from The Other Details"><span>Research</span></a>
-      <a class="hb hb-d" href="episodes/akanksha-sood-singh#field"><img src="media/as-filming.jpg" alt="Akanksha Sood Singh filming in the field"><span>In the field</span></a>
+      <a class="hb hb-a" href="independent-society"><img src="media/ep-conversation-sm.jpg" alt="Akanksha Sood Singh and Anshul Kumar recording Independent Society" fetchpriority="high" decoding="async"><span>Podcast</span></a>
+      <a class="hb hb-b" href="brands/indso"><img src="media/indso-studio-lotus-sm.jpg" alt="An INDSO product photographed in the studio" decoding="async"><span>Brands</span></a>
+      <a class="hb hb-c" href="the-other-details/roads"><img src="media/lab-road-sm.jpg" alt="A road study from The Other Details" decoding="async"><span>Research</span></a>
+      <a class="hb hb-d" href="episodes/akanksha-sood-singh#field"><img src="media/as-filming-sm.jpg" alt="Akanksha Sood Singh filming in the field" decoding="async"><span>In the field</span></a>
     </div>
     </div>
     <figure class="lane-gif"><img src="media/lane.gif" width="1600" height="360" alt="The Zeroing mark, then INDSO, Ampor and Vedi Kade appearing side by side on one line" fetchpriority="high"></figure>
@@ -1013,25 +1030,17 @@ main { counter-reset: zsec; }
     <p class="stock-credit">Pictures of Indian making via <a href="https://unsplash.com/license" target="_blank" rel="noopener">Unsplash</a>, free to use under the Unsplash License. They show the idea, not Zeroing brands.</p>
   </section>
 
-  <section class="sec" id="what" aria-label="What Zeroing does">
-    <div class="doors">
-    <article class="tile t-light t-full"><div class="tile-text"><h2 class="display"><svg class="ico" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 9.5 4.5 4h15L21 9.5"/><path d="M3 9.5c0 1.4 1.3 2.5 3 2.5s3-1.1 3-2.5c0 1.4 1.3 2.5 3 2.5s3-1.1 3-2.5c0 1.4 1.3 2.5 3 2.5s3-1.1 3-2.5"/><path d="M5 12v8h14v-8"/><path d="M10 20v-4h4v4"/></svg>The community</h2><p>Brands that stand together, like stalls in one lane. One brand&#x27;s customer finds the next. One founder&#x27;s supplier helps another.</p><div class="tile-links"><a class="tlink" href="community">Meet the brands</a><a class="tlink" href="join">Apply to join</a></div></div><div class="tile-img"><img src="media/field-market.jpg" alt="" loading="lazy" decoding="async"></div></article>
-    <article class="tile t-dark"><div class="tile-text"><h2 class="display"><svg class="ico" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0"/><path d="M12 17.5V21M8.5 21h7"/></svg>Independent Society</h2><p>Our podcast. One person at a time, in one long honest conversation about their working life in India, from the inside.</p><div class="tile-links"><a class="tlink" href="independent-society">Learn more</a><a class="tlink" href="https://open.spotify.com/show/033rTzaVTcltHLTbWdOEY7" target=_blank rel=noopener>Listen on Spotify</a></div></div><div class="tile-img"><img src="media/ep-conversation.jpg" alt="" loading="lazy" decoding="async"></div></article>
-    <article class="tile t-white"><div class="tile-text"><h2 class="display"><svg class="ico" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.3 15.3 5.2 5.2"/><path d="m7.5 12.5 2-2.5 2 1.5 2-3"/></svg>The Other Details</h2><p>Our research lab. The money, the paperwork, the years nobody saw. Written down, with sources.</p><div class="tile-links"><a class="tlink" href="the-other-details/">Read the studies</a><a class="tlink" href="the-other-details/#lead">Send a detail</a></div></div><div class="tile-img"><img src="media/lab-road.jpg" alt="" loading="lazy" decoding="async"></div></article>
-    </div>
-  </section>
-
   <section class="sec home-sec" id="brands">
     <div class="brands-head">
       <h2 class="display">Made here, by people you can meet.</h2>
       <p>Homegrown and made in India, as each founder tells us. Every brand keeps its own shop. Buy from them directly.</p>
       <ul class="badges"><li>Made in India</li><li>Homegrown</li></ul>
     </div>
-    <ul class="brand-list">
-      <li><span class="thumb logo"><img src="media/logo-indso.png" alt="" loading="lazy" decoding="async"></span><a class="name" href="brands/indso">INDSO<small>Botanical skincare</small></a><a class="site-chip" href="https://indso.in" target="_blank" rel="noopener">indso.in <span aria-hidden="true">&#8599;</span></a></li>
-      <li><span class="thumb logo"><img src="media/logo-ampor-eyewear.png" alt="" loading="lazy" decoding="async"></span><a class="name" href="brands/ampor-eyewear">Ampor Eyewear<small>Eyewear</small></a><a class="site-chip" href="https://ampor.in" target="_blank" rel="noopener">ampor.in <span aria-hidden="true">&#8599;</span></a></li>
-      <li><span class="thumb logo"><img src="media/logo-vedi-kade.png" alt="" loading="lazy" decoding="async"></span><a class="name" href="brands/vedi-kade">Vedi Kade<small>Modern clothing with Tamil history in it</small></a></li>
-      <li class="more"><span class="thumb logo"><img src="zeroing-logo.svg" alt=""></span><a class="name" href="community">Meet the whole community<small>And three more who joined in 2026</small></a></li>
+    <ul class="showcase">
+      <li class="sc sc-local"><a class="sc-img" href="brands/indso" aria-label="INDSO"><img src="media/indso-jars-sm.jpg" alt="INDSO: Botanical skincare" loading="lazy" decoding="async"></a><div class="sc-meta"><a class="sc-name" href="brands/indso">INDSO</a><span>Botanical skincare</span><a class="sc-out" href="https://indso.in" target="_blank" rel="noopener">indso.in &#8599;</a></div></li>
+      <li class="sc sc-remote"><a class="sc-img" href="brands/ampor-eyewear" aria-label="Ampor Eyewear"><img src="https://cdn.shopify.com/s/files/1/0708/7085/9995/files/What_s_new_Oleo.webp?width=900" alt="Ampor Eyewear: Eyewear" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='logo-ampor-eyewear.png';this.style.objectFit='contain';this.style.padding='18%'"></a><div class="sc-meta"><a class="sc-name" href="brands/ampor-eyewear">Ampor Eyewear</a><span>Eyewear</span><a class="sc-out" href="https://ampor.in" target="_blank" rel="noopener">ampor.in &#8599;</a></div></li>
+      <li class="sc sc-word"><a class="sc-img" href="brands/vedi-kade" aria-label="Vedi Kade"><img src="media/vedi-kade-wordmark.jpg" alt="Vedi Kade: Modern clothing with Tamil history in it" loading="lazy" decoding="async"></a><div class="sc-meta"><a class="sc-name" href="brands/vedi-kade">Vedi Kade</a><span>Modern clothing with Tamil history in it</span></div></li>
+      <li class="sc sc-more"><a class="sc-img" href="community" aria-label="Meet the whole community"><img src="zeroing-logo.svg" alt=""></a><div class="sc-meta"><a class="sc-name" href="community">The whole community</a><span>And three more who joined in 2026</span><a class="sc-out" href="community">See all &#8594;</a></div></li>
     </ul>
   </section>
 
