@@ -978,6 +978,13 @@ main { counter-reset: zsec; }
 .sc-word .sc-img img{background:var(--paper-2);filter:none;mix-blend-mode:multiply}
 .sc-more .sc-img img{filter:invert(1) brightness(2)}
 @media (max-width:760px){.hero-full{min-height:86vh}.hero-full::before{background:linear-gradient(0deg,rgba(30,27,24,.92) 10%,rgba(30,27,24,.45) 60%,rgba(30,27,24,.2))}.lane-strip{margin-left:calc(-1 * var(--pad-l));margin-right:calc(-1 * var(--pad-r))}}
+
+.hf-bg{object-position:70% 35%}
+.sc-word .sc-img{background:#ebe4d8;display:grid;place-items:center}
+.sc-word .sc-img img{width:62%;height:auto;max-height:40%;object-fit:contain;padding:0;filter:none;mix-blend-mode:multiply;background:transparent}
+.sc:hover .sc-img img{transform:scale(1.03)}
+.sc-more .sc-img{background:#2a2622}
+.sc-word .sc-img,.sc-more .sc-img{aspect-ratio:1/1}
 </style>
 </head>
 <body>
@@ -1017,7 +1024,7 @@ main { counter-reset: zsec; }
 
 <main>
   <section class="hero-full" id="top">
-    <img class="hf-bg" src="media/field-market.jpg" alt="A vegetable stall in an Indian market lane" fetchpriority="high" decoding="async">
+    <img class="hf-bg" src="https://images.unsplash.com/photo-1640292343595-889db1c8262e?w=2000&q=75&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1640292343595-889db1c8262e?w=900&q=72&auto=format&fit=crop 900w, https://images.unsplash.com/photo-1640292343595-889db1c8262e?w=2000&q=75&auto=format&fit=crop 2000w" sizes="100vw" alt="A weaver at a handloom" fetchpriority="high" decoding="async">
     <div class="hf-inner">
       <p class="kicker">A community of homegrown Indian brands</p>
       <h1 class="display lane-title"><span class="b1">One stall is easy to miss.</span> <span class="b2">A whole lane is not.</span></h1>
@@ -1043,7 +1050,7 @@ main { counter-reset: zsec; }
       <li><span class="n">03</span><b>They buy from the brand directly.</b>Every button opens the brand's own shop. Zeroing takes no cut and no payment.</li>
     </ol>
     <div class="lane-strip" aria-label="Indian making, in pictures">
-      <figure class="ls ls-a"><img src="https://images.unsplash.com/photo-1640292343595-889db1c8262e?w=1400&q=72&auto=format&fit=crop" alt="A weaver at a handloom" loading="lazy" decoding="async"><figcaption>Made by hand</figcaption></figure>
+      <figure class="ls ls-a"><img src="https://images.unsplash.com/photo-1760764541302-e3955fbc6b2b?w=1400&q=72&auto=format&fit=crop" alt="Hand-painted ceramic vases" loading="lazy" decoding="async"><figcaption>Made by hand</figcaption></figure>
       <figure class="ls ls-b"><img src="https://images.unsplash.com/photo-1766585749270-441fb7a3a11f?w=900&q=72&auto=format&fit=crop" alt="Handmade textiles hung along a stone wall" loading="lazy" decoding="async"><figcaption>Stall by stall</figcaption></figure>
       <figure class="ls ls-c"><img src="https://images.unsplash.com/photo-1759607236409-1df137ecb3b6?w=900&q=72&auto=format&fit=crop" alt="Hand-painted lamps in a market stall" loading="lazy" decoding="async"><figcaption>One lane</figcaption></figure>
     </div>
@@ -1057,9 +1064,9 @@ main { counter-reset: zsec; }
       <ul class="badges"><li>Made in India</li><li>Homegrown</li></ul>
     </div>
     <ul class="showcase">
-      <li class="sc sc-local"><a class="sc-img" href="brands/indso" aria-label="INDSO"><img src="media/indso-jars-sm.jpg" alt="INDSO: Botanical skincare" loading="lazy" decoding="async"></a><div class="sc-meta"><a class="sc-name" href="brands/indso">INDSO</a><span>Botanical skincare</span><a class="sc-out" href="https://indso.in" target="_blank" rel="noopener">indso.in &#8599;</a></div></li>
-      <li class="sc sc-remote"><a class="sc-img" href="brands/ampor-eyewear" aria-label="Ampor Eyewear"><img src="https://cdn.shopify.com/s/files/1/0708/7085/9995/files/What_s_new_Oleo.webp?width=900" alt="Ampor Eyewear: Eyewear" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='media/logo-ampor-eyewear.png';this.style.objectFit='contain';this.style.padding='18%'"></a><div class="sc-meta"><a class="sc-name" href="brands/ampor-eyewear">Ampor Eyewear</a><span>Eyewear</span><a class="sc-out" href="https://ampor.in" target="_blank" rel="noopener">ampor.in &#8599;</a></div></li>
-      <li class="sc sc-word"><a class="sc-img" href="brands/vedi-kade" aria-label="Vedi Kade"><img src="media/vedi-kade-wordmark.jpg" alt="Vedi Kade: Modern clothing with Tamil history in it" loading="lazy" decoding="async"></a><div class="sc-meta"><a class="sc-name" href="brands/vedi-kade">Vedi Kade</a><span>Modern clothing with Tamil history in it</span></div></li>
+      <li class="sc sc-word"><a class="sc-img" href="brands/indso" aria-label="INDSO"><img src="media/logo-indso.png" alt="INDSO: Botanical skincare" loading="lazy" decoding="async"></a><div class="sc-meta"><a class="sc-name" href="brands/indso">INDSO</a><span>Botanical skincare</span><a class="sc-out" href="https://indso.in" target="_blank" rel="noopener">indso.in &#8599;</a></div></li>
+      <li class="sc sc-word"><a class="sc-img" href="brands/ampor-eyewear" aria-label="Ampor Eyewear"><img src="media/logo-ampor-eyewear.png" alt="Ampor Eyewear: Eyewear" loading="lazy" decoding="async"></a><div class="sc-meta"><a class="sc-name" href="brands/ampor-eyewear">Ampor Eyewear</a><span>Eyewear</span><a class="sc-out" href="https://ampor.in" target="_blank" rel="noopener">ampor.in &#8599;</a></div></li>
+      <li class="sc sc-word"><a class="sc-img" href="brands/vedi-kade" aria-label="Vedi Kade"><img src="media/logo-vedi-kade.png" alt="Vedi Kade: Modern clothing with Tamil history in it" loading="lazy" decoding="async"></a><div class="sc-meta"><a class="sc-name" href="brands/vedi-kade">Vedi Kade</a><span>Modern clothing with Tamil history in it</span></div></li>
       <li class="sc sc-more"><a class="sc-img" href="community" aria-label="Meet the whole community"><img src="zeroing-logo.svg" alt=""></a><div class="sc-meta"><a class="sc-name" href="community">The whole community</a><span>And three more who joined in 2026</span><a class="sc-out" href="community">See all &#8594;</a></div></li>
     </ul>
   </section>

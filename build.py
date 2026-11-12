@@ -244,9 +244,9 @@ def brand_card(b, P):
 
 
 SHOWCASE = {
-    "indso": ("media/indso-jars-sm.jpg", "local"),
-    "ampor-eyewear": ("https://cdn.shopify.com/s/files/1/0708/7085/9995/files/What_s_new_Oleo.webp?width=900", "remote"),
-    "vedi-kade": ("media/vedi-kade-wordmark.jpg", "word"),
+    "indso": ("media/logo-indso.png", "word"),
+    "ampor-eyewear": ("media/logo-ampor-eyewear.png", "word"),
+    "vedi-kade": ("media/logo-vedi-kade.png", "word"),
 }
 
 
