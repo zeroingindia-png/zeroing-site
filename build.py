@@ -602,6 +602,61 @@ def _clean_path(rel):
     return rel[:-5] if rel.endswith(".html") else rel
 
 
+STUDY_TITLES = {
+    "the-other-details/roads.html": "Who dies on India's roads: 485 deaths a day, explained · The Other Details",
+    "the-other-details/medicine.html": "Why branded medicine costs more in India: Jan Aushadhi vs brand · The Other Details",
+    "the-other-details/ethanol.html": "Ethanol in Indian petrol: E20 mileage, water and the cost · The Other Details",
+    "the-other-details/method.html": "How The Other Details checks data · Zeroing research lab",
+}
+
+
+def extra_ld(rel, html, url, title, desc):
+    """Structured data beyond the home and podcast pages: episodes, guests, brands, studies, breadcrumbs."""
+    import re as _re
+    out = []
+    org = {"@type": "Organization", "name": "Zeroing", "url": SITE}
+    crumbs = [("Zeroing", SITE)]
+    if rel.startswith("episodes/"):
+        crumbs += [("Independent Society", SITE + "independent-society"), ("Akanksha Sood Singh", url)]
+        series = {"@type": "PodcastSeries", "name": "Independent Society", "url": SITE + "independent-society"}
+        guest = {"@type": "Person", "name": "Akanksha Sood Singh", "jobTitle": "Wildlife filmmaker",
+                 "sameAs": ["https://www.instagram.com/themrsass/", "https://thegaiapeople.com"]}
+        host = {"@type": "Person", "name": "Anshul Kumar", "sameAs": ["https://www.instagram.com/anzhuls/"]}
+        months = {m: i for i, m in enumerate(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"], 1)}
+        for i, p in enumerate(PODCAST["parts"], 1):
+            d, m, y = p["date"].split()
+            iso = f"{y}-{months[m]:02d}-{int(d):02d}"
+            ep = {"@type": "PodcastEpisode", "name": p["title"], "episodeNumber": i, "datePublished": iso,
+                  "url": url + "#parts", "partOfSeries": series, "actor": [guest], "creator": host,
+                  "associatedMedia": {"@type": "MediaObject", "contentUrl": p["spotify"]}}
+            out.append(ep)
+            v = _re.search(r"v=([\w-]+)", p.get("youtube") or "")
+            if v:
+                out.append({"@type": "VideoObject", "name": f"{p['title']} | Independent Society Ep.{i:02d}",
+                            "description": f"Akanksha Sood Singh in conversation with Anshul Kumar. {p['label']} of the conversation on Independent Society by Zeroing.",
+                            "thumbnailUrl": f"https://i.ytimg.com/vi/{v.group(1)}/hqdefault.jpg", "uploadDate": iso,
+                            "contentUrl": p["youtube"], "embedUrl": f"https://www.youtube.com/embed/{v.group(1)}", "publisher": org})
+    elif rel.startswith("brands/"):
+        b = next((x for x in BRANDS if x["slug"] == rel[7:-5]), None)
+        if b:
+            crumbs += [("Community", SITE + "community"), (b["name"], url)]
+            brand = {"@type": "Brand", "name": b["name"], "description": b["line"], "url": url}
+            if b.get("logo"):
+                brand["logo"] = SITE + b["logo"].lstrip("/")
+            out.append(brand)
+    elif rel.startswith("the-other-details/") and rel != "the-other-details/index.html":
+        crumbs += [("The Other Details", SITE + "the-other-details/"), (title.split(" · ")[0], url)]
+        out.append({"@type": "Article", "headline": title.split(" · ")[0][:110], "description": desc, "url": url,
+                    "inLanguage": "en-IN", "author": {"@type": "Organization", "name": "The Other Details", "url": SITE + "the-other-details/"},
+                    "publisher": org, "isAccessibleForFree": True})
+    elif rel in ("community.html", "shop.html", "join.html", "independent-society.html", "the-other-details/index.html", "contact.html"):
+        crumbs += [(title.split(" · ")[0], url)]
+    if len(crumbs) > 1:
+        out.append({"@type": "BreadcrumbList", "itemListElement": [
+            {"@type": "ListItem", "position": i, "name": n, "item": u} for i, (n, u) in enumerate(crumbs, 1)]})
+    return out
+
+
 def share_tags():
     """Give every built page a canonical address and a preview card for WhatsApp, LinkedIn, X and others."""
     import glob, re as _re, datetime as _dt
@@ -636,6 +691,16 @@ def share_tags():
         image = SITE + "media/share.jpg"
         if hero and rel.startswith(("brands/", "episodes/")):
             image = SITE + _re.sub(r"^(\.\./)+", "", hero.group(1))
+        lab_img = _re.search(r'<img src="(media/[^"]+\.jpg)"', html)
+        if rel.startswith("the-other-details/") and lab_img:
+            image = SITE + "the-other-details/" + lab_img.group(1)
+        if rel == "independent-society.html":
+            image = SITE + "media/ep-conversation.jpg"
+        if rel.startswith("episodes/"):
+            image = SITE + "media/as-portrait.jpg"
+        if rel in STUDY_TITLES:
+            title = STUDY_TITLES[rel]
+            html = _re.sub(r"<title>.*?</title>", "<title>" + E(title) + "</title>", html, count=1, flags=_re.S)
         tags = (f'\n<link rel="canonical" href="{url}">'
                 f'\n<meta property="og:type" content="website"><meta property="og:site_name" content="Zeroing"><meta property="og:locale" content="en_IN">'
                 f'\n<meta property="og:url" content="{url}"><meta property="og:title" content="{title}">'
@@ -661,6 +726,11 @@ def share_tags():
             if rel == "index.html":
                 faq["@context"] = "https://schema.org"
                 tags += '\n<script type="application/ld+json">' + _json.dumps(faq, ensure_ascii=False) + "</script>"
+        for d in extra_ld(rel, html, url, title, desc):
+            d["@context"] = "https://schema.org"
+            tags += '\n<script type="application/ld+json">' + __import__("json").dumps(d, ensure_ascii=False) + "</script>"
+        if rel.startswith("lab/"):
+            tags += '\n<meta name="robots" content="noindex">'
         html = html.replace("</title>", "</title>" + tags, 1)
         open(full, "w", encoding="utf-8").write(html)
     urls = []
@@ -683,8 +753,11 @@ def share_tags():
               f"- [Home]({SITE}): what Zeroing is and why it exists",
               f"- [Community]({SITE}community): the brands and what we learned from similar efforts",
               f"- [Shop the lane]({SITE}shop): buy from each brand on its own shop; practices labelled Founder says, Proof shared or Checked by Zeroing",
-              f"- [Independent Society]({SITE}independent-society): the podcast, hosted by Anshul Kumar, on Spotify",
+              f"- [Independent Society]({SITE}independent-society): the podcast, hosted by Anshul Kumar (Instagram @anzhuls), on Spotify and YouTube",
               f"- [Akanksha Sood Singh episode]({SITE}episodes/akanksha-sood-singh): wildlife filmmaker, two parts",
+              f"- Episode 01 (19 June 2026) and Episode 02 (23 October 2026): Akanksha Sood Singh with Anshul Kumar, on Spotify and YouTube (youtube.com/watch?v=YZ1K7wolPtA, youtube.com/watch?v=Uqa-n-kpuPQ)",
+              f"- Coming next on Independent Society: Inderjeet Singh, shot putter; then Vijay Kumar Shukla, retired CBI investigator",
+              f"- Studies: [Roads]({SITE}the-other-details/roads), [Medicine]({SITE}the-other-details/medicine), [Ethanol]({SITE}the-other-details/ethanol), [Data centres]({SITE}the-other-details/data-centres), [Gold]({SITE}the-other-details/gold), [How we check data]({SITE}the-other-details/method)",
               f"- [The Other Details]({SITE}the-other-details/): research lab studies on data centres, gold, roads, medicine and ethanol, with reels on YouTube @zeroingnow",
               f"- [Join]({SITE}join): how a brand applies",
               f"- [Contact]({SITE}contact): zeroingindia@gmail.com, Instagram and YouTube @zeroingnow",
