@@ -273,3 +273,11 @@
     });
   });
 })();
+
+/* one-question pop-up: once per visitor, after a pause or some scrolling */
+(function(){var p=document.getElementById('zpop');if(!p)return;var k='zpop-seen',seen=false;try{seen=localStorage.getItem(k)==='1'}catch(e){}
+if(seen||/join|contact|legal/.test(location.pathname))return;var done=false;
+function open(){if(done)return;done=true;p.hidden=false;requestAnimationFrame(function(){p.classList.add('show')});try{localStorage.setItem(k,'1')}catch(e){}}
+function close(){p.classList.remove('show');setTimeout(function(){p.hidden=true},450)}
+setTimeout(open,15000);window.addEventListener('scroll',function s(){if(window.scrollY>document.body.scrollHeight*.45){open();window.removeEventListener('scroll',s)}},{passive:true});
+p.querySelector('.zpop-x').addEventListener('click',close);document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});})();
