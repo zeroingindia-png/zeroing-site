@@ -257,7 +257,7 @@ def home_brand_row(b, P):
         out = b["site"] or (f'https://www.instagram.com/{b["instagram"]}/' if b["instagram"] else "")
         label = b["site"].replace("https://", "").rstrip("/") if b["site"] else (f'@{b["instagram"]}' if b["instagram"] else "")
         go = f'<a class="sc-out" href="{out}" target="_blank" rel="noopener">{E(label)} &#8599;</a>' if out else ""
-        return (f'      <li class="sc sc-{kind}"><a class="sc-img" href="{P}brands/{b["slug"]}.html" aria-label="{E(b["name"])}"><img src="{src}" alt="{E(b["name"])}: {E(b["makes"])}" loading="lazy" decoding="async"{(" onerror=" + chr(34) + "this.onerror=null;this.src='" + P + b["logo"].lstrip("/") + "';this.style.objectFit='contain';this.style.padding='18%'" + chr(34)) if kind == "remote" and b.get("logo") else ""}></a>'
+        return (f'      <li class="sc sc-{kind}"><a class="sc-img" href="{P}brands/{b["slug"]}.html" aria-label="{E(b["name"])}"><img src="{src}" alt="{E(b["name"])}: {E(b["makes"])}" loading="lazy" decoding="async"{(" onerror=" + chr(34) + "this.onerror=null;this.src='" + P + "media/logo-" + b["slug"] + ".png';this.style.objectFit='contain';this.style.padding='18%'" + chr(34)) if kind == "remote" and b.get("logo") else ""}></a>'
                 f'<div class="sc-meta"><a class="sc-name" href="{P}brands/{b["slug"]}.html">{E(b["name"])}</a><span>{E(b["makes"])}</span>{go}</div></li>')
     if b.get("logo"):
         thumb = f'<span class="thumb logo">{img(b["logo"], "", P)}</span>'
