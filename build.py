@@ -533,7 +533,7 @@ def build():
         f'        <p class="narrow">{E(p["ep"])} · {E(p["label"])}</p>\n'
         f'        <h3>{E(p["title"])}</h3>\n'
         f'        <p class="when">Released {E(p["date"])}</p>\n'
-        f'        {spotify_embed(p["spotify"], p["title"])}\n'
+        + (lambda v: f'        <a class="ep-thumb" href="{p["youtube"]}" target="_blank" rel="noopener" aria-label="Watch {E(p["ep"])} on YouTube"><img src="https://i.ytimg.com/vi/{v}/hqdefault.jpg" alt="{E(p["title"])}" loading="lazy" decoding="async"><span class="ep-play" aria-hidden="true"></span><span class="ep-tag">{E(p["ep"])}</span></a>\n' if v else "")((re.search(r"v=([\w-]+)", p.get("youtube") or "") or [None, None])[1]) +
         f'        <div class="actions">{listen_buttons(p)}</div>\n'
         f'      </li>' for p in ep["parts"])
     gallery = "\n".join(
@@ -546,7 +546,7 @@ def build():
             .replace("{HIGHLIGHTS}", highlights_html(p2["spotify"]))
             .replace("{GALLERY}", gallery)
             .replace("{PHOTO_CREDIT}", E(PODCAST.get("photo_credit", ""))))
-    main = main.replace("  </section>\n", "  </section>\n" + localnav('Akanksha Sood Singh', [('parts', 'Both parts'), ('about', 'The conversation'), ('field', 'In the field')]), 1)
+    main = main.replace("  </section>\n", "  </section>\n" + localnav('Akanksha Sood Singh', [('parts', 'Both parts'), ('about', 'The conversation'), ('research', 'The research'), ('field', 'In the field')]), 1)
     head, body = page("Akanksha Sood Singh on Independent Society",
                       "Wildlife filmmaker Akanksha Sood Singh in conversation with Anshul Kumar on Independent Society. Episodes 1 and 2, on Spotify.",
                       main, P="../", H="../index.html", current="podcast")

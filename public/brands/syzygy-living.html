@@ -859,6 +859,28 @@ main { counter-reset: zsec; }
 /* softer accents: sage for quiet details, brick red kept for the few things that must be seen */
 .ico, .pillar .ico { color: var(--peepal); }
 ::selection { background: rgba(169,57,47,.16); }
+
+/* episode thumbs + research + next discs + copyright */
+.ep-thumb{order:-1;position:relative;display:block;aspect-ratio:16/9;border-radius:calc(var(--radius) - 6px);overflow:hidden;background:var(--ink)}
+.ep-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.ep-thumb:hover img{transform:scale(1.04)}
+.ep-play{position:absolute;left:50%;top:50%;width:62px;height:62px;margin:-31px 0 0 -31px;border-radius:50%;background:rgba(245,240,231,.92);box-shadow:0 8px 30px rgba(0,0,0,.25)}
+.ep-play::after{content:"";position:absolute;left:25px;top:20px;border-left:16px solid var(--sindoor);border-top:11px solid transparent;border-bottom:11px solid transparent}
+.ep-tag{position:absolute;left:12px;top:12px;padding:4px 10px;border-radius:99px;background:rgba(36,33,29,.78);color:#fff;font-size:var(--small);font-weight:600}
+.part{gap:12px}
+.rs-grid{list-style:none;margin:40px auto 0!important;padding:0!important;width:100%;max-width:var(--wrap);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width:860px){.rs-grid{grid-template-columns:1fr 1fr}}@media (max-width:520px){.rs-grid{grid-template-columns:1fr}}
+.rs-grid li{display:grid;gap:8px;align-content:start;padding:24px;border:1px solid var(--line);border-radius:var(--radius);background:#fffdf9}
+.rs-n{font-family:var(--font-display);font-weight:700;font-size:2.4rem;line-height:1;color:var(--sindoor)}
+.rs-grid p{margin:0;color:var(--ink)}
+.rs-src{font-size:var(--small);color:var(--ink-2);border-top:1px solid var(--line);padding-top:10px;margin-top:4px}
+.d-next{display:grid;place-items:center;background:radial-gradient(120% 120% at 30% 20%,var(--paper),var(--paper-2));border:1px solid var(--line)}
+.d-3{background:radial-gradient(120% 120% at 30% 20%,#f3e4d2,#e2c9a8)}
+.d-4{background:radial-gradient(120% 120% at 30% 20%,#e5ebe2,#c5d3c4)}
+.d-next .ini{font-family:var(--font-display);font-weight:700;font-size:2.4rem;letter-spacing:-.02em;color:var(--ink)}
+.d-next .num{color:var(--ink-2);text-shadow:none;font-size:1.4rem;left:50%;bottom:12%;transform:translateX(-50%)}
+.copy-note{display:block;margin-top:8px;max-width:70ch;opacity:.7;font-size:.8rem;line-height:1.5}
+.signoff{flex-wrap:wrap}.signoff .copy-note{flex-basis:100%}
 </style>
 </head>
 <body>
@@ -954,10 +976,11 @@ main { counter-reset: zsec; }
       </form>
       <div><h3>Independent Society</h3><ul><li><a href="../independent-society">All episodes</a></li><li><a href="../episodes/akanksha-sood-singh">Latest conversation</a></li><li><a href="../independent-society#suggest">Suggest a guest</a></li></ul></div>
       <div><h3>Community</h3><ul><li><a href="../community">Brands</a></li><li><a href="../shop">Shop the lane</a></li><li><a href="../community#learned">What we learned</a></li><li><a href="../the-other-details/">The Other Details</a></li><li><a href="../the-other-details/#lead">Send us a detail</a></li><li><a href="../join">Join</a></li></ul></div>
-      <div><h3>Zeroing</h3><ul><li><a href="../#why">Why Zeroing exists</a></li><li><a href="../#how">How we work</a></li><li><a href="../contact">Contact</a></li><li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdItIxYCVZ8LFwe6JZj-SaRhk6agmh1VfiQ19riKHPT9JnqQQ/viewform" target="_blank" rel="noopener">Creators: collaborate</a></li><li><a href="https://www.youtube.com/@zeroingnow" target="_blank" rel="noopener">YouTube</a></li><li><a href="../legal">Disclaimer, privacy and terms</a></li><li><a href="../legal#grievance">Grievances</a></li></ul></div>
+      <div><h3>Zeroing</h3><ul><li><a href="../#why">Why Zeroing exists</a></li><li><a href="../#how">How we work</a></li><li><a href="../contact">Contact</a></li><li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdItIxYCVZ8LFwe6JZj-SaRhk6agmh1VfiQ19riKHPT9JnqQQ/viewform" target="_blank" rel="noopener">Creators: collaborate</a></li><li><a href="https://www.youtube.com/@zeroingnow" target="_blank" rel="noopener">YouTube</a></li><li><a href="https://www.instagram.com/anzhuls/" target="_blank" rel="noopener">Follow the founder</a></li><li><a href="../legal">Disclaimer, privacy and terms</a></li><li><a href="../legal#grievance">Grievances</a></li></ul></div>
     </footer>
     <div class="signoff narrow">
-      <span>Instagram @zeroingnow and @theotherdetails. New Delhi, 2026.</span>
+      <span>&copy; 2026 Zeroing. Instagram @zeroingnow and @theotherdetails. New Delhi.</span>
+      <span class="copy-note">Words, photographs and films are the property of Zeroing or of the guests and brands who shared them, used with permission. Brand names and logos belong to their owners. Data belongs to its original sources, credited beside each figure. Please ask before reusing any of it: <a href="../contact">contact us</a>.</span>
     </div>
     <svg class="watermark" viewBox="0 0 1373 1002" aria-hidden="true" focusable="false"><path fill-rule="evenodd" d="M365.7 1000.9C243.6 990.8 133.8 925.9 66.5 824.0C29.7 768.4 8.5 707.8 1.9 639.5C0.2 621.9 0.4 583.4 2.4 565.0C4.0 549.5 7.6 527.7 10.8 513.9L12.5 506.5L160.1 506.2L307.7 506.0L438.6 374.2C510.6 301.8 598.7 213.0 634.5 177.0C706.4 104.6 710.1 100.9 727.9 86.8C782.0 43.5 849.4 14.4 918.5 4.6C954.1 -0.5 996.7 -0.5 1032.5 4.6C1089.1 12.6 1147.6 35.0 1196.0 67.3C1273.8 119.3 1331.4 197.8 1356.9 287.0C1377.2 357.8 1377.9 428.2 1359.2 501.5L1357.4 508.5L1205.2 509.0L1053.0 509.5L871.3 692.6C771.3 793.4 682.5 882.5 674.0 890.6C641.3 921.8 611.0 942.9 571.5 962.1C525.8 984.3 480.5 996.6 428.5 1001.0C414.7 1002.1 380.1 1002.1 365.7 1000.9ZM423.0 732.6C448.8 727.0 468.8 716.4 489.2 697.4C495.0 692.0 539.6 647.5 588.2 598.5L676.5 509.5L493.0 509.2L309.6 509.0L304.7 513.7C302.0 516.4 297.0 522.2 293.6 526.8C268.8 559.7 261.2 604.2 273.6 643.5C283.3 674.0 305.1 701.3 332.7 717.4C345.8 725.0 362.5 730.9 378.5 733.6C388.8 735.3 412.9 734.8 423.0 732.6ZM1057.0 500.3C1079.9 475.2 1092.8 436.0 1089.1 402.5C1082.6 344.7 1044.4 301.1 987.6 286.9C975.7 283.9 951.5 283.2 937.9 285.5C918.9 288.7 899.0 296.8 883.2 308.0C878.5 311.3 860.6 328.6 832.8 356.8C809.0 380.8 765.9 424.2 737.1 453.2L684.5 506.0L868.2 506.0L1051.8 506.0L1057.0 500.3Z"/></svg>
   </section>
