@@ -908,18 +908,27 @@ main { counter-reset: zsec; }
 .idea-logos img{height:40px;width:auto;object-fit:contain;filter:grayscale(1);transition:filter .3s}
 .idea-logos img:hover{filter:none}
 @media (max-width:860px){.idea-grid,.idea-eg{grid-template-columns:1fr}}
-/* pop-up */
-.zpop{position:fixed;right:24px;bottom:84px;z-index:60;width:min(380px,calc(100vw - 32px));padding:24px;border-radius:20px;background:var(--paper);border:1px solid var(--line);box-shadow:0 24px 60px rgba(36,33,29,.18);transform:translateY(20px);opacity:0;transition:transform .45s ease,opacity .45s ease}
+/* pop-up, device-style sheet */
+.zpop{position:fixed;right:24px;bottom:84px;z-index:60;width:min(400px,calc(100vw - 32px));padding:22px;border-radius:28px;color:#f5f0e7;background:rgba(30,28,25,.9);-webkit-backdrop-filter:blur(24px) saturate(1.4);backdrop-filter:blur(24px) saturate(1.4);border:1px solid rgba(255,255,255,.1);box-shadow:0 30px 80px rgba(20,18,16,.35),inset 0 1px 0 rgba(255,255,255,.08);transform:translateY(24px) scale(.97);opacity:0;transition:transform .55s cubic-bezier(.2,.9,.25,1.1),opacity .4s ease}
 .zpop.show{transform:none;opacity:1}
-.zpop-k{margin:0;font-size:var(--small);color:var(--sindoor);font-weight:600}
-.zpop h2{margin:4px 0 16px;font-family:var(--font-display);font-size:1.5rem;line-height:1.15}
-.zpop-opts{display:grid;gap:8px}
-.zpop-opts a{display:grid;gap:2px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;text-decoration:none;color:var(--ink);background:#fffdf9;transition:border-color .2s,transform .2s}
-.zpop-opts a:hover{border-color:var(--sindoor);transform:translateX(3px)}
-.zpop-opts b{font-weight:600}.zpop-opts span{font-size:var(--small);color:var(--ink-2)}
-.zpop-x{position:absolute;right:12px;top:10px;width:32px;height:32px;border:0;border-radius:50%;background:transparent;font-size:1.4rem;color:var(--ink-2);cursor:pointer}
-.zpop-x:hover{background:var(--paper-2)}
-@media (max-width:560px){.zpop{right:16px;left:16px;bottom:16px;width:auto}}
+.zpop-top{display:flex;align-items:center;gap:8px}
+.zpop-mark{width:28px;height:28px;border-radius:8px;background:#f5f0e7;display:grid;place-items:center}
+.zpop-mark svg{width:18px;height:auto;fill:var(--sindoor)}
+.zpop-k{font-size:.85rem;font-weight:600;opacity:.75}
+.zpop-x{margin-left:auto;width:30px;height:30px;border:0;border-radius:50%;background:rgba(255,255,255,.1);color:#f5f0e7;font-size:1.2rem;line-height:1;cursor:pointer}
+.zpop-x:hover{background:rgba(255,255,255,.2)}
+.zpop h2{margin:18px 0 6px;font-family:var(--font-display);font-size:1.9rem;line-height:1.05;letter-spacing:-.02em;color:#fff}
+.zpop-sub{margin:0 0 18px;font-size:.92rem;opacity:.65}
+.zpop-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.zpop-opts a{display:grid;align-content:start;gap:4px;min-height:118px;padding:14px;border-radius:18px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08);color:#f5f0e7;text-decoration:none;transition:background .25s,transform .25s}
+.zpop-opts a:hover,.zpop-opts a:focus-visible{background:rgba(255,255,255,.14);transform:translateY(-2px)}
+.zpop-opts svg{width:26px;height:26px;fill:none;stroke:#e9b2a8;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;margin-bottom:10px}
+.zpop-opts b{font-size:.98rem;font-weight:600;line-height:1.2;color:#fff}
+.zpop-opts span{font-size:.78rem;opacity:.6}
+.zpop-later{display:block;margin:14px auto 0;border:0;background:none;color:#f5f0e7;opacity:.6;font:inherit;font-size:.85rem;cursor:pointer}
+.zpop-later:hover{opacity:1}
+@media (max-width:560px){.zpop{left:12px;right:12px;bottom:12px;width:auto;border-radius:26px}.zpop h2{font-size:1.6rem}.zpop-opts a{min-height:104px}}
+@media (prefers-reduced-motion:reduce){.zpop{transition:opacity .2s}}
 </style>
 </head>
 <body>
@@ -1057,15 +1066,16 @@ main { counter-reset: zsec; }
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <div class="zpop" id="zpop" role="dialog" aria-modal="false" aria-labelledby="zpop-q" hidden>
-    <button class="zpop-x" type="button" aria-label="Close">&times;</button>
-    <p class="zpop-k">One question</p>
-    <h2 id="zpop-q">What brings you to the lane?</h2>
+    <div class="zpop-top"><span class="zpop-mark"><svg viewBox="0 0 1373 1002" aria-hidden="true"><path fill-rule="evenodd" d="M365.7 1000.9C243.6 990.8 133.8 925.9 66.5 824.0C29.7 768.4 8.5 707.8 1.9 639.5C0.2 621.9 0.4 583.4 2.4 565.0C4.0 549.5 7.6 527.7 10.8 513.9L12.5 506.5L160.1 506.2L307.7 506.0L438.6 374.2C510.6 301.8 598.7 213.0 634.5 177.0C706.4 104.6 710.1 100.9 727.9 86.8C782.0 43.5 849.4 14.4 918.5 4.6C954.1 -0.5 996.7 -0.5 1032.5 4.6C1089.1 12.6 1147.6 35.0 1196.0 67.3C1273.8 119.3 1331.4 197.8 1356.9 287.0C1377.2 357.8 1377.9 428.2 1359.2 501.5L1357.4 508.5L1205.2 509.0L1053.0 509.5L871.3 692.6C771.3 793.4 682.5 882.5 674.0 890.6C641.3 921.8 611.0 942.9 571.5 962.1C525.8 984.3 480.5 996.6 428.5 1001.0C414.7 1002.1 380.1 1002.1 365.7 1000.9ZM423.0 732.6C448.8 727.0 468.8 716.4 489.2 697.4C495.0 692.0 539.6 647.5 588.2 598.5L676.5 509.5L493.0 509.2L309.6 509.0L304.7 513.7C302.0 516.4 297.0 522.2 293.6 526.8C268.8 559.7 261.2 604.2 273.6 643.5C283.3 674.0 305.1 701.3 332.7 717.4C345.8 725.0 362.5 730.9 378.5 733.6C388.8 735.3 412.9 734.8 423.0 732.6ZM1057.0 500.3C1079.9 475.2 1092.8 436.0 1089.1 402.5C1082.6 344.7 1044.4 301.1 987.6 286.9C975.7 283.9 951.5 283.2 937.9 285.5C918.9 288.7 899.0 296.8 883.2 308.0C878.5 311.3 860.6 328.6 832.8 356.8C809.0 380.8 765.9 424.2 737.1 453.2L684.5 506.0L868.2 506.0L1051.8 506.0L1057.0 500.3Z"/></svg></span><span class="zpop-k">Zeroing</span><button class="zpop-x" type="button" aria-label="Close">&times;</button></div>
+    <h2 id="zpop-q">What brings you<br>to the lane?</h2>
+    <p class="zpop-sub">Pick one. We will take you straight there.</p>
     <div class="zpop-opts">
-      <a href="join" data-a="make"><b>I make something in India</b><span>Take a stall with us</span></a>
-      <a href="shop" data-a="buy"><b>I want to buy homegrown</b><span>Shop straight from the brands</span></a>
-      <a href="independent-society" data-a="listen"><b>I came for the stories</b><span>Listen to Independent Society</span></a>
-      <a href="the-other-details/" data-a="data"><b>I came for the numbers</b><span>Read The Other Details</span></a>
+      <a href="join" data-a="make"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10h16l-2-5H6z"/><path d="M5 10v9h14v-9"/><path d="M10 19v-5h4v5"/></svg><b>I make something in India</b><span>Take a stall &#8594;</span></a>
+      <a href="shop" data-a="buy"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l-1 12H7z"/><path d="M9 8a3 3 0 0 1 6 0"/></svg><b>I buy homegrown</b><span>Shop the lane &#8594;</span></a>
+      <a href="independent-society" data-a="listen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14a8 8 0 0 1 16 0"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/></svg><b>I came for the stories</b><span>Independent Society &#8594;</span></a>
+      <a href="the-other-details/" data-a="data"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20V11"/><path d="M12 20V5"/><path d="M19 20v-6"/></svg><b>I came for the numbers</b><span>The Other Details &#8594;</span></a>
     </div>
+    <button class="zpop-later" type="button">Not now</button>
   </div>
 </main>
 
@@ -1352,7 +1362,7 @@ if(seen||/join|contact|legal/.test(location.pathname))return;var done=false;
 function open(){if(done)return;done=true;p.hidden=false;requestAnimationFrame(function(){p.classList.add('show')});try{localStorage.setItem(k,'1')}catch(e){}}
 function close(){p.classList.remove('show');setTimeout(function(){p.hidden=true},450)}
 setTimeout(open,15000);window.addEventListener('scroll',function s(){if(window.scrollY>document.body.scrollHeight*.45){open();window.removeEventListener('scroll',s)}},{passive:true});
-p.querySelector('.zpop-x').addEventListener('click',close);document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});})();
+p.querySelector('.zpop-x').addEventListener('click',close);p.querySelector('.zpop-later').addEventListener('click',close);document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});})();
 </script>
 </body>
 </html>
