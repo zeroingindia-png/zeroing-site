@@ -953,6 +953,31 @@ main { counter-reset: zsec; }
 .sc-out:hover{text-decoration:underline}
 @media (max-width:900px){.showcase{grid-template-columns:1fr 1fr}}
 .sc-local .sc-img img{object-position:50% 85%}
+
+/* blended imagery: one warm grade, no sticker cards */
+.hero-full{position:relative;min-height:min(88vh,820px);display:flex;align-items:flex-end;overflow:hidden;background:#2a2622;color:#f5f0e7;isolation:isolate}
+.hf-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 40%;z-index:-2;filter:saturate(.8) sepia(.18) contrast(.95) brightness(.92)}
+.hero-full::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(30,27,24,.88) 0%,rgba(30,27,24,.62) 42%,rgba(30,27,24,.12) 78%),linear-gradient(0deg,rgba(30,27,24,.55),transparent 45%)}
+.hf-inner{width:100%;max-width:var(--wrap);margin:0 auto;padding:clamp(96px,14vh,160px) var(--pad-r) clamp(56px,9vh,96px) var(--pad-l);box-sizing:content-box}
+.hero-full .kicker{font-family:var(--font-mono);font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:#e9b2a8;margin:0 0 18px}
+.hero-full .lane-title{color:#f5f0e7;font-size:clamp(2.7rem,6.4vw,5.8rem);max-width:12ch;margin:0}
+.hero-full .lane-title .b2{color:#e9a092}
+.hero-full .lede{color:rgba(245,240,231,.82);max-width:44ch;margin-top:24px}
+.hero-full .actions{margin-top:30px}
+.hf-solid{background:#f5f0e7;color:#24211d;border-color:#f5f0e7}
+.hf-line{color:#f5f0e7;border-color:rgba(245,240,231,.55)}
+.hf-line:hover{border-color:#f5f0e7}
+.lane-band{padding-top:0;padding-bottom:0;background:transparent}
+.lane-band .lane-gif{margin-top:0;border-top:0}
+.lane-strip{max-width:none;margin:56px calc(-1 * var(--pad-l)) 0 calc(-1 * var(--pad-r));gap:3px;height:clamp(280px,38vw,520px)}
+.ls{border-radius:0}
+.ls img,.sc-img img,.hb img{filter:saturate(.82) sepia(.14) contrast(.96)}
+.ls::after{background:linear-gradient(180deg,rgba(245,240,231,.0) 55%,rgba(30,27,24,.55))}
+.stock-credit{max-width:var(--wrap);margin:14px auto 0}
+.sc-img{border-radius:6px;background:var(--paper-2)}
+.sc-word .sc-img img{background:var(--paper-2);filter:none;mix-blend-mode:multiply}
+.sc-more .sc-img img{filter:invert(1) brightness(2)}
+@media (max-width:760px){.hero-full{min-height:86vh}.hero-full::before{background:linear-gradient(0deg,rgba(30,27,24,.92) 10%,rgba(30,27,24,.45) 60%,rgba(30,27,24,.2))}.lane-strip{margin-left:calc(-1 * var(--pad-l));margin-right:calc(-1 * var(--pad-r))}}
 </style>
 </head>
 <body>
