@@ -926,6 +926,15 @@ main { counter-reset: zsec; }
 @media (prefers-reduced-motion:reduce){.zpop{transition:opacity .2s}}
 .hb-a img{object-position:38% 75%}.hb-b img{object-position:50% 45%}.hb-d img{object-position:60% 60%}
 .hero3 .lane-gif{margin-top:clamp(28px,4vw,48px)}
+
+.lane-strip{max-width:var(--wrap);margin:48px auto 0;display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:12px;height:clamp(260px,34vw,460px)}
+.ls{position:relative;margin:0;overflow:hidden;border-radius:22px;background:var(--paper-2)}
+.ls img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.ls:hover img{transform:scale(1.05)}
+.ls::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(20,18,16,.5))}
+.ls figcaption{position:absolute;left:16px;bottom:14px;z-index:1;color:#fff;font-weight:600;font-size:.95rem}
+.stock-credit{max-width:var(--wrap);margin:12px auto 0;font-size:.78rem;color:var(--ink-2)}
+@media (max-width:760px){.lane-strip{grid-template-columns:1fr 1fr;height:auto}.ls-a{grid-column:1/3;aspect-ratio:16/10}.ls-b,.ls-c{aspect-ratio:3/4}}
 </style>
 </head>
 <body>
