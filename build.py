@@ -425,8 +425,8 @@ def spotify_embed(url, title):
 
 def record_card():
     parts = EPISODES[0]["parts"]
-    rows = [("Episodes on record", len(parts)), ("Brands that presented it", 2)]
-    li = "".join(f'<li><span>{E(k)}</span><b>{v}</b></li>' for k, v in rows)
+    rows = [("Episodes on record", len(parts)), ("Next on record", "Inderjeet Singh"), ("Then", "Vijay Kumar Shukla")]
+    li = "".join(f'<li><span>{E(k)}</span><b{"" if isinstance(v, int) else " class=" + chr(34) + "txt" + chr(34)}>{v}</b></li>' for k, v in rows)
     return (f'<aside class="rec-card" aria-label="This conversation in numbers"><div class="rec-top"><span>Akanksha Sood Singh</span>'
             f'<span class="rec-badge">Part two is out</span></div>'
             f'<p class="rec-title">Part one <span aria-hidden="true">&#8594;</span> <em>Part two</em></p><ul>{li}</ul></aside>')

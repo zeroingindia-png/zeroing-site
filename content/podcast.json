@@ -1,6 +1,6 @@
 {
   "spotify_show": "https://open.spotify.com/show/033rTzaVTcltHLTbWdOEY7",
-  "youtube_channel": "",
+  "youtube_channel": "https://www.youtube.com/@zeroingnow",
   "parts": [
     {
       "label": "Part one",
@@ -76,39 +76,34 @@
       "shape": "wide"
     },
     {
-      "image": "/media/as-portrait.jpg",
+      "image": "/media/as-tsunami.jpg",
       "caption": "",
       "shape": "tall"
     },
     {
       "image": "/media/as-filming.jpg",
       "caption": "Filming ants",
-      "shape": "half"
+      "shape": "tall"
     },
     {
       "image": "/media/as-drass.jpg",
       "caption": "Drass",
-      "shape": "half"
-    },
-    {
-      "image": "/media/as-tsunami.jpg",
-      "caption": "",
       "shape": "tall"
-    },
-    {
-      "image": "/media/as-kargil.jpg",
-      "caption": "Drass, Kargil",
-      "shape": "wide"
     },
     {
       "image": "/media/as-ladakh.jpg",
       "caption": "Ladakh, 2022",
-      "shape": "half"
+      "shape": "tall"
+    },
+    {
+      "image": "/media/as-kargil.jpg",
+      "caption": "Kargil",
+      "shape": "wide"
     },
     {
       "image": "/media/as-snow.jpg",
       "caption": "",
-      "shape": "half"
+      "shape": "tall"
     }
   ],
   "photo_credit": "Photographs from Akanksha Sood Singh's archive, shared for this episode."
