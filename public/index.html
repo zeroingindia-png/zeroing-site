@@ -886,31 +886,24 @@ main { counter-reset: zsec; }
 .signoff{flex-wrap:wrap}.signoff .copy-note{flex-basis:100%}
 .rec-card li b.txt{font-family:var(--font);font-weight:600;letter-spacing:0}
 
-/* idea diagram */
-.idea-grid{max-width:var(--wrap);margin:40px auto 0;display:grid;grid-template-columns:1fr 1.4fr;gap:20px}
-.idea-card{margin:0;padding:24px;border:1px solid var(--line);border-radius:var(--radius);background:#fffdf9;display:grid;gap:14px}
-.idea-card.on{background:linear-gradient(160deg,#fffdf9,#f3ebe0)}
-.idea-card svg{width:100%;height:auto}
-.idea-card figcaption{font-size:1rem;color:var(--ink-2)}
-.idea-card figcaption b{display:block;font-family:var(--font-display);font-size:1.4rem;color:var(--ink);margin-bottom:4px}
-.idea .stall{fill:var(--paper-2);stroke:var(--ink);stroke-width:1.5}
-.idea .awn{fill:var(--sindoor)}
-.idea .on .awn{fill:var(--sindoor)}
-.idea .road{stroke:var(--ink-2);stroke-width:1.5;stroke-dasharray:4 6;opacity:.5}
-.idea .ppl circle{fill:var(--peepal);opacity:.55}
-.idea .ppl.a circle{opacity:.35}
-.idea .walker{fill:var(--sindoor);animation:walk 9s linear infinite}
-.idea .w2{animation-delay:-3s}.idea .w3{animation-delay:-6s}
-@keyframes walk{from{transform:translateX(0)}to{transform:translateX(320px)}}
-@media (prefers-reduced-motion:reduce){.idea .walker{animation:none;transform:translateX(150px)}}
-.idea-eg{list-style:none;max-width:var(--wrap);margin:28px auto 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;counter-reset:none}
-.idea-eg li{padding-top:16px;border-top:2px solid var(--ink);color:var(--ink-2);font-size:1rem;line-height:1.5}
-.idea-eg .n{display:block;font-family:var(--font-mono);font-size:.8rem;color:var(--sindoor);margin-bottom:8px}
-.idea-eg b{display:block;color:var(--ink);font-size:1.1rem;margin-bottom:4px}
-.idea-logos{max-width:var(--wrap);margin:32px auto 0;display:flex;gap:36px;align-items:center;flex-wrap:wrap;opacity:.85}
-.idea-logos img{height:40px;width:auto;object-fit:contain;filter:grayscale(1);transition:filter .3s}
-.idea-logos img:hover{filter:none}
-@media (max-width:860px){.idea-grid,.idea-eg{grid-template-columns:1fr}}
+/* lane steps */
+.idea-eg{list-style:none;max-width:var(--wrap);margin:44px auto 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.idea-eg li{padding-top:18px;border-top:1px solid var(--ink);color:var(--ink-2);font-size:1rem;line-height:1.55}
+.idea-eg .n{display:block;font-family:var(--font-display);font-weight:700;font-size:2.6rem;line-height:1;color:var(--sindoor);margin-bottom:14px;letter-spacing:-.03em}
+.idea-eg b{display:block;color:var(--ink);font-size:1.15rem;margin-bottom:6px}
+@media (max-width:860px){.idea-eg{grid-template-columns:1fr}}
+/* hero with bento */
+.hero3 .hero-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(32px,4vw,64px);align-items:center}
+.hero3 .hero-grid .lane-title{font-size:clamp(2.6rem,5.2vw,5rem)}
+.hero-bento{display:grid;grid-template-columns:1.2fr 1fr;grid-template-rows:1fr 1fr;gap:12px;aspect-ratio:1/1.02}
+.hb{position:relative;overflow:hidden;border-radius:22px;background:var(--paper-2);display:block;box-shadow:0 18px 40px rgba(36,33,29,.12)}
+.hb img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.hb:hover img{transform:scale(1.05)}
+.hb::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(20,18,16,.55))}
+.hb span{position:absolute;left:14px;bottom:12px;z-index:1;color:#fff;font-weight:600;font-size:.9rem;letter-spacing:.01em}
+.hb-a{grid-column:1/2;grid-row:1/2}.hb-b{grid-column:2/3;grid-row:1/3}.hb-c{display:none}.hb-d{grid-column:1/2;grid-row:2/3}
+@media (min-width:1100px){.hero-bento{grid-template-columns:1.25fr 1fr;grid-template-rows:1.1fr .9fr 1fr}.hb-a{grid-row:1/3}.hb-b{grid-row:1/2}.hb-c{display:block;grid-column:2/3;grid-row:2/4}.hb-d{grid-row:3/4}}
+@media (max-width:900px){.hero3 .hero-grid{grid-template-columns:1fr}.hero-bento{aspect-ratio:4/3}}
 /* pop-up, device-style sheet */
 .zpop{position:fixed;right:24px;bottom:84px;z-index:60;width:min(400px,calc(100vw - 32px));padding:22px;border-radius:28px;color:#f5f0e7;background:rgba(30,28,25,.9);-webkit-backdrop-filter:blur(24px) saturate(1.4);backdrop-filter:blur(24px) saturate(1.4);border:1px solid rgba(255,255,255,.1);box-shadow:0 30px 80px rgba(20,18,16,.35),inset 0 1px 0 rgba(255,255,255,.08);transform:translateY(24px) scale(.97);opacity:0;transition:transform .55s cubic-bezier(.2,.9,.25,1.1),opacity .4s ease}
 .zpop.show{transform:none;opacity:1}
@@ -932,6 +925,8 @@ main { counter-reset: zsec; }
 .zpop-later:hover{opacity:1}
 @media (max-width:560px){.zpop{left:12px;right:12px;bottom:12px;width:auto;border-radius:26px}.zpop h2{font-size:1.6rem}.zpop-opts a{min-height:104px}}
 @media (prefers-reduced-motion:reduce){.zpop{transition:opacity .2s}}
+.hb-a img{object-position:38% 75%}.hb-b img{object-position:50% 45%}.hb-d img{object-position:60% 60%}
+.hero3 .lane-gif{margin-top:clamp(28px,4vw,48px)}
 </style>
 </head>
 <body>
@@ -971,6 +966,8 @@ main { counter-reset: zsec; }
 
 <main>
   <section class="hero3" id="top">
+    <div class="hero-grid">
+      <div class="hero-copy">
     <p class="kicker">A community of homegrown Indian brands</p>
     <h1 class="display lane-title"><span class="b1">One stall is easy to miss.</span> <span class="b2">A whole lane is not.</span></h1>
     <p class="lede">Zeroing is a community of homegrown Indian brands and the people behind them. We open doors for each other. Our podcast and our research lab write down how the work really gets done.</p>
@@ -978,40 +975,27 @@ main { counter-reset: zsec; }
       <a class="pill solid" href="#brands">Walk the lane</a>
       <a class="pill line" href="independent-society">Listen to Independent Society</a>
     </div>
+      </div>
+    <div class="hero-bento" aria-label="Inside Zeroing">
+      <a class="hb hb-a" href="independent-society"><img src="media/ep-conversation.jpg" alt="Akanksha Sood Singh and Anshul Kumar recording Independent Society" fetchpriority="high"><span>Podcast</span></a>
+      <a class="hb hb-b" href="brands/indso"><img src="media/indso-studio-lotus.jpg" alt="An INDSO product photographed in the studio"><span>Brands</span></a>
+      <a class="hb hb-c" href="the-other-details/roads"><img src="media/lab-road.jpg" alt="A road study from The Other Details"><span>Research</span></a>
+      <a class="hb hb-d" href="episodes/akanksha-sood-singh#field"><img src="media/as-filming.jpg" alt="Akanksha Sood Singh filming in the field"><span>In the field</span></a>
+    </div>
+    </div>
     <figure class="lane-gif"><img src="media/lane.gif" width="1600" height="360" alt="The Zeroing mark, then INDSO, Ampor and Vedi Kade appearing side by side on one line" fetchpriority="high"></figure>
   </section>
 
   <section class="sec idea" id="idea" aria-labelledby="idea-h">
     <div class="case-head">
-      <h2 class="display" id="idea-h">The idea, drawn.</h2>
+      <h2 class="display" id="idea-h">How the lane works.</h2>
       <p>A small brand spends years finding its customers one by one. In a lane, every person who finds one stall walks past the others.</p>
-    </div>
-    <div class="idea-grid">
-      <figure class="idea-card">
-        <svg viewBox="0 0 320 220" role="img" aria-label="One stall on its own, with a few people around it">
-          <g class="ppl a"><circle cx="100" cy="170" r="4"/><circle cx="220" cy="175" r="4"/><circle cx="160" cy="190" r="4"/><circle cx="95" cy="80" r="4"/></g>
-          <rect class="stall" x="130" y="90" width="60" height="50" rx="6"/><path class="awn" d="M124 92h72l-8-16h-56z"/>
-        </svg>
-        <figcaption><b>Alone</b>One stall. Its own few customers, found one at a time.</figcaption>
-      </figure>
-      <figure class="idea-card on">
-        <svg viewBox="0 0 320 220" role="img" aria-label="Four stalls side by side on one lane, with people walking between them">
-          <path class="road" d="M10 160H310"/>
-          <g class="ppl b"><circle cx="140" cy="190" r="4"/><circle cx="72" cy="200" r="4"/><circle cx="265" cy="40" r="4"/><circle cx="66" cy="30" r="4"/><circle cx="30" cy="200" r="4"/><circle cx="168" cy="30" r="4"/><circle cx="133" cy="210" r="4"/><circle cx="294" cy="190" r="4"/><circle cx="161" cy="40" r="4"/><circle cx="74" cy="190" r="4"/><circle cx="129" cy="30" r="4"/><circle cx="153" cy="190" r="4"/><circle cx="119" cy="40" r="4"/><circle cx="178" cy="190" r="4"/><circle cx="210" cy="30" r="4"/><circle cx="192" cy="200" r="4"/><circle cx="279" cy="40" r="4"/><circle cx="111" cy="40" r="4"/><circle cx="262" cy="190" r="4"/><circle cx="65" cy="210" r="4"/><circle cx="173" cy="30" r="4"/><circle cx="169" cy="210" r="4"/></g>
-          <g><rect class="stall" x="26" y="95" width="52" height="45" rx="6"/><path class="awn" d="M21 97h62l-7-14h-48z"/></g><g><rect class="stall" x="102" y="95" width="52" height="45" rx="6"/><path class="awn" d="M97 97h62l-7-14h-48z"/></g><g><rect class="stall" x="178" y="95" width="52" height="45" rx="6"/><path class="awn" d="M173 97h62l-7-14h-48z"/></g><g><rect class="stall" x="246" y="95" width="52" height="45" rx="6"/><path class="awn" d="M241 97h62l-7-14h-48z"/></g>
-          <circle class="walker w1" r="5" cy="160"/><circle class="walker w2" r="5" cy="160"/><circle class="walker w3" r="5" cy="160"/>
-        </svg>
-        <figcaption><b>Together</b>Four stalls on one lane. Each customer can reach all of them.</figcaption>
-      </figure>
     </div>
     <ol class="idea-eg" aria-label="How it works on this site">
       <li><span class="n">01</span><b>One story brings people in.</b>A conversation on Independent Society or a study from The Other Details reaches people who have never heard of the brands.</li>
       <li><span class="n">02</span><b>They land on the lane, not one shop.</b>INDSO, Ampor Eyewear and Vedi Kade sit side by side, each with its own page.</li>
       <li><span class="n">03</span><b>They buy from the brand directly.</b>Every button opens the brand's own shop. Zeroing takes no cut and no payment.</li>
     </ol>
-    <div class="idea-logos" aria-label="Brands in the lane">
-      <img src="media/logo-indso.png" alt="INDSO"><img src="media/logo-ampor-eyewear.png" alt="Ampor Eyewear"><img src="media/logo-vedi-kade.png" alt="Vedi Kade">
-    </div>
   </section>
 
   <section class="sec" id="what" aria-label="What Zeroing does">
