@@ -6,7 +6,7 @@ Studies live in src/research/studies.json: add one entry to add a study page.
 Styling is Tailwind (src/research/input.css + utilities in the markup below),
 compiled to public/research/lab.css by the Tailwind standalone CLI.
 """
-import html, json, os, shutil, subprocess
+import html, json, os, re, shutil, subprocess
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(ROOT, "src", "research")
@@ -30,7 +30,7 @@ def rows(items):
 
 def shell(title, desc, here, main):
     nav = [("index.html", "Studies", "home"), ("data-centres.html", "Data centres", "data-centres"),
-           ("gold.html", "Gold", "gold"), ("method.html", "Method", "method")]
+           ("gold.html", "Gold", "gold"), ("roads.html", "Roads", "roads"), ("medicine.html", "Medicine", "medicine"), ("ethanol.html", "Ethanol", "ethanol"), ("method.html", "Method", "method")]
     links = "".join(f'<a href="{h}" class="whitespace-nowrap rounded-lg px-2 py-1.5 text-[12px] sm:px-3 sm:text-[13px] font-semibold no-underline '
                     f'{"bg-white/[.07] text-paper ring-1 ring-inset ring-edge" if k == here else "text-muted hover:text-paper"}"'
                     f'{" aria-current=page" if k == here else ""}>{t}</a>' for h, t, k in nav)
@@ -43,7 +43,7 @@ def shell(title, desc, here, main):
 <header class="sticky top-0 z-40 border-b border-edge bg-ink/80 backdrop-blur-md">
   <div class="wrap flex items-center justify-between gap-2 py-3.5">
     <a href="../index.html" class="chip no-underline tod-back"><span class="tod-long">Zeroing · The Other Details</span><img class="tod-short" src="../favicon.svg" alt="Zeroing home" width="22" height="22"></a>
-    <nav aria-label="Research" class="flex gap-0.5">{links}</nav>
+    <nav aria-label="Research" class="flex gap-0.5" style="min-width:0;max-width:100%;overflow-x:auto;scrollbar-width:none">{links}</nav>
     <a href="index.html" class="tod-logo" aria-label="The Other Details research, home"><img src="tod-logo.png" alt="the other details." class="h-4 w-auto shrink-0 sm:h-5"></a>
   </div>
 </header>
@@ -90,11 +90,11 @@ def footer(crumb):
   </div>
   <div class="flex items-center gap-2.5 border-b border-edge py-4 text-paper"><img src="tod-logo.png" alt="the other details." class="h-3.5 w-auto"><span class="text-dim">›</span><span>{crumb}</span></div>
   <div class="grid grid-cols-1 gap-6 py-6 sm:grid-cols-2 lg:grid-cols-5">
-   {col("Studies", [("The cloud has an address", "data-centres.html"), ("The gold at home", "gold.html"), ("All studies", "index.html")])}
+   {col("Studies", [("The cloud has an address", "data-centres.html"), ("The gold at home", "gold.html"), ("Roads", "roads.html"), ("Medicine", "medicine.html"), ("Ethanol", "ethanol.html"), ("All studies", "index.html")])}
    {col("The lab", [("How we check data", "method.html"), ("Why the lab exists", "index.html#about"), ("Send us a detail", "index.html#lead")])}
    {col("Primary sources", [("World Gold Council", "https://www.gold.org/goldhub"), ("CEEW", "https://www.ceew.in"), ("MeitY", "https://www.meity.gov.in"), ("WRI India", "https://wri-india.org"), ("Reserve Bank of India", "https://www.rbi.org.in")])}
    {col("Zeroing", [("Home", "../index.html"), ("Community", "../community.html"), ("Shop the lane", "../shop.html"), ("Independent Society", "../independent-society.html"), ("Join", "../join.html"), ("Contact", "../contact.html")])}
-   {col("Follow", [("@theotherdetails", "https://www.instagram.com/theotherdetails/"), ("@zeroingnow", "https://www.instagram.com/zeroingnow/")])}
+   {col("Follow", [("@theotherdetails", "https://www.instagram.com/theotherdetails/"), ("@zeroingnow", "https://www.instagram.com/zeroingnow/"), ("YouTube", "https://www.youtube.com/@zeroingnow")])}
   </div>
   <div class="flex flex-wrap justify-between gap-3 border-t border-edge pt-4"><span>© Zeroing · The Other Details. All data credited to its owners. New Delhi, 2026.</span><a class="text-muted no-underline hover:text-paper" href="../legal.html">Disclaimer, privacy and terms</a></div>
  </div>
@@ -193,8 +193,8 @@ b.disabled=true;st.textContent='Sending.';fetch('/api/submit',{method:'POST',hea
 </script>"""
 
 
-FINDINGS = f"""<section id="findings" class="mt-20"><div class="grid gap-3.5"><span class="chip chip-teal">Findings</span><h2 class="h-sec">What our studies found. <i>Every number sourced.</i></h2><p class="max-w-[52ch] text-muted">From the lab's own research on roads, medicine and ethanol. Each figure is shown with the report it comes from.</p></div>
-<div class="fd-grid"><article class="glass fd-card"><img class="fd-gif" src="media/roads-485.gif" alt="" loading="lazy" width="360" height="640"><span class="chip">Roads</span><h3 class="font-head fd-h">Every three minutes</h3><ul class="fd-list"><li class="fd-row"><span class="fd-n">485</span><span class="fd-t">road deaths a day in India, about one every three minutes</span></li><li class="fd-row"><span class="fd-n">46%</span><span class="fd-t">of road deaths were two-wheeler riders</span></li><li class="fd-row"><span class="fd-n">2 in 3</span><span class="fd-t">people killed were aged 18 to 45</span></li><li class="fd-row"><span class="fd-n">~70%</span><span class="fd-t">of road deaths were linked to over-speeding; the deadliest hours are 6 pm to 9 pm</span></li></ul><p class="fd-src">Source: MoRTH, Road Accidents in India 2024, as reported by ThePrint and PolicyEdge</p><a class="fd-go" href="{YT}" target="_blank" rel="noopener">Watch the reels on YouTube &#8599;</a></article><article class="glass fd-card"><img class="fd-gif" src="media/medicine-229.gif" alt="" loading="lazy" width="360" height="640"><span class="chip">Medicine</span><h3 class="font-head fd-h">What is in the price</h3><ul class="fd-list"><li class="fd-row"><span class="fd-n">₹229 vs ₹18.70</span><span class="fd-t">for a strip of rosuvastatin 10 mg: branded against Jan Aushadhi</span></li><li class="fd-row"><span class="fd-n">82%</span><span class="fd-t">of the medicine market by value has no price ceiling; companies may raise MRP up to 10% a year</span></li><li class="fd-row"><span class="fd-n">43%</span><span class="fd-t">of health spending in India is still paid by families from their own pocket, down from 64% in 2013-14</span></li><li class="fd-row"><span class="fd-n">₹24,000 vs ₹1,100</span><span class="fd-t">typical out-of-pocket cost of a hospital stay: private against government</span></li></ul><p class="fd-src">Source: PMBI 2024 · Parliamentary Standing Committee, Aug 2026 · National Health Accounts 2022-23, NHSRC · NSS 80th round (2025)</p><a class="fd-go" href="{YT}" target="_blank" rel="noopener">Watch the reels on YouTube &#8599;</a></article><article class="glass fd-card"><img class="fd-gif" src="media/ethanol-20.gif" alt="" loading="lazy" width="360" height="640"><span class="chip">Ethanol</span><h3 class="font-head fd-h">Cleaner fuel, at a cost</h3><ul class="fd-list"><li class="fd-row"><span class="fd-n">20 in 100</span><span class="fd-t">litres of petrol sold in India is now ethanol, made from crops</span></li><li class="fd-row"><span class="fd-n">1 to 6%</span><span class="fd-t">mileage lost on E20: about 1 to 2% in newer cars, up to 6% in older ones</span></li><li class="fd-row"><span class="fd-n">2,860 L</span><span class="fd-t">of water can go into one litre of ethanol made from sugar</span></li><li class="fd-row"><span class="fd-n">0 of 29</span><span class="fd-t">water samples tested in Zira, Punjab were fit to drink; officials did not prove the cause</span></li></ul><p class="fd-src">Source: PPAC 2025-26 · PIB, Jul 2026 · NITI Aayog ethanol roadmap · CPCB · CPCB and CGWB report to NGT, May 2023</p><a class="fd-go" href="{YT}" target="_blank" rel="noopener">Watch the reels on YouTube &#8599;</a></article></div>
+FINDINGS = f"""<section id="findings" class="mt-20"><div class="grid gap-3.5"><span class="chip chip-teal">Findings</span><h2 class="h-sec">What our studies found. <i>Every number sourced.</i></h2><p class="max-w-[52ch] text-muted">From the lab's own research on roads, medicine and ethanol. Next study: Startup India. Each figure is shown with the report it comes from.</p></div>
+<div class="fd-grid"><article class="glass fd-card"><img class="fd-gif" src="media/roads-485.gif" alt="" loading="lazy" width="360" height="640"><span class="chip">Roads</span><h3 class="font-head fd-h">Every three minutes</h3><ul class="fd-list"><li class="fd-row"><span class="fd-n">485</span><span class="fd-t">road deaths a day in India, about one every three minutes</span></li><li class="fd-row"><span class="fd-n">46%</span><span class="fd-t">of road deaths were two-wheeler riders</span></li><li class="fd-row"><span class="fd-n">2 in 3</span><span class="fd-t">people killed were aged 18 to 45</span></li><li class="fd-row"><span class="fd-n">~70%</span><span class="fd-t">of road deaths were linked to over-speeding; the deadliest hours are 6 pm to 9 pm</span></li></ul><p class="fd-src">Source: MoRTH, Road Accidents in India 2024, as reported by ThePrint and PolicyEdge</p><a class="fd-go" href="roads.html">Read the study &#8594;</a> <a class="fd-go" href="{YT}" target="_blank" rel="noopener">Watch the reels on YouTube &#8599;</a></article><article class="glass fd-card"><img class="fd-gif" src="media/medicine-229.gif" alt="" loading="lazy" width="360" height="640"><span class="chip">Medicine</span><h3 class="font-head fd-h">What is in the price</h3><ul class="fd-list"><li class="fd-row"><span class="fd-n">₹229 vs ₹18.70</span><span class="fd-t">for a strip of rosuvastatin 10 mg: branded against Jan Aushadhi</span></li><li class="fd-row"><span class="fd-n">82%</span><span class="fd-t">of the medicine market by value has no price ceiling; companies may raise MRP up to 10% a year</span></li><li class="fd-row"><span class="fd-n">43%</span><span class="fd-t">of health spending in India is still paid by families from their own pocket, down from 64% in 2013-14</span></li><li class="fd-row"><span class="fd-n">₹24,000 vs ₹1,100</span><span class="fd-t">typical out-of-pocket cost of a hospital stay: private against government</span></li></ul><p class="fd-src">Source: PMBI 2024 · Parliamentary Standing Committee, Aug 2026 · National Health Accounts 2022-23, NHSRC · NSS 80th round (2025)</p><a class="fd-go" href="medicine.html">Read the study &#8594;</a> <a class="fd-go" href="{YT}" target="_blank" rel="noopener">Watch the reels on YouTube &#8599;</a></article><article class="glass fd-card"><img class="fd-gif" src="media/ethanol-20.gif" alt="" loading="lazy" width="360" height="640"><span class="chip">Ethanol</span><h3 class="font-head fd-h">Cleaner fuel, at a cost</h3><ul class="fd-list"><li class="fd-row"><span class="fd-n">20 in 100</span><span class="fd-t">litres of petrol sold in India is now ethanol, made from crops</span></li><li class="fd-row"><span class="fd-n">1 to 6%</span><span class="fd-t">mileage lost on E20: about 1 to 2% in newer cars, up to 6% in older ones</span></li><li class="fd-row"><span class="fd-n">2,860 L</span><span class="fd-t">of water can go into one litre of ethanol made from sugar</span></li><li class="fd-row"><span class="fd-n">0 of 29</span><span class="fd-t">water samples tested in Zira, Punjab were fit to drink; officials did not prove the cause</span></li></ul><p class="fd-src">Source: PPAC 2025-26 · PIB, Jul 2026 · NITI Aayog ethanol roadmap · CPCB · CPCB and CGWB report to NGT, May 2023</p><a class="fd-go" href="ethanol.html">Read the study &#8594;</a> <a class="fd-go" href="{YT}" target="_blank" rel="noopener">Watch the reels on YouTube &#8599;</a></article></div>
 <style>.fd-grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:20px;margin-top:28px}}.fd-card{{padding:28px;display:grid;gap:14px;align-content:start}}.fd-gif{{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:center 50%;border-radius:14px;border:1px solid hsla(0,0%,100%,.1)}}.fd-h{{font-size:1.5rem;line-height:1.15;margin:0}}.fd-list{{list-style:none;margin:0;padding:0;display:grid;gap:14px}}.fd-row{{display:grid;gap:2px;border-top:1px solid hsla(0,0%,100%,.1);padding-top:12px}}.fd-n{{font-family:var(--font-head,inherit);font-weight:900;font-size:1.7rem;color:#ff5a5f;line-height:1.1}}.fd-t{{color:hsla(0,0%,100%,.78);font-size:.95rem;line-height:1.45}}.fd-src{{font-size:.78rem;color:hsla(0,0%,100%,.5);margin:6px 0 0;line-height:1.5}}.fd-go{{font-weight:600;font-size:.92rem;text-decoration:underline;text-underline-offset:3px}}</style>
 </section>"""
 
@@ -205,6 +205,58 @@ REELS = """<section id="reels" class="mt-20"><div class="grid gap-3.5"><span cla
 .tod-reel figcaption{display:grid;gap:8px}.tod-reel .t{font-weight:600;line-height:1.35}
 @media (max-width:640px){.tod-reels{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}}</style>
 </section>"""
+
+
+
+BRIEFS = [
+    {"slug": "roads", "chip": "Study 03 · Roads", "img": "tod-road", "h1": "Every three minutes. <i>Who dies on India's roads.</i>",
+     "lede": "India's own road crash report, read line by line: who is killed, at what hour, and why.",
+     "facts": [("485", "people die on India's roads every day. That is about one every three minutes."),
+               ("46%", "of the people killed were riding two-wheelers."),
+               ("2 in 3", "of those killed were aged 18 to 45, the years people earn and raise families."),
+               ("6 to 9 pm", "are the deadliest hours of the day."),
+               ("~70%", "of road deaths were linked to over-speeding.")],
+     "why": "Most road deaths are not random. They cluster by vehicle, by age, by hour and by speed, which means they can be planned against.",
+     "sources": ["Ministry of Road Transport and Highways, Road Accidents in India 2024", "As reported by ThePrint and PolicyEdge"],
+     "reels": "Watch the reel on YouTube"},
+    {"slug": "medicine", "chip": "Study 04 · Medicine", "img": "tod-medicine", "h1": "What is in the price. <i>Medicine in India.</i>",
+     "lede": "The same medicine can cost many times more with a brand name on it. We followed the printed price from the strip to the hospital bill.",
+     "facts": [("₹229 vs ₹18.70", "for a strip of rosuvastatin 10 mg, a common cholesterol medicine: branded against Jan Aushadhi."),
+               ("82%", "of the medicine market by value has no price ceiling. Companies may raise the printed price by up to 10% a year."),
+               ("20,149", "Jan Aushadhi Kendras now sell low-cost generic medicines across India."),
+               ("43%", "of health spending in India is still paid by families from their own pocket, down from 64% in 2013-14."),
+               ("₹24,000 vs ₹1,100", "is the typical out-of-pocket cost of a hospital stay: private against government.")],
+     "why": "The price on the strip is not a fixed cost of the medicine. Knowing which part of it is real helps a family choose, ask and save.",
+     "sources": ["Pradhan Mantri Bhartiya Janaushadhi Pariyojana (PMBI), product price list 2024", "Drug (Prices Control) Order 2013", "Parliamentary Standing Committee report, August 2026, via PRS Legislative Research", "PIB, Jan Aushadhi Kendra count, 30 June 2026", "National Health Accounts 2022-23, NHSRC", "NSS 80th round, 2025"],
+     "reels": "Watch the three reels on YouTube"},
+    {"slug": "ethanol", "chip": "Study 05 · Ethanol", "img": "tod-farm", "h1": "Cleaner fuel, at a cost. <i>Ethanol in your petrol.</i>",
+     "lede": "One in five litres of petrol in India is now made from crops. We traced what that changes for your car, for water and for the places that make it.",
+     "facts": [("20 in 100", "litres of petrol sold in India is now ethanol."),
+               ("1 to 6%", "mileage is lost on E20: about 1 to 2% in newer cars, up to 6% in older ones."),
+               ("2,860 L", "of water can go into one litre of ethanol made from sugar."),
+               ("8 to 16 L", "of spent wash, a liquid waste, is left behind for every litre of ethanol made."),
+               ("0 of 29", "water samples tested in Zira, Punjab were fit to drink. Officials did not prove the cause.")],
+     "why": "Ethanol cuts the oil India imports, but it moves part of the cost to water, farmland and the towns around distilleries. Both sides belong in the same picture.",
+     "sources": ["Petroleum Planning and Analysis Cell (PPAC), supply year 2025-26", "Ministry of Petroleum and Natural Gas, August 2025, and PIB, July 2026", "NITI Aayog, Roadmap for Ethanol Blending in India", "Central Pollution Control Board (CPCB)", "CPCB and CGWB report to the National Green Tribunal, May 2023, via The Tribune"],
+     "reels": "Watch the three reels on YouTube"},
+]
+
+
+def brief_page(b):
+    facts = "".join(f'<div class="glass grid gap-2 p-6"><span class="fd-n">{n}</span><p class="text-muted">{t}</p></div>' for n, t in b["facts"])
+    srcs = "".join(f"<li>{x}</li>" for x in b["sources"])
+    bg = f'<div class="absolute inset-0" aria-hidden="true"><img src="media/{b["img"]}.jpg" alt="" style="width:100%;height:100%;object-fit:cover;filter:brightness(.8)"></div>'
+    cta = f'<div class="mt-7 flex flex-wrap gap-3"><a class="btn" href="{YT}" target="_blank" rel="noopener">{b["reels"]} &#8599;</a><a class="btn btn-ghost" href="method.html">How we check data</a></div>'
+    main = hero(bg, b["chip"], "teal", b["h1"], b["lede"], cta) + f"""
+<div class="wrap pb-24">
+  <div class="mt-20 grid gap-3.5"><span class="chip">What we found</span><h2 class="h-sec">Five numbers. <i>Each one sourced.</i></h2></div>
+  <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{facts}</div>
+  <div class="glass grid gap-3 p-8" style="margin-top:56px"><span class="chip chip-teal">Why it matters</span><p class="lede" style="margin-top:4px">{b["why"]}</p></div>
+  <div class="grid gap-3" style="margin-top:56px"><span class="chip">Sources</span><ul class="fd-srcs">{srcs}</ul>
+  <p class="text-muted text-sm">Data belongs to its original sources and owners. The Other Details only presents it.</p></div>
+</div>
+<style>.fd-n{{font-family:var(--font-head,inherit);font-weight:900;font-size:2rem;line-height:1.1;color:#ff5a5f}}.fd-srcs{{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:8px;color:hsla(0,0%,100%,.78)}}.fd-srcs li{{border-top:1px solid hsla(0,0%,100%,.1);padding-top:8px}}</style>"""
+    return shell(b["chip"].split(" · ")[1] + " · The Other Details", re.sub("<[^>]+>", "", b["h1"]) + " " + b["lede"], b["slug"], main)
 
 
 def home_page(studies):
@@ -222,7 +274,7 @@ def home_page(studies):
                 "The other details. <i>Drawn so anyone can read them.</i>",
                 "We open the reports behind the headlines, check where each number came from and how old it is, then draw it so it reads on your phone.", ctas, tall=True) + f"""
 <div class="wrap pb-24">
-  <div class="mt-20 grid gap-3.5"><span class="chip">Studies</span><h2 class="h-sec">Two questions, <i>answered with data.</i></h2></div>
+  <div class="mt-20 grid gap-3.5"><span class="chip">Studies</span><h2 class="h-sec">Five studies, <i>answered with data.</i></h2></div>
   <div class="mt-10 grid gap-6 md:grid-cols-2">{cards}</div>
   <div class="mt-20 grid gap-3.5"><span class="chip chip-teal">Watch</span><h2 class="h-sec">Study 01 is also <i>a film for your phone.</i></h2></div>
   {reel_box("reel-cloud", "Reel · 2:13 · 9:16", "The cloud has <i>an address.</i>", "Real footage. Dot charts drawn to scale. Every source on screen, with captions and narration.")}
@@ -251,6 +303,7 @@ def build_research():
     os.makedirs(OUT, exist_ok=True)
     pages = {"index.html": home_page(studies), "method.html": method_page()}
     pages.update({f"{s['slug']}.html": study_page(s) for s in studies})
+    pages.update({f"{b['slug']}.html": brief_page(b) for b in BRIEFS})
     for name, text in pages.items():
         open(os.path.join(OUT, name), "w", encoding="utf-8").write(text)
     shutil.copytree(os.path.join(SRC, "media"), os.path.join(OUT, "media"), dirs_exist_ok=True)

@@ -410,8 +410,8 @@ def listen_buttons(part, solid=True):
     out = []
     if part["spotify"]:
         out.append(f'<a class="pill spotify" href="{part["spotify"]}" target="_blank" rel="noopener">Listen on Spotify <span class="arr" aria-hidden="true">&#8599;</span></a>')
-    if part["youtube"]:
-        out.append(f'<a class="pill {"solid" if solid else "line"}" href="{part["youtube"]}" target="_blank" rel="noopener">Watch on YouTube <span class="arr" aria-hidden="true">&#8599;</span></a>')
+    yt = part.get("youtube") or "https://www.youtube.com/@zeroingnow"
+    out.append(f'<a class="pill {"solid" if solid else "line"}" href="{yt}" target="_blank" rel="noopener">Watch on YouTube <span class="arr" aria-hidden="true">&#8599;</span></a>')
     return "".join(out)
 
 
@@ -645,7 +645,7 @@ def share_tags():
             import json as _json
             org = {"@type": "Organization", "name": "Zeroing", "url": SITE, "logo": SITE + "icon-512.png",
                    "description": "A community of homegrown Indian brands.", "email": "zeroingindia@gmail.com",
-                   "sameAs": ["https://www.instagram.com/zeroingnow/", "https://www.instagram.com/theotherdetails/"]}
+                   "sameAs": ["https://www.instagram.com/zeroingnow/", "https://www.instagram.com/theotherdetails/", "https://www.youtube.com/@zeroingnow"]}
             faq = {"@type": "FAQPage", "mainEntity": [
                 {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in [
                     ("What is Zeroing?", "Zeroing is a community of homegrown, made-in-India brands based in New Delhi. The brands open doors for each other and each sells from its own shop."),
@@ -685,9 +685,9 @@ def share_tags():
               f"- [Shop the lane]({SITE}shop): buy from each brand on its own shop; practices labelled Founder says, Proof shared or Checked by Zeroing",
               f"- [Independent Society]({SITE}independent-society): the podcast, hosted by Anshul Kumar, on Spotify",
               f"- [Akanksha Sood Singh episode]({SITE}episodes/akanksha-sood-singh): wildlife filmmaker, two parts",
-              f"- [The Other Details]({SITE}the-other-details/): research lab studies on data centres and gold, and short reels",
+              f"- [The Other Details]({SITE}the-other-details/): research lab studies on data centres, gold, roads, medicine and ethanol, with reels on YouTube @zeroingnow",
               f"- [Join]({SITE}join): how a brand applies",
-              f"- [Contact]({SITE}contact): zeroingindia@gmail.com, Instagram @zeroingnow",
+              f"- [Contact]({SITE}contact): zeroingindia@gmail.com, Instagram and YouTube @zeroingnow",
               "", "## Notes", "- Zeroing does not sell products itself and takes no payment.", "- Claims about how brands make things are labelled by how far they have been checked."]
     open(os.path.join(OUT, "llms.txt"), "w").write("\n".join(lines) + "\n")
 
