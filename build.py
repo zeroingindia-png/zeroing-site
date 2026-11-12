@@ -534,7 +534,7 @@ def build():
         ("independent-society.html", "Independent Society", "One person at a time, a long honest conversation about working life in India, seen from the inside.", is_main, "podcast"),
         ("join.html", "Join Zeroing", "Apply to join Zeroing, a community of homegrown Indian brands.", read("pages", "join.html"), "join"),
         ("shop.html", "Shop the lane", "Buy straight from the homegrown Indian brands in Zeroing, and see how each one makes it.",
-         (read("pages", "shop.html") if sum(1 for b in BRANDS if b["practices"]) >= 3 else __import__("re").sub(r'\s*<div class="pfilter".*?</div>', '', read("pages", "shop.html"), count=1, flags=__import__("re").S)).replace("{SHOP_CARDS}", shop_cards("")).replace("{PRACTICES}", practices_html(""))
+         (read("pages", "shop.html") if sum(1 for b in BRANDS if b["practices"]) >= 3 else __import__("re").sub(r'\s*<div class="pfilter".*?</div>', '', read("pages", "shop.html"), count=1, flags=__import__("re").S)).replace("{PRACTICE_NOTE}", "" if sum(1 for b in BRANDS if b["practices"]) >= 3 else '<p class="pnote">The list goes up once three brands have shared how they make things. Until then, here is how each line will be labelled.</p>').replace("{SHOP_CARDS}", shop_cards("")).replace("{PRACTICES}", practices_html(""))
          .replace("{AREA_CHIPS}", "" if sum(1 for b in BRANDS if b["practices"]) < 3 else "\n".join(f'      <button type="button" class="chip" aria-pressed="false" data-area="{a}">{a}</button>' for a in AREAS)), "shop"),
         ("contact.html", "Contact Zeroing", "Write to Zeroing.", read("pages", "contact.html"), ""),
         ("legal.html", "Zeroing Legal", "Disclaimer, privacy notice, terms of use and grievances for Zeroing.", read("pages", "legal.html"), ""),
@@ -549,7 +549,7 @@ def build():
         f'        <p class="narrow">{E(p["ep"])} · {E(p["label"])}</p>\n'
         f'        <h3>{E(p["title"])}</h3>\n'
         f'        <p class="when">Released {E(p["date"])}</p>\n'
-        + (lambda v: f'        <a class="ep-thumb" href="{p["youtube"]}" target="_blank" rel="noopener" aria-label="Watch {E(p["ep"])} on YouTube"><img src="https://i.ytimg.com/vi/{v}/hqdefault.jpg" alt="{E(p["title"])}" loading="lazy" decoding="async"><span class="ep-play" aria-hidden="true"></span><span class="ep-tag">{E(p["ep"])}</span></a>\n' if v else "")((re.search(r"v=([\w-]+)", p.get("youtube") or "") or [None, None])[1]) +
+        + (lambda v: f'        <a class="ep-thumb" href="{p["youtube"]}" target="_blank" rel="noopener" aria-label="Watch {E(p["ep"])} on YouTube"><img src="https://i.ytimg.com/vi/{v}/hqdefault.jpg" alt="{E(p["title"])}" loading="lazy" decoding="async"><span class="ep-play" aria-hidden="true"></span></a>\n' if v else "")((re.search(r"v=([\w-]+)", p.get("youtube") or "") or [None, None])[1]) +
         f'        <div class="actions">{listen_buttons(p)}</div>\n'
         f'      </li>' for p in ep["parts"])
     gallery = "\n".join(
